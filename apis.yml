@@ -1,0 +1,373 @@
+aid: wowza
+url: https://raw.githubusercontent.com/api-evangelist/wowza/refs/heads/main/apis.yml
+name: Wowza
+description: Wowza is a Denver, Colorado-based video streaming infrastructure provider that has been simplifying live and on-demand streaming since 2007. The platform spans three flagship products — Wowza Streaming Engine (a self-hosted, on-prem/cloud/edge media server supporting RTMP, RTSP, SRT, WebRTC, HLS, and MPEG-DASH), Wowza Video (a fully managed, cloud-based streaming platform with a v2.0 REST API for live streams, transcoders, stream sources, stream targets, schedules, real-time streams, videos, categories, viewer analytics, ingest data, engagement, popularity, and quality-of-experience monitoring), and Wowza Flowplayer (a commercial-grade HTML5 video player with iOS, tvOS, and Android SDKs, DRM, ad insertion, and 30+ modular plugins). Wowza powers over 200,000 streaming instances across 140 countries, serving security and surveillance, law enforcement, government and defense, sports and live events, smart cities, industrial monitoring, healthcare, and OTT customers. Developer surface includes a public OpenAPI 3.0 specification for Wowza Video, a Swagger-derived OpenAPI 3.0 specification for Wowza Streaming Engine's REST API (default base http://localhost:8087), a Java API for extending Streaming Engine via plugins, a Wowza IDE, Postman collections, and a large public WowzaMediaSystems GitHub organization of plugins, modules, sample apps, and language SDKs.
+image: https://www.wowza.com/wp-content/themes/wowza/assets/img/wowza-favicon.svg
+humanURL: https://www.wowza.com
+baseURL: https://api.video.wowza.com/api/v2.0
+tags:
+  - Video
+  - Streaming
+  - Live Streaming
+  - Video On Demand
+  - Transcoding
+  - Media Server
+  - RTMP
+  - RTSP
+  - SRT
+  - WebRTC
+  - HLS
+  - MPEG-DASH
+  - Real-Time Streaming
+  - Low Latency
+  - Video Player
+  - HTML5 Player
+  - DRM
+  - CDN
+  - Video Analytics
+  - QoE
+  - Webhooks
+  - Edge
+  - Surveillance
+  - OTT
+kind: contract
+access: 3rd-Party
+created: '2026-05-25'
+modified: '2026-05-25'
+specificationVersion: '0.16'
+type: Index
+apis:
+  - aid: wowza:wowza-video-api
+    name: Wowza Video REST API
+    tags:
+      - Video
+      - Streaming
+      - Live Streaming
+      - Video On Demand
+      - Transcoders
+      - Stream Targets
+      - Real-Time Streaming
+      - Analytics
+      - QoE
+    humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
+    baseURL: https://api.video.wowza.com/api/v2.0
+    properties:
+      - url: https://developer.wowza.com/docs/wowza-video/api/video/openapi
+        type: APIReference
+      - url: https://developer.wowza.com/docs/wowza-video/about-wowza-video/
+        type: Documentation
+      - url: https://developer.wowza.com/docs/wowza-video/api/video/current/overview/
+        type: Documentation
+      - url: openapi/wowza-video-openapi.yml
+        type: OpenAPI
+      - url: https://developer.wowza.com/_bundle/docs/wowza-video/api/video/@current/openapi.yaml?download
+        type: OpenAPI
+      - url: https://www.wowza.com/docs/quick-start-for-an-rtmp-live-stream-in-wowza-video
+        type: Quickstart
+      - url: https://www.wowza.com/docs/wowza-video-rest-api-lifecycle-management
+        type: Documentation
+      - url: https://www.wowza.com/docs/wowza-video-rest-api
+        type: Documentation
+      - url: https://www.wowza.com/docs/wowza-video-release-notes
+        type: ChangeLog
+    description: REST API v2.0 (~129 paths) for the Wowza Video cloud platform — manage live streams, transcoders, stream sources, stream targets, schedules, real-time streams, videos, and categories; retrieve viewer metrics, ingest data, engagement, popularity, and quality-of-experience analytics; and access account-level usage statistics. Served from https://api.video.wowza.com/api/v2.0.
+  - aid: wowza:wowza-streaming-engine-rest-api
+    name: Wowza Streaming Engine REST API
+    tags:
+      - Streaming
+      - Media Server
+      - Self-Hosted
+      - Applications
+      - Transcoder
+      - Webhooks
+      - Stream Targets
+      - nDVR
+      - Media Cache
+    humanURL: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+    baseURL: http://localhost:8087
+    properties:
+      - url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+        type: Documentation
+      - url: https://www.wowza.com/docs/how-to-access-documentation-for-wowza-streaming-engine-rest-api
+        type: APIReference
+      - url: https://www.wowza.com/docs/how-to-access-wowza-streaming-engine-rest-api-reference-documentation-with-postman
+        type: Documentation
+      - url: https://www.wowza.com/docs/how-to-access-wowza-streaming-engine-swagger-documentation-with-swagger-codegen
+        type: Documentation
+      - url: openapi/wowza-streaming-engine-openapi.yml
+        type: OpenAPI
+      - url: https://developer.wowza.com/_bundle/docs/wowza-engine/rest-api/@current/openapi.yaml?download
+        type: OpenAPI
+      - url: https://www.wowza.com/docs/how-to-install-and-configure-wowza-streaming-engine
+        type: Quickstart
+      - url: https://github.com/WowzaMediaSystems/wse-rest-library-php
+        type: SDK
+    description: REST API (~164 paths) for the self-hosted Wowza Streaming Engine media server — manage applications, virtual hosts, stream targets, push publishing, transcoder, server listeners, server users, media cache, server publishers, nDVR recording stores, monitoring, machine stats, licenses, configuration, and webhooks. Served from the local Engine instance (default http://localhost:8087); spec auto-converted from the Engine's native Swagger 1.2 endpoint.
+  - aid: wowza:wowza-streaming-engine-java-api
+    name: Wowza Streaming Engine Java API
+    tags:
+      - Streaming
+      - Media Server
+      - Java
+      - Plugins
+      - SDK
+    humanURL: https://www.wowza.com/docs/wowza-streaming-engine-java-api-reference-documentation
+    baseURL: https://www.wowza.com
+    properties:
+      - url: https://www.wowza.com/docs/wowza-streaming-engine-java-api-reference-documentation
+        type: APIReference
+      - url: https://www.wowza.com/docs/about-the-wowza-streaming-engine-java-api
+        type: Documentation
+      - url: https://www.wowza.com/docs/how-to-extend-wowza-streaming-engine-using-the-wowza-ide
+        type: Documentation
+    description: Native Java API for extending and customizing the Wowza Streaming Engine media server via server listeners, application modules, HTTP providers, and Media Reader/Writer plugins. The Java API is the foundation for the dozens of open-source WSE plugins published in the WowzaMediaSystems GitHub organization.
+  - aid: wowza:wowza-flowplayer
+    name: Wowza Flowplayer
+    tags:
+      - Video Player
+      - HTML5
+      - HLS
+      - MPEG-DASH
+      - DRM
+      - SDK
+      - iOS
+      - Android
+      - tvOS
+    humanURL: https://developer.wowza.com/docs/wowza-flowplayer/
+    baseURL: https://www.wowza.com/video/player
+    properties:
+      - url: https://developer.wowza.com/docs/wowza-flowplayer/
+        type: Documentation
+      - url: https://www.wowza.com/video/player
+        type: Portal
+      - url: https://flowplayer.com/developers
+        type: Documentation
+    description: Commercial-grade HTML5 video player with iOS, tvOS, and Android SDKs, DRM (Widevine, FairPlay, PlayReady), ad insertion, real-time streaming at scale plugin support, and 30+ modular plugins. Ships standalone or bundled with Wowza Video subscriptions and integrates with Wowza Streaming Engine.
+  - aid: wowza:wowza-gocoder-sdk
+    name: Wowza GoCoder SDK
+    tags:
+      - Mobile
+      - SDK
+      - iOS
+      - Android
+      - Live Streaming
+      - Capture
+    humanURL: https://github.com/WowzaMediaSystems/gocoder-sdk-samples-ios
+    baseURL: https://www.wowza.com
+    properties:
+      - url: https://github.com/WowzaMediaSystems/gocoder-sdk-samples-ios
+        type: SDK
+      - url: https://github.com/WowzaMediaSystems/gocoder-sdk-samples-android
+        type: SDK
+      - url: https://github.com/WowzaMediaSystems/gocoder-sdk-camera2-shaders
+        type: SDK
+    description: Wowza GoCoder broadcasting SDK for iOS and Android — capture, encode, and stream live video and audio from mobile devices directly to Wowza Streaming Engine or Wowza Video. Official sample repositories on the WowzaMediaSystems GitHub organization demonstrate capture, real-time filters, and Camera2 shader integration.
+  - aid: wowza:wowza-real-time-streaming-sdk
+    name: Wowza Real-Time Streaming SDK
+    tags:
+      - WebRTC
+      - Real-Time
+      - Sub-Second
+      - SDK
+      - Live Streaming
+    humanURL: https://github.com/WowzaMediaSystems/wowza-rts-docs
+    baseURL: https://www.wowza.com
+    properties:
+      - url: https://github.com/WowzaMediaSystems/wowza-rts-docs
+        type: Documentation
+      - url: https://github.com/WowzaMediaSystems/webrtc-examples
+        type: SDK
+    description: WebRTC-based SDK for delivering sub-second-latency live streams at scale through the Wowza Real-Time Streaming service. Public documentation repo and WebRTC sample applications are hosted in the WowzaMediaSystems GitHub organization.
+common:
+  - url: https://www.wowza.com
+    name: Wowza Website
+    type: Portal
+  - url: https://developer.wowza.com/
+    name: Wowza Developer Portal
+    type: Documentation
+  - url: https://www.wowza.com/docs
+    name: Wowza Documentation
+    type: Documentation
+  - url: https://www.wowza.com/docs/wowza-developer-apis-and-sdks
+    name: Wowza Developer APIs and SDKs Hub
+    type: Documentation
+  - url: https://developer.wowza.com/docs/wowza-video/api/video/openapi
+    name: Wowza Video API Reference
+    type: APIReference
+  - url: https://www.wowza.com/free-trial
+    name: Free Trial
+    type: SignUp
+  - url: https://cloud.wowza.com/
+    name: Wowza Video Console
+    type: Console
+  - url: https://www.wowza.com/pricing
+    name: Pricing
+    type: Pricing
+  - url: https://www.wowza.com/pricing/video
+    name: Wowza Video Pricing
+    type: Pricing
+  - url: https://store.wowza.com/
+    name: Wowza Store
+    type: Pricing
+  - url: https://www.wowza.com/legal/terms-of-use
+    name: Terms of Use
+    type: TermsOfService
+  - url: https://www.wowza.com/legal/privacy
+    name: Privacy Policy
+    type: PrivacyPolicy
+  - url: https://status.wowza.com
+    name: System Status
+    type: StatusPage
+  - url: https://support.wowza.com/hc
+    name: Wowza Support Center
+    type: Support
+  - url: https://www.wowza.com/community/index.html
+    name: Wowza Community Forums
+    type: Forum
+  - url: https://www.wowza.com/blog
+    name: Wowza Blog
+    type: Blog
+  - url: https://www.wowza.com/docs/wowza-video-release-notes
+    name: Wowza Video Release Notes
+    type: ChangeLog
+  - url: https://www.wowza.com/about
+    name: About Wowza
+    type: About
+  - url: https://github.com/WowzaMediaSystems
+    name: WowzaMediaSystems GitHub Organization
+    type: GitHubOrganization
+  - url: https://github.com/WowzaMediaSystems/wowza-video-api-demos-postman
+    name: Wowza Video API Postman Collections
+    type: SDK
+  - url: https://github.com/WowzaMediaSystems/wse-rest-library-php
+    name: WSE REST Library — PHP
+    type: SDK
+  - url: https://github.com/WowzaMediaSystems/wsc-sdk-java
+    name: Wowza Streaming Cloud SDK — Java (archived)
+    type: SDK
+  - url: https://github.com/WowzaMediaSystems/wsc-sdk-ruby
+    name: Wowza Streaming Cloud SDK — Ruby (archived)
+    type: SDK
+  - url: https://github.com/WowzaMediaSystems/wsc-api-examples-ruby
+    name: Wowza Streaming Cloud REST API Examples — Ruby
+    type: SDK
+  - url: https://github.com/WowzaMediaSystems/wowza-streaming-engine-mcp
+    name: Wowza Streaming Engine MCP Server
+    type: SDK
+  - url: https://github.com/WowzaMediaSystems/wowza-video-intelligence-framework
+    name: Wowza Video Intelligence Framework
+    type: SDK
+  - url: https://github.com/WowzaMediaSystems/dev-guides
+    name: Wowza Developer Guides
+    type: SDK
+  - url: https://www.linkedin.com/company/wowza-media-systems
+    name: Wowza LinkedIn
+    type: LinkedIn
+  - url: https://twitter.com/wowzamedia
+    name: Wowza on X/Twitter
+    type: Twitter
+  - url: https://www.youtube.com/user/WowzaMediaSystems
+    name: Wowza YouTube
+    type: YouTube
+  - name: Features
+    type: Features
+    data:
+      - name: Self-Hosted Media Server
+        description: Wowza Streaming Engine runs on prem, in the cloud, hybrid, or at the edge with full operator control.
+      - name: Managed Cloud Streaming
+        description: Wowza Video is a fully managed live and VOD streaming platform with REST API control.
+      - name: Broad Protocol Support
+        description: RTMP, RTSP, SRT, WebRTC, HLS, MPEG-DASH ingest and delivery across both Engine and Video products.
+      - name: Sub-Second Real-Time Streaming
+        description: WebRTC-based Wowza Real-Time Streaming delivers sub-second latency at scale.
+      - name: Live and On-Demand Transcoding
+        description: GPU-accelerated transcoding for ABR ladders, format conversion, and packaging into HLS and MPEG-DASH.
+      - name: Stream Targets and Push Publishing
+        description: Restream to YouTube, Facebook, Twitch, Akamai, AWS Elemental MediaStore, custom CDNs, and SRT endpoints.
+      - name: Wowza Flowplayer HTML5 Player
+        description: Commercial-grade HTML5 player with iOS, tvOS, and Android SDKs, DRM, ads, and 30+ plugins.
+      - name: nDVR and Live-to-VOD
+        description: Live DVR window plus automatic live-to-VOD archiving for replays and clipping workflows.
+      - name: Webhooks
+        description: First-class webhook events from both Wowza Streaming Engine and Wowza Video for stream lifecycle, transcoder, and analytics signals.
+      - name: Viewer and QoE Analytics
+        description: Wowza Video exposes ingest, engagement, popularity, viewer, and quality-of-experience analytics via REST.
+      - name: Java Plugin Framework
+        description: Streaming Engine Java API plus a Wowza IDE for building custom server listeners, application modules, HTTP providers, and media reader/writer plugins.
+      - name: Postman and Swagger Tooling
+        description: Wowza ships official Postman collections, a public OpenAPI 3.0 spec for Wowza Video, and a Swagger-derived OpenAPI 3.0 spec for the Streaming Engine REST API.
+      - name: Wowza Streaming Engine MCP
+        description: Open-source MCP server enabling AI agents to control Wowza Streaming Engine via the Model Context Protocol.
+      - name: Video Intelligence Framework
+        description: Plugin framework for integrating AI/ML inference (ASR, captions, object detection, ONVIF) into the streaming pipeline.
+  - name: UseCases
+    type: UseCases
+    data:
+      - name: Security and Video Surveillance
+        description: 24/7 live monitoring for security operations, law enforcement, and physical security with RTSP ingest.
+      - name: Government and Defense
+        description: Mission-critical streaming for defense, intelligence, and government agencies — including tactical and ISR workflows.
+      - name: Sports and Live Events
+        description: Low-latency live event production and distribution, including auction, betting, and interactive sports use cases.
+      - name: OTT Streaming
+        description: VOD and live OTT services with ABR delivery, DRM, and analytics.
+      - name: Smart Cities and Industrial Monitoring
+        description: Edge-deployed media servers for traffic, infrastructure, and industrial IoT camera feeds.
+      - name: Healthcare and Telemedicine
+        description: Secure live and recorded video for telemedicine, surgical observation, and medical education.
+      - name: Interactive and Real-Time Apps
+        description: WebRTC-powered sub-second video for auctions, gaming, fitness, and two-way interactive experiences.
+      - name: Broadcasting and Media
+        description: SRT contribution feeds, contribution-to-CDN workflows, and live-to-VOD archiving for broadcasters.
+      - name: Education and E-Learning
+        description: Live lectures, recorded course content, and interactive classroom video.
+      - name: Houses of Worship
+        description: Multi-platform restreaming and on-prem capture for religious organizations.
+  - name: Integrations
+    type: Integrations
+    data:
+      - name: Akamai
+        description: Push Publishing profiles, signed token validation, and HLS Akamai targets are first-class.
+      - name: AWS S3
+        description: Streaming Engine S3 upload plugin and AWS-region Wowza Video deployments.
+      - name: Amazon CloudFront
+        description: Standard CDN target for Wowza Video and Streaming Engine output.
+      - name: YouTube Live
+        description: Native restreaming/push-publishing target.
+      - name: Facebook Live
+        description: Native restreaming/push-publishing target.
+      - name: Twitch
+        description: Native restreaming/push-publishing target.
+      - name: Postman
+        description: Official Postman collections for both Wowza Video and Streaming Engine REST APIs.
+      - name: Swagger / OpenAPI
+        description: Official OpenAPI 3.0 specs published for Wowza Video and Wowza Streaming Engine.
+      - name: SRT Alliance
+        description: First-class SRT ingest and egress support for low-latency contribution.
+      - name: ONVIF
+        description: WSE plugin for ingesting ONVIF IP camera streams in surveillance deployments.
+      - name: Azure Speech and OpenAI Whisper
+        description: WSE caption handler plugins that generate captions via Azure Speech Services or OpenAI Whisper.
+      - name: Model Context Protocol (MCP)
+        description: Official Wowza Streaming Engine MCP server lets AI agents drive Engine via MCP.
+      - name: Google Analytics
+        description: WSE analytics plugin reports streaming statistics into Google Analytics.
+  - name: Solutions
+    type: Solutions
+    data:
+      - name: Wowza Streaming Engine
+        description: Self-hosted media server licensed monthly, annually, or as a one-time perpetual purchase for on-prem, cloud, hybrid, and edge deployment.
+      - name: Wowza Video
+        description: Fully managed cloud streaming platform with REST API, hosted Flowplayer, transcoders, stream targets, real-time streaming, and analytics.
+      - name: Wowza Hybrid Cloud
+        description: Combined Wowza Streaming Engine and Wowza Video deployment for flexible hybrid topologies.
+      - name: Wowza Flowplayer
+        description: Standalone HTML5 video player with SDKs, DRM, ads, and plugins — bundled with Wowza Video or sold separately.
+      - name: Wowza Real-Time Streaming
+        description: WebRTC-based sub-second latency live streaming service for interactive applications.
+      - name: Professional Services
+        description: Custom deployment, integration, and Wowza Streaming Engine plugin development engagements.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+    'X-twitter': https://x.com/kinlane
