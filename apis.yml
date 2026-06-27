@@ -63,7 +63,7 @@ apis:
       - url: https://developer.wowza.com/_bundle/docs/wowza-video/api/video/@current/openapi.yaml?download
         type: OpenAPI
       - url: https://www.wowza.com/docs/quick-start-for-an-rtmp-live-stream-in-wowza-video
-        type: Quickstart
+        type: GettingStarted
       - url: https://www.wowza.com/docs/wowza-video-rest-api-lifecycle-management
         type: Documentation
       - url: https://www.wowza.com/docs/wowza-video-rest-api
@@ -99,9 +99,9 @@ apis:
       - url: https://developer.wowza.com/_bundle/docs/wowza-engine/rest-api/@current/openapi.yaml?download
         type: OpenAPI
       - url: https://www.wowza.com/docs/how-to-install-and-configure-wowza-streaming-engine
-        type: Quickstart
+        type: GettingStarted
       - url: https://github.com/WowzaMediaSystems/wse-rest-library-php
-        type: SDK
+        type: SDKs
     description: REST API (~164 paths) for the self-hosted Wowza Streaming Engine media server — manage applications, virtual hosts, stream targets, push publishing, transcoder, server listeners, server users, media cache, server publishers, nDVR recording stores, monitoring, machine stats, licenses, configuration, and webhooks. Served from the local Engine instance (default http://localhost:8087); spec auto-converted from the Engine's native Swagger 1.2 endpoint.
   - aid: wowza:wowza-streaming-engine-java-api
     name: Wowza Streaming Engine Java API
@@ -156,11 +156,11 @@ apis:
     baseURL: https://www.wowza.com
     properties:
       - url: https://github.com/WowzaMediaSystems/gocoder-sdk-samples-ios
-        type: SDK
+        type: SDKs
       - url: https://github.com/WowzaMediaSystems/gocoder-sdk-samples-android
-        type: SDK
+        type: SDKs
       - url: https://github.com/WowzaMediaSystems/gocoder-sdk-camera2-shaders
-        type: SDK
+        type: SDKs
     description: Wowza GoCoder broadcasting SDK for iOS and Android — capture, encode, and stream live video and audio from mobile devices directly to Wowza Streaming Engine or Wowza Video. Official sample repositories on the WowzaMediaSystems GitHub organization demonstrate capture, real-time filters, and Camera2 shader integration.
   - aid: wowza:wowza-real-time-streaming-sdk
     name: Wowza Real-Time Streaming SDK
@@ -176,7 +176,7 @@ apis:
       - url: https://github.com/WowzaMediaSystems/wowza-rts-docs
         type: Documentation
       - url: https://github.com/WowzaMediaSystems/webrtc-examples
-        type: SDK
+        type: SDKs
     description: WebRTC-based SDK for delivering sub-second-latency live streams at scale through the Wowza Real-Time Streaming service. Public documentation repo and WebRTC sample applications are hosted in the WowzaMediaSystems GitHub organization.
 common:
   - url: https://www.wowza.com
@@ -196,7 +196,7 @@ common:
     type: APIReference
   - url: https://www.wowza.com/free-trial
     name: Free Trial
-    type: SignUp
+    type: Signup
   - url: https://cloud.wowza.com/
     name: Wowza Video Console
     type: Console
@@ -223,7 +223,7 @@ common:
     type: Support
   - url: https://www.wowza.com/community/index.html
     name: Wowza Community Forums
-    type: Forum
+    type: Forums
   - url: https://www.wowza.com/blog
     name: Wowza Blog
     type: Blog
@@ -238,28 +238,28 @@ common:
     type: GitHubOrganization
   - url: https://github.com/WowzaMediaSystems/wowza-video-api-demos-postman
     name: Wowza Video API Postman Collections
-    type: SDK
+    type: SDKs
   - url: https://github.com/WowzaMediaSystems/wse-rest-library-php
     name: WSE REST Library — PHP
-    type: SDK
+    type: SDKs
   - url: https://github.com/WowzaMediaSystems/wsc-sdk-java
     name: Wowza Streaming Cloud SDK — Java (archived)
-    type: SDK
+    type: SDKs
   - url: https://github.com/WowzaMediaSystems/wsc-sdk-ruby
     name: Wowza Streaming Cloud SDK — Ruby (archived)
-    type: SDK
+    type: SDKs
   - url: https://github.com/WowzaMediaSystems/wsc-api-examples-ruby
     name: Wowza Streaming Cloud REST API Examples — Ruby
-    type: SDK
+    type: SDKs
   - url: https://github.com/WowzaMediaSystems/wowza-streaming-engine-mcp
     name: Wowza Streaming Engine MCP Server
-    type: SDK
+    type: SDKs
   - url: https://github.com/WowzaMediaSystems/wowza-video-intelligence-framework
     name: Wowza Video Intelligence Framework
-    type: SDK
+    type: SDKs
   - url: https://github.com/WowzaMediaSystems/dev-guides
     name: Wowza Developer Guides
-    type: SDK
+    type: SDKs
   - url: https://www.linkedin.com/company/wowza-media-systems
     name: Wowza LinkedIn
     type: LinkedIn
