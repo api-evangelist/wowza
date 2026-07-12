@@ -1,0 +1,26 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/wowza-streaming-engine-openapi.yml, openapi/wowza-video-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: basicAuth
+  type: http
+  scheme: basic
+  description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
+  sources:
+  - openapi/wowza-streaming-engine-openapi.yml
+- name: digestAuth
+  type: http
+  scheme: digest
+  description: HTTP Digest Authentication
+  sources:
+  - openapi/wowza-streaming-engine-openapi.yml
+- name: WV_JWT
+  type: http
+  scheme: bearer
+  description: Your Wowza-generated access token, also called a JSON web token (JWT). Send it
+    as a bearer token in the Authentication header of your requests. See [Authentication](https://www.wowza.com/docs/how-to-use-the-wowza-video-rest-api#authentication).
+  sources:
+  - openapi/wowza-video-openapi.yml
