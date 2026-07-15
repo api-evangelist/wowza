@@ -179,6 +179,8 @@ apis:
         type: SDKs
     description: WebRTC-based SDK for delivering sub-second-latency live streams at scale through the Wowza Real-Time Streaming service. Public documentation repo and WebRTC sample applications are hosted in the WowzaMediaSystems GitHub organization.
 common:
+  - type: AgenticAccess
+    url: agentic-access/wowza-agentic-access.yml
   - type: DomainSecurity
     url: security/wowza-domain-security.yml
   - type: Authentication
