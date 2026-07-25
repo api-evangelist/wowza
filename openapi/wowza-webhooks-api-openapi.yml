@@ -1,0 +1,710 @@
+openapi: 3.0.3
+info:
+  title: Wowza Streaming Engine REST advanced_token_authentication Webhooks API
+  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
+  version: 2.0.0
+  contact:
+    name: Wowza Media Systems
+    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  license:
+    name: Wowza Media Systems
+    url: https://www.wowza.com
+servers:
+- url: http://localhost:8087
+  description: Wowza Streaming Engine Server
+security:
+- basicAuth: []
+tags:
+- name: Webhooks
+  description: ''
+paths:
+  /v2/servers/{serverName}/webhooks:
+    get:
+      tags:
+      - Webhooks
+      operationId: getWebhooksConfig
+      summary: Get webhook config
+      description: Get all webhooks configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhooksConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Webhooks
+      operationId: putWebhooksConfig
+      summary: Update webhook config
+      description: Replace the full webhooks JSON. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhooksConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/webhooks/filters:
+    get:
+      tags:
+      - Webhooks
+      operationId: getFiltersList
+      summary: Get filter list
+      description: List all filters. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FiltersList'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+      - Webhooks
+      operationId: postFiltersList
+      summary: Create filter list
+      description: Creates a list of filters. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FiltersList'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/webhooks/filters/{id}:
+    get:
+      tags:
+      - Webhooks
+      operationId: getFilterItem
+      summary: Get filter
+      description: Get filter. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: id
+        in: path
+        required: true
+        description: Filter id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilterItem'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Webhooks
+      operationId: putFilterItem
+      summary: Update filter
+      description: Create/replace filter. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: id
+        in: path
+        required: true
+        description: Filter id
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FilterItem'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+      - Webhooks
+      operationId: deleteFilterItem
+      summary: Delete filter
+      description: Delete filter. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: id
+        in: path
+        required: true
+        description: Filter id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/webhooks/source:
+    get:
+      tags:
+      - Webhooks
+      operationId: getSourceItem
+      summary: Get source
+      description: Get source. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceItem'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Webhooks
+      operationId: putSourceItem
+      summary: Update source
+      description: Create/replace source. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SourceItem'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/webhooks/targets:
+    get:
+      tags:
+      - Webhooks
+      operationId: getTargetsList
+      summary: Get target list
+      description: List all targets. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TargetsList'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+      - Webhooks
+      operationId: postTargetsList
+      summary: Create target list
+      description: Creates a list of targets. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TargetsList'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/webhooks/targets/{id}:
+    get:
+      tags:
+      - Webhooks
+      operationId: getTargetItem
+      summary: Get target
+      description: Get target. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: id
+        in: path
+        required: true
+        description: Target id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TargetItem'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Webhooks
+      operationId: putTargetItem
+      summary: Update target
+      description: Create/replace target. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: id
+        in: path
+        required: true
+        description: Target id
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TargetItem'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+      - Webhooks
+      operationId: deleteTargetItem
+      summary: Delete target
+      description: Delete target. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: id
+        in: path
+        required: true
+        description: Target id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    TargetsList:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        targets:
+          type: array
+          items:
+            $ref: '#/components/schemas/TargetConfig'
+      required:
+      - version
+      - serverName
+      - targets
+    FiltersList:
+      type: object
+      properties:
+        serverName:
+          type: string
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/FilterConfig'
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - filters
+    TargetItem:
+      type: object
+      properties:
+        headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/TargetHeader'
+        auth:
+          $ref: '#/components/schemas/TargetAuth'
+        serverName:
+          type: string
+        id:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        url:
+          type: string
+      required:
+      - version
+      - serverName
+      - id
+      - url
+      - headers
+      - auth
+    Integer:
+      type: object
+      properties: {}
+    Boolean:
+      type: object
+      properties: {}
+    Long:
+      type: object
+      properties: {}
+    TargetConfig:
+      type: object
+      properties:
+        headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/TargetHeader'
+        auth:
+          $ref: '#/components/schemas/TargetAuth'
+        id:
+          type: string
+        url:
+          type: string
+      required:
+      - id
+      - url
+      - headers
+      - auth
+    SourceItem:
+      type: object
+      properties:
+        serverName:
+          type: string
+        source:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - source
+    FilterConfig:
+      type: object
+      properties:
+        retryDelay:
+          $ref: '#/components/schemas/Long'
+        retryDelayUnit:
+          type: string
+        targetRef:
+          type: string
+        criteria:
+          type: string
+        id:
+          type: string
+        enabled:
+          $ref: '#/components/schemas/Boolean'
+        maxRetryAttempts:
+          $ref: '#/components/schemas/Integer'
+      required:
+      - id
+      - enabled
+      - criteria
+      - targetRef
+      - maxRetryAttempts
+      - retryDelay
+      - retryDelayUnit
+    TargetHeader:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+      required:
+      - name
+      - value
+    Webhooks:
+      type: object
+      properties:
+        debugLog:
+          $ref: '#/components/schemas/Boolean'
+        source:
+          type: string
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/FilterConfig'
+        targets:
+          type: array
+          items:
+            $ref: '#/components/schemas/TargetConfig'
+      required:
+      - debugLog
+      - source
+      - filters
+      - targets
+    FilterItem:
+      type: object
+      properties:
+        retryDelay:
+          $ref: '#/components/schemas/Long'
+        retryDelayUnit:
+          type: string
+        targetRef:
+          type: string
+        criteria:
+          type: string
+        serverName:
+          type: string
+        id:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        enabled:
+          $ref: '#/components/schemas/Boolean'
+        maxRetryAttempts:
+          $ref: '#/components/schemas/Integer'
+      required:
+      - version
+      - serverName
+      - id
+      - enabled
+      - criteria
+      - targetRef
+      - maxRetryAttempts
+      - retryDelay
+      - retryDelayUnit
+    WebhooksConfig:
+      type: object
+      properties:
+        webhooks:
+          $ref: '#/components/schemas/Webhooks'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - webhooks
+    TargetAuth:
+      type: object
+      properties:
+        secret:
+          type: string
+        type:
+          type: string
+      required:
+      - type
+      - secret
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
+    digestAuth:
+      type: http
+      scheme: digest
+      description: HTTP Digest Authentication

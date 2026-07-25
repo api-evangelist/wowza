@@ -1,0 +1,3548 @@
+openapi: 3.0.3
+info:
+  title: Wowza Streaming Engine REST advanced_token_authentication live_streams API
+  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
+  version: 2.0.0
+  contact:
+    name: Wowza Media Systems
+    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  license:
+    name: Wowza Media Systems
+    url: https://www.wowza.com
+servers:
+- url: http://localhost:8087
+  description: Wowza Streaming Engine Server
+security:
+- basicAuth: []
+tags:
+- name: live_streams
+  description: Operations related to live streams. A live stream is a single, linear video broadcast. You broadcast a live stream by receiving encoded source video into the Wowza Video service and letting Wowza Video transcode the stream and deliver it to viewers. A live stream is essentially a one-stop method for creating a transcoder, output renditions, stream targets, and associated players.
+  x-displayName: Live Streams
+paths:
+  /live_streams:
+    post:
+      summary: Create a live stream
+      description: This operation creates a live stream.
+      operationId: createLiveStream
+      tags:
+      - live_streams
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"POST\" \\\n  \"${WV_HOST}/api/v2.0/live_streams\" \\\n  -d $'{\n  \"live_stream\": {\n    \"name\": \"My New Live Stream\",\n    \"transcoder_type\": \"transcoded\",\n    \"billing_mode\": \"pay_as_you_go\",\n    \"broadcast_location\": \"us_west_california\",\n    \"encoder\": \"other_rtmp\",\n    \"delivery_method\": \"push\",\n    \"aspect_ratio_width\": 1920,\n    \"aspect_ratio_height\": 1080\n  }\n}'\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/live_streams';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  method: 'POST',\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nconst req = https.request(options, function(res) {\n  var body = '';\n  res.on('data', function(data) {\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\nreq.write(JSON.stringify({\n  \"live_stream\": {\n    \"name\": \"My New Live Stream\",\n    \"transcoder_type\": \"transcoded\",\n    \"billing_mode\": \"pay_as_you_go\",\n    \"broadcast_location\": \"us_west_california\",\n    \"encoder\": \"other_rtmp\",\n    \"delivery_method\": \"push\",\n    \"aspect_ratio_width\": 1920,\n    \"aspect_ratio_height\": 1080\n  }\n}));\nreq.end();\n"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/live_stream_create_input'
+        description: Provide the details of the live stream to create in the body of the request.
+        required: true
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - live_stream
+                properties:
+                  live_stream:
+                    $ref: '#/components/schemas/live_stream'
+                example:
+                  aspect_ratio_height: 720
+                  aspect_ratio_width: 1280
+                  billing_mode: pay_as_you_go
+                  broadcast_location: us_west_california
+                  closed_caption_type: cea
+                  connection_code: 0e15cb
+                  connection_code_expires_at: '2020-11-30T17:16:21.956Z'
+                  created_at: '2020-01-29T17:16:21.956Z'
+                  delivery_method: push
+                  delivery_protocols:
+                  - rtmp
+                  - rtsp
+                  - wowz
+                  - webrtc
+                  description: This is my first live stream.
+                  direct_playback_urls:
+                    rtmp:
+                    - name: source
+                      url: rtmp://abc123.entrypoint.video.wowza.com/app-B8P6K226/wxyz6789
+                    - name: webrtc
+                      output_id: dcxq5q6c
+                      url: rtmp://abc123.entrypoint.video.wowza.com/app-B8P6K226/wxyz6789_stream1
+                    - name: V:1280x720+A:128K
+                      output_id: 0g116zkf
+                      url: rtmp://abc123.entrypoint.video.wowza.com/app-B8P6K226/wxyz6789_stream2
+                    - name: V:854x480+A:128K
+                      output_id: 4qqkwndt
+                      url: rtmp://abc123.entrypoint.video.wowza.com/app-B8P6K226/wxyz6789_stream3
+                    - name: V:640x360+A:128K
+                      output_id: 0pv8djpg
+                      url: rtmp://abc123.entrypoint.video.wowza.com/app-B8P6K226/wxyz6789_stream4
+                    - name: V:512x288+A:128K
+                      output_id: b09xrxjf
+                      url: rtmp://abc123.entrypoint.video.wowza.com/app-B8P6K226/wxyz6789_stream5
+                    - name: V:320x180+A:128K
+                      output_id: bvkh2nsz
+                      url: rtmp://abc123.entrypoint.video.wowza.com/app-B8P6K226/wxyz6789_stream6
+                    rtsp:
+                    - name: source
+                      url: rtsp://abc123.entrypoint.video.wowza.com:1935/app-B8P6K226/wxyz6789
+                    - name: webrtc
+                      output_id: dcxq5q6c
+                      url: rtsp://abc123.entrypoint.video.wowza.com:1935/app-B8P6K226/wxyz6789_stream1
+                    - name: V:1280x720+A:128K
+                      output_id: 0g116zkf
+                      url: rtsp://abc123.entrypoint.video.wowza.com:1935/app-B8P6K226/wxyz6789_stream2
+                    - name: V:854x480+A:128K
+                      output_id: 4qqkwndt
+                      url: rtsp://abc123.entrypoint.video.wowza.com:1935/app-B8P6K226/wxyz6789_stream3
+                    - name: V:640x360+A:128K
+                      output_id: 0pv8djpg
+                      url: rtsp://abc123.entrypoint.video.wowza.com:1935/app-B8P6K226/wxyz6789_stream4
+                    - name: V:512x288+A:128K
+                      output_id: b09xrxjf
+                      url: rtsp://abc123.entrypoint.video.wowza.com:1935/app-B8P6K226/wxyz6789_stream5
+                    - name: V:320x180+A:128K
+                      output_id: bvkh2nsz
+                      url: rtsp://abc123.entrypoint.video.wowza.com:1935/app-B8P6K226/wxyz6789_stream6
+                    wowz:
+                    - name: source
+                      url: wowz://abc123.entrypoint.video.wowza.com:1935/app-B8P6K226/wxyz6789
+                    - name: webrtc
+                      output_id: dcxq5q6c
+                      url: wowz://abc123.entrypoint.video.wowza.com:1935/app-B8P6K226/wxyz6789_stream1
+                    - name: V:1280x720+A:128K
+                      output_id: 0g116zkf
+                      url: wowz://abc123.entrypoint.video.wowza.com:1935/app-B8P6K226/wxyz6789_stream2
+                    - name: V:854x480+A:128K
+                      output_id: 4qqkwndt
+                      url: wowz://abc123.entrypoint.video.wowza.com:1935/app-B8P6K226/wxyz6789_stream3
+                    - name: V:640x360+A:128K
+                      output_id: 0pv8djpg
+                      url: wowz://abc123.entrypoint.video.wowza.com:1935/app-B8P6K226/wxyz6789_stream4
+                    - name: V:512x288+A:128K
+                      output_id: b09xrxjf
+                      url: wowz://abc123.entrypoint.video.wowza.com:1935/app-B8P6K226/wxyz6789_stream5
+                    - name: V:320x180+A:128K
+                      output_id: bvkh2nsz
+                      url: wowz://abc123.entrypoint.video.wowza.com:1935/app-B8P6K226/wxyz6789_stream6
+                    webrtc:
+                    - name: source
+                      url: wss://abc123.entrypoint.video.wowza.com/webrtc-session.json
+                      application_name: app-B8P6K226
+                      stream_name: 1722aead
+                    - name: webrtc
+                      output_id: dcxq5q6c
+                      url: wss://abc123.entrypoint.video.wowza.com/webrtc-session.json
+                      application_name: app-B8P6K226
+                      stream_name: 1722aead_stream1
+                    - name: V:1280x720+A:128K
+                      output_id: 0g116zkf
+                      url: wss://abc123.entrypoint.video.wowza.com/webrtc-session.json
+                      application_name: app-B8P6K226
+                      stream_name: 1722aead_stream2
+                    - name: V:854x480+A:128K
+                      output_id: 4qqkwndt
+                      url: wss://abc123.entrypoint.video.wowza.com/webrtc-session.json
+                      application_name: app-B8P6K226
+                      stream_name: 1722aead_stream3
+                    - name: V:640x360+A:128K
+                      output_id: 0pv8djpg
+                      url: wss://abc123.entrypoint.video.wowza.com/webrtc-session.json
+                      application_name: app-B8P6K226
+                      stream_name: 1722aead_stream4
+                    - name: V:512x288+A:128K
+                      output_id: b09xrxjf
+                      url: wss://abc123.entrypoint.video.wowza.com/webrtc-session.json
+                      application_name: app-B8P6K226
+                      stream_name: 1722aead_stream5
+                    - name: V:320x180+A:128K
+                      output_id: bvkh2nsz
+                      url: wss://abc123.entrypoint.video.wowza.com/webrtc-session.json
+                      application_name: app-B8P6K226
+                      stream_name: 1722aead_stream6
+                  encoder: other_rtmp
+                  flowplayer: true
+                  hosted_page:
+                    enabled: true
+                    description: My Hosted Page Description
+                    logo_image_url: https://prod.s3.amazonaws.com/uploads/player/hosted_page_logo_image/23424/5bad28.jpg
+                    sharing_icons: true
+                    title: My Hosted Page
+                    url: https://embed.flowplayer.com/hosted/default/e8dk5bf6
+                  id: wdjfqvsv
+                  name: My PAYG Transcoded WSE Live Stream
+                  playback_stream_name: wxyz6789
+                  player_id: 205b4e8-b160-43c2-868d-d88698a4e850
+                  player_type: wowza_flowplayer_v2
+                  embed_code: null
+                  hls_playback_url: https://wowzasubdomain.wowza.com/1/TWhoL3BiZnJXMFhmNzZVN3JrZDAwUT09/ZmYxSXRrTERrUlk9/hls/live/playlist.m3u8
+                  logo_image_url: https://prod.s3.amazonaws.com/uploads/player/logo_image/23424/5bad28.jpg
+                  logo_position: top-right
+                  video_poster_image_url: https://prod.s3.amazonaws.com/uploads/player/video_poster_image/23424/5bad28.jpg
+                  width: 640
+                  recording: true
+                  reference_id: mySystemID_01
+                  save_asset: false
+                  security:
+                    force_ssl_playback: false
+                    geoblock_enabled: true
+                    geoblock_by_location: allow
+                    geoblock_country_codes: DE, US
+                    geoblock_ip_override: deny
+                    geoblock_ip_addresses: 77.12.34.567, 78.23.45.678
+                    token_auth_enabled: false
+                    token_auth_playlist_only: false
+                  state: stopped
+                  stream_source_id: 5skrfpyf
+                  stream_targets:
+                  - id: klbmg2h8
+                  - id: bnjtdmmc
+                  target_delivery_protocol: hls-https
+                  transcoder_type: transcoded
+                  updated_at: '2020-01-31T06:12:39.956Z'
+                  use_stream_source: true
+                  vod_stream: true
+                  watermark: true
+                  watermark_height: 80
+                  watermark_image_url: https://prod.s3.amazonaws.com/uploads/transcoder/watermark_image/12345/4baa13.jpg
+                  watermark_opacity: 75
+                  watermark_position: top-right
+                  watermark_width: 100
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error422'
+    get:
+      summary: Fetch all live streams
+      description: This operation shows limited details for all of your live streams. For detailed information, fetch a single live stream.
+      operationId: listLiveStreams
+      tags:
+      - live_streams
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"GET\" \\\n  \"${WV_HOST}/api/v2.0/live_streams\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/live_streams';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nhttps.get(options, function(res) {\n  var body = '';\n  res.on('data', function(data){\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\n"
+      parameters:
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/live_streams'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+  /live_streams/{id}:
+    get:
+      summary: Fetch a live stream
+      description: This operation shows the details of a specific live stream.
+      operationId: showLiveStream
+      tags:
+      - live_streams
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"GET\" \\\n  \"${WV_HOST}/api/v2.0/live_streams/2adffc17\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/live_streams/2adffc17';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nhttps.get(options, function(res) {\n  var body = '';\n  res.on('data', function(data){\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\n"
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique alphanumeric string that identifies the live stream.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - live_stream
+                properties:
+                  live_stream:
+                    $ref: '#/components/schemas/live_stream'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+    patch:
+      summary: Update a live stream
+      description: This operation updates a live stream.
+      operationId: updateLiveStream
+      tags:
+      - live_streams
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"PATCH\" \\\n  \"${WV_HOST}/api/v2.0/live_streams/2adffc17\" \\\n  -d $'{\n  \"live_stream\": {\n    \"property\": \"My Value\",\n    \"...\": \"...\"\n  }\n}'\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/live_streams/2adffc17';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname',\n  path: path,\n  method: 'PATCH',\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nconst req = https.request(options, function(res) {\n  var body = '';\n  res.on('data', function(data) {\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\nreq.write(JSON.stringify({\n  \"live_stream\": {\n    \"property\": \"My Value\",\n    \"...\": \"...\"\n  }\n}));\nreq.end();\n"
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique alphanumeric string that identifies the live stream.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/live_stream_update_input'
+        description: Provide the details of the live stream to update in the body of the request.
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - live_stream
+                properties:
+                  live_stream:
+                    $ref: '#/components/schemas/live_stream'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error422'
+    delete:
+      summary: Delete a live stream
+      description: 'This operation deletes a live stream, including all assigned outputs and targets. <br><br><b>Note</b>: You can''t remove live streams that have an asset_id. Assets must be removed by sending a DEL request to the /assets endpoint. '
+      operationId: deleteLiveStream
+      tags:
+      - live_streams
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"DELETE\" \\\n  \"${WV_HOST}/api/v2.0/live_streams/2adffc17\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/live_streams/2adffc17';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  method: 'DELETE',\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nhttps.get(options, function(res) {\n  // no data being returned, just: 204 NO CONTENT\n  console.log(res.statusCode);\n}).on('error', function(e) {\n  console.log(e.message);\n});\n"
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique alphanumeric string that identifies the live stream.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error422'
+  /live_streams/{id}/start:
+    put:
+      summary: Start a live stream
+      description: This operation starts a live stream.
+      operationId: startLiveStream
+      tags:
+      - live_streams
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"PUT\" \\\n  \"${WV_HOST}/api/v2.0/live_streams/2adffc17/start\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/live_streams/2adffc17/start';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  method: 'PUT',\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nconst req = https.request(options, function(res) {\n  var body = '';\n  res.on('data', function(data) {\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\nreq.end();\n"
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique alphanumeric string that identifies the live stream.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - live_stream
+                properties:
+                  live_stream:
+                    type: object
+                    title: live_stream
+                    properties:
+                      state:
+                        type: string
+                        description: The state of the live stream.
+                        example: starting
+                        enum:
+                        - started
+                        - stopped
+                        - starting
+                        - stopping
+                        - resetting
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error422'
+  /live_streams/{id}/stop:
+    put:
+      summary: Stop a live stream
+      description: This operation stops a live stream.
+      operationId: stopLiveStream
+      tags:
+      - live_streams
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"PUT\" \\\n  \"${WV_HOST}/api/v2.0/live_streams/2adffc17/stop\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/live_streams/2adffc17/stop';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  method: 'PUT',\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nconst req = https.request(options, function(res) {\n  var body = '';\n  res.on('data', function(data) {\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\nreq.end();\n"
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique alphanumeric string that identifies the live stream.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - live_stream
+                properties:
+                  live_stream:
+                    type: object
+                    title: live_stream
+                    properties:
+                      state:
+                        type: string
+                        description: The state of the live stream.
+                        example: stopped
+                        enum:
+                        - started
+                        - stopped
+                        - starting
+                        - stopping
+                        - resetting
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error422'
+  /live_streams/{id}/reset:
+    put:
+      summary: Reset a live stream
+      description: This operation resets a live stream.
+      operationId: resetLiveStream
+      tags:
+      - live_streams
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"PUT\" \\\n  \"${WV_HOST}/api/v2.0/live_streams/2adffc17/reset\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/live_streams/2adffc17/reset';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  method: 'PUT',\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nconst req = https.request(options, function(res) {\n  var body = '';\n  res.on('data', function(data) {\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\nreq.end();\n"
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique alphanumeric string that identifies the live stream.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - live_stream
+                properties:
+                  live_stream:
+                    type: object
+                    title: live_stream
+                    properties:
+                      state:
+                        type: string
+                        description: The state of the live stream.
+                        example: resetting
+                        enum:
+                        - started
+                        - stopped
+                        - starting
+                        - stopping
+                        - resetting
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error422'
+  /live_streams/{id}/regenerate_connection_code:
+    put:
+      summary: Regenerate the connection code for a live stream
+      description: This operation regenerates the connection code of a live stream.
+      operationId: regenerateConnectionCodeLiveStream
+      tags:
+      - live_streams
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"PUT\" \\\n  \"${WV_HOST}/api/v2.0/live_streams/2adffc17/regenerate_connection_code\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/live_streams/2adffc17/regenerate_connection_code';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  method: 'PUT',\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nconst req = https.request(options, function(res) {\n  var body = '';\n  res.on('data', function(data) {\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\nreq.end();\n"
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique alphanumeric string that identifies the live stream.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - live_stream
+                properties:
+                  live_stream:
+                    type: object
+                    title: live_stream
+                    properties:
+                      connection_code:
+                        type: string
+                        description: A six-character, alphanumeric string that allows certain encoders, including Wowza Streaming Engine and the Wowza GoCoder app, to connect with Wowza Video. The code can be used once and expires 24 hours after it's created.
+                        example: 0cd2e8
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error422'
+  /live_streams/{id}/thumbnail_url:
+    get:
+      summary: Fetch the thumbnail URL of a live stream
+      description: This operation shows the thumbnail URL of a started live stream.
+      operationId: showLiveStreamThumbnailUrl
+      tags:
+      - live_streams
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"GET\" \\\n  \"${WV_HOST}/api/v2.0/live_streams/2adffc17/thumbnail_url\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/live_streams/2adffc17/thumbnail_url';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nhttps.get(options, function(res) {\n  var body = '';\n  res.on('data', function(data){\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\n"
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique alphanumeric string that identifies the live stream.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - live_stream
+                properties:
+                  live_stream:
+                    type: object
+                    title: live_stream
+                    properties:
+                      thumbnail_url:
+                        type: string
+                        description: The URL to receive the preview thumbnail.
+                        example: https://cloud.wowza.com/proxy/stats/?target=10.11.12.13&app=app-B8P6K226&stream=99b62146@130135.stream&media=json
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+  /live_streams/{id}/state:
+    get:
+      summary: Fetch the state of a live stream
+      description: This operation shows the current state of a live stream.
+      operationId: showLiveStreamState
+      tags:
+      - live_streams
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"GET\" \\\n  \"${WV_HOST}/api/v2.0/live_streams/2adffc17/state\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/live_streams/2adffc17/state';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nhttps.get(options, function(res) {\n  var body = '';\n  res.on('data', function(data){\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\n"
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique alphanumeric string that identifies the live stream.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - live_stream
+                properties:
+                  live_stream:
+                    type: object
+                    title: live_stream
+                    properties:
+                      ip_address:
+                        type: string
+                        description: The IP address of the live stream instance. If the live stream *state* is anything other than **started**, the *ip_address* is **0.0.0.0**.
+                        example: 0.0.0.0
+                      state:
+                        type: string
+                        description: The state of the live stream.
+                        example: stopped
+                        enum:
+                        - started
+                        - stopped
+                        - starting
+                        - stopping
+                        - resetting
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+components:
+  schemas:
+    live_stream_update_input:
+      type: object
+      description: ''
+      required:
+      - live_stream
+      properties:
+        live_stream:
+          type: object
+          title: live_stream
+          description: ''
+          properties:
+            aspect_ratio_height:
+              type: integer
+              description: 'The height, in pixels, of the video source. Should correspond to a widescreen (16:9) or standard (4:3) aspect ratio and be divisible by 8. Combined with **aspect_ratio_width**, makes up the input resolution.
+
+
+                Default: **720**.
+
+
+                **Example:** <code>"aspect_ratio_height": 720</code>'
+              example: 1080
+              format: int32
+            aspect_ratio_width:
+              type: integer
+              description: 'The width, in pixels, of the video source. Should correspond to a widescreen (16:9) or standard (4:3) aspect ratio and be divisible by 8. Combined with **aspect_ratio_height**, makes up the input resolution.
+
+
+                Default: **1280**.
+
+
+                **Example:** <code>"aspect_ratio_width": 1280</code>'
+              example: 1920
+              format: int32
+            encoder:
+              type: string
+              description: 'The video source for the live stream. Choose the type of camera or encoder you''re using to connect to the Wowza Video transcoder. If your specific device isn''t listed, choose **ipcamera**, **other_rtmp**, or **other_rtsp**.
+
+
+                **Example:** <code>"encoder": "other_rtmp"</code>'
+              example: other_rtmp
+              enum:
+              - wowza_clearcaster
+              - wowza_gocoder
+              - wowza_streaming_engine
+              - media_ds
+              - axis
+              - epiphan
+              - file
+              - hauppauge
+              - jvc
+              - live_u
+              - matrox
+              - newtek_tricaster
+              - osprey
+              - sony
+              - telestream_wirecast
+              - teradek_cube
+              - vmix
+              - x_split
+              - ipcamera
+              - other_rtmp
+              - other_rtsp
+              - other_webrtc
+              - other_udp
+              - other_srt
+            name:
+              type: string
+              description: 'A descriptive name for the live stream. Maximum 200 characters.
+
+
+                **Example:** <code>"name": "My Updated Live Stream"</code>'
+              example: My Live Stream
+            closed_caption_type:
+              type: string
+              description: 'The type of closed caption data being passed from the source. The default, **none**, indicates that no data is being provided. **cea** indicates that a CEA closed captioning data stream is being provided. **on_text** indicates that an onTextData closed captioning data stream is being provided. **both** indicates that both CEA and onTextData closed captioning data streams are being provided.
+
+
+                **Example:** <code>"closed_caption_type": "cea"</code>'
+              example: cea
+              enum:
+              - none
+              - cea
+              - on_text
+              - both
+            delivery_method:
+              type: string
+              description: 'The type of connection between the video source and the transcoder. The default, **push**, instructs the source to push the stream to the transcoder. **pull** instructs the transcoder to pull the video from the source. **cdn** uses a stream source to deliver the stream to the transcoder.
+
+
+                **Example:** <code>"delivery_method": "pull"</code>'
+              example: push
+              enum:
+              - pull
+              - cdn
+              - push
+            delivery_protocols:
+              type: array
+              description: 'An array of direct delivery protocols enabled for this live stream. By default, **rtmp**, **rtsp**, **webrtc**, and **wowz** are enabled.
+
+
+                **Example:** See response body sample'
+              items:
+                type: string
+            description:
+              type: string
+              description: An optional description of the live stream.
+              example: ''
+            disable_authentication:
+              type: boolean
+              description: 'Authentication is required by default for RTMP and RTSP push connections from a video source to Wowza Video. Specify **true** to disable authentication with the video source.
+
+
+                **Example:** <code>"disable_authentication": false</code>'
+              example: false
+            hosted_page:
+              $ref: '#/components/schemas/hosted_page_request_object'
+            password:
+              type: string
+              description: 'A password for authenticating an RTMP or RTSP push connection. Can contain only uppercase and lowercase letters; numbers; and the period (.), underscore (_), and hyphen (-) characters. No other special characters can be used.
+
+
+                **Example:** <code>"password": 68332313</code>'
+              example: '68332313'
+            player:
+              $ref: '#/components/schemas/player_request_object'
+            player_id:
+              type: string
+              description: "(Available from version 2.0) The unique alphanumeric string that identifies the player configuration to use for this stream. \n\nWhen you pass a player configuration ID, Wowza Video uses that player configuration to customize and style the player. If you don't pass a value, the default player configuration for the account is used.\n\nCreate and edit player configurations in the user interface. The ID is on the **General** tab for the player configuration.\n\n**Default**: Default player configuration\n\n**Example**: 2205b4e8-b160-43c2-868d-d88698a4e850"
+            logo_image:
+              type: string
+              description: 'A Base64-encoded string representation of a GIF, JPEG, or PNG logo  file that appears partially transparent in a corner of the player throughout playback. Logo file must be 2.5 MB or smaller.
+
+
+                **Example:** <code>"logo_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>   '
+              example: ''
+            logo_position:
+              type: string
+              description: 'The corner of the player in which you want the player logo to appear. The default is **top-left**.
+
+
+                **Example:** <code>"logo_position": "top-right"</code>'
+              example: ''
+              enum:
+              - top-left
+              - top-right
+              - bottom-left
+              - bottom-right
+            video_poster_image:
+              type: string
+              description: 'The path to a GIF, JPEG, or PNG poster image that appears in the player before the stream begins. Poster image files must be 2.5 MB or smaller.
+
+
+                **Example:** <code>"video_poster_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>'
+              example: ''
+            width:
+              type: integer
+              description: 'The width, in pixels, of a fixed-size player. The default is **640**.
+
+
+                **Example:** <code>"width": 640</code>'
+              example: ''
+              format: int32
+            remove_logo_image:
+              type: boolean
+              description: 'If **true**, removes the logo file from the player. The default is **false**.
+
+
+                **Example:** <code>"remove_logo_image": true</code>'
+              example: true
+            remove_video_poster_image:
+              type: boolean
+              description: 'If **true**, removes the poster image. The default is **false**.
+
+
+                **Example:** <code>"remove_video_poster_image": true</code>'
+              example: true
+            recording:
+              type: boolean
+              description: 'If **true**, creates a recording of the live stream. The recording starts when the live stream starts and stops automatically when the live stream stops.
+
+
+                Recordings created from a live stream capture up to eight hours of content. If a live stream runs for longer than eight hours, the most recent eight hours are recorded. To record more than eight hours of a single broadcast, stop the live stream and start it again to create multiple recordings.
+
+
+                Default: **false**
+
+
+                > **Note**: If **save_asset** is **true**, that field overrides a true **recording** value and the asset is saved in Asset Management.
+
+
+                **Example:** <code>"recording": true</code>'
+              example: true
+            reference_id:
+              type: string
+              description: 'A unique, alphanumeric ID returned in transcoder webhook payloads. Setting a *reference_id* is useful if you have an ID in your system or application you want to associate with transcoder events that trigger webhooks. Maximum 70 characters. Can only contain: a-z A-Z 0-9 !@#$%^&*()-_+=:;,.?~|
+
+
+                You can''t use brackets or quotation marks.
+
+
+                See <a href="https://www.wowza.com/docs/wowza-video-webhook-event-reference-documentation">Wowza Video Webhook Event Reference Documentation</a> to learn about webhooks.
+
+
+                Available from version 1.7.
+
+
+                **Example:** <code>"reference_id": "mySystemID_01"</code>'
+              example: mySystemID_01
+            save_asset:
+              type: boolean
+              description: 'If **true**, saves an MP4 recording and a VOD asset in Asset Management. The default is **false**. You can''t set **save_asset** for a live stream created from re-streaming an asset in Asset Management
+
+                > **Note**: If this value is true, **recording** and/or **vod_stream** are set to false. You need a Wowza Video subscription to access Asset Management.
+
+
+                Available from version 1.8.
+
+
+                **Example:** <code>"save_asset": true</code>'
+            security:
+              type: object
+              description: Configuration of stream security. These settings only apply to Wowza CDN on Fastly stream targets, not Facebook Live, LinkedIn Live, or custom targets.
+              properties:
+                force_ssl_playback:
+                  type: boolean
+                  description: 'If **true**, requires users to play the stream over HTTPS. If **false**, the default, users can play the stream over HTTPS or HTTP.
+
+
+                    **Example:** <code>"force_ssl_playback": true</code>'
+                  example: ''
+                geoblock_enabled:
+                  type: boolean
+                  description: 'If **true**, controls access to the stream from specific locations and, optionally, IP addresses. The default is **false**.
+
+
+                    **Example:** <code>"geoblock_enabled": true</code>'
+                  example: ''
+                geoblock_by_location:
+                  type: string
+                  description: 'Specifies whether to **allow** or **deny** access to the stream from specific locations. The default is **disabled**.
+
+
+                    **Example:** <code>"geoblock_location": "allow"</code>'
+                  example: ''
+                  enum:
+                  - allow
+                  - deny
+                  - disabled
+                geoblock_country_codes:
+                  type: string
+                  description: 'Required when *geoblock_by_location* is **allow** or **deny**. The locations affected by the geo-blocking. Enter a comma-separated list of capitalized two-letter ISO 3166-1 country codes. For a list, see [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) on Wikipedia.
+
+
+                    **Example:** <code>"geoblock_country_codes": "CA, DE"</code>'
+                  example: ''
+                geoblock_ip_override:
+                  type: string
+                  description: 'Specifies whether specific IP addresses can override the locations that are allowed or restricted. **allow** permits access from IP addresses within a location that''s been blocked, while **deny** restricts access from IP addresses within locations that are allowed. The default is **disabled**.
+
+
+                    **Example:** <code>"geoblock_ip_override": "allow"</code>'
+                  example: ''
+                  enum:
+                  - allow
+                  - deny
+                  - disabled
+                geoblock_ip_addresses:
+                  type: string
+                  description: "Required when *geoblock_ip_override* is **allow** or **deny**. Addresses that can access or restrict the stream even if they're within a specified geo-blocked location. Enter a comma-separated list of up to about 40 IPv4 and IPv6 IP addresses that always allow or deny streaming based on the *geoblock_ip_override* value. \n\n<blockquote><strong>Troubleshooting:</strong> The limit of 40 IP addresses is approximate because  all the security information (SSL playback, geoblocking countries and IP addresses, referer header,  and token auth) count toward an overall metadata limit.</blockquote>\n\n**Example:** <code>\"geoblock_ip_addresses\": \"77.12.34.567, 78.23.45.678\"</code>"
+                  example: ''
+                token_auth_enabled:
+                  type: boolean
+                  description: 'If **true**, token authentication protects the stream by ensuring that it''s delivered only to authorized viewers and can''t be shared by unauthorized links or player hijacking attacks. The default is **false**.
+
+
+                    **Example:** <code>"token_auth_enabled": true</code>'
+                  example: ''
+                token_auth_shared_secret:
+                  type: string
+                  description: 'The shared secret of the token authentication. Must contain only hexadecimal characters and be an even number of total characters not exceeding 32.
+
+
+                    **Example:** <code>"token_auth_shared_secret": "12345678ABCDEF"</code>'
+                  example: ''
+                token_auth_playlist_only:
+                  type: boolean
+                  description: 'If **true**, Wowza Video uses token authentication to protect the master playlist only and leaves individual media playlists and media segments unprotected. This feature enables playback compatibility with media players that don’t support the *withCredentials* property. It may also be useful when addressing token auth compatibility issues with specific browsers. The default is **false**.
+
+
+                    **Note**: If you''ve enabled MPEG-DASH on your stream target, `token_auth_playlist_only` applies to both the `playlist.m3u8` for HLS and `manifest.mpd` for MPEG-DASH.
+
+
+                    **Example:** <code>"token_auth_playlist_only": true</code>'
+                  example: ''
+            source_url:
+              type: string
+              description: 'For the *delivery_method* **pull** or *encoder* **file**.
+
+
+                For **pull**, enter the URL of an IP camera or video encoder using an RTMP and RTSP pull connection to Wowza Video. Consult the camera or encoder documentation for the URL syntax.
+
+
+                For **file**, enter the source file URL, including the protocol (http, https, gs, s3).
+
+
+
+                **Example:** <code>"source_url": "xyz.streamlock.net/vod/mp4:Movie.mov"</code>'
+              example: xyz.streamlock.net/vod/mp4:Movie.mov
+            target_delivery_protocol:
+              type: string
+              description: 'The type of stream being delivered from Wowza Video. The default and only valid value is **hls-https**.
+
+
+                **Example:** <code>"target_delivery_protocol": "hls-https"</code>'
+              example: hls-https
+              enum:
+              - hls-https
+            use_stream_source:
+              type: boolean
+              description: 'If **true**, uses a stream source to deliver the stream to Wowza Video. The default, **false**, pushes directly to Wowza Video.
+
+
+                **Example:** <code>"use_stream_source": false</code>'
+              example: false
+            username:
+              type: string
+              description: 'A user name for authenticating an RTMP or RTSP push connection. Can contain only uppercase and lowercase letters; numbers; and the period (.), underscore (_), and hyphen (-) characters. No other special characters can be used.
+
+
+                **Example:** <code>"username": "client2"</code>'
+              example: client2
+            vod_stream:
+              type: boolean
+              description: 'If **true**, creates a VOD stream after the live stream ends. The default is **false**.VOD streams require a Fastly stream target with HLS as a delivery protocol.
+
+                > **Note**: If **save_asset** is **true**, that field overrides a true **vod_stream** value and the asset is saved in Asset Management.
+
+
+                **Example:** <code>"vod_stream": true</code>'
+              example: true
+            watermark:
+              type: boolean
+              description: 'Embeds an image into the transcoded stream for copyright protection. Specify **true** to embed a watermark image.
+
+
+                **Example:** <code>"watermark": true</code>'
+              example: ''
+            watermark_height:
+              type: integer
+              description: 'The height, in pixels, of the watermark image. If blank, Wowza Video uses the original image height.
+
+
+                **Example:** <code>"watermark_height": 80</code>'
+              example: ''
+              format: int32
+            watermark_image:
+              type: string
+              description: 'A Base64-encoded string representation of a GIF, JPEG, or PNG image that is embedded in all bitrate renditions of the stream. Watermark image files must be 2.5 MB or smaller.
+
+
+                **Example:** <code>"watermark_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>'
+              example: ''
+            watermark_opacity:
+              type: integer
+              description: 'The opacity, or percentage of transparency, of the watermark. **0** is fully transparent; **100** is fully opaque.
+
+
+                **Example:** <code>"watermark_opacity": 75</code>'
+              example: ''
+              enum:
+              - 0
+              - 1
+              - 2
+              - 3
+              - 4
+              - 5
+              - 6
+              - 7
+              - 8
+              - 9
+              - 10
+              - 11
+              - 12
+              - 13
+              - 14
+              - 15
+              - 16
+              - 17
+              - 18
+              - 19
+              - 20
+              - 21
+              - 22
+              - 23
+              - 24
+              - 25
+              - 26
+              - 27
+              - 28
+              - 29
+              - 30
+              - 31
+              - 32
+              - 33
+              - 34
+              - 35
+              - 36
+              - 37
+              - 38
+              - 39
+              - 40
+              - 41
+              - 42
+              - 43
+              - 44
+              - 45
+              - 46
+              - 47
+              - 48
+              - 49
+              - 50
+              - 51
+              - 52
+              - 53
+              - 54
+              - 55
+              - 56
+              - 57
+              - 58
+              - 59
+              - 60
+              - 61
+              - 62
+              - 63
+              - 64
+              - 65
+              - 66
+              - 67
+              - 68
+              - 69
+              - 70
+              - 71
+              - 72
+              - 73
+              - 74
+              - 75
+              - 76
+              - 77
+              - 78
+              - 79
+              - 80
+              - 81
+              - 82
+              - 83
+              - 84
+              - 85
+              - 86
+              - 87
+              - 88
+              - 89
+              - 90
+              - 91
+              - 92
+              - 93
+              - 94
+              - 95
+              - 96
+              - 97
+              - 98
+              - 99
+              - 100
+              format: int32
+            watermark_position:
+              type: string
+              description: 'The corner of the video frame in which you want the watermark to appear. The default is **top-left**.
+
+
+                **Example:** <code>"watermark_position": "top-left"</code>'
+              example: ''
+              enum:
+              - top-left
+              - top-right
+              - bottom-left
+              - bottom-right
+            watermark_width:
+              type: integer
+              description: 'The width, in pixels, of the watermark image. If blank, Wowza Video uses the original image width.
+
+
+                **Example:** <code>"watermark_width": 100</code>'
+              example: ''
+              format: int32
+            countdown:
+              type: boolean
+              description: 'Enables or disables a countdown timer. '
+              example: ''
+            countdown_at:
+              type: string
+              description: 'The month, day, year, and time of day that the countdown timer should stop displaying to the viewer. Specify **YYYY-MM-DD  HH:MM:SS**.
+
+
+                For example, if you set the **countdown_at** for **2024-12-15T17:00:00:000Z** and the **countdown_timezone** as  **America/New_York**, the viewer would see their current time minus the time remaining until the date and time you set. So, if there''s 5 hours  to go until 1700 NYC time for the viewer, the viewer sees **5:00:00** on the player indicating there are 5 hours left, then the timer counts down from there. The countdown starts as soon as the streamer configures it.
+
+
+                Required when **countdown** is **true**.
+
+
+                **Example:** <code>"countdown_at": "2024-02-01T00:00:00.000Z"'
+              example: '2024-02-01T00:00:00.000Z'
+              format: date-time
+            countdown_timezone:
+              type: string
+              example: America/New_York
+              description: "The time zone the countdown timer runs in.\n\nRequired when **countdown** is **true**.\n\n<details> <summary>Click to expand for the full list of valid values</summary>\n\n | Locations |  Wowza Video time_zone value |\n |---|---|\n | International Date Line West  | Etc/GMT+12                     |\n | Midway Island                 | Pacific/Midway                 |\n | American Samoa                | Pacific/Pago_Pago              |\n | Hawaii                        | Pacific/Honolulu               |\n | Alaska                        | America/Juneau                 |\n | Pacific Time (US & Canada)    | America/Los_Angeles            |\n | Tijuana                       | America/Tijuana                |\n | Mountain Time (US & Canada)   | America/Denver                 |\n | Arizona                       | America/Phoenix                |\n | Chihuahua                     | America/Chihuahua              |\n | Mazatlan                      | America/Mazatlan               |\n | Central Time (US & Canada)    | America/Chicago                |\n | Saskatchewan                  | America/Regina                 |\n | Guadalajara                   | America/Mexico_City            |\n | Mexico City                   | America/Mexico_City            |\n | Monterrey                     | America/Monterrey              |\n | Central America               | America/Guatemala              |\n | Eastern Time (US & Canada)    | America/New_York               |\n | Indiana (East)                | America/Indiana/Indianapolis   |\n | Bogota                        | America/Bogota                 |\n | Lima                          | America/Lima                   |\n | Quito                         | America/Lima                   |\n | Atlantic Time (Canada)        | America/Halifax                |\n | Caracas                       | America/Caracas                |\n | La Paz                        | America/La_Paz                 |\n | Santiago                      | America/Santiago               |\n | Newfoundland                  | America/St_Johns               |\n | Brasilia                      | America/Sao_Paulo              |\n | Buenos Aires                  | America/Argentina/Buenos_Aires |\n | Montevideo                    | America/Montevideo             |\n | Georgetown                    | America/Guyana                 |\n | Puerto Rico                   | America/Puerto_Rico            |\n | Greenland                     | America/Godthab                |\n | Mid-Atlantic                  | Atlantic/South_Georgia         |\n | Azores                        | Atlantic/Azores                |\n | Cape Verde Is.                | Atlantic/Cape_Verde            |\n | Dublin                        | Europe/Dublin                  |\n | Edinburgh                     | Europe/London                  |\n | Lisbon                        | Europe/Lisbon                  |\n | London                        | Europe/London                  |\n | Casablanca                    | Africa/Casablanca              |\n | Monrovia                      | Africa/Monrovia                |\n | UTC                           | Etc/UTC                        |\n | Belgrade                      | Europe/Belgrade                |\n | Bratislava                    | Europe/Bratislava              |\n | Budapest                      | Europe/Budapest                |\n | Ljubljana                     | Europe/Ljubljana               |\n | Prague                        | Europe/Prague                  |\n | Sarajevo                      | Europe/Sarajevo                |\n | Skopje                        | Europe/Skopje                  |\n | Warsaw                        | Europe/Warsaw                  |\n | Zagreb                        | Europe/Zagreb                  |\n | Brussels                      | Europe/Brussels                |\n | Copenhagen                    | Europe/Copenhagen              |\n | Madrid                        | Europe/Madrid                  |\n | Paris                         | Europe/Paris                   |\n | Amsterdam                     | Europe/Amsterdam               |\n | Berlin                        | Europe/Berlin                  |\n | Bern                          | Europe/Zurich                  |\n | Zurich                        | Europe/Zurich                  |\n | Rome                          | Europe/Rome                    |\n | Stockholm                     | Europe/Stockholm               |\n | Vienna                        | Europe/Vienna                  |\n | West Central Africa           | Africa/Algiers                 |\n | Bucharest                     | Europe/Bucharest               |\n | Cairo                         | Africa/Cairo                   |\n | Helsinki                      | Europe/Helsinki                |\n | Kyiv                          | Europe/Kiev                    |\n | Riga                          | Europe/Riga                    |\n | Sofia                         | Europe/Sofia                   |\n | Tallinn                       | Europe/Tallinn                 |\n | Vilnius                       | Europe/Vilnius                 |\n | Athens                        | Europe/Athens                  |\n | Istanbul                      | Europe/Istanbul                |\n | Minsk                         | Europe/Minsk                   |\n | Jerusalem                     | Asia/Jerusalem                 |\n | Harare                        | Africa/Harare                  |\n | Pretoria                      | Africa/Johannesburg            |\n | Kaliningrad                   | Europe/Kaliningrad             |\n | Moscow                        | Europe/Moscow                  |\n | St. Petersburg                | Europe/Moscow                  |\n | Volgograd                     | Europe/Volgograd               |\n | Samara                        | Europe/Samara                  |\n | Kuwait                        | Asia/Kuwait                    |\n | Riyadh                        | Asia/Riyadh                    |\n | Nairobi                       | Africa/Nairobi                 |\n | Baghdad                       | Asia/Baghdad                   |\n | Tehran                        | Asia/Tehran                    |\n | Abu Dhabi                     | Asia/Muscat                    |\n | Muscat                        | Asia/Muscat                    |\n | Baku                          | Asia/Baku                      |\n | Tbilisi                       | Asia/Tbilisi                   |\n | Yerevan                       | Asia/Yerevan                   |\n | Kabul                         | Asia/Kabul                     |\n | Ekaterinburg                  | Asia/Yekaterinburg             |\n | Islamabad                     | Asia/Karachi                   |\n | Karachi                       | Asia/Karachi                   |\n | Tashkent                      | Asia/Tashkent                  |\n | Chennai                       | Asia/Kolkata                   |\n | Kolkata                       | Asia/Kolkata                   |\n | Mumbai                        | Asia/Kolkata                   |\n | New Delhi                     | Asia/Kolkata                   |\n | Kathmandu                     | Asia/Kathmandu                 |\n | Astana                        | Asia/Dhaka                     |\n | Dhaka                         | Asia/Dhaka                     |\n | Sri Jayawardenepura           | Asia/Colombo                   |\n | Almaty                        | Asia/Almaty                    |\n | Novosibirsk                   | Asia/Novosibirsk               |\n | Rangoon                       | Asia/Rangoon                   |\n | Bangkok                       | Asia/Bangkok                   |\n | Hanoi                         | Asia/Bangkok                   |\n | Jakarta                       | Asia/Jakarta                   |\n | Krasnoyarsk                   | Asia/Krasnoyarsk               |\n | Beijing                       | Asia/Shanghai                  |\n | Chongqing                     | Asia/Chongqing                 |\n | Hong Kong                     | Asia/Hong_Kong                 |\n | Urumqi                        | Asia/Urumqi                    |\n | Kuala Lumpur                  | Asia/Kuala_Lumpur              |\n | Singapore                     | Asia/Singapore                 |\n | Taipei                        | Asia/Taipei                    |\n | Perth                         | Australia/Perth                |\n | Irkutsk                       | Asia/Irkutsk                   |\n | Ulaanbaatar                   | Asia/Ulaanbaatar               |\n | Seoul                         | Asia/Seoul                     |\n | Osaka                         | Asia/Tokyo                     |\n | Sapporo                       | Asia/Tokyo                     |\n | Tokyo                         | Asia/Tokyo                     |\n | Yakutsk                       | Asia/Yakutsk                   |\n | Darwin                        | Australia/Darwin               |\n | Adelaide                      | Australia/Adelaide             |\n | Canberra                      | Australia/Melbourne            |\n | Melbourne                     | Australia/Melbourne            |\n | Sydney                        | Australia/Sydney               |\n | Brisbane                      | Australia/Brisbane             |\n | Hobart                        | Australia/Hobart               |\n | Vladivostok                   | Asia/Vladivostok               |\n | Guam                          | Pacific/Guam                   |\n | Port Moresby                  | Pacific/Port_Moresby           |\n | Magadan                       | Asia/Magadan                   |\n | Srednekolymsk                 | Asia/Srednekolymsk             |\n | Solomon Is.                   | Pacific/Guadalcanal            |\n | New Caledonia                 | Pacific/Noumea                 |\n | Fiji                          | Pacific/Fiji                   |\n | Kamchatka                     | Asia/Kamchatka                 |\n | Marshall Is.                  | Pacific/Majuro                 |\n | Auckland                      | Pacific/Auckland               |\n | Wellington                    | Pacific/Auckland               |\n | Nuku'alofa                    | Pacific/Tongatapu              |\n | Tokelau Is.                   | Pacific/Fakaofo                |\n | Chatham Is.                   | Pacific/Chatham                |\n | Samoa                         | Pacific/Apia                   |\n\n</details>\n\n\n **Default:** `Etc/UTC`\n\n\n**Example:** `America/New_York`"
+      example:
+        live_stream:
+          name: My Updated Live Stream
+          description: This is my first live stream.
+          recording: true
+    live_streams:
+      type: object
+      description: ''
+      required:
+      - live_streams
+      properties:
+        live_streams:
+          type: array
+          items:
+            $ref: '#/components/schemas/index_live_stream'
+      example:
+        live_streams:
+        - id: wdjfqvsv
+          name: My PAYG Transcoded WSE Live Stream
+          state: stopped
+          created_at: '2020-01-29T17:16:21.849Z'
+          updated_at: '2020-01-31T16:06:47.849Z'
+        - id: KyxWKtHQ
+          name: My 24x7 Passthrough Live Stream
+          state: started
+          created_at: '2020-01-29T17:16:21.849Z'
+          updated_at: '2020-01-31T02:26:05.849Z'
+        - id: Ly40ZDSg
+          name: My PAYG Transcoded Teradek Cube Live Stream
+          state: started
+          created_at: '2020-01-29T17:16:21.849Z'
+          updated_at: '2020-01-30T18:13:18.849Z'
+    player_response_object:
+      type: object
+      description: "The **player** object is deprecated in 2.0. Create and update player configurations in the user interface. \n\nAny values you send using the **player** object will be ignored.\n\nThe following fields have been moved outside of the **player** object and reside within the **live_stream** object where you can still access them through the API:\n  * **embed_code**\n  * **hls_playback_url**\n  * **logo_image_url**\n  * **logo_position**\n  * **video_poster_image_url**\n  * **width**"
+      properties:
+        customizations:
+          type: object
+          description: Configuration of the player customizations.
+          properties:
+            play_icon:
+              type: string
+              description: A play icon that appears on the video preview. The default, **solid**, uses the standard play (solid triangle) icon. **outlined** uses an alternate (outlined triangle) play icon. **ring** uses an alternate (small solid triangle enclosed in a circle) play icon.
+              example: ''
+              enum:
+              - solid
+              - outlined
+              - ring
+            thin_timeline:
+              type: boolean
+              description: A control bar that appears on the video. Specify **true** to display the control bar on the video. The default is **false**.
+              example: ''
+            drag_handle:
+              type: boolean
+              description: A drag handle that you can use to drag the progress of the video on the timeline. Specify **true** to display the drag handle. The default is **false**.
+              example: ''
+            volume:
+              type: boolean
+              description: A volume button that appears on the video. Specify **true** to display the volume button. The default is **true**.
+              example: ''
+            mute:
+              type: boolean
+              description: A mute button that appears on the video. Specify **true** to display the mute button. The default is **true**.
+              example: ''
+            fullscreen:
+              type: boolean
+              description: A fullscreen button that appears on the video. Specify **true** to display the fullscreen button. The default is **true**.
+              example: ''
+            show_player_title:
+              type: boolean
+              description: The player title that appears on the video. Specify **true** to display the player title. The default is **false**.
+              example: ''
+            color:
+              type: string
+              description: 'The color of the timeline and volume bar of the player. You can set the color of your choice by passing a hex code for that specific color. '
+              example: ''
+        countdown:
+          type: boolean
+          description: A clock that appears in the player before the event and counts down to the start of the stream. Specify **true** to display the countdown clock. The default is **false**.
+          example: ''
+        countdown_at:
+          type: string
+          description: The date and time that the event starts, used by the countdown clock. Specify **YYYY-MM-DD HH:MM:SS**, where **HH** is a 24-hour clock in UTC.
+          example: ''
+        embed_code:
+          type: string
+          description: The HTML code that can be used in an external webpage to host the Wowza Flowplayer.
+          example: ''
+        hls_playback_url:
+          type: string
+          description: The address that can be used to configure playback of the stream using the HLS protocol.
+          example: ''
+        id:
+          type: string
+          description: The unique alphanumeric string that identifies the player.
+          example: ''
+        logo_image_url:
+          type: string
+          description: The path to a GIF, JPEG, or PNG logo file that appears partially transparent in a corner of the player throughout playback. Logo file must be 2.5 MB or smaller.
+          example: ''
+        logo_position:
+          type: string
+          description: The corner of the player in which you want the player logo to appear. The default is **top-left**.
+          example: ''
+          enum:
+          - top-left
+          - top-right
+          - bottom-left
+          - bottom-right
+        plugins:
+          type: object
+          description: Configuration of the plugins.
+          properties:
+            airplay:
+              type: boolean
+              description: If **true**, enables Airplay functionality in the player which allows you to cast to an Airplay device. The default is **false**.
+              example: ''
+            chromecast:
+              type: boolean
+              description: If **true**, enables Chromecast functionality in the player which allows you to cast to a Chromecast device. The default is **false**.
+              example: ''
+        responsive:
+          type: boolean
+          description: A player whose size adjusts according to the device on which it's being viewed. If **true**, creates a responsive player. If **false**, specify a *player_width*.
+          example: ''
+        type:
+          type: string
+          description: 'The player you want to use.
+
+
+            **Wowza Video subscribers**</br> Wowza Flowplayer (wowza_flowplayer) is the only valid option. You''re a subscriber if you have access to Asset Management and Historic and Live Analytics in the user interface.
+
+
+            The Wowza Flowplayer is an easy-to-use, commercial grade player designed for builders and developers. It provides HTML5, HLS, and MPEG-DASH playback and plays streams on any browser and device. It can be [customized](https://www.wowza.com/docs/embed-and-customize-wowza-flowplayer-in-your-site) if you embed it in your site.
+
+
+            **Other subscribers**</br> original _html5 and wowza_player are the only valid options and original_html5 is the default. **original_html5** provides HTML5 playback and falls back to Flash on older browsers. **wowza_player** requires that *target_delivery_protocol* be **hls-https** and *closed_caption_type* be **none**.'
+          example: ''
+        video_poster_image_url:
+          type: string
+          description: The path to a GIF, JPEG, or PNG poster image that appears in the player before the stream begins. Poster image files must be 2.5 MB or smaller.
+          example: ''
+        width:
+          type: integer
+          description: The width, in pixels, of a fixed-size player. The default is **640**.
+          example: ''
+          format: int32
+    live_stream_create_input:
+      type: object
+      description: ''
+      required:
+      - live_stream
+      properties:
+        live_stream:
+          type: object
+          title: live_stream
+          description: ''
+          required:
+          - name
+          - broadcast_location
+          - encoder
+          properties:
+            broadcast_location:
+              $ref: '#/components/schemas/broadcast_location'
+            encoder:
+              type: string
+              description: The video source for the live stream. Choose the type of camera or encoder you're using to connect to the Wowza Video transcoder. If your specific device isn't listed, choose **ipcamera**, **other_rtmp**, or **other_rtsp**.
+              example: other_webrtc
+              enum:
+              - wowza_clearcaster
+              - wowza_gocoder
+              - wowza_streaming_engine
+              - media_ds
+              - axis
+              - epiphan
+              - file
+              - hauppauge
+              - jvc
+              - live_u
+              - matrox
+              - newtek_tricaster
+              - osprey
+              - sony
+              - telestream_wirecast
+              - teradek_cube
+              - vmix
+              - x_split
+              - ipcamera
+              - other_rtmp
+              - other_rtsp
+              - other_webrtc
+              - other_udp
+              - other_srt
+            name:
+              type: string
+              description: A descriptive name for the live stream. Maximum 200 characters.
+              example: My Live Stream
+            aspect_ratio_height:
+              type: integer
+              description: 'The height, in pixels, of the video source. Should correspond to a widescreen (16:9) or standard (4:3) aspect ratio and be divisible by 8. Combined with **aspect_ratio_width**, makes up the input resolution.
+
+
+                Default: **720**.'
+              example: 1080
+              format: int32
+            aspect_ratio_width:
+              type: integer
+              description: 'The width, in pixels, of the video source. Should correspond to a widescreen (16:9) or standard (4:3) aspect ratio and be divisible by 8. Combined with **aspect_ratio_height**, makes up the input resolution.
+
+
+                Default: **1280**.'
+              example: 1920
+              format: int32
+            billing_mode:
+              type: string
+              description: "The billing mode for the stream. \n\nDefault: **pay_as_you_go**.\n\n\n**pay_as_you_go** — Billed as a single event. A single event is use-based and you incur charges for the time spent streaming.\n\n**twentyfour_seven** — Billed as a 24x7 channel. A 24x7 channel is unlimited stream time for one channel. This billing mode doesn't incur overages, since it's unlimited."
+              example: pay_as_you_go
+              enum:
+              - pay_as_you_go
+              - twentyfour_seven
+            closed_caption_type:
+              type: string
+              description: 'The type of closed caption data being passed from the source. The default, **none**, indicates that no data is being provided. **cea** indicates that a CEA closed captioning data stream is being provided. **on_text** indicates that an onTextData closed captioning data stream is being provided. **both** indicates that both CEA and onTextData closed captioning data streams are being provided.
+
+
+                **Example:** <code>"closed_caption_type": "none"</code>'
+              example: none
+              enum:
+              - none
+              - cea
+              - on_text
+              - both
+            delivery_method:
+              type: string
+              description: 'The type of connection between the video source and the transcoder. The default, **push**, instructs the source to push the stream to the transcoder. **pull** instructs the transcoder to pull the video from the source. **cdn** uses a stream source to deliver the stream to the transcoder.
+
+
+                Default: **push**
+
+
+                **Example:** <code>"delivery_method": "pull"</code>'
+              example: push
+              enum:
+              - pull
+              - cdn
+              - push
+            delivery_protocols:
+              type: array
+              description: 'An array of direct delivery protocols enabled for this live stream. By default, **rtmp**, **rtsp**, **webrtc**, and **wowz** are enabled.
+
+
+                **Example:** See response body sample'
+              items:
+                type: string
+            description:
+              type: string
+              description: An optional description of the live stream.
+              example: ''
+            disable_authentication:
+              type: boolean
+              description: 'Authentication is required by default for RTMP and RTSP push connections from a video source to Wowza Video. Specify **true** to disable authentication with the video source.
+
+
+                **Example:** <code>"disable_authentication": false</code>'
+              example: false
+            hosted_page:
+              $ref: '#/components/schemas/hosted_page_request_object_create'
+            low_latency:
+              type: boolean
+              description: "For streams whose *target_delivery_protocol* is **hls-https**. If **true**, turns off incoming and sort packet buffers and delivers smaller video packets to the player, which can reduce latency as long as networks can handle the increased overhead. The default is **false**.\n\n\n **Example:** <code>\"low_latency\": false</code>"
+              example: false
+            password:
+              type: string
+              description: 'A password for authenticating an RTMP or RTSP push connection. Can contain only uppercase and lowercase letters; numbers; and the period (.), underscore (_), and hyphen (-) characters. No other special characters can be used.
+
+
+                **Example:** <code>"password": 68332313</code>'
+              example: '68332313'
+            player:
+              $ref: '#/components/schemas/player_request_object_create'
+            player_id:
+              type: string
+              description: "(Available from version 2.0) The unique alphanumeric string that identifies the player configuration to use for this stream. \n\nWhen you pass a player configuration ID, Wowza Video uses that player configuration to customize and style the player. If you don't pass a value, the default player configuration for the account is used.\n\nCreate and edit player configurations in the user interface. The ID is on the **General** tab for the player configuration.\n\n**Default**: Default player configuration\n\n**Example**: 2205b4e8-b160-43c2-868d-d88698a4e850"
+              example: ''
+            logo_image:
+              type: string
+              description: 'A Base64-encoded string representation of a GIF, JPEG, or PNG logo  file that appears partially transparent in a corner of the player throughout playback. Logo file must be 2.5 MB or smaller.
+
+
+                **Example:** <code>"logo_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>   '
+              example: ''
+            logo_position:
+              type: string
+              description: 'The corner of the player in which you want the player logo to appear. The default is **top-left**.
+
+
+                **Example:** <code>"logo_position": "top-right"</code>'
+              example: ''
+              enum:
+              - top-left
+              - top-right
+              - bottom-left
+              - bottom-right
+            video_poster_image:
+              type: string
+              description: 'The path to a GIF, JPEG, or PNG poster image that appears in the player before the stream begins. Poster image files must be 2.5 MB or smaller.
+
+
+                **Example:** <code>"video_poster_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>'
+              example: ''
+            width:
+              type: integer
+              description: 'The width, in pixels, of a fixed-size player. The default is **640**.
+
+
+                **Example:** <code>"width": 640</code>'
+              example: ''
+              format: int32
+            recording:
+              type: boolean
+              description: 'If **true**, creates a recording of the live stream. The recording starts when the live stream starts and stops automatically when the live stream stops.
+
+
+                Recordings created from a live stream capture up to eight hours of content. If a live stream runs for longer than eight hours, the most recent eight hours are recorded. To record more than eight hours of a single broadcast, stop the live stream and start it again to create multiple recordings.
+
+
+                Default: **false**
+
+
+                > **Note**: If **save_asset** is **true**, that field overrides a true **recording** value and the asset is saved in Asset Management.
+
+
+                **Example:** <code>"recording": true</code>'
+              example: true
+            reference_id:
+              type: string
+              description: 'A unique, alphanumeric ID returned in transcoder webhook payloads. Setting a *reference_id* is useful if you have an ID in your system or application you want to associate with transcoder events that trigger webhooks. Maximum 70 characters. Can only contain: a-z A-Z 0-9 !@#$%^&*()-_+=:;,.?~|
+
+
+                You can''t use brackets or quotation marks.
+
+
+                See <a href="https://www.wowza.com/docs/wowza-video-webhook-event-reference-documentation">Wowza Video Webhook Event Reference Documentation</a> to learn about webhooks.
+
+
+                Available from version 1.7.
+
+
+                **Example:** <code>"reference_id": "mySystemID_01"</code>'
+              example: mySystemID_01
+            save_asset:
+              type: boolean
+              description: 'If **true**, saves an MP4 recording and a VOD asset in Asset Management. The default is **false**. You can''t set **save_asset** for a live stream created from re-streaming an asset in Asset Management.
+
+                > **Note**: If this value is true, **recording** and/or **vod_stream** are set to false. You need a Wowza Video subscription to access Asset Management.
+
+
+                Available from version 1.8.
+
+
+                **Example:** <code>"save_asset": true</code>'
+              example: true
+            security:
+              type: object
+              description: Configuration of stream security. These settings only apply to Wowza CDN on Fastly stream targets, not Facebook Live, LinkedIn Live, or custom targets.
+              properties:
+                force_ssl_playback:
+                  type: boolean
+                  description: 'If **true**, requires users to play the stream over HTTPS. If **false**, the default, users can play the stream over HTTPS or HTTP.
+
+
+                    **Example:** <code>"force_ssl_playback": true</code>'
+                  example: ''
+                geoblock_enabled:
+                  type: boolean
+                  description: 'If **true**, controls access to the stream from specific locations and, optionally, IP addresses. The default is **false**.
+
+
+                    **Example:** <code>"geoblock_enabled": true</code>'
+                  example: ''
+                geoblock_by_location:
+                  type: string
+                  description: 'Specifies whether to **allow** or **deny** access to the stream from specific locations. The default is **disabled**.
+
+
+                    **Example:** <code>"geoblock_location": "allow"</code>'
+                  example: ''
+                  enum:
+                  - allow
+                  - deny
+                  - disabled
+                geoblock_country_codes:
+                  type: string
+                  description: 'Required when *geoblock_by_location* is **allow** or **deny**. The locations affected by the geo-blocking. Enter a comma-separated list of capitalized two-letter ISO 3166-1 country codes. For a list, see [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) on Wikipedia.
+
+
+                    **Example:** <code>"geoblock_country_codes": "CA, DE"</code>'
+                  example: ''
+                geoblock_ip_override:
+                  type: string
+                  description: 'Specifies whether specific IP addresses can override the locations that are allowed or restricted. **allow** permits access from IP addresses within a location that''s been blocked, while **deny** restricts access from IP addresses within locations that are allowed. The default is **disabled**.
+
+
+                    **Example:** <code>"geoblock_ip_override": "allow"</code>'
+                  example: ''
+                  enum:
+                  - allow
+                  - deny
+                  - disabled
+                geoblock_ip_addresses:
+                  type: string
+                  description: "Required when *geoblock_ip_override* is **allow** or **deny**. Addresses that can access or restrict the stream even if they're within a specified geo-blocked location. Enter a comma-separated list of up to about 40 IPv4 and IPv6 IP addresses that always allow or deny streaming based on the *geoblock_ip_override* value. \n\n<blockquote><strong>Troubleshooting:</strong> The limit of 40 IP addresses is approximate because  all the security information (SSL playback, geoblocking countries and IP addresses, referer header,  and token auth) count toward an overall metadata limit.</blockquote>\n\n**Example:** <code>\"geoblock_ip_addresses\": \"77.12.34.567, 78.23.45.678\"</code>"
+                  example: ''
+                token_auth_enabled:
+                  type: boolean
+                  description: 'If **true**, token authentication protects the stream by ensuring that it''s delivered only to authorized viewers and can''t be shared by unauthorized links or player hijacking attacks. The default is **false**.
+
+
+                    **Example:** <code>"token_auth_enabled": true</code>'
+                  example: ''
+                token_auth_shared_secret:
+                  type: string
+                  description: 'The shared secret of the token authentication. Must contain only hexadecimal characters and be an even number of total characters not exceeding 32.
+
+
+                    **Example:** <code>"token_auth_shared_secret": "12345678ABCDEF"</code>'
+                  example: ''
+                token_auth_playlist_only:
+                  type: boolean
+                  description: 'If **true**, Wowza Video uses token authentication to protect the master playlist only and leaves individual media playlists and media segments unprotected. This feature enables playback compatibility with media players that don’t support the *withCredentials* property. It may also be useful when addressing token auth compatibility issues with specific browsers. The default is **false**.
+
+
+                    **Note**: If you''ve enabled MPEG-DASH on your stream target, `token_auth_playlist_only` applies to both the `playlist.m3u8` for HLS and `manifest.mpd` for MPEG-DASH.
+
+
+                    **Example:** <code>"token_auth_playlist_only": true</code>'
+                  example: ''
+            source_url:
+              type: string
+              description: 'For the *delivery_method* **pull** or *encoder* **file**.
+
+
+                For **pull**, enter the URL of an IP camera or video encoder using an RTMP and RTSP pull connection to Wowza Video. Consult the camera or encoder documentation for the URL syntax.
+
+
+                For **file**, enter the source file URL, including the protocol (http, https, gs, s3).
+
+
+
+                **Example:** <code>"source_url": "xyz.streamlock.net/vod/mp4:Movie.mov"</code>'
+              example: xyz.streamlock.net/vod/mp4:Movie.mov
+            target_delivery_protocol:
+              type: string
+              description: "The type of stream being delivered from Wowza Video. The default and only valid value is **hls-https**. \n\n**Example:** <code>\"target_delivery_protocol\": \"hls-https\"</code>"
+              example: hls-https
+              enum:
+              - hls-https
+            transcoder_type:
+              type: string
+              description: "The type of transcoder, either **transcoded** for streams that are transcoded into adaptive bitrate renditions or **passthrough** for streams that aren't processed by the transcoder. \n\n\n\n> **Note**: **passthrough** isn't supported in the **asia_pacific_singapore** region.\n\n\n\nDefault: **transcoded**."
+              example: transcoded
+              enum:
+              - transcoded
+              - passthrough
+            use_stream_source:
+              type: boolean
+              description: 'If **true**, uses a stream source to deliver the stream to Wowza Video. The default, **false**, pushes directly to Wowza Video.
+
+
+                **Example:** <code>"use_stream_source": false</code>'
+              example: false
+            username:
+              type: string
+              description: 'A user name for authenticating an RTMP or RTSP push connection. Can contain only uppercase and lowercase letters; numbers; and the period (.), underscore (_), and hyphen (-) characters. No other special characters can be used.
+
+
+                **Example:** <code>"username": "client2"</code>'
+              example: client2
+            vod_stream:
+              type: boolean
+              description: 'If **true**, creates a VOD stream after the live stream ends. The default is **false**. VOD streams require a Fastly stream target with HLS as a delivery protocol.
+
+                > **Note**: If **save_asset** is **true**, that field overrides a true **vod_stream** value and the asset is saved in Asset Management.
+
+
+                **Example:** <code>"vod_stream": true</code>'
+              example: true
+            watermark:
+              type: boolean
+              description: 'Embeds an image into the transcoded stream for copyright protection. Specify **true** to embed a watermark image.
+
+
+
+                **Example:** <code>"watermark": true</code>'
+              example: ''
+            watermark_height:
+              type: integer
+              description: 'The height, in pixels, of the watermark image. If blank, Wowza Video uses the original image height.
+
+
+                **Example:** <code>"watermark_height": 80</code>'
+              example: ''
+              format: int32
+            watermark_image:
+              type: string
+              description: 'A Base64-encoded string representation of a GIF, JPEG, or PNG image that is embedded in all bitrate renditions of the stream. Watermark image files must be 2.5 MB or smaller.
+
+
+                **Example:** <code>"watermark_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>'
+              example: ''
+            watermark_opacity:
+              type: integer
+              description: 'The opacity, or percentage of transparency, of the watermark. **0** is fully transparent; **100** is fully opaque.
+
+
+                **Example:** <code>"watermark_opacity": 75</code>'
+              example: ''
+              enum:
+              - 0
+              - 1
+              - 2
+              - 3
+              - 4
+              - 5
+              - 6
+              - 7
+              - 8
+              - 9
+              - 10
+              - 11
+              - 12
+              - 13
+              - 14
+              - 15
+              - 16
+              - 17
+              - 18
+              - 19
+              - 20
+              - 21
+              - 22
+              - 23
+              - 24
+              - 25
+              - 26
+              - 27
+              - 28
+              - 29
+              - 30
+              - 31
+              - 32
+              - 33
+              - 34
+              - 35
+              - 36
+              - 37
+              - 38
+              - 39
+              - 40
+              - 41
+              - 42
+              - 43
+              - 44
+              - 45
+              - 46
+              - 47
+              - 48
+              - 49
+              - 50
+              - 51
+              - 52
+              - 53
+              - 54
+              - 55
+              - 56
+              - 57
+              - 58
+              - 59
+              - 60
+              - 61
+              - 62
+              - 63
+              - 64
+              - 65
+              - 66
+              - 67
+              - 68
+              - 69
+              - 70
+              - 71
+              - 72
+              - 73
+              - 74
+              - 75
+              - 76
+              - 77
+              - 78
+              - 79
+              - 80
+              - 81
+              - 82
+              - 83
+              - 84
+              - 85
+              - 86
+              - 87
+              - 88
+              - 89
+              - 90
+              - 91
+              - 92
+              - 93
+              - 94
+              - 95
+              - 96
+              - 97
+              - 98
+              - 99
+              - 100
+              format: int32
+            watermark_position:
+              type: string
+              description: 'The corner of the video frame in which you want the watermark to appear. The default is **top-left**.
+
+
+                **Example:** <code>"watermark_position": "top-left"</code>'
+              example: ''
+              enum:
+              - top-left
+              - top-right
+              - bottom-left
+              - bottom-right
+            watermark_width:
+              type: integer
+              description: 'The width, in pixels, of the watermark image. If blank, Wowza Video uses the original image width.
+
+
+                **Example:** <code>"watermark_width": 100</code>'
+              example: ''
+              format: int32
+            countdown:
+              type: boolean
+              description: 'Enables or disables a countdown timer. '
+              example: ''
+            countdown_at:
+              type: string
+              description: 'The month, day, year, and time of day that the countdown timer should stop displaying to the viewer. Specify **YYYY-MM-DD  HH:MM:SS**.
+
+
+
+                For example, if you set the **countdown_at** for **2024-12-15T17:00:00:000Z** and the **countdown_timezone** as  **America/New_York**, the viewer would see their current time minus the time remaining until the date and time you set. So, if there''s 5 hours  to go until 1700 NYC time for the viewer, the viewer sees **5:00:00** on the player indicating there are 5 hours left, then the timer counts down from there. The countdown starts as soon as the streamer configures it.
+
+
+                Required when **countdown** is **true**.
+
+
+                **Example:** <code>"countdown_at": "2024-02-01T00:00:00.000Z"'
+              example: '2024-02-01T00:00:00.000Z'
+              format: date-time
+            countdown_timezone:
+              type: string
+              example: America/New_York
+              description: "The time zone the countdown timer runs in. Required when **countdown** is **true**.\n\n<details> <summary>Click to expand for the full list of valid values</summary>\n\n  | Locations                     |  Wowza Video time_zone value |\n  |---|---|\n  | International Date Line West  | Etc/GMT+12                     |\n  | Midway Island                 | Pacific/Midway                 |\n  | American Samoa                | Pacific/Pago_Pago              |\n  | Hawaii                        | Pacific/Honolulu               |\n  | Alaska                        | America/Juneau                 |\n  | Pacific Time (US & Canada)    | America/Los_Angeles            |\n  | Tijuana                       | America/Tijuana                |\n  | Mountain Time (US & Canada)   | America/Denver                 |\n  | Arizona                       | America/Phoenix                |\n  | Chihuahua                     | America/Chihuahua              |\n  | Mazatlan                      | America/Mazatlan               |\n  | Central Time (US & Canada)    | America/Chicago                |\n  | Saskatchewan                  | America/Regina                 |\n  | Guadalajara                   | America/Mexico_City            |\n  | Mexico City                   | America/Mexico_City            |\n  | Monterrey                     | America/Monterrey              |\n  | Central America               | America/Guatemala              |\n  | Eastern Time (US & Canada)    | America/New_York               |\n  | Indiana (East)                | America/Indiana/Indianapolis   |\n  | Bogota                        | America/Bogota                 |\n  | Lima                          | America/Lima                   |\n  | Quito                         | America/Lima                   |\n  | Atlantic Time (Canada)        | America/Halifax                |\n  | Caracas                       | America/Caracas                |\n  | La Paz                        | America/La_Paz                 |\n  | Santiago                      | America/Santiago               |\n  | Newfoundland                  | America/St_Johns               |\n  | Brasilia                      | America/Sao_Paulo              |\n  | Buenos Aires                  | America/Argentina/Buenos_Aires |\n  | Montevideo                    | America/Montevideo             |\n  | Georgetown                    | America/Guyana                 |\n  | Puerto Rico                   | America/Puerto_Rico            |\n  | Greenland                     | America/Godthab                |\n  | Mid-Atlantic                  | Atlantic/South_Georgia         |\n  | Azores                        | Atlantic/Azores                |\n  | Cape Verde Is.                | Atlantic/Cape_Verde            |\n  | Dublin                        | Europe/Dublin                  |\n  | Edinburgh                     | Europe/London                  |\n  | Lisbon                        | Europe/Lisbon                  |\n  | London                        | Europe/London                  |\n  | Casablanca                    | Africa/Casablanca              |\n  | Monrovia                      | Africa/Monrovia                |\n  | UTC                           | Etc/UTC                        |\n  | Belgrade                      | Europe/Belgrade                |\n  | Bratislava                    | Europe/Bratislava              |\n  | Budapest                      | Europe/Budapest                |\n  | Ljubljana                     | Europe/Ljubljana               |\n  | Prague                        | Europe/Prague                  |\n  | Sarajevo                      | Europe/Sarajevo                |\n  | Skopje                        | Europe/Skopje                  |\n  | Warsaw                        | Europe/Warsaw                  |\n  | Zagreb                        | Europe/Zagreb                  |\n  | Brussels                      | Europe/Brussels                |\n  | Copenhagen                    | Europe/Copenhagen              |\n  | Madrid                        | Europe/Madrid                  |\n  | Paris                         | Europe/Paris                   |\n  | Amsterdam                     | Europe/Amsterdam               |\n  | Berlin                        | Europe/Berlin                  |\n  | Bern                          | Europe/Zurich                  |\n  | Zurich                        | Europe/Zurich                  |\n  | Rome                          | Europe/Rome                    |\n  | Stockholm                     | Europe/Stockholm               |\n  | Vienna                        | Europe/Vienna                  |\n  | West Central Africa           | Africa/Algiers                 |\n  | Bucharest                     | Europe/Bucharest               |\n  | Cairo                         | Africa/Cairo                   |\n  | Helsinki                      | Europe/Helsinki                |\n  | Kyiv                          | Europe/Kiev                    |\n  | Riga                          | Europe/Riga                    |\n  | Sofia                         | Europe/Sofia                   |\n  | Tallinn                       | Europe/Tallinn                 |\n  | Vilnius                       | Europe/Vilnius                 |\n  | Athens                        | Europe/Athens                  |\n  | Istanbul                      | Europe/Istanbul                |\n  | Minsk                         | Europe/Minsk                   |\n  | Jerusalem                     | Asia/Jerusalem                 |\n  | Harare                        | Africa/Harare                  |\n  | Pretoria                      | Africa/Johannesburg            |\n  | Kaliningrad                   | Europe/Kaliningrad             |\n  | Moscow                        | Europe/Moscow                  |\n  | St. Petersburg                | Europe/Moscow                  |\n  | Volgograd                     | Europe/Volgograd               |\n  | Samara                        | Europe/Samara                  |\n  | Kuwait                        | Asia/Kuwait                    |\n  | Riyadh                        | Asia/Riyadh                    |\n  | Nairobi                       | Africa/Nairobi                 |\n  | Baghdad                       | Asia/Baghdad                   |\n  | Tehran                        | Asia/Tehran                    |\n  | Abu Dhabi                     | Asia/Muscat                    |\n  | Muscat                        | Asia/Muscat                    |\n  | Baku                          | Asia/Baku                      |\n  | Tbilisi                       | Asia/Tbilisi                   |\n  | Yerevan                       | Asia/Yerevan                   |\n  | Kabul                         | Asia/Kabul                     |\n  | Ekaterinburg                  | Asia/Yekaterinburg             |\n  | Islamabad                     | Asia/Karachi                   |\n  | Karachi                       | Asia/Karachi                   |\n  | Tashkent                      | Asia/Tashkent                  |\n  | Chennai                       | Asia/Kolkata                   |\n  | Kolkata                       | Asia/Kolkata                   |\n  | Mumbai                        | Asia/Kolkata                   |\n  | New Delhi                     | Asia/Kolkata                   |\n  | Kathmandu                     | Asia/Kathmandu                 |\n  | Astana                        | Asia/Dhaka                     |\n  | Dhaka                         | Asia/Dhaka                     |\n  | Sri Jayawardenepura           | Asia/Colombo                   |\n  | Almaty                        | Asia/Almaty                    |\n  | Novosibirsk                   | Asia/Novosibirsk               |\n  | Rangoon                       | Asia/Rangoon                   |\n  | Bangkok                       | Asia/Bangkok                   |\n  | Hanoi                         | Asia/Bangkok                   |\n  | Jakarta                       | Asia/Jakarta                   |\n  | Krasnoyarsk                   | Asia/Krasnoyarsk               |\n  | Beijing                       | Asia/Shanghai                  |\n  | Chongqing                     | Asia/Chongqing                 |\n  | Hong Kong                     | Asia/Hong_Kong                 |\n  | Urumqi                        | Asia/Urumqi                    |\n  | Kuala Lumpur                  | Asia/Kuala_Lumpur              |\n  | Singapore                     | Asia/Singapore                 |\n  | Taipei                        | Asia/Taipei                    |\n  | Perth                         | Australia/Perth                |\n  | Irkutsk                       | Asia/Irkutsk                   |\n  | Ulaanbaatar                   | Asia/Ulaanbaatar               |\n  | Seoul                         | Asia/Seoul                     |\n  | Osaka                         | Asia/Tokyo                     |\n  | Sapporo                       | Asia/Tokyo                     |\n  | Tokyo                         | Asia/Tokyo                     |\n  | Yakutsk                       | Asia/Yakutsk                   |\n  | Darwin                        | Australia/Darwin               |\n  | Adelaide                      | Australia/Adelaide             |\n  | Canberra                      | Australia/Melbourne            |\n  | Melbourne                     | Australia/Melbourne            |\n  | Sydney                        | Australia/Sydney               |\n  | Brisbane                      | Australia/Brisbane             |\n  | Hobart                        | Australia/Hobart               |\n  | Vladivostok                   | Asia/Vladivostok               |\n  | Guam                          | Pacific/Guam                   |\n  | Port Moresby                  | Pacific/Port_Moresby           |\n  | Magadan                       | Asia/Magadan                   |\n  | Srednekolymsk                 | Asia/Srednekolymsk             |\n  | Solomon Is.                   | Pacific/Guadalcanal            |\n  | New Caledonia                 | Pacific/Noumea                 |\n  | Fiji                          | Pacific/Fiji                   |\n  | Kamchatka                     | Asia/Kamchatka                 |\n  | Marshall Is.                  | Pacific/Majuro                 |\n  | Auckland                      | Pacific/Auckland               |\n  | Wellington                    | Pacific/Auckland               |\n  | Nuku'alofa                    | Pacific/Tongatapu              |\n  | Tokelau Is.                   | Pacific/Fakaofo                |\n  | Chatham Is.                   | Pacific/Chatham                |\n  | Samoa                         | Pacific/Apia                   \n\n\n</details>\n\n**Default:** `Etc/UTC`\n\n**Example:** `America/New_York`"
+      example:
+        billing_mode: pay_as_you_go
+        broadcast_location: us_west_oregon
+        description: This is my first live stream.
+        encoder: other_webrtc
+        name: My Live Stream
+        transcoder_type: transcoded
+    live_stream:
+      type: object
+      description: ''
+      properties:
+        aspect_ratio_height:
+          type: integer
+          description: 'The height, in pixels, of the video source. Should correspond to a widescreen (16:9) or standard (4:3) aspect ratio and be divisible by 8. Combined with **aspect_ratio_width**, makes up the input resolution.
+
+
+            Default: **720**.'
+          example: ''
+          format: int32
+        aspect_ratio_width:
+          type: integer
+          description: 'The width, in pixels, of the video source. Should correspond to a widescreen (16:9) or standard (4:3) aspect ratio and be divisible by 8. Combined with **aspect_ratio_height**, makes up the input resolution.
+
+
+            Default: **1280**.'
+          example: ''
+          format: int32
+        asset_id:
+          type: string
+          description: Only applies to live streams created from re-streaming an asset in Asset Management. The id for the asset associated with the re-streamed live stream. You can manage this asset in Asset Management.
+        billing_mode:
+          type: string
+          description: "\nThe billing mode for the stream. \n\n\nDefault: **pay_as_you_go**.\n\n\n        \n**pay_as_you_go** — Billed as a single event. A single event is use-based and you incur charges for the time spent streaming.\n    \n**twentyfour_seven** — Billed as a 24x7 channel. A 24x7 channel is unlimited stream time for one channel. This billing mode doesn't incur overages, since it's unlimited."
+          example: ''
+          enum:
+          - pay_as_you_go
+          - twentyfour_seven
+        broadcast_location:
+          $ref: '#/components/schemas/broadcast_location'
+        closed_caption_type:
+          type: string
+          description: The type of closed caption data being passed from the source. The default, **none**, indicates that no data is being provided. **cea** indicates that a CEA closed captioning data stream is being provided. **on_text** indicates that an onTextData closed captioning data stream is being provided. **both** indicates that both CEA and onTextData closed captioning data streams are being provided.
+          example: ''
+          enum:
+          - none
+          - cea
+          - on_text
+          - both
+        connection_code:
+          type: string
+          description: A six-character, alphanumeric string that allows certain encoders, including Wowza Streaming Engine and the Wowza GoCoder app, to connect with Wowza Video. The code can be used once and expires 24 hours after it's created.
+          example: ''
+        connection_code_expires_at:
+          type: string
+          description: The date and time that the *connection_code* expires.
+          example: ''
+          format: date-time
+        created_at:
+          type: string
+          description: The date and time that the live stream was created.
+          example: ''
+          format: date-time
+        delivery_method:
+          type: string
+          description: The type of connection between the video source and the transcoder. The default, **push**, instructs the source to push the stream to the transcoder. **pull** instructs the transcoder to pull the video from the source. **cdn** uses a stream source to deliver the stream to the transcoder.
+          example: ''
+          enum:
+          - pull
+          - cdn
+          - push
+        delivery_protocols:
+          type: array
+          description: An array of direct delivery protocols enabled for this live stream. By default, **rtmp**, **rtsp**, **webrtc**, and **wowz** are enabled.
+          items:
+            type: string
+        description:
+          type: string
+          description: An optional description of the live stream.
+          example: ''
+        direct_playback_urls:
+          type: object
+          description: A list of direct playback URLs for the live stream's delivery protocols. Each protocol has a URL for the source and a URL for each output rendition.
+          properties:
+            delivery_protocol:
+              type: array
+              description: The name of the direct playback protocol.
+              items:
+                type: object
+                title: direct_playback_url
+                properties:
+                  name:
+                    type: string
+                    description: "The name of the playback URL: **source**, **default**,\n or the output rendition's resolution."
+                    example: ''
+                  output_id:
+                    type: string
+                    description: Only for output rendition-based playback URLs, not source playback URLs. The unique alphanumeric string that identifies the output rendition.
+                    example: dcxq5q6c
+                  url:
+                    type: string
+                    description: The playback URL for the source or output rendition.
+                    example: https://abcdef.dev.entrypoint.video.wowza.com/app-B8P6K226/ngrp:43a23e5a_all/playlist.m3u8
+                  application_name:
+                    type: string
+                    description: (WebRTC only) The application name for the WebRTC output.
+                    example: ''
+                  stream_name:
+                    type: string
+                    description: (WebRTC only) The stream name for the WebRTC output rendition.
+                    example: ''
+        encoder:
+          type: string
+          description: The video source for the live stream. Choose the type of camera or encoder you're using to connect to the Wowza Video transcoder. If your specific device isn't listed, choose **ipcamera**, **other_rtmp**, or **other_rtsp**.
+          example: ''
+          enum:
+          - wowza_clearcaster
+          - wowza_gocoder
+          - wowza_streaming_engine
+          - media_ds
+          - axis
+          - epiphan
+          - file
+          - hauppauge
+          - jvc
+          - live_u
+          - matrox
+          - newtek_tricaster
+          - osprey
+          - sony
+          - telestream_wirecast
+          - teradek_cube
+          - vmix
+          - x_split
+          - ipcamera
+          - other_rtmp
+          - other_rtsp
+          - other_webrtc
+          - other_udp
+          - other_srt
+        flowplayer:
+          type: boolean
+          description: 'Indicates whether or not the player for the live stream is a Wowza Flowplayer player. **True** indicates the player is a Wowza Flowplayer player. Our new Wowza Video experience uses Wowza Flowplayer. If you are a Wowza Video legacy subscriber, Wowza Flowplayer is also the player used.
+
+
+            **False** indicates the player is either an **original_html5** player or **wowza_player**. The original HTML and Wowza players are the players available for Wowza Streaming Cloud subscribers.'
+          example: ''
+        hosted_page:
+          $ref: '#/components/schemas/hosted_page_response_object'
+        id:
+          type: string
+          description: The unique alphanumeric string that identifies the live stream.
+          example: ''
+        low_latency:
+          type: boolean
+          description: For streams whose *target_delivery_protocol* is **hls-https**. If **true**, turns off incoming and sort packet buffers and delivers smaller video packets to the player, which can reduce latency as long as networks can handle the increased overhead. The default is **false**.
+          example: ''
+        name:
+          type: string
+          description: A descriptive name for the live stream. Maximum 200 characters.
+          example: ''
+        playback_stream_name:
+          type: string
+          description: The stream name used in the direct playback URL.
+          example: ''
+        player:
+          $ref: '#/components/schemas/player_response_object'
+        player_id:
+          type: string
+          description: "(Available from version 2.0) The unique alphanumeric string that identifies the player configuration to use for this stream. \n    \n    \nWhen you pass a player configuration ID, Wowza Video uses that player configuration to customize and style the player. If you don't pass a value, the default player configuration for the account is used.\n\nCreate and edit player configurations in the user interface. The ID is on the **General** tab for the player configuration.\n\n**Default**: Default player configuration\n<blockquote><strong>Note</strong>: <strong>player_id</strong> is not returned in the response if it's not explicitly sent and the default player configuration is used instead.</blockquote>\n\n**Example**: 2205b4e8-b160-43c2-868d-d88698a4e850"
+        player_type:
+          type: string
+          description: "(Available from version 2.0) The type of player associated with the stream. Streams created in legacy Wowza Video have a  player type of *wowza_flowplayer_v1*. Streams created in later versions of Wowza Video have a player type of *wowza_flowplayer_v2*.\n\nKnowing the player type is useful if you've migrated streams from legacy Wowza Video. The player for a stream created in the legacy version of Wowza Video isn't editable in the new platform. \n\n**Example**: wowza_flowplayer_v1"
+          enum:
+          - wowza_flowplayer_v1
+          - wowza_flowplayer_v2
+        embed_code:
+          type: string
+          description: The HTML code that can be used in an external webpage to host the Wowza Flowplayer.
+          example: ''
+        hls_playback_url:
+          type: string
+          description: The address that can be used to configure playback of the stream using the HLS protocol.
+          example: ''
+        countdown_at:
+          type: string
+          description: 'The month, day, year, and time of day that the countdown timer should stop displaying to the viewer. Specify **YYYY-MM-DD  HH:MM:SS**. The response is in UTC time.
+
+
+            For example, if you set the **countdown_at** for **2024-12-15T17:00:00:000Z** and the **countdown_timezone** as  **America/New_York**, the viewer would see their current time minus the time remaining until the date and time you set. So, if there''s 5 hours  to go until 1700 NYC time for the viewer, the viewer sees **5:00:00** on the player indicating their''s 5 hours left and the timer counts down from there. The countdown starts as soon as the streamer configures it.
+
+
+            Required when **countdown** is **true**.
+
+
+            **Example:** <code>"countdown_at": "2024-02-01T00:00:00.000Z"'
+          example: '2024-02-01T00:00:00.000Z'
+          format: date-time
+        countdown_timezone:
+          type: string
+          example: America/New_York
+          description: "The time zone the countdown timer runs in.\n\nRequired when **countdown** is **true**.\n\n<details> <summary>Click to expand for the full list of valid values</summary>\n\n  | Locations                     |  Wowza Video time_zone value |\n  |---|---|\n  | International Date Line West  | Etc/GMT+12                     |\n  | Midway Island                 | Pacific/Midway                 |\n  | American Samoa                | Pacific/Pago_Pago              |\n  | Hawaii                        | Pacific/Honolulu               |\n  | Alaska                        | America/Juneau                 |\n  | Pacific Time (US & Canada)    | America/Los_Angeles            |\n  | Tijuana                       | America/Tijuana                |\n  | Mountain Time (US & Canada)   | America/Denver                 |\n  | Arizona                       | America/Phoenix                |\n  | Chihuahua                     | America/Chihuahua              |\n  | Mazatlan                      | America/Mazatlan               |\n  | Central Time (US & Canada)    | America/Chicago                |\n  | Saskatchewan                  | America/Regina                 |\n  | Guadalajara                   | America/Mexico_City            |\n  | Mexico City                   | America/Mexico_City            |\n  | Monterrey                     | America/Monterrey              |\n  | Central America               | America/Guatemala              |\n  | Eastern Time (US & Canada)    | America/New_York               |\n  | Indiana (East)                | America/Indiana/Indianapolis   |\n  | Bogota                        | America/Bogota                 |\n  | Lima                          | America/Lima                   |\n  | Quito                         | America/Lima                   |\n  | Atlantic Time (Canada)        | America/Halifax                |\n  | Caracas                       | America/Caracas                |\n  | La Paz                        | America/La_Paz                 |\n  | Santiago                      | America/Santiago               |\n  | Newfoundland                  | America/St_Johns               |\n  | Brasilia                      | America/Sao_Paulo              |\n  | Buenos Aires                  | America/Argentina/Buenos_Aires |\n  | Montevideo                    | America/Montevideo             |\n  | Georgetown                    | America/Guyana                 |\n  | Puerto Rico                   | America/Puerto_Rico            |\n  | Greenland                     | America/Godthab                |\n  | Mid-Atlantic                  | Atlantic/South_Georgia         |\n  | Azores                        | Atlantic/Azores                |\n  | Cape Verde Is.                | Atlantic/Cape_Verde            |\n  | Dublin                        | Europe/Dublin                  |\n  | Edinburgh                     | Europe/London                  |\n  | Lisbon                        | Europe/Lisbon                  |\n  | London                        | Europe/London                  |\n  | Casablanca                    | Africa/Casablanca              |\n  | Monrovia                      | Africa/Monrovia                |\n  | UTC                           | Etc/UTC                        |\n  | Belgrade                      | Europe/Belgrade                |\n  | Bratislava                    | Europe/Bratislava              |\n  | Budapest                      | Europe/Budapest                |\n  | Ljubljana                     | Europe/Ljubljana               |\n  | Prague                        | Europe/Prague                  |\n  | Sarajevo                      | Europe/Sarajevo                |\n  | Skopje                        | Europe/Skopje                  |\n  | Warsaw                        | Europe/Warsaw                  |\n  | Zagreb                        | Europe/Zagreb                  |\n  | Brussels                      | Europe/Brussels                |\n  | Copenhagen                    | Europe/Copenhagen              |\n  | Madrid                        | Europe/Madrid                  |\n  | Paris                         | Europe/Paris                   |\n  | Amsterdam                     | Europe/Amsterdam               |\n  | Berlin                        | Europe/Berlin                  |\n  | Bern                          | Europe/Zurich                  |\n  | Zurich                        | Europe/Zurich                  |\n  | Rome                          | Europe/Rome                    |\n  | Stockholm                     | Europe/Stockholm               |\n  | Vienna                        | Europe/Vienna                  |\n  | West Central Africa           | Africa/Algiers                 |\n  | Bucharest                     | Europe/Bucharest               |\n  | Cairo                         | Africa/Cairo                   |\n  | Helsinki                      | Europe/Helsinki                |\n  | Kyiv                          | Europe/Kiev                    |\n  | Riga                          | Europe/Riga                    |\n  | Sofia                         | Europe/Sofia                   |\n  | Tallinn                       | Europe/Tallinn                 |\n  | Vilnius                       | Europe/Vilnius                 |\n  | Athens                        | Europe/Athens                  |\n  | Istanbul                      | Europe/Istanbul                |\n  | Minsk                         | Europe/Minsk                   |\n  | Jerusalem                     | Asia/Jerusalem                 |\n  | Harare                        | Africa/Harare                  |\n  | Pretoria                      | Africa/Johannesburg            |\n  | Kaliningrad                   | Europe/Kaliningrad             |\n  | Moscow                        | Europe/Moscow                  |\n  | St. Petersburg                | Europe/Moscow                  |\n  | Volgograd                     | Europe/Volgograd               |\n  | Samara                        | Europe/Samara                  |\n  | Kuwait                        | Asia/Kuwait                    |\n  | Riyadh                        | Asia/Riyadh                    |\n  | Nairobi                       | Africa/Nairobi                 |\n  | Baghdad                       | Asia/Baghdad                   |\n  | Tehran                        | Asia/Tehran                    |\n  | Abu Dhabi                     | Asia/Muscat                    |\n  | Muscat                        | Asia/Muscat                    |\n  | Baku                          | Asia/Baku                      |\n  | Tbilisi                       | Asia/Tbilisi                   |\n  | Yerevan                       | Asia/Yerevan                   |\n  | Kabul                         | Asia/Kabul                     |\n  | Ekaterinburg                  | Asia/Yekaterinburg             |\n  | Islamabad                     | Asia/Karachi                   |\n  | Karachi                       | Asia/Karachi                   |\n  | Tashkent                      | Asia/Tashkent                  |\n  | Chennai                       | Asia/Kolkata                   |\n  | Kolkata                       | Asia/Kolkata                   |\n  | Mumbai                        | Asia/Kolkata                   |\n  | New Delhi                     | Asia/Kolkata                   |\n  | Kathmandu                     | Asia/Kathmandu                 |\n  | Astana                        | Asia/Dhaka                     |\n  | Dhaka                         | Asia/Dhaka                     |\n  | Sri Jayawardenepura           | Asia/Colombo                   |\n  | Almaty                        | Asia/Almaty                    |\n  | Novosibirsk                   | Asia/Novosibirsk               |\n  | Rangoon                       | Asia/Rangoon                   |\n  | Bangkok                       | Asia/Bangkok                   |\n  | Hanoi                         | Asia/Bangkok                   |\n  | Jakarta                       | Asia/Jakarta                   |\n  | Krasnoyarsk                   | Asia/Krasnoyarsk               |\n  | Beijing                       | Asia/Shanghai                  |\n  | Chongqing                     | Asia/Chongqing                 |\n  | Hong Kong                     | Asia/Hong_Kong                 |\n  | Urumqi                        | Asia/Urumqi                    |\n  | Kuala Lumpur                  | Asia/Kuala_Lumpur              |\n  | Singapore                     | Asia/Singapore                 |\n  | Taipei                        | Asia/Taipei                    |\n  | Perth                         | Australia/Perth                |\n  | Irkutsk                       | Asia/Irkutsk                   |\n  | Ulaanbaatar                   | Asia/Ulaanbaatar               |\n  | Seoul                         | Asia/Seoul                     |\n  | Osaka                         | Asia/Tokyo                     |\n  | Sapporo                       | Asia/Tokyo                     |\n  | Tokyo                         | Asia/Tokyo                     |\n  | Yakutsk                       | Asia/Yakutsk                   |\n  | Darwin                        | Australia/Darwin               |\n  | Adelaide                      | Australia/Adelaide             |\n  | Canberra                      | Australia/Melbourne            |\n  | Melbourne                     | Australia/Melbourne            |\n  | Sydney                        | Australia/Sydney               |\n  | Brisbane                      | Australia/Brisbane             |\n  | Hobart                        | Australia/Hobart               |\n  | Vladivostok                   | Asia/Vladivostok               |\n  | Guam                          | Pacific/Guam                   |\n  | Port Moresby                  | Pacific/Port_Moresby           |\n  | Magadan                       | Asia/Magadan                   |\n  | Srednekolymsk                 | Asia/Srednekolymsk             |\n  | Solomon Is.                   | Pacific/Guadalcanal            |\n  | New Caledonia                 | Pacific/Noumea                 |\n  | Fiji                          | Pacific/Fiji                   |\n  | Kamchatka                     | Asia/Kamchatka                 |\n  | Marshall Is.                  | Pacific/Majuro                 |\n  | Auckland                      | Pacific/Auckland               |\n  | Wellington                    | Pacific/Auckland               |\n  | Nuku'alofa                    | Pacific/Tongatapu              |\n  | Tokelau Is.                   | Pacific/Fakaofo                |\n  | Chatham Is.                   | Pacific/Chatham                |\n  | Samoa                         | Pacific/Apia                   |\n\n</details>\n\n**Default:** `Etc/UTC`\n\n**Example:** `America/New_York`   "
+        countdown:
+          type: boolean
+          description: 'Enables or disables a countdown timer. '
+          example: ''
+        logo_image_url:
+          type: string
+          description: The path to a GIF, JPEG, or PNG logo file that appears partially transparent in a corner of the player throughout playback. Logo file must be 2.5 MB or smaller.
+          example: ''
+        logo_position:
+          type: string
+          description: The corner of the player in which you want the player logo to appear. The default is **top-left**.
+          example: ''
+          enum:
+          - top-left
+          - top-right
+          - bottom-left
+          - bottom-right
+        video_poster_image_url:
+          type: string
+          description: The path to a GIF, JPEG, or PNG poster image that appears in the player before the stream begins. Poster image files must be 2.5 MB or smaller.
+          example: ''
+        width:
+          type: integer
+          description: The width, in pixels, of a fixed-size player. The default is **640**.
+          example: ''
+          format: int32
+        recording:
+          type: boolean
+          description: 'If **true**, creates a recording of the live stream. The recording starts when the live stream starts and stops automatically when the live stream stops.
+
+
+            Recordings created from a live stream capture up to eight hours of content.
+
+            If a live stream runs for longer than eight hours, the most recent eight hours are recorded. To record more than eight hours of a single broadcast, stop the live stream and start it again to create multiple recordings.
+
+
+            Default: **false**.
+
+
+            > **Note**: If **save_asset** is **true**, that field overrides a true **recording** value and the asset is saved in Asset Management.'
+          example: ''
+        reference_id:
+          type: string
+          description: 'A unique, alphanumeric ID returned in transcoder webhook payloads. Setting a *reference_id* is useful if you have an ID in your system or application you want to associate with transcoder events that trigger webhooks. Maximum 70 characters. Can only contain: a-z A-Z 0-9 !@#$%^&*()-_+=:;,.?~|
+
+
+            You can''t use brackets or quotation marks.
+
+
+            See <a href="https://www.wowza.com/docs/wowza-video-webhook-event-reference-documentation">Wowza Video Webhook Event Reference Documentation</a> to learn about webhooks.
+
+
+            Available from version 1.7.'
+          example: ''
+        save_asset:
+          type: boolean
+          description: 'If **true**, saves an MP4 recording and a VOD asset in Asset Management. The default is **false**. You can''t set **save_asset** for a live stream created from re-streaming an asset in Asset Management.
+
+            > **Note**: If this value is true, **recording** and/or **vod_stream** are set to false. You need a Wowza Video subscription to access Asset Management.
+
+
+            Available from version 1.8.'
+        security:
+          type: object
+          description: Configuration of stream security. These settings only apply to Wowza CDN on Fastly stream targets, not Facebook Live, LinkedIn Live, or custom targets.
+          properties:
+            force_ssl_playback:
+              type: boolean
+              description: If **true**, requires users to play the stream over HTTPS. If **false**, the default, users can play the stream over HTTPS or HTTP.
+              example: ''
+            geoblock_enabled:
+              type: boolean
+              description: If **true**, controls access to the stream from specific locations and, optionally, IP addresses. The default is **false**.
+              example: ''
+            geoblock_by_location:
+              type: string
+              description: Specifies whether to **allow** or **deny** access to the stream from specific locations. The default is **disabled**.
+              example: ''
+              enum:
+              - allow
+              - deny
+              - disabled
+            geoblock_country_codes:
+              type: string
+              description: Required when *geoblock_by_location* is **allow** or **deny**. The locations affected by the geo-blocking. Enter a comma-separated list of capitalized two-letter ISO 3166-1 country codes. For a list, see [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) on Wikipedia.
+              example: ''
+            geoblock_ip_override:
+              type: string
+              description: Specifies whether specific IP addresses can override the locations that are allowed or restricted. **allow** permits access from IP addresses within a location that's been blocked, while **deny** restricts access from IP addresses within locations that are allowed. The default is **disabled**.
+              example: ''
+              enum:
+              - allow
+              - deny
+              - disabled
+            geoblock_ip_addresses:
+              type: string
+              description: Required when *geoblock_ip_override* is **allow** or **deny**. Addresses that can access or restrict the stream even if they're within a specified geo-blocked location. Enter a comma-separated list of IPv4 and IPv6 IP addresses that always allow or deny streaming based on the *geoblock_ip_override* value.
+              example: ''
+            token_auth_enabled:
+              type: boolean
+              description: If **true**, token authentication protects the stream by ensuring that it's delivered only to authorized viewers and can't be shared by unauthorized links or player hijacking attacks. The default is **false**.
+              example: ''
+            token_auth_shared_secret:
+              type: string
+              description: The shared secret of the token authentication. Must contain only hexadecimal characters and be an even number of total characters not exceeding 32.
+              example: ''
+            token_auth_playlist_only:
+              type: boolean
+              description: 'If **true**, Wowza Video uses token authentication to protect the master playlist only and leaves individual media playlists and media segments unprotected.  This feature enables playback compatibility with media players that don’t support the *withCredentials* property. It may also be useful when addressing  token auth compatibility issues with specific browsers. The default is **false**.
+
+
+                **Note**: If you''ve enabled MPEG-DASH on your stream target, `token_auth_playlist_only` applies to both the `playlist.m3u8` for HLS and `manifest.mpd` for MPEG-DASH.'
+              example: ''
+        source_connection_information:
+          type: object
+          description: Details that you can use to manually configure and connect a video source to the live stream.
+          example: ''
+        state:
+          type: string
+          description: The state of the live stream.
+          example: started
+          enum:
+          - starting
+          - stopping
+          - started
+          - stopped
+          - resetting
+        stream_source_id:
+          type: string
+          description: The unique alphanumeric string that identifies the stream source, if a stream source is used.
+          example: ''
+        stream_targets:
+          type: array
+          description: An array of unique alphanumeric strings that identify the stream targets used by the live stream. A **primary_stream_target** is a single stream target that automatically gets created for all output renditions (the ABR ladder) created when you create a live stream through a live stream flow. The **primary_stream_target** cannot be deleted or reassigned.
+          items:
+            type: object
+            title: stream_targets
+            properties:
+              id:
+                type: string
+                description: The unique alphanumeric string that identifies the stream target.
+                example: dcxq5q6c
+        target_delivery_protocol:
+          type: string
+          description: The type of stream being delivered from Wowza Video. The default and only valid value is **hls-https**.
+          example: ''
+          enum:
+          - hls-https
+        transcoder_type:
+          type: string
+          description: "The type of transcoder, either **transcoded** for streams that are transcoded into adaptive bitrate renditions or **passthrough** for streams that aren't processed by the transcoder. \n\n\n\n> **Note**: **passthrough** isn't supported in the **asia_pacific_singapore** region.\n\n\n\nDefault: **transcoded**."
+          example: ''
+          enum:
+          - transcoded
+          - passthrough
+        updated_at:
+          type: string
+          description: The date and time that the live stream was updated.
+          example: ''
+          format: date-time
+        use_stream_source:
+          type: boolean
+          description: If **true**, uses a stream source to deliver the stream to Wowza Video. The default, **false**, pushes directly to Wowza Video.
+          example: ''
+        vod_stream:
+          type: boolean
+          description: 'If **true**, creates a VOD stream after the live stream ends. The default is **false**. VOD streams require a Fastly stream target with HLS as a delivery protocol.
+
+            > **Note**: If **save_asset** is **true**, that field overrides a true **vod_stream** value and the asset is saved in Asset Management.'
+          example: ''
+        watermark:
+          type: boolean
+          description: Embeds an image into the transcoded stream for copyright protection. Specify **true** to embed a watermark image.
+          example: ''
+        watermark_height:
+          type: integer
+          description: The height, in pixels, of the watermark image. If blank, Wowza Video uses the original image height.
+          example: ''
+          format: int32
+        watermark_image_url:
+          type: string
+          description: The path to a GIF, JPEG, or PNG image that is embedded in all bitrate renditions of the stream. Watermark image files must be 2.5 MB or smaller.
+          example: ''
+        watermark_opacity:
+          type: integer
+          description: The opacity, or percentage of transparency, of the watermark. **0** is fully transparent; **100** is fully opaque.
+          example: ''
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 10
+          - 11
+          - 12
+          - 13
+          - 14
+          - 15
+          - 16
+          - 17
+          - 18
+          - 19
+          - 20
+          - 21
+          - 22
+          - 23
+          - 24
+          - 25
+          - 26
+          - 27
+          - 28
+          - 29
+          - 30
+          - 31
+          - 32
+          - 33
+          - 34
+          - 35
+          - 36
+          - 37
+          - 38
+          - 39
+          - 40
+          - 41
+          - 42
+          - 43
+          - 44
+          - 45
+          - 46
+          - 47
+          - 48
+          - 49
+          - 50
+          - 51
+          - 52
+          - 53
+          - 54
+          - 55
+          - 56
+          - 57
+          - 58
+          - 59
+          - 60
+          - 61
+          - 62
+          - 63
+          - 64
+          - 65
+          - 66
+          - 67
+          - 68
+          - 69
+          - 70
+          - 71
+          - 72
+          - 73
+          - 74
+          - 75
+          - 76
+          - 77
+          - 78
+          - 79
+          - 80
+          - 81
+          - 82
+          - 83
+          - 84
+          - 85
+          - 86
+          - 87
+          - 88
+          - 89
+          - 90
+          - 91
+          - 92
+          - 93
+          - 94
+          - 95
+          - 96
+          - 97
+          - 98
+          - 99
+          - 100
+          format: int32
+        watermark_position:
+          type: string
+          description: The corner of the video frame in which you want the watermark to appear. The default is **top-left**.
+          example: ''
+          enum:
+          - top-left
+          - top-right
+          - bottom-left
+          - bottom-right
+        watermark_width:
+          type: integer
+          description: The width, in pixels, of the watermark image. If blank, Wowza Video uses the original image width.
+          example: ''
+          format: int32
+      example:
+        aspect_ratio_height: 720
+        aspect_ratio_width: 1280
+        billing_mode: pay_as_you_go
+        broadcast_location: us_west_california
+        closed_caption_type: cea
+        connection_code: 0e15cb
+        connection_code_expires_at: '2020-11-30T17:16:21.956Z'
+        created_at: '2020-01-29T17:16:21.956Z'
+        delivery_method: push
+        delivery_protocols:
+        - rtmp
+        - rtsp
+        - wowz
+        - webrtc
+        description: This is my first live stream.
+        direct_playback_urls:
+          rtmp:
+          - name: source
+            url: rtmp://abc123.entrypoint.video.wowza.com/app-B8P6K226/wxyz6789
+          - name: webrtc
+            output_id: dcxq5q6c
+            url: rtmp://abc123.entrypoint.video.wowza.com/app-B8P6K226/wxyz6789_stream1
+          - name: V:1280x720+A:128K
+            output_id: 0g116zkf
+            url: rtmp://abc123.entrypoint.video.wowza.com/app-B8P6K226/wxyz6789_stream2
+          - name: V:854x480+A:128K
+            output_id: 4qqkwndt
+            url: rtmp://abc123.entrypoint.video.wowza.com/app-B8P6K226/wxyz6789_stream3
+          - name: V:640x360+A:128K
+            output_id: 0pv8djpg
+            url: rtmp://abc123.entrypoint.video.wowza.com/app-B8P6K226/wxyz6789_stream4
+          - name: V:512x288+A:128K
+            output_id: b09xrxjf
+            url: rtmp://abc123.entrypoint.video.wowza.com/app-B8P6K226/wxyz6789_stream5
+          - name: V:320x180+A:128K
+            output_id: bvkh2nsz
+            url: rtmp://abc123.entrypoint.video.wowza.com/app-B8P6K226/wxyz6789_stream6
+          rtsp:
+          - name: source
+            url: rtsp://abc123.entrypoint.video.wowza.com:1935/app-B8P6K226/wxyz6789
+          - name: webrtc
+            output_id: dcxq5q6c
+            url: rtsp://abc123.entrypoint.video.wowza.com:1935/app-B8P6K226/wxyz6789_stream1
+          - name: V:1280x720+A:128K
+            output_id: 0g116zkf
+            url: rtsp://abc123.entrypoint.video.wowza.com:1935/app-B8P6K226/wxyz6789_stream2
+          - name: V:854x480+A:128K
+            output_id: 4qqkwndt
+            url: rtsp://abc123.entrypoint.video.wowza.com:1935/app-B8P6K226/wxyz6789_stream3
+          - name: V:640x360+A:128K
+            output_id: 0pv8djpg
+            url: rtsp://abc123.entrypoint.video.wowza.com:1935/app-B8P6K226/wxyz6789_stream4
+          - name: V:512x288+A:128K
+            output_id: b09xrxjf
+            url: rtsp://abc123.entrypoint.video.wowza.com:1935/app-B8P6K226/wxyz6789_stream5
+          - name: V:320x180+A:128K
+            output_id: bvkh2nsz
+            url: rtsp://abc123.entrypoint.video.wowza.com:1935/app-B8P6K226/wxyz6789_stream6
+          wowz:
+          - name: source
+            url: wowz://abc123.entrypoint.video.wowza.com:1935/app-B8P6K226/wxyz6789
+          - name: webrtc
+            output_id: dcxq5q6c
+            url: wowz://abc123.entrypoint.video.wowza.com:1935/app-B8P6K226/wxyz6789_stream1
+          - name: V:1280x720+A:128K
+            output_id: 0g116zkf
+            url: wowz://abc123.entrypoint.video.wowza.com:1935/app-B8P6K226/wxyz6789_stream2
+          - name: V:854x480+A:128K
+            output_id: 4qqkwndt
+            url: wowz://abc123.entrypoint.video.wowza.com:1935/app-B8P6K226/wxyz6789_stream3
+          - name: V:640x360+A:128K
+            output_id: 0pv8djpg
+            url: wowz://abc123.entrypoint.video.wowza.com:1935/app-B8P6K226/wxyz6789_stream4
+          - name: V:512x288+A:128K
+            output_id: b09xrxjf
+            url: wowz://abc123.entrypoint.video.wowza.com:1935/app-B8P6K226/wxyz6789_stream5
+          - name: V:320x180+A:128K
+            output_id: bvkh2nsz
+            url: wowz://abc123.entrypoint.video.wowza.com:1935/app-B8P6K226/wxyz6789_stream6
+          webrtc:
+          - name: source
+            url: wss://abc123.entrypoint.video.wowza.com/webrtc-session.json
+            application_name: app-B8P6K226
+            stream_name: 1722aead
+          - name: webrtc
+            output_id: dcxq5q6c
+            url: wss://abc123.entrypoint.video.wowza.com/webrtc-session.json
+            application_name: app-B8P6K226
+            stream_name: 1722aead_stream1
+          - name: V:1280x720+A:128K
+            output_id: 0g116zkf
+            url: wss://abc123.entrypoint.video.wowza.com/webrtc-session.json
+            application_name: app-B8P6K226
+            stream_name: 1722aead_stream2
+          - name: V:854x480+A:128K
+            output_id: 4qqkwndt
+            url: wss://abc123.entrypoint.video.wowza.com/webrtc-session.json
+            application_name: app-B8P6K226
+            stream_name: 1722aead_stream3
+          - name: V:640x360+A:128K
+            output_id: 0pv8djpg
+            url: wss://abc123.entrypoint.video.wowza.com/webrtc-session.json
+            application_name: app-B8P6K226
+            stream_name: 1722aead_stream4
+          - name: V:512x288+A:128K
+            output_id: b09xrxjf
+            url: wss://abc123.entrypoint.video.wowza.com/webrtc-session.json
+            application_name: app-B8P6K226
+            stream_name: 1722aead_stream5
+          - name: V:320x180+A:128K
+            output_id: bvkh2nsz
+            url: wss://abc123.entrypoint.video.wowza.com/webrtc-session.json
+            application_name: app-B8P6K226
+            stream_name: 1722aead_stream6
+        encoder: other_rtmp
+        flowplayer: true
+        hosted_page:
+          enabled: true
+          description: My Hosted Page Description
+          logo_image_url: https://prod.s3.amazonaws.com/uploads/player/hosted_page_logo_image/23424/5bad28.jpg
+          sharing_icons: true
+          title: My Hosted Page
+          url: https://embed.flowplayer.com/hosted/default/e8dk5bf6
+        id: wdjfqvsv
+        name: My PAYG Transcoded WSE Live Stream
+        playback_stream_name: wxyz6789
+        player_id: 205b4e8-b160-43c2-868d-d88698a4e850
+        player_type: wowza_flowplayer_v2
+        embed_code: null
+        hls_playback_url: https://wowzasubdomain.wowza.com/1/TWhoL3BiZnJXMFhmNzZVN3JrZDAwUT09/ZmYxSXRrTERrUlk9/hls/live/playlist.m3u8
+        logo_image_url: https://prod.s3.amazonaws.com/uploads/player/logo_image/23424/5bad28.jpg
+        logo_position: top-right
+        video_poster_image_url: https://prod.s3.amazonaws.com/uploads/player/video_poster_image/23424/5bad28.jpg
+        width: 640
+        recording: true
+        reference_id: mySystemID_01
+        save_asset: false
+        security:
+          force_ssl_playback: false
+          geoblock_enabled: true
+          geoblock_by_location: allow
+          geoblock_country_codes: DE, US
+          geoblock_ip_override: deny
+          geoblock_ip_addresses: 77.12.34.567, 78.23.45.678
+          token_auth_enabled: false
+          token_auth_playlist_only: false
+        state: stopped
+        stream_source_id: 5skrfpyf
+        stream_targets:
+        - id: klbmg2h8
+        - id: bnjtdmmc
+        target_delivery_protocol: hls-https
+        transcoder_type: transcoded
+        updated_at: '2020-01-31T06:12:39.956Z'
+        use_stream_source: true
+        vod_stream: true
+        watermark: true
+        watermark_height: 80
+        watermark_image_url: https://prod.s3.amazonaws.com/uploads/transcoder/watermark_image/12345/4baa13.jpg
+        watermark_opacity: 75
+        watermark_position: top-right
+        watermark_width: 100
+    broadcast_location:
+      type: string
+      description: The location of your stream. Choose a location as close as possible to your video source.
+      example: eu_germany
+      enum:
+      - asia_pacific_australia
+      - asia_pacific_india
+      - asia_pacific_japan
+      - asia_pacific_singapore
+      - asia_pacific_s_korea
+      - asia_pacific_taiwan
+      - eu_belgium
+      - eu_germany
+      - eu_ireland
+      - south_america_brazil
+      - us_central_iowa
+      - us_east_s_carolina
+      - us_east_virginia
+      - us_west_california
+      - us_west_oregon
+    player_request_object_create:
+      type: object
+      description: "The **player** object is deprecated in 2.0. Create and update player configurations in the user interface. \n\nAny values you send using the **player** object will be ignored.\n\nThe following fields have been moved outside of the **player** object and reside within the **live_stream** object where you can still access them through the API:\n  * **logo_image**\n  * **logo_position**\n  * **video_poster_image**\n  * **width**"
+      properties:
+        customizations:
+          type: object
+          description: Configuration of the player customizations.
+          properties:
+            play_icon:
+              type: string
+              description: 'A play icon that is displayed on the video preview. The default, **solid**, uses the standard play (solid triangle) icon. **outlined** uses an alternate (outlined triangle) play icon. **ring** uses an alternate (small solid triangle enclosed in a circle) play icon.
+
+
+                Default: **solid**
+
+
+                **Example:** <code>"play_icon": "solid"</code>'
+              example: solid
+              enum:
+              - solid
+              - outlined
+              - ring
+            thin_timeline:
+              type: boolean
+              description: 'If **true**, displays a thinner control bar than the default in the video. The default is **false**.
+
+
+                **Example:** <code>"thin_timeline": false</code>'
+              example: ''
+            drag_handle:
+              type: boolean
+              description: 'If **true**, displays a drag handle on the progress bar. The default is **false**.
+
+
+                **Example:** <code>"drag_handle": false</code>'
+              example: ''
+            volume:
+              type: boolean
+              description: 'If **true**, displays a volume button on the video. The default is **true**.
+
+
+                **Example:** <code>"volume": true</code>'
+              example: ''
+            mute:
+              type: boolean
+              description: 'If **true**, displays a mute button on the video. The default is **true**.
+
+
+                **Example:** <code>"mute": true</code>'
+              example: ''
+            fullscreen:
+              type: boolean
+              description: 'If **true**, displays a fullscreen button on the video. The default is **true**.
+
+
+                **Example:** <code>"fullscreen": true</code>'
+              example: ''
+            show_player_title:
+              type: boolean
+              description: 'If **true**, displays a preview title on the video. The default is **false**.
+
+
+                **Example:** <code>"show_player_title": false</code>'
+              example: ''
+            color:
+              type: string
+              description: 'The color of the timeline and volume bar of the player. You can set the color of your choice by passing a hex code for that specific color.
+
+
+                **Example:** <code>"color": "4d4d4d"</code>'
+              example: ''
+        countdown:
+          type: boolean
+          description: 'A clock that appears in the player before the event and counts down to the start of the stream. Specify **true** to display the countdown clock. The default is **false**.
+
+
+            **Example:** <code>"countdown": false</code>'
+          example: ''
+        countdown_at:
+          type: string
+          description: 'The date and time that the event starts, used by the countdown clock. Specify **YYYY-MM-DD HH:MM:SS**, where **HH** is a 24-hour clock in UTC.
+
+
+            **Example:** <code>"countdown_at": "2020-02-01T17:00:00.000Z"</code>'
+          example: ''
+        logo_image:
+          type: string
+          description: 'A Base64-encoded string representation of a GIF, JPEG, or PNG logo  file that appears partially transparent in a corner of the player throughout playback. Logo file must be 2.5 MB or smaller.
+
+
+            **Example:** <code>"logo_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>   '
+          example: ''
+        logo_position:
+          type: string
+          description: 'The corner of the player in which you want the player logo to appear. The default is **top-left**.
+
+
+            **Example:** <code>"logo_position": "top-right"</code>'
+          example: ''
+          enum:
+          - top-left
+          - top-right
+          - bottom-left
+          - bottom-right
+        plugins:
+          type: object
+          description: Configuration of the plugins.
+          properties:
+            airplay:
+              type: boolean
+              description: 'If **true**, enables Airplay functionality in the player which allows you to cast to an Airplay device. The default is **false**.
+
+
+                **Example:** <code>"airplay": false</code>'
+              example: ''
+            chromecast:
+              type: boolean
+              description: 'If **true**, enables Chromecast functionality in the player which allows you to cast to a Chromecast device. The default is **false**.
+
+
+                **Example:** <code>"chromecast": false</code>'
+              example: ''
+        responsive:
+          type: boolean
+          description: "A player whose size adjusts according to the device on which it's being viewed. If **true**, creates a responsive player. If **false**, specify a *player_width*.\n\n\n **Example:** <code>\"type\": false</code>"
+          example: ''
+        type:
+          type: string
+          description: 'The player you want to use.
+
+
+            **Wowza Video subscribers**</br> Wowza Flowplayer (wowza_flowplayer) is the only valid option. You''re a subscriber if you have access to Asset Management and Historic and Live Analytics in the user interface.
+
+
+            The Wowza Flowplayer is an easy-to-use, commercial grade player designed for builders and developers. It provides HTML5, HLS, and MPEG-DASH playback and plays streams on any browser and device. It can be [customized](https://www.wowza.com/docs/embed-and-customize-wowza-flowplayer-in-your-site) if you embed it in your site.
+
+
+            **Other subscribers**</br> original _html5 and wowza_player are the only valid options and original_html5 is the default. **original_html5** provides HTML5 playback and falls back to Flash on older browsers. **wowza_player** requires that *target_delivery_protocol* be **hls-https** and *closed_caption_type* be **none**.
+
+
+            **Example:** <code>"type": "wowza_flowplayer"</code>'
+          example: ''
+        video_poster_image:
+          type: string
+          description: 'The path to a GIF, JPEG, or PNG poster image that appears in the player before the stream begins. Poster image files must be 2.5 MB or smaller.
+
+
+            **Example:** <code>"video_poster_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>'
+          example: ''
+        width:
+          type: integer
+          description: 'The width, in pixels, of a fixed-size player. The default is **640**.
+
+
+            **Example:** <code>"width": 640</code>'
+          example: ''
+          format: int32
+    Error401:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 401
+            code: ERR-401-NoApiKey
+            title: No API Key Error
+            message: No API key sent in header.
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 401
+            code: ERR-401-NoAccessKey
+            title: No Access Key Error
+            message: No access key sent in header.
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 401
+            code: ERR-401-InvalidApiKey
+            title: Invalid Api Key Error
+            message: Invalid API key.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 401
+            code: ERR-401-InvalidAccessKey
+            title: Invalid Access Key Error
+            message: Invalid access key.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 401
+            code: ERR-401-BadAccountStatus
+            title: Bad Account Status Error
+            message: Your account's status doesn't allow this action.
+            description: ''
+            links: []
+        Example Response 6:
+          meta:
+            status: 401
+            code: ERR-401-FeatureNotEnabled
+            title: Feature Not Enabled Error
+            message: This feature isn't enabled.
+            description: ''
+            links: []
+        Example Response 7:
+          meta:
+            status: 401
+            code: ERR-401-TrialExceeded
+            title: Bad Billing Status Error
+            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
+            description: ''
+            links: []
+        Example Response 8:
+          meta:
+            status: 401
+            code: ERR-401-ExpiredToken
+            title: JWT is expired
+            message: Token has exired.
+            description: ''
+            links: []
+        Example Response 9:
+          meta:
+            status: 401
+            code: ERR-401-InvalidToken
+            title: JWT is invalid
+            message: Token is invalid.
+            description: ''
+            links: []
+    hosted_page_response_object:
+      type: object
+      description: Configuration of the hosted page.
+      properties:
+        enabled:
+          type: boolean
+          description: A web page hosted by Wowza Video that includes a player for the live stream. The default, **true**, creates a hosted page. Specify **false** to not create a hosted web page.
+          example: ''
+        description:
+          type: string
+          description: A description that appears on the hosted page below the player. Can't include custom HTML, JavaScript, or other tags.
+          example: ''
+        logo_image_url:
+          type: string
+          description: The path to a GIF, JPEG, or PNG logo file that appears in the upper-left corner of the hosted page. Logo file must be 2.5 MB or smaller.
+        sharing_icons:
+          type: boolean
+          description: Icons that let viewers share the stream on Facebook, Google+, Twitter, and by email. The default, **true**, includes sharing icons on the hosted page. Specify **false** to omit sharing icons.
+          example: ''
+        title:
+          type: string
+          description: A title for the page that appears above the player. Can't include custom HTML, JavaScript, or other tags.
+          example: ''
+        url:
+          type: string
+          description: The URL of the Wowza Video-hosted webpage that viewers can visit to watch the stream.
+          example: ''
+    hosted_page_request_object:
+      type: object
+      description: Configuration of the hosted page.
+      properties:
+        enabled:
+          type: boolean
+          description: 'A web page hosted by Wowza Video that includes a player for the live stream. The default, **true**, creates a hosted page. Specify **false** to not create a hosted web page.
+
+
+            **Example:** <code>"enabled": true</code>'
+          example: ''
+        description:
+          type: string
+          description: 'A description that appears on the hosted page below the player. Can''t include custom HTML, JavaScript, or other tags.
+
+
+            **Example:** <code>"description": "My Hosted Page Description"</code>'
+          example: ''
+        logo_image:
+          type: string
+          description: 'A Base64-encoded string representation of a GIF, JPEG, or PNG logo file that that appears in the upper-left corner of the hosted page. Logo file must be 2.5 MB or smaller.
+
+
+            **Example:** <code>"logo_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>'
+          example: '[Base64-encoded string representation of GIF, JPEG, or PNG file]'
+        remove_logo_image:
+          type: boolean
+          description: 'If **true**, removes the logo file from the hosted page. The default is **false**.
+
+
+            **Example:** <code>"remove_logo_image": true</code>'
+          example: true
+        sharing_icons:
+          type: boolean
+          description: 'Icons that let viewers share the stream on Facebook, Google+, Twitter, and by email. The default, **true**, includes sharing icons on the hosted page. Specify **false** to omit sharing icons.
+
+
+            **Example:** <code>"sharing_icons": false</code>'
+          example: ''
+        title:
+          type: string
+          description: 'A title for the page that appears above the player. Can''t include custom HTML, JavaScript, or other tags.
+
+
+            **Example:** <code>"title": "My Hosted Page"</code>'
+          example: ''
+    Error403:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 403
+            code: ERR-403-RecordUnaccessible
+            title: Record Unaccessible Error
+            message: The requested resource isn't accessible.
+            description: ''
+            links: []
+    index_live_stream:
+      type: object
+      title: live_streams
+      description: ''
+      properties:
+        created_at:
+          type: string
+          description: The date and time that the live stream was created.
+          example: ''
+          format: date-time
+        id:
+          type: string
+          description: The unique alphanumeric string that identifies the live stream.
+          example: ''
+        name:
+          type: string
+          description: A descriptive name for the live stream. Maximum 200 characters.
+          example: ''
+        state:
+          type: string
+          description: The state of the live stream.
+          example: started
+          enum:
+          - starting
+          - stopping
+          - started
+          - stopped
+          - resetting
+        updated_at:
+          type: string
+          description: The date and time that the live stream was updated.
+          example: ''
+          format: date-time
+    Error422:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. ... can't be blank
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. Provider wowza_video is not allowed
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
+            description: ''
+            links: []
+    Error410:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 410
+            code: ERR-410-RecordDeleted
+            title: Record Deleted Error
+            message: The requested resource has been deleted.
+            description: ''
+            links: []
+    player_request_object:
+      type: object
+      description: "The **player** object is deprecated in 2.0. Create and update player configurations in the user interface. \n\nAny values you send using the **player** object will be ignored.\n\nThe following fields have been moved outside of the **player** object and reside within the **live_stream** object where you can still access them through the API:\n  * **logo_image**\n  * **logo_position**\n  * **video_poster_image**\n  * **width**\n  * **remove_video_poster_image**\n  * **remove_logo_image**"
+      properties:
+        customizations:
+          type: object
+          description: Configuration of the player customizations.
+          properties:
+            play_icon:
+              type: string
+              description: 'A play icon that is displayed on the video preview. The default, **solid**, uses the standard play (solid triangle) icon. **outlined** uses an alternate (outlined triangle) play icon. **ring** uses an alternate (small solid triangle enclosed in a circle) play icon.
+
+
+                Default: **solid**
+
+
+                **Example:** <code>"play_icon": "solid"</code>'
+              example: solid
+              enum:
+              - solid
+              - outlined
+              - ring
+            thin_timeline:
+              type: boolean
+              description: 'If **true**, displays a thinner control bar than the default in the video. The default is **false**.
+
+
+                **Example:** <code>"thin_timeline": false</code>'
+              example: ''
+            drag_handle:
+              type: boolean
+              description: 'If **true**, displays a drag handle on the progress bar. The default is **false**.
+
+
+                **Example:** <code>"drag_handle": false</code>'
+              example: ''
+            volume:
+              type: boolean
+              description: 'If **true**, displays a volume button on the video. The default is **true**.
+
+
+                **Example:** <code>"volume": true</code>'
+              example: ''
+            mute:
+              type: boolean
+              description: 'If **true**, displays a mute button on the video. The default is **true**.
+
+
+                **Example:** <code>"mute": true</code>'
+              example: ''
+            fullscreen:
+              type: boolean
+              description: 'If **true**, displays a fullscreen button on the video. The default is **true**.
+
+
+                **Example:** <code>"fullscreen": true</code>'
+              example: ''
+            show_player_title:
+              type: boolean
+              description: 'If **true**, displays a preview title on the video. The default is **false**.
+
+
+                **Example:** <code>"show_player_title": false</code>'
+              example: ''
+            color:
+              type: string
+              description: 'The color of the timeline and volume bar of the player. You can set the color of your choice by passing a hex code for that specific color.
+
+
+                **Example:** <code>"color": "4d4d4d"</code>'
+              example: ''
+        countdown:
+          type: boolean
+          description: 'A clock that appears in the player before the event and counts down to the start of the stream. Specify **true** to display the countdown clock. The default is **false**.
+
+
+            **Example:** <code>"countdown": false</code>'
+          example: ''
+        countdown_at:
+          type: string
+          description: 'The date and time that the event starts, used by the countdown clock. Specify **YYYY-MM-DD HH:MM:SS**, where **HH** is a 24-hour clock in UTC.
+
+
+            **Example:** <code>"countdown_at": "2020-02-01T17:00:00.000Z"</code>'
+          example: ''
+        logo_image:
+          type: string
+          description: 'A Base64-encoded string representation of a GIF, JPEG, or PNG logo  file that appears partially transparent in a corner of the player throughout playback. Logo file must be 2.5 MB or smaller.
+
+
+            **Example:** <code>"logo_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>   '
+          example: ''
+        logo_position:
+          type: string
+          description: 'The corner of the player in which you want the player logo to appear. The default is **top-left**.
+
+
+            **Example:** <code>"logo_position": "top-right"</code>'
+          example: ''
+          enum:
+          - top-left
+          - top-right
+          - bottom-left
+          - bottom-right
+        plugins:
+          type: object
+          description: Configuration of the plugins.
+          properties:
+            airplay:
+              type: boolean
+              description: 'If **true**, enables Airplay functionality in the player which allows you to cast to an Airplay device. The default is **false**.
+
+
+                **Example:** <code>"airplay": false</code>'
+              example: ''
+            chromecast:
+              type: boolean
+              description: 'If **true**, enables Chromecast functionality in the player which allows you to cast to a Chromecast device. The default is **false**.
+
+
+                **Example:** <code>"chromecast": false</code>'
+              example: ''
+        remove_logo_image:
+          type: boolean
+          description: 'If **true**, removes the logo file from the player. The default is **false**.
+
+
+            **Example:** <code>"remove_logo_image": true</code>'
+          example: true
+        remove_video_poster_image:
+          type: boolean
+          description: 'If **true**, removes the poster image. The default is **false**.
+
+
+            **Example:** <code>"remove_video_poster_image": true</code>'
+          example: true
+        responsive:
+          type: boolean
+          description: "A player whose size adjusts according to the device on which it's being viewed. If **true**, creates a responsive player. If **false**, specify a *player_width*.\n\n\n **Example:** <code>\"type\": false</code>"
+          example: ''
+        type:
+          type: string
+          description: 'The player you want to use.
+
+
+            **Wowza Video subscribers**</br> Wowza Flowplayer (wowza_flowplayer) is the only valid option. You''re a subscriber if you have access to Asset Management and Historic and Live Analytics in the user interface.
+
+
+            The Wowza Flowplayer is an easy-to-use, commercial grade player designed for builders and developers. It provides HTML5, HLS, and MPEG-DASH playback and plays streams on any browser and device. It can be [customized](https://www.wowza.com/docs/embed-and-customize-wowza-flowplayer-in-your-site) if you embed it in your site.
+
+
+            **Other subscribers**</br> original _html5 and wowza_player are the only valid options and original_html5 is the default. **original_html5** provides HTML5 playback and falls back to Flash on older browsers. **wowza_player** requires that *target_delivery_protocol* be **hls-https** and *closed_caption_type* be **none**.
+
+
+            **Example:** <code>"type": "wowza_flowplayer"</code>'
+          example: ''
+        video_poster_image:
+          type: string
+          description: 'The path to a GIF, JPEG, or PNG poster image that appears in the player before the stream begins. Poster image files must be 2.5 MB or smaller.
+
+
+            **Example:** <code>"video_poster_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>'
+          example: ''
+        width:
+          type: integer
+          description: 'The width, in pixels, of a fixed-size player. The default is **640**.
+
+
+            **Example:** <code>"width": 640</code>'
+          example: ''
+          format: int32
+    hosted_page_request_object_create:
+      type: object
+      description: Configuration of the hosted page.
+      properties:
+        enabled:
+          type: boolean
+          description: 'A web page hosted by Wowza Video that includes a player for the live stream. The default, **true**, creates a hosted page. Specify **false** to not create a hosted web page.
+
+
+            **Example:** <code>"enabled": true</code>'
+          example: ''
+        description:
+          type: string
+          description: 'A description that appears on the hosted page below the player. Can''t include custom HTML, JavaScript, or other tags.
+
+
+            **Example:** <code>"description": "My Hosted Page Description"</code>'
+          example: ''
+        logo_image:
+          type: string
+          description: 'A Base64-encoded string representation of a GIF, JPEG, or PNG logo file that that appears in the upper-left corner of the hosted page. Logo file must be 2.5 MB or smaller.
+
+
+            **Example:** <code>"logo_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>'
+          example: '[Base64-encoded string representation of GIF, JPEG, or PNG file]'
+        sharing_icons:
+          type: boolean
+          description: 'Icons that let viewers share the stream on Facebook, Google+, Twitter, and by email. The default, **true**, includes sharing icons on the hosted page. Specify **false** to omit sharing icons.
+
+
+            **Example:** <code>"sharing_icons": false</code>'
+          example: ''
+        title:
+          type: string
+          description: 'A title for the page that appears above the player. Can''t include custom HTML, JavaScript, or other tags.
+
+
+            **Example:** <code>"title": "My Hosted Page"</code>'
+          example: ''
+    Error404:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 404
+            code: ERR-404-RecordNotFound
+            title: Record Not Found Error
+            message: The requested resource couldn't be found.
+            description: ''
+            links: []
+  parameters:
+    filter:
+      name: filter
+      in: query
+      description: 'Restricts the data that gets returned by filtering on one or more values associated with a field. Construct a filter using a two-part expression that specifies the field on which to filter and the logic to use to filter. Filters use a zero-based index.
+
+
+        For valid filter operators and filter fields, see [How to get filtered query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-filtered-query-results-with-the-wowza-video-rest-api).
+
+
+        Example:
+
+        **filter[0][field]=state&filter[0][eq]=stopped**'
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      description: "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
+      schema:
+        type: integer
+    per_page:
+      name: per_page
+      in: query
+      description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
+      schema:
+        type: integer
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
+    digestAuth:
+      type: http
+      scheme: digest
+      description: HTTP Digest Authentication

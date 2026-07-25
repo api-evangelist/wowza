@@ -1,0 +1,1780 @@
+openapi: 3.0.3
+info:
+  title: Wowza Streaming Engine REST advanced_token_authentication real_time API
+  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
+  version: 2.0.0
+  contact:
+    name: Wowza Media Systems
+    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  license:
+    name: Wowza Media Systems
+    url: https://www.wowza.com
+servers:
+- url: http://localhost:8087
+  description: Wowza Streaming Engine Server
+security:
+- basicAuth: []
+tags:
+- name: real_time
+  description: 'Operations related to Real-Time Streaming at Scale. If your audience is fewer than 300 viewers or you want to deliver a stream in near real time alongside other delivery protocols, <a href="https://www.wowza.com/docs/deliver-webrtc-streams-to-viewers-using-the-wowza-video-rest-api">use our WebRTC solution</a>.
+
+
+    <blockquote>To enable and purchase capacity for Real-Time Streaming at Scale for your account and access the <tt>/real_time</tt> operations, contact 720.279.8163 or <a href="https://www.wowza.com/professional-services#get-a-quote">schedule a call</a>.</blockquote>'
+  x-displayName: Real-Time Streams
+paths:
+  /real_time:
+    post:
+      summary: Create a real-time stream
+      description: This operation creates a real-time stream.
+      operationId: createRealTimeStream
+      tags:
+      - real_time
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"POST\" \\\n  \"${WV_HOST}/api/v2.0/real_time\" \\\n  -d $'{\n  \"real_time_stream\": {\n    \"name\": \"My Real-Time Stream\"\n  }\n}'\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/real_time';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  method: 'POST',\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nconst req = https.request(options, function(res) {\n  var body = '';\n  res.on('data', function(data) {\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\nreq.write(JSON.stringify({\n  \"real_time_stream\": {\n    \"name\": \"My Real-Time Stream\"\n  }\n}));\nreq.end();\n"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/real_time_stream_create'
+        description: Provide the details of the real-time stream to create in the body of the request.
+        required: true
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - real_time_stream
+                properties:
+                  real_time_stream:
+                    $ref: '#/components/schemas/real_time_stream'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error422'
+    get:
+      summary: Fetch all real-time streams
+      description: This operation shows limited details for all of your real-time streams. For detailed information, fetch a single real-time stream.
+      operationId: listRealTimeStreams
+      tags:
+      - real_time
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"GET\" \\\n  \"${WV_HOST}/api/v2.0/real_time\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/real_time';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nhttps.get(options, function(res) {\n  var body = '';\n  res.on('data', function(data){\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\n"
+      parameters:
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/real_time_streams'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+  /real_time/{id}:
+    get:
+      summary: Fetch a real-time stream
+      description: This operation shows the details of a specific real-time stream.
+      operationId: showRealTimeStream
+      tags:
+      - real_time
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"GET\" \\\n  \"${WV_HOST}/api/v2.0/real_time/2adffc17\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/real_time/2adffc17';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nhttps.get(options, function(res) {\n  var body = '';\n  res.on('data', function(data){\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\n"
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique alphanumeric string that identifies the real-time stream.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - real_time_stream
+                properties:
+                  real_time_stream:
+                    $ref: '#/components/schemas/real_time_stream'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+    patch:
+      summary: Update a real-time stream
+      description: This operation updates a real-time stream.
+      operationId: updateRealTimeStream
+      tags:
+      - real_time
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"PATCH\" \\\n  \"${WV_HOST}/api/v2.0/real_time/2adffc17\" \\\n  -d $'{\n  \"real_time_stream\": {\n    \"name\": \"MyRealTimeStream\"\n  }\n}'\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/real_time/2adffc17';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname',\n  path: path,\n  method: 'PATCH',\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nconst req = https.request(options, function(res) {\n  var body = '';\n  res.on('data', function(data) {\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\nreq.write(JSON.stringify({\n  \"real_time_stream\": {\n    \"name\": \"MyRealTimeStream\"\n  }\n}));\nreq.end();\n"
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique alphanumeric string that identifies the real-time stream.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/real_time_stream_update'
+        description: Provide the details of the real-time stream to update in the body of the request.
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - real_time_stream
+                properties:
+                  real_time_stream:
+                    $ref: '#/components/schemas/real_time_stream'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error422'
+    delete:
+      summary: Delete a real-time stream
+      description: This operation deletes a real-time stream.
+      operationId: deleteRealTimeStream
+      tags:
+      - real_time
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"DELETE\" \\\n  \"${WV_HOST}/api/v2.0/real_time/2adffc17\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/real_time/2adffc17';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  method: 'DELETE',\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nhttps.get(options, function(res) {\n  // no data being returned, just: 204 NO CONTENT\n  console.log(res.statusCode);\n}).on('error', function(e) {\n  console.log(e.message);\n});\n"
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique alphanumeric string that identifies the real-time stream.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error422'
+  /real_time/{id}/state:
+    get:
+      summary: Fetch the state of a real-time stream
+      description: This operation shows the current state of a real-time stream.
+      operationId: showRealTimeStreamState
+      tags:
+      - real_time
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"GET\" \\\n  \"${WV_HOST}/api/v2.0/real_time/2adffc17/state\""
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/real_time/2adffc17/state';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nhttps.get(options, function(res) {\n  var body = '';\n  res.on('data', function(data){\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\n"
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique alphanumeric string that identifies the real-time stream.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - real_time
+                properties:
+                  real_time:
+                    type: object
+                    title: real_time
+                    properties:
+                      state:
+                        type: string
+                        description: The state of the real-time stream.
+                        example: stopped
+                        enum:
+                        - started
+                        - stopped
+                        - disabled
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+  /real_time/{id}/stop:
+    put:
+      summary: Stop a real-time stream
+      description: This operation stops a real-time stream.
+      operationId: stopRealTimeStream
+      tags:
+      - real_time
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"PUT\" \\\n  \"${WV_HOST}/api/v2.0/real_time/2adffc17/stop\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/real_time/2adffc17/stop';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  method: 'PUT',\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nconst req = https.request(options, function(res) {\n  var body = '';\n  res.on('data', function(data) {\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\nreq.end();"
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique alphanumeric string that identifies the real-time stream.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - real_time_stream
+                properties:
+                  real_time_stream:
+                    type: object
+                    title: real_time_stream
+                    properties:
+                      state:
+                        type: string
+                        description: The state of the real-time stream.
+                        example: stopped
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error422'
+        '423':
+          description: Locked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error423'
+components:
+  schemas:
+    Error423:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 423
+            code: ERR-423-StreamAlreadyStopped
+            title: Stream Already Stopped Error
+            message: The request couldn't be processed. The stream has already been stopped.
+            description: ''
+            links: []
+    Error403:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 403
+            code: ERR-403-RecordUnaccessible
+            title: Record Unaccessible Error
+            message: The requested resource isn't accessible.
+            description: ''
+            links: []
+    real_time_streams:
+      type: object
+      description: ''
+      required:
+      - real_time_streams
+      properties:
+        real_time_streams:
+          type: array
+          items:
+            $ref: '#/components/schemas/index_real_time_stream'
+      example:
+        real_time_streams:
+        - id: 2adffc17
+          name: MyRealTimeStream
+          state: started
+          created_at: '2021-01-29T17:16:21.849Z'
+          updated_at: '2021-01-31T16:06:47.849Z'
+        - id: if7le8ip
+          name: MyRealTimeStream2
+          state: started
+          created_at: '2020-01-29T17:16:21.849Z'
+          updated_at: '2020-01-31T02:26:05.849Z'
+        - id: dd4udt1b
+          name: MyRealTimeStream3
+          state: started
+          created_at: '2020-01-29T17:16:21.849Z'
+          updated_at: '2020-01-30T18:13:18.849Z'
+    index_real_time_stream:
+      type: object
+      title: real_time_streams
+      description: ''
+      properties:
+        created_at:
+          type: string
+          description: The date and time that the real-time stream was created.
+          example: ''
+          format: date-time
+        id:
+          type: string
+          description: The unique alphanumeric string that identifies the real-time stream.
+          example: ''
+        name:
+          type: string
+          description: A descriptive name for the real-time stream.
+          example: ''
+        state:
+          type: string
+          description: The state of the stream.
+          example: ''
+          enum:
+          - active
+          - archived
+          - disabled
+          - stopped
+        updated_at:
+          type: string
+          description: The date and time that the real-time stream was updated.
+          example: ''
+          format: date-time
+    Error401:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 401
+            code: ERR-401-NoApiKey
+            title: No API Key Error
+            message: No API key sent in header.
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 401
+            code: ERR-401-NoAccessKey
+            title: No Access Key Error
+            message: No access key sent in header.
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 401
+            code: ERR-401-InvalidApiKey
+            title: Invalid Api Key Error
+            message: Invalid API key.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 401
+            code: ERR-401-InvalidAccessKey
+            title: Invalid Access Key Error
+            message: Invalid access key.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 401
+            code: ERR-401-BadAccountStatus
+            title: Bad Account Status Error
+            message: Your account's status doesn't allow this action.
+            description: ''
+            links: []
+        Example Response 6:
+          meta:
+            status: 401
+            code: ERR-401-FeatureNotEnabled
+            title: Feature Not Enabled Error
+            message: This feature isn't enabled.
+            description: ''
+            links: []
+        Example Response 7:
+          meta:
+            status: 401
+            code: ERR-401-TrialExceeded
+            title: Bad Billing Status Error
+            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
+            description: ''
+            links: []
+        Example Response 8:
+          meta:
+            status: 401
+            code: ERR-401-ExpiredToken
+            title: JWT is expired
+            message: Token has exired.
+            description: ''
+            links: []
+        Example Response 9:
+          meta:
+            status: 401
+            code: ERR-401-InvalidToken
+            title: JWT is invalid
+            message: Token is invalid.
+            description: ''
+            links: []
+    real_time_stream_update:
+      type: object
+      description: ''
+      properties:
+        real_time_stream:
+          type: object
+          title: real_time_stream
+          description: ''
+          required:
+          - name
+          properties:
+            name:
+              type: string
+              description: 'A descriptive name for the real-time stream. Maximum 255 characters.
+
+
+                <blockquote><strong>Note:</strong>  If you record a real-time stream, the name is used to for the recording file name. To avoid file management issues in storage, Wowza Video removes or replaces special  characters in file names, so the recording file name might vary from the name you provided here.</blockquote>'
+              example: ''
+            description:
+              type: string
+              description: An optional description of the real-time stream.
+              example: ''
+            enable_secure_viewer:
+              type: boolean
+              description: 'Require viewers to pass a security token for playback.
+
+
+                **Example:** <code>"enable_secure_viewer": false</code>'
+            expires_on:
+              type: string
+              description: 'The date and time the security token expires. Specify **YYYY-MM-DD HH:MM:SS**, where **HH** is a 24-hour clock in UTC. If you don''t specify **HH:MM:SS**, the token expires at 12AM UTC on the specified day.
+
+
+                Required when *enable_secure_viewer* is **true**.
+
+
+                **Example:** <code>"expires_on": "2021-10-27 23:08:55 UTC"</code>'
+              format: date-time
+            region:
+              type: string
+              description: 'An option to set the regional server the stream is distributed through. Select the region closest to your broadcast location for the most reliable stream. If you select the auto option, Wowza Video selects the region based on the publisher''s location.
+
+
+                **Default:** phoenix
+
+
+                **Example:** <code>"region": amsterdam</code>'
+              example: ''
+              enum:
+              - phoenix
+              - amsterdam
+              - singapore
+              - bangalore
+              - auto
+            reference_id:
+              type: string
+              description: 'A unique, alphanumeric ID returned in real-time stream webhook payloads. Setting a *reference_id* is useful if you have an ID in your system or application you want to associate with real-time stream events that trigger webhooks. Maximum 70 characters. Can only contain: a-z A-Z 0-9 !@#$%^&*()-_+=:;,.?~|
+
+
+                You can''t use brackets or quotation marks.
+
+
+                See <a href="https://www.wowza.com/docs/wowza-video-webhook-event-reference-documentation">Wowza Video Webhook Event Reference Documentation</a> to learn about webhooks.
+
+
+                Available from version 1.12.
+
+
+                **Example:** <code>"reference_id": "mySystemID_01"</code>'
+            player:
+              type: object
+              description: "The **player** object is deprecated in 2.0. Create and update player configurations in the user interface. \n\nAny values you send using the **player** object will be ignored.\n\nThe following fields have been moved outside of the **player** object and reside within the **real_time_stream** object where you can still access them through the API:\n  * **logo_image**\n  * **logo_position**\n  * **video_poster_image**\n  * **remove_video_poster_image**\n  * **remove_logo_image**\n  * **width**"
+              properties:
+                plugins:
+                  type: object
+                  description: Configuration of the plugins.
+                  properties:
+                    airplay:
+                      type: boolean
+                      description: 'If **true**, enables Airplay functionality in the player which allows you to cast to an Airplay device. The default is **false**.
+
+
+                        **Example:** <code>"airplay": false</code>'
+                      example: ''
+                    chromecast:
+                      type: boolean
+                      description: 'If **true**, enables Chromecast functionality in the player which allows you to cast to a Chromecast device. The default is **false**.
+
+
+                        **Example:** <code>"chromecast": false</code>'
+                      example: ''
+                customizations:
+                  type: object
+                  description: Configuration of the player customizations.
+                  properties:
+                    play_icon:
+                      type: string
+                      description: "A play icon that is displayed on the video preview. The default, **solid**, uses the standard play (solid triangle) icon. **outlined** uses an alternate (outlined triangle) play icon. **ring** uses an alternate (small solid triangle enclosed in a circle) play icon.\n\n  \nDefault: **solid**\n\n**Example:** <code>\"play_icon\": \"solid\"</code>"
+                      example: solid
+                      enum:
+                      - solid
+                      - outlined
+                      - ring
+                    thin_timeline:
+                      type: boolean
+                      description: 'If **true**, displays a thinner control bar than the default in the video. The default is **false**.
+
+
+                        **Example:** <code>"thin_timeline": false</code>'
+                      example: ''
+                    drag_handle:
+                      type: boolean
+                      description: 'If **true**, displays a drag handle on the progress bar. The default is **false**.
+
+
+                        **Example:** <code>"drag_handle": false</code>'
+                      example: ''
+                    volume:
+                      type: boolean
+                      description: 'If **true**, displays a volume button on the video. The default is **true**.
+
+
+                        **Example:** <code>"volume": true</code>'
+                      example: ''
+                    mute:
+                      type: boolean
+                      description: 'If **true**, displays a mute button on the video. The default is **true**.
+
+
+                        **Example:** <code>"mute": true</code>'
+                      example: ''
+                    fullscreen:
+                      type: boolean
+                      description: 'If **true**, displays a fullscreen button on the video. The default is **true**.
+
+
+                        **Example:** <code>"fullscreen": true</code>'
+                      example: ''
+                    show_player_title:
+                      type: boolean
+                      description: 'If **true**, displays a preview title on the video. The default is **false**.
+
+
+                        **Example:** <code>"show_player_title": false</code>'
+                      example: ''
+                    color:
+                      type: string
+                      description: 'The color of the timeline and volume bar of the player. You can set the color of your choice by passing a hex code for that specific color.
+
+
+                        **Example:** <code>"color": "4d4d4d"</code>'
+                      example: ''
+                video_poster_image:
+                  type: string
+                  description: 'The path to a GIF, JPEG, or PNG poster image that appears in the player before the stream begins. Poster image files must be 2.5 MB or smaller.
+
+
+                    **Example:** <code>"video_poster_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>'
+                  example: ''
+                logo_image:
+                  type: string
+                  description: 'A Base64-encoded string representation of a GIF, JPEG, or PNG logo  file that appears partially transparent in a corner of the player throughout playback. Logo file must be 2.5 MB or smaller.
+
+
+                    **Example:** <code>"logo_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>   '
+                  example: ''
+                logo_position:
+                  type: string
+                  description: 'The corner of the player in which you want the player logo to appear. The default is **top-left**.
+
+
+                    **Example:** <code>"logo_position": "top-right"</code>'
+                  example: ''
+                  enum:
+                  - top-left
+                  - top-right
+                  - bottom-left
+                  - bottom-right
+                remove_logo_image:
+                  type: boolean
+                  description: 'If **true**, removes the logo file from the player. The default is **false**.
+
+
+                    **Example:** <code>"remove_logo_image": true</code>'
+                  example: true
+                remove_video_poster_image:
+                  type: boolean
+                  description: 'If **true**, removes the poster image. The default is **false**.
+
+
+                    **Example:** <code>"remove_video_poster_image": true</code>'
+                  example: true
+                width:
+                  type: integer
+                  description: 'The width, in pixels, of a fixed-size player. The default is **640**.
+
+
+                    **Example:** <code>"width": 640</code>'
+                  example: ''
+                  format: int32
+            player_id:
+              type: string
+              description: "(Available from version 2.0) The unique alphanumeric string that identifies the player configuration to use for this stream. \n    \n    \nWhen you pass a player configuration ID, Wowza Video uses that player configuration to customize and style the player. If you don't pass a value, the default player configuration for the account is used.\n\nCreate and edit player configurations in the user interface. The ID is on the **General** tab for the player configuration.\n\n**Default**: Default player configuration\n\n**Example**: 2205b4e8-b160-43c2-868d-d88698a4e850"
+            video_poster_image:
+              type: string
+              description: 'The path to a GIF, JPEG, or PNG poster image that appears in the player before the stream begins. Poster image files must be 2.5 MB or smaller.
+
+
+                **Example:** <code>"video_poster_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>'
+              example: ''
+            logo_image:
+              type: string
+              description: "A Base64-encoded string representation of a GIF, JPEG, or PNG logo  file that appears partially transparent in a corner of the player throughout playback. Logo file must be 2.5 MB or smaller.\n    \n\n**Example:** <code>\"logo_image\": \"[Base64-encoded string representation of GIF, JPEG, or PNG file]\"</code>   "
+              example: ''
+            logo_position:
+              type: string
+              description: 'The corner of the player in which you want the player logo to appear. The default is **top-left**.
+
+
+                **Example:** <code>"logo_position": "top-right"</code>'
+              example: ''
+              enum:
+              - top-left
+              - top-right
+              - bottom-left
+              - bottom-right
+            remove_logo_image:
+              type: boolean
+              description: 'If **true**, removes the logo file from the player. The default is **false**.
+
+
+                **Example:** <code>"remove_logo_image": true</code>'
+              example: true
+            remove_video_poster_image:
+              type: boolean
+              description: 'If **true**, removes the poster image. The default is **false**.
+
+
+                **Example:** <code>"remove_video_poster_image": true</code>'
+              example: true
+            width:
+              type: integer
+              description: 'The width, in pixels, of a fixed-size player. The default is **640**.
+
+
+                **Example:** <code>"width": 640</code>'
+              example: ''
+              format: int32
+            hosted_page:
+              type: object
+              description: Configuration of the hosted page.
+              properties:
+                title:
+                  type: string
+                  description: 'A title for the page that appears above the player. Can''t include custom HTML, JavaScript, or other tags.
+
+
+                    **Example:** <code>"title": "My Hosted Page"</code>'
+                  example: ''
+                description:
+                  type: string
+                  description: 'A description that appears on the hosted page below the player. Can''t include custom HTML, JavaScript, or other tags.
+
+
+                    **Example:** <code>"description": "My Hosted Page Description"</code>'
+                  example: ''
+                logo_image_url:
+                  type: string
+                  description: The path to a GIF, JPEG, or PNG logo file that appears in the upper-left corner of the hosted page. Logo file must be 2.5 MB or smaller.
+                  example: ''
+                sharing_icons:
+                  type: boolean
+                  description: 'Icons that let viewers share the stream on Facebook, Google+, Twitter, and by email. The default, **true**, includes sharing icons on the hosted page. Specify **false** to omit sharing icons.
+
+
+                    **Example:** <code>"sharing_icons": false</code>'
+                  example: ''
+      example:
+        real_time_stream:
+          name: MyUpdatedRealTimeStream
+          description: This is my first real-time stream.
+    Error422:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. ... can't be blank
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. Provider wowza_video is not allowed
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
+            description: ''
+            links: []
+    Error410:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 410
+            code: ERR-410-RecordDeleted
+            title: Record Deleted Error
+            message: The requested resource has been deleted.
+            description: ''
+            links: []
+    real_time_stream:
+      type: object
+      description: ''
+      properties:
+        created_at:
+          type: string
+          description: The date and time that the real-time stream was created.
+          example: ''
+          format: date-time
+        id:
+          type: string
+          description: The unique identifier of the real-time stream. Use this ID to perform other operations on the stream, like getting the details of the stream or deleting it.
+          example: ''
+        name:
+          type: string
+          description: A descriptive name for the real-time stream.
+          example: ''
+        stream_name:
+          type: string
+          description: The generated alphanumeric stream name you pass to the SDK.
+          example: ''
+        token:
+          type: string
+          description: The authentication token you pass to the SDK.
+          example: ''
+        subscribe_token:
+          type: string
+          description: A secure token that must be passed by viewers for playback. Generated after you set *enable_secure_viewer* to **true**.
+        rtmp_url:
+          type: string
+          description: The URL you can use to configure an RTMP encoder as the source.
+        enable_secure_viewer:
+          type: boolean
+          description: Require viewers to pass a security token for playback.
+        expires_on:
+          type: string
+          description: The date and time the security token expires. Specify **YYYY-MM-DD HH:MM:SS**, where **HH** is a 24-hour clock in UTC. If you don't specify **HH:MM:SS**, the token expires at 12AM UTC on the specified day. Required when *enable_secure_viewer* is **true**.
+          format: date-time
+        state:
+          type: string
+          description: The state of the stream.
+          example: ''
+          enum:
+          - started
+          - stopped
+          - disabled
+        region:
+          type: string
+          description: 'An option to set the regional server the stream is distributed through. Select the region closest to your broadcast location for the most reliable stream. If you select the auto option, Wowza Video selects the region based on the publisher''s location.
+
+
+            **Default:** phoenix
+
+
+            **Example:** <code>"region": amsterdam</code>'
+          example: ''
+          enum:
+          - phoenix
+          - amsterdam
+          - singapore
+          - bangalore
+          - auto
+        recording:
+          type: boolean
+          description: "If **true**, records the real-time stream so you can download an MP4 later. The recording starts when the stream starts and stops automatically when the stream stops. \n\nRecordings for real-time streams capture up to twelve hours of content in a single MP4 file. If the real-time stream recording is longer twelve hours, you'll have multiple files for the recording.\n\n**Default:** false\n\n<blockquote>Note: You can't update this value after you create the stream.</blockquote>\n\n**Example:** <code>\"recording\": true</code>"
+        reference_id:
+          type: string
+          description: 'A unique, alphanumeric ID returned in real-time stream webhook payloads. Setting a *reference_id* is useful if you have an ID in your system or application you want to associate with real-time stream events that trigger webhooks. Maximum 70 characters. Can only contain: a-z A-Z 0-9 !@#$%^&*()-_+=:;,.?~|
+
+
+            You can''t use brackets or quotation marks.
+
+
+            See <a href="https://www.wowza.com/docs/wowza-video-webhook-event-reference-documentation">Wowza Video Webhook Event Reference Documentation</a> to learn about webhooks.
+
+
+            Available from version 1.12.
+
+
+            **Example:** <code>"reference_id": "mySystemID_01"</code>'
+        disable_vod_encoder:
+          type: boolean
+          description: "Skips VOD encoding and only creates an MP4 file for download. No VOD stream is created from the real-time stream. \n\nCan only be set when **recording** is true and you can't change this value after you create the stream.\n\n**Default:** false\n\n**Example:** <code>\"disable_vod_encoder\": true</code>"
+        description:
+          type: string
+          description: An optional description of the real-time stream.
+          example: ''
+        enable_player_and_hosted_page:
+          type: boolean
+          description: 'If **true**, enables a player and hosted page for the real-time stream.
+
+
+            **Default:** true
+
+
+            <blockquote>Note: You can''t update this value after you create the stream.</blockquote>
+
+
+            **Example:** <code>"enable_player_and_hosted_page": true</code>'
+        player:
+          type: object
+          description: "The **player** object is deprecated in 2.0. Create and update player configurations in the user interface. \n\nAny values you send using the **player** object will be ignored.\n\nThe following fields have been moved outside of the **player** object and reside within the **real_time_stream** object where you can still access them through the API:\n  * **embed_code**\n  * **logo_image_url**\n  * **logo_position**\n  * **video_poster_image_url**\n  * **width**"
+          properties:
+            id:
+              type: string
+              description: The unique alphanumeric string that identifies the player.
+              example: ''
+            type:
+              type: string
+              description: 'The player you want to use and the only option is Wowza Flowplayer. '
+              example: ''
+            responsive:
+              type: boolean
+              description: 'A player whose size adjusts according to the device on which it''s being viewed. The default value **true**, creates a responsive player. If specified **false**, and a *player_width* is not specified, it defaults to **true**.
+
+
+                **Example:** <code>"responsive": true</code>'
+              example: ''
+            plugins:
+              type: object
+              description: Configuration of the plugins.
+              properties:
+                airplay:
+                  type: boolean
+                  description: 'If **true**, enables Airplay functionality in the player which allows you to cast to an Airplay device. The default is **false**.
+
+
+                    **Example:** <code>"airplay": false</code>'
+                  example: ''
+                chromecast:
+                  type: boolean
+                  description: 'If **true**, enables Chromecast functionality in the player which allows you to cast to a Chromecast device. The default is **false**.
+
+
+                    **Example:** <code>"chromecast": false</code>'
+                  example: ''
+            customizations:
+              type: object
+              description: Configuration of the player customizations.
+              properties:
+                play_icon:
+                  type: string
+                  description: "A play icon that is displayed on the video preview. The default, **solid**, uses the standard play (solid triangle) icon. **outlined** uses an alternate (outlined triangle) play icon. **ring** uses an alternate (small solid triangle enclosed in a circle) play icon.\n\n        \nDefault: **solid**\n\n**Example:** <code>\"play_icon\": \"solid\"</code>"
+                  example: solid
+                  enum:
+                  - solid
+                  - outlined
+                  - ring
+                thin_timeline:
+                  type: boolean
+                  description: 'If **true**, displays a thinner control bar than the default in the video. The default is **false**.
+
+
+                    **Example:** <code>"thin_timeline": false</code>'
+                  example: ''
+                drag_handle:
+                  type: boolean
+                  description: 'If **true**, displays a drag handle on the progress bar. The default is **false**.
+
+
+                    **Example:** <code>"drag_handle": false</code>'
+                  example: ''
+                volume:
+                  type: boolean
+                  description: 'If **true**, displays a volume button on the video. The default is **true**.
+
+
+                    **Example:** <code>"volume": true</code>'
+                  example: ''
+                mute:
+                  type: boolean
+                  description: 'If **true**, displays a mute button on the video. The default is **true**.
+
+
+                    **Example:** <code>"mute": true</code>'
+                  example: ''
+                fullscreen:
+                  type: boolean
+                  description: 'If **true**, displays a fullscreen button on the video. The default is **true**.
+
+
+                    **Example:** <code>"fullscreen": true</code>'
+                  example: ''
+                show_player_title:
+                  type: boolean
+                  description: 'If **true**, displays a preview title on the video. The default is **false**.
+
+
+                    **Example:** <code>"show_player_title": false</code>'
+                  example: ''
+                color:
+                  type: string
+                  description: 'The color of the timeline and volume bar of the player. You can set the color of your choice by passing a hex code for that specific color.
+
+
+                    **Example:** <code>"color": "4d4d4d"</code>'
+                  example: ''
+            video_poster_image_url:
+              type: string
+              description: The path to a GIF, JPEG, or PNG poster image that appears in the player before the stream begins. Poster image files must be 2.5 MB or smaller.
+              example: ''
+            logo_image_url:
+              type: string
+              description: 'The path to a GIF, JPEG, or PNG logo file that appears partially transparent in a corner of the player throughout playback. Logo file must be 2.5 MB or smaller.  '
+              example: ''
+            logo_position:
+              type: string
+              description: 'The corner of the player in which you want the player logo to appear. The default is **top-left**.
+
+
+                **Example:** <code>"logo_position": "top-right"</code>'
+              example: ''
+              enum:
+              - top-left
+              - top-right
+              - bottom-left
+              - bottom-right
+            embed_code:
+              type: string
+              description: The HTML code that can be used in an external webpage to host the Wowza Flowplayer.
+              example: ''
+            width:
+              type: integer
+              description: 'The width, in pixels, of a fixed-size player. The default is **640**.
+
+
+                **Example:** <code>"width": 640</code>'
+              example: ''
+              format: int32
+        player_id:
+          type: string
+          description: "(Available from version 2.0) The unique alphanumeric string that identifies the player configuration to use for this stream. \n        \n        \nWhen you pass a player configuration ID, Wowza Video uses that player configuration to customize and style the player. If you don't pass a value, the default player configuration for the account is used.\n\nCreate and edit player configurations in the user interface. The ID is on the **General** tab for the player configuration.\n\n**Default**: Default player configuration\n\n<blockquote><strong>Note</strong>: <strong>player_id</strong> is not returned in the response if it's not explicitly sent and the default player configuration is used instead.</blockquote>\n\n**Example**: 2205b4e8-b160-43c2-868d-d88698a4e850  "
+        player_type:
+          type: string
+          description: "(Available from version 2.0) The type of player associated with the stream. Streams created in legacy Wowza Video have a  player type of *wowza_flowplayer_v1*. Streams created in later versions of Wowza Video have a player type of *wowza_flowplayer_v2*.\n\nKnowing the player type is useful if you've migrated streams from legacy Wowza Video. The player for a stream created in the legacy version of Wowza Video isn't editable in the new platform. \n\n**Example**: wowza_flowplayer_v1"
+          enum:
+          - wowza_flowplayer_v1
+          - wowza_flowplayer_v2
+        flowplayer:
+          type: boolean
+          description: 'Indicates whether or not the player for the live stream is a Wowza Flowplayer player. **True** indicates the player is a Wowza Flowplayer player. Our new Wowza Video experience uses Wowza Flowplayer. If you are a Wowza Video legacy subscriber, Wowza Flowplayer is also the player used.
+
+
+            **False** indicates the player is either an **original_html5** player or **wowza_player**. The original HTML and Wowza players are the players available for Wowza Streaming Cloud subscribers.'
+          example: ''
+        embed_code:
+          type: string
+          description: The HTML code that can be used in an external webpage to host the Wowza Flowplayer.
+          example: ''
+        logo_image_url:
+          type: string
+          description: 'The path to a GIF, JPEG, or PNG logo file that appears partially transparent in a corner of the player throughout playback. Logo file must be 2.5 MB or smaller.  '
+          example: ''
+        logo_position:
+          type: string
+          description: 'The corner of the player in which you want the player logo to appear. The default is **top-left**.
+
+
+            **Example:** <code>"logo_position": "top-right"</code>'
+          example: ''
+          enum:
+          - top-left
+          - top-right
+          - bottom-left
+          - bottom-right
+        video_poster_image_url:
+          type: string
+          description: The path to a GIF, JPEG, or PNG poster image that appears in the player before the stream begins. Poster image files must be 2.5 MB or smaller.
+          example: ''
+        width:
+          type: integer
+          description: 'The width, in pixels, of a fixed-size player. The default is **640**.
+
+
+            **Example:** <code>"width": 640</code>'
+          example: ''
+          format: int32
+        hosted_page:
+          type: object
+          description: Configuration of the hosted page.
+          properties:
+            url:
+              type: string
+              description: The URL of the Wowza Video-hosted webpage that viewers can visit to watch the stream.
+              example: ''
+            title:
+              type: string
+              description: 'A title for the page that appears above the player. Can''t include custom HTML, JavaScript, or other tags.
+
+
+                **Example:** <code>"title": "My Hosted Page"</code>'
+              example: ''
+            description:
+              type: string
+              description: 'A description that appears on the hosted page below the player. Can''t include custom HTML, JavaScript, or other tags.
+
+
+                **Example:** <code>"description": "My Hosted Page Description"</code>'
+              example: ''
+            logo_image_url:
+              type: string
+              description: The path to a GIF, JPEG, or PNG logo file that appears in the upper-left corner of the hosted page. Logo file must be 2.5 MB or smaller.
+              example: ''
+            sharing_icons:
+              type: boolean
+              description: 'Icons that let viewers share the stream on Facebook, Google+, Twitter, and by email. The default, **true**, includes sharing icons on the hosted page. Specify **false** to omit sharing icons.
+
+
+                **Example:** <code>"sharing_icons": false</code>'
+              example: ''
+        updated_at:
+          type: string
+          description: The date and time the real-time stream was updated.
+          example: ''
+          format: date-time
+      example:
+        id: 2adffc17
+        name: MyRealTimeStream
+        stream_name: 8d304b93f1684320a54f2798666eeca7
+        token: 97e52731bc21ef66e4c05a8ee1e28b64bf5f9db728573d94e690277cea9215bc
+        rtmp_url: rtmp://rtmp-realtime1.wowza.com:1935/v2/pub/8d304b93f1684320a54f2798666eeca7?token=97e52731bc21ef66e4c05a8ee1e28b64bf5f9db728573d94e690277cea9215bc
+        enable_secure_viewer: false
+        state: started
+        region: amsterdam
+        recording: true
+        reference_id: mySystemID_01
+        disable_vod_encoder: true
+        description: This is my first real-time stream.
+        enable_player_and_hosted_page: true
+        player_id: 2205b4e8-b160-43c2-868d-d88698a4e850
+        player_type: wowza_flowplayer_v2
+        flowplayer: true
+        embed_code: null
+        logo_image_url: https://prod.s3.amazonaws.com/uploads/player/logo_image/23424/5bad28.jpg
+        logo_position: top-right
+        video_poster_image_url: https://prod.s3.amazonaws.com/uploads/player/video_poster_image/23424/5bad28.jpg
+        width: 640
+        hosted_page:
+          title: MyRealTimeStreamHostedPage
+          url: https://embed.flowplayer.com/hosted/default/e8dk5bf6
+          description: My hosted page description
+          sharing_icons: true
+        created_at: '2021-06-30T18:02:20.000Z'
+        updated_at: '2021-06-30T20:03:16.000Z'
+    Error404:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 404
+            code: ERR-404-RecordNotFound
+            title: Record Not Found Error
+            message: The requested resource couldn't be found.
+            description: ''
+            links: []
+    real_time_stream_create:
+      type: object
+      description: ''
+      properties:
+        real_time_stream:
+          type: object
+          title: real_time_stream
+          description: ''
+          required:
+          - name
+          properties:
+            name:
+              type: string
+              description: 'A descriptive name for the real-time stream. Maximum 255 characters.
+
+
+                <blockquote><strong>Note:</strong>  If you record a real-time stream, the name is used to for the recording file name. To avoid file management issues in storage, Wowza Video removes or replaces special  characters in file names, so the recording file name might vary from the name you provided here.</blockquote>'
+              example: ''
+            description:
+              type: string
+              description: An optional description of the real-time stream.
+              example: ''
+            disable_vod_encoder:
+              type: boolean
+              description: "Skips VOD encoding and only creates an MP4 file for download. No VOD stream is created from the real-time stream. \n\nCan only be set when **recording** is true and you can't change this value after you create the stream.\n\n**Default:** false\n\n**Example:** <code>\"disable_vod_encoder\": true</code>"
+            enable_secure_viewer:
+              type: boolean
+              description: 'Require viewers to pass a security token for playback.
+
+
+                **Example:** <code>"enable_secure_viewer": false</code>'
+            expires_on:
+              type: string
+              description: 'The date and time the security token expires. Specify **YYYY-MM-DD HH:MM:SS**, where **HH** is a 24-hour clock in UTC. If you don''t specify **HH:MM:SS**, the token expires at 12AM UTC on the specified day.
+
+
+                Required when *enable_secure_viewer* is **true**.
+
+
+                **Example:** <code>"expires_on": "2021-10-27 23:08:55 UTC"</code>'
+              format: date-time
+            region:
+              type: string
+              description: 'An option to set the regional server the stream is distributed through. Select the region closest to your broadcast location for the most reliable stream. If you select the auto option, Wowza Video selects the region based on the publisher''s location.
+
+
+                **Default:** phoenix
+
+
+                **Example:** <code>"region": amsterdam</code>'
+              example: ''
+              enum:
+              - phoenix
+              - amsterdam
+              - singapore
+              - bangalore
+              - auto
+            recording:
+              type: boolean
+              description: "If **true**, records the real-time stream so you can download an MP4 later. The recording starts when the stream starts and stops automatically when the stream stops.\n\nRecordings for real-time streams capture up to twelve hours of content in a single MP4 file. If the real-time stream recording is longer twelve hours, you'll have multiple files for the recording. \n\n**Default:** false\n\n<blockquote>Note: You can't update this value after you create the stream.</blockquote>\n\n**Example:** <code>\"recording\": true</code>"
+            reference_id:
+              type: string
+              description: 'A unique, alphanumeric ID returned in real-time stream webhook payloads. Setting a *reference_id* is useful if you have an ID in your system or application you want to associate with real-time stream events that trigger webhooks. Maximum 70 characters. Can only contain: a-z A-Z 0-9 !@#$%^&*()-_+=:;,.?~|
+
+
+                You can''t use brackets or quotation marks.
+
+
+                See <a href="https://www.wowza.com/docs/wowza-video-webhook-event-reference-documentation">Wowza Video Webhook Event Reference Documentation</a> to learn about webhooks.
+
+
+                Available from version 1.12.
+
+
+                **Example:** <code>"reference_id": "mySystemID_01"</code>'
+            enable_player_and_hosted_page:
+              type: boolean
+              description: 'If **true**, enables a player and hosted page for the real-time stream.
+
+
+                **Default:** true
+
+
+                <blockquote>Note: You can''t update this value after you create the stream.</blockquote>
+
+
+                **Example:** <code>"enable_player_and_hosted_page": true</code>'
+            player:
+              type: object
+              description: "The **player** object is deprecated in 2.0. Create and update player configurations in the user interface. \n\nAny values you send using the **player** object will be ignored.\n\nThe following fields have been moved outside of the **player** object and reside within the **real_time_stream** object where you can still access them through the API:\n  * **logo_image**\n  * **logo_position**\n  * **video_poster_image**\n  * **width**"
+              properties:
+                plugins:
+                  type: object
+                  description: Configuration of the plugins.
+                  properties:
+                    airplay:
+                      type: boolean
+                      description: 'If **true**, enables Airplay functionality in the player which allows you to cast to an Airplay device. The default is **false**.
+
+
+                        **Example:** <code>"airplay": false</code>'
+                      example: ''
+                    chromecast:
+                      type: boolean
+                      description: 'If **true**, enables Chromecast functionality in the player which allows you to cast to a Chromecast device. The default is **false**.
+
+
+                        **Example:** <code>"chromecast": false</code>'
+                      example: ''
+                customizations:
+                  type: object
+                  description: Configuration of the player customizations.
+                  properties:
+                    play_icon:
+                      type: string
+                      description: 'A play icon that is displayed on the video preview. The default, **solid**, uses the standard play (solid triangle) icon. **outlined** uses an alternate (outlined triangle) play icon. **ring** uses an alternate (small solid triangle enclosed in a circle) play icon.
+
+
+                        Default: **solid**
+
+
+                        **Example:** <code>"play_icon": "solid"</code>'
+                      example: solid
+                      enum:
+                      - solid
+                      - outlined
+                      - ring
+                    thin_timeline:
+                      type: boolean
+                      description: 'If **true**, displays a thinner control bar than the default in the video. The default is **false**.
+
+
+                        **Example:** <code>"thin_timeline": false</code>'
+                      example: ''
+                    drag_handle:
+                      type: boolean
+                      description: 'If **true**, displays a drag handle on the progress bar. The default is **false**.
+
+
+                        **Example:** <code>"drag_handle": false</code>'
+                      example: ''
+                    volume:
+                      type: boolean
+                      description: 'If **true**, displays a volume button on the video. The default is **true**.
+
+
+                        **Example:** <code>"volume": true</code>'
+                      example: ''
+                    mute:
+                      type: boolean
+                      description: 'If **true**, displays a mute button on the video. The default is **true**.
+
+
+                        **Example:** <code>"mute": true</code>'
+                      example: ''
+                    fullscreen:
+                      type: boolean
+                      description: 'If **true**, displays a fullscreen button on the video. The default is **true**.
+
+
+                        **Example:** <code>"fullscreen": true</code>'
+                      example: ''
+                    show_player_title:
+                      type: boolean
+                      description: 'If **true**, displays a preview title on the video. The default is **false**.
+
+
+                        **Example:** <code>"show_player_title": false</code>'
+                      example: ''
+                    color:
+                      type: string
+                      description: 'The color of the timeline and volume bar of the player. You can set the color of your choice by passing a hex code for that specific color.
+
+
+                        **Example:** <code>"color": "4d4d4d"</code>'
+                      example: ''
+                video_poster_image:
+                  type: string
+                  description: 'The path to a GIF, JPEG, or PNG poster image that appears in the player before the stream begins. Poster image files must be 2.5 MB or smaller.
+
+
+                    **Example:** <code>"video_poster_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>'
+                  example: ''
+                logo_image:
+                  type: string
+                  description: 'A Base64-encoded string representation of a GIF, JPEG, or PNG logo  file that appears partially transparent in a corner of the player throughout playback. Logo file must be 2.5 MB or smaller.
+
+
+                    **Example:** <code>"logo_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>   '
+                  example: ''
+                logo_position:
+                  type: string
+                  description: 'The corner of the player in which you want the player logo to appear. The default is **top-left**.
+
+
+                    **Example:** <code>"logo_position": "top-right"</code>'
+                  example: ''
+                  enum:
+                  - top-left
+                  - top-right
+                  - bottom-left
+                  - bottom-right
+                width:
+                  type: integer
+                  description: 'The width, in pixels, of a fixed-size player. The default is **640**.
+
+
+                    **Example:** <code>"width": 640</code>'
+                  example: ''
+                  format: int32
+            player_id:
+              type: string
+              description: "(Available from version 2.0) The unique alphanumeric string that identifies the player configuration to use for this stream. \n    \n    \nWhen you pass a player configuration ID, Wowza Video uses that player configuration to customize and style the player. If you don't pass a value, the default player configuration for the account is used.\n\nCreate and edit player configurations in the user interface. The ID is on the **General** tab for the player configuration.\n\n**Default**: Default player configuration\n\n**Example**: 2205b4e8-b160-43c2-868d-d88698a4e850  "
+            logo_image:
+              type: string
+              description: 'A Base64-encoded string representation of a GIF, JPEG, or PNG logo  file that appears partially transparent in a corner of the player throughout playback. Logo file must be 2.5 MB or smaller.
+
+
+                **Example:** <code>"logo_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>   '
+              example: ''
+            logo_position:
+              type: string
+              description: 'The corner of the player in which you want the player logo to appear. The default is **top-left**.
+
+
+                **Example:** <code>"logo_position": "top-right"</code>'
+              example: ''
+              enum:
+              - top-left
+              - top-right
+              - bottom-left
+              - bottom-right
+            video_poster_image:
+              type: string
+              description: 'The path to a GIF, JPEG, or PNG poster image that appears in the player before the stream begins. Poster image files must be 2.5 MB or smaller.
+
+
+                **Example:** <code>"video_poster_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>'
+              example: ''
+            width:
+              type: integer
+              description: 'The width, in pixels, of a fixed-size player. The default is **640**.
+
+
+                **Example:** <code>"width": 640</code>'
+              example: ''
+              format: int32
+            hosted_page:
+              type: object
+              description: Configuration of the hosted page.
+              properties:
+                title:
+                  type: string
+                  description: 'A title for the page that appears above the player. Can''t include custom HTML, JavaScript, or other tags.
+
+
+                    **Example:** <code>"title": "My Hosted Page"</code>'
+                  example: ''
+                description:
+                  type: string
+                  description: 'A description that appears on the hosted page below the player. Can''t include custom HTML, JavaScript, or other tags.
+
+
+                    **Example:** <code>"description": "My Hosted Page Description"</code>'
+                  example: ''
+                logo_image_url:
+                  type: string
+                  description: The path to a GIF, JPEG, or PNG logo file that appears in the upper-left corner of the hosted page. Logo file must be 2.5 MB or smaller.
+                  example: ''
+                sharing_icons:
+                  type: boolean
+                  description: 'Icons that let viewers share the stream on Facebook, Google+, Twitter, and by email. The default, **true**, includes sharing icons on the hosted page. Specify **false** to omit sharing icons.
+
+
+                    **Example:** <code>"sharing_icons": false</code>'
+                  example: ''
+      example:
+        real_time_stream:
+          name: MyRealTimeStream
+          description: This is my first real-time stream.
+  parameters:
+    filter:
+      name: filter
+      in: query
+      description: 'Restricts the data that gets returned by filtering on one or more values associated with a field. Construct a filter using a two-part expression that specifies the field on which to filter and the logic to use to filter. Filters use a zero-based index.
+
+
+        For valid filter operators and filter fields, see [How to get filtered query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-filtered-query-results-with-the-wowza-video-rest-api).
+
+
+        Example:
+
+        **filter[0][field]=state&filter[0][eq]=stopped**'
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      description: "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
+      schema:
+        type: integer
+    per_page:
+      name: per_page
+      in: query
+      description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
+      schema:
+        type: integer
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
+    digestAuth:
+      type: http
+      scheme: digest
+      description: HTTP Digest Authentication

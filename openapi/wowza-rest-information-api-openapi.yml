@@ -1,0 +1,81 @@
+openapi: 3.0.3
+info:
+  title: Wowza Streaming Engine REST advanced_token_authentication REST information API
+  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
+  version: 2.0.0
+  contact:
+    name: Wowza Media Systems
+    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  license:
+    name: Wowza Media Systems
+    url: https://www.wowza.com
+servers:
+- url: http://localhost:8087
+  description: Wowza Streaming Engine Server
+security:
+- basicAuth: []
+tags:
+- name: REST information
+  description: ''
+paths:
+  /restinfo:
+    get:
+      tags:
+      - REST information
+      operationId: getRESTInfoConfig
+      summary: Get REST API info
+      description: Retrieves the REST configuration information. This API is available in builds 15089 or later.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RESTInfoConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    RESTInfoConfig:
+      type: object
+      properties:
+        apiVersion:
+          type: integer
+          format: int32
+        serverName:
+          type: string
+        centralConfig:
+          type: boolean
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        restBuild:
+          type: string
+        licenseValid:
+          type: boolean
+      required:
+      - version
+      - serverName
+      - apiVersion
+      - restBuild
+      - centralConfig
+      - properties
+      - licenseValid
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
+    digestAuth:
+      type: http
+      scheme: digest
+      description: HTTP Digest Authentication

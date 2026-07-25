@@ -1,0 +1,286 @@
+openapi: 3.0.3
+info:
+  title: Wowza Streaming Engine REST advanced_token_authentication Server Users API
+  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
+  version: 2.0.0
+  contact:
+    name: Wowza Media Systems
+    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  license:
+    name: Wowza Media Systems
+    url: https://www.wowza.com
+servers:
+- url: http://localhost:8087
+  description: Wowza Streaming Engine Server
+security:
+- basicAuth: []
+tags:
+- name: Server Users
+  description: ''
+paths:
+  /v2/servers/{serverName}/users:
+    get:
+      tags:
+      - Server Users
+      operationId: getUsersConfig
+      summary: Get user list
+      description: Retrieves the list of server users. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+      - Server Users
+      operationId: postUsersConfig
+      summary: Update user list
+      description: Adds a new server user to the list. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/users/{userName}:
+    get:
+      tags:
+      - Server Users
+      operationId: getUserConfig
+      summary: Get user
+      description: Retrieves the specified user configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: userName
+        in: path
+        required: true
+        description: The user name
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Server Users
+      operationId: putUserConfig
+      summary: Update user
+      description: Updates the specified user configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: userName
+        in: path
+        required: true
+        description: The user name
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+      - Server Users
+      operationId: postUserConfig
+      summary: Create user
+      description: Adds the specified user configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: userName
+        in: path
+        required: true
+        description: The user name
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+      - Server Users
+      operationId: deleteUserConfig
+      summary: Delete user
+      description: Deletes the specified user configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: userName
+        in: path
+        required: true
+        description: The user name
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    UserConfig:
+      type: object
+      properties:
+        password:
+          type: string
+        passwordEncoding:
+          type: string
+        serverName:
+          type: string
+        description:
+          type: string
+        groups:
+          type: array
+          items:
+            type: string
+        realm:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        userName:
+          type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - userName
+      - description
+      - groups
+      - password
+      - passwordEncoding
+      - realm
+    UsersConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserConfig'
+      required:
+      - version
+      - serverName
+      - users
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
+    digestAuth:
+      type: http
+      scheme: digest
+      description: HTTP Digest Authentication

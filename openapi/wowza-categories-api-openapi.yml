@@ -1,0 +1,752 @@
+openapi: 3.0.3
+info:
+  title: Wowza Streaming Engine REST advanced_token_authentication categories API
+  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
+  version: 2.0.0
+  contact:
+    name: Wowza Media Systems
+    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  license:
+    name: Wowza Media Systems
+    url: https://www.wowza.com
+servers:
+- url: http://localhost:8087
+  description: Wowza Streaming Engine Server
+security:
+- basicAuth: []
+tags:
+- name: categories
+  description: Operations related to categorizing videos.
+  x-displayName: Categories
+paths:
+  /categories:
+    get:
+      tags:
+      - categories
+      summary: Fetch all categories
+      description: This operation shows details for all categories available in Wowza Video.
+      operationId: listCategories
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"GET\" \\\n  \"${WV_HOST}/api/v2.0/categories\""
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/categories';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nhttps.get(options, function(res) {\n  var body = '';\n  res.on('data', function(data){\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\n"
+      parameters:
+      - name: page
+        in: query
+        description: Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**.
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: per_page
+        in: query
+        description: For use with the page parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
+        schema:
+          type: integer
+          format: int32
+          default: 1000
+      - name: query
+        in: query
+        schema:
+          type: string
+          description: 'Searches text fields case insensitive and partial. Full matches aren''t required.
+
+
+            For categories, `name` and `description` are the only searchable fields.
+
+
+            Limit to a specific field with a `colon` (`:`).
+
+
+            If you have multiple search terms you can use `pipe` (`|`) to separate the search terms.
+
+
+            Examples:
+
+
+            | Query | Description |
+
+            | ----- | ----------- |
+
+            | `query=foo` | Searches name & description field for `foo`. |
+
+            | `query=foo:description` | Searches description field for `foo`. |
+
+            | `query=foo\|bar` | Searches name for `foo` and  `bar`. A category must match both to be included.|'
+      - name: sort_column
+        in: query
+        schema:
+          type: string
+          enum:
+          - name
+          default: name
+      - name: sort_direction
+        in: query
+        schema:
+          type: string
+          default: DESC
+      - name: only_top_level
+        in: query
+        schema:
+          type: boolean
+          description: Only categories without parent categories will be returned if set to `true`.
+          default: false
+      - name: parent_id
+        in: query
+        schema:
+          type: string
+          description: Limit search to categories with a specific parent category. When specified, only child categories with the specified parent will be returned.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryListModel'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+  /categories/{id}:
+    get:
+      tags:
+      - categories
+      summary: Fetch a category
+      description: This operation shows details for a single, specified category.
+      operationId: getCategory
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"GET\" \\\n  \"${WV_HOST}/api/v2.0/categories/2aa3343e-2fb5-42c3-8671-b52c24b7c3e2\""
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/categories/51cd5c07-1583-4f5e-bd81-f1aa11510ea9';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nhttps.get(options, function(res) {\n  var body = '';\n  res.on('data', function(data){\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\n"
+      parameters:
+      - name: id
+        in: path
+        description: Unique identifier for the category.
+        required: true
+        schema:
+          type: string
+          example: 51cd5c07-1583-4f5e-bd81-f1aa11510ea9
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+    patch:
+      tags:
+      - categories
+      summary: Update a category
+      description: "This operation updates a category. \n\nOnly the fields that are sent in the request body will be updated."
+      operationId: updateCategory
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"PATCH\" \\\n  \"${WV_HOST}/api/v2.0/categories/2aa3343e-2fb5-42c3-8671-b52c24b7c3e2\" \\\n  -d $'{\n  \"name\": \"My first Category\",\n  \"description\": \"This is a category description\",\n  \"parent_id\": \"cb65a918-ad7d-406a-80d8-09c9c8d0dbb\"\n}'"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/categories/51cd5c07-1583-4f5e-bd81-f1aa11510ea9';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  method: 'PATCH',\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nconst req = https.request(options, function(res) {\n  var body = '';\n  res.on('data', function(data) {\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\nreq.write(JSON.stringify({\n  \"name\": \"My first category\",\n  \"description\": \"This is a category description\",\n  \"parent_id\": \"cb65a918-ad7d-406a-80d8-09c9c8d0dbb\"  \n}));\nreq.end();\n"
+      parameters:
+      - name: id
+        in: path
+        description: Unique identifier for the category.
+        required: true
+        schema:
+          type: string
+          example: 51cd5c07-1583-4f5e-bd81-f1aa11510ea9
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error422'
+    delete:
+      tags:
+      - categories
+      summary: Delete a category
+      description: This operation deletes a category.
+      operationId: deleteCategory
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"DELETE\" \\\n  \"${WV_HOST}/api/v2.0/categories/2aa3343e-2fb5-42c3-8671-b52c24b7c3e2\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/categories/51cd5c07-1583-4f5e-bd81-f1aa11510ea9';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  method: 'DELETE',\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nhttps.get(options, function(res) {\n  // no data being returned, just: 204 NO CONTENT\n  console.log(res.statusCode);\n}).on('error', function(e) {\n  console.log(e.message);\n});\n"
+      parameters:
+      - name: id
+        in: path
+        description: Unique identifier for the category.
+        required: true
+        schema:
+          type: string
+          example: 51cd5c07-1583-4f5e-bd81-f1aa11510ea9
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error422'
+components:
+  schemas:
+    Error403:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 403
+            code: ERR-403-RecordUnaccessible
+            title: Record Unaccessible Error
+            message: The requested resource isn't accessible.
+            description: ''
+            links: []
+    Error401:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 401
+            code: ERR-401-NoApiKey
+            title: No API Key Error
+            message: No API key sent in header.
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 401
+            code: ERR-401-NoAccessKey
+            title: No Access Key Error
+            message: No access key sent in header.
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 401
+            code: ERR-401-InvalidApiKey
+            title: Invalid Api Key Error
+            message: Invalid API key.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 401
+            code: ERR-401-InvalidAccessKey
+            title: Invalid Access Key Error
+            message: Invalid access key.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 401
+            code: ERR-401-BadAccountStatus
+            title: Bad Account Status Error
+            message: Your account's status doesn't allow this action.
+            description: ''
+            links: []
+        Example Response 6:
+          meta:
+            status: 401
+            code: ERR-401-FeatureNotEnabled
+            title: Feature Not Enabled Error
+            message: This feature isn't enabled.
+            description: ''
+            links: []
+        Example Response 7:
+          meta:
+            status: 401
+            code: ERR-401-TrialExceeded
+            title: Bad Billing Status Error
+            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
+            description: ''
+            links: []
+        Example Response 8:
+          meta:
+            status: 401
+            code: ERR-401-ExpiredToken
+            title: JWT is expired
+            message: Token has exired.
+            description: ''
+            links: []
+        Example Response 9:
+          meta:
+            status: 401
+            code: ERR-401-InvalidToken
+            title: JWT is invalid
+            message: Token is invalid.
+            description: ''
+            links: []
+    CategoryResponse:
+      type: object
+      properties:
+        category:
+          type: object
+          title: category
+          description: ''
+          properties:
+            id:
+              type: string
+              description: Unique identifier for the category.
+              example: cb65a918-ad7d-406a-80d8-09c9c8d0dbbd
+            name:
+              type: string
+              description: Name of the category.
+              example: My first category
+            description:
+              type: string
+              description: A description for the category.
+              example: This is a category description.
+            parent_id:
+              type: string
+              description: 'Identifier to the parent category if one exists.
+
+
+
+                If the category is on top level and no parent exists, the value is an empty string.
+
+
+
+                **Example**: <code>"parent_id": ""</code>
+
+
+
+                If the category is under an existing parent category, the value is the id of the parent category.
+
+
+
+                **Example**: <code>"parent_id": "cb65a918-ad7d-406a-80d8-09c9c8d0dbb"</code>
+
+
+
+
+                **Note**: When updating a category the parent can be removed by setting `parent_id`
+
+                to an empty string.'
+              example: cb65a918-ad7d-406a-80d8-09c9c8d0dbb
+    Error422:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. ... can't be blank
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. Provider wowza_video is not allowed
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
+            description: ''
+            links: []
+    Error410:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 410
+            code: ERR-410-RecordDeleted
+            title: Record Deleted Error
+            message: The requested resource has been deleted.
+            description: ''
+            links: []
+    CategoryListModel:
+      type: object
+      properties:
+        categories:
+          type: array
+          description: The list of categories.
+          items:
+            $ref: '#/components/schemas/CategoryResponse'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    CategoryRequest:
+      type: object
+      properties:
+        category:
+          type: object
+          title: category
+          description: ''
+          properties:
+            name:
+              type: string
+              description: Name of the category.
+              example: My first category
+            description:
+              type: string
+              description: A description for the category.
+              example: This is a category description
+            parent_id:
+              type: string
+              description: 'Identifier to the parent category if one exists.
+
+
+
+                If the category is on top level and no parent exists, the value is an empty string.
+
+
+
+                **Example**: <code>"parent_id": ""</code>
+
+
+
+                If the category is under an existing parent category, the value is the id of the parent category.
+
+
+
+                **Example**: <code>"parent_id": "cb65a918-ad7d-406a-80d8-09c9c8d0dbb"</code>
+
+
+
+
+                **Note**: When updating a category the parent can be removed by setting `parent_id`
+
+                to an empty string.'
+              example: cb65a918-ad7d-406a-80d8-09c9c8d0dbb
+    Pagination:
+      type: object
+      properties:
+        payload_version:
+          type: number
+          description: The pagination object version.
+          format: double
+        total_records:
+          type: integer
+          description: The total number of records.
+          format: int32
+          example: 100
+        page:
+          type: integer
+          description: The page number, starting at 1.
+          format: int32
+          example: 1
+          default: 1
+        per_page:
+          type: integer
+          description: The number of records per page.
+          format: int32
+          example: 10
+          default: 20
+        total_pages:
+          type: integer
+          description: The total number of pages.
+          format: int32
+          example: 2
+        page_first_index:
+          type: integer
+          description: The index of the first record in the response.
+          format: int32
+          example: 10
+        page_last_index:
+          type: integer
+          description: The index of the last record in the response.
+          format: int32
+          example: 10
+    Error404:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 404
+            code: ERR-404-RecordNotFound
+            title: Record Not Found Error
+            message: The requested resource couldn't be found.
+            description: ''
+            links: []
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
+    digestAuth:
+      type: http
+      scheme: digest
+      description: HTTP Digest Authentication

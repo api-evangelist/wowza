@@ -1,0 +1,160 @@
+openapi: 3.0.3
+info:
+  title: Wowza Streaming Engine REST advanced_token_authentication Server Monitoring API
+  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
+  version: 2.0.0
+  contact:
+    name: Wowza Media Systems
+    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  license:
+    name: Wowza Media Systems
+    url: https://www.wowza.com
+servers:
+- url: http://localhost:8087
+  description: Wowza Streaming Engine Server
+security:
+- basicAuth: []
+tags:
+- name: Server Monitoring
+  description: ''
+paths:
+  /v2/servers/{serverName}/monitoring:
+    get:
+      tags:
+      - Server Monitoring
+      operationId: getMonitoringConfig
+      summary: Get monitoring config
+      description: Retrieves the server monitoring configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MonitoringConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Server Monitoring
+      operationId: putMonitoringConfig
+      summary: Update monitoring config
+      description: Updates the server monitoring configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MonitoringConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/monitoring/historic:
+    get:
+      tags:
+      - Server Monitoring
+      operationId: getHistoricServerStatistics
+      summary: Get historical stats
+      description: Retrieves the server historical statistics. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoricServerStatistics'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    MonitoringConfig:
+      type: object
+      properties:
+        debugEnable:
+          type: boolean
+        enable:
+          type: boolean
+        databaseDebugEnable:
+          type: boolean
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - enable
+      - debugEnable
+      - databaseDebugEnable
+    HistoricServerStatistics:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - entries
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
+    digestAuth:
+      type: http
+      scheme: digest
+      description: HTTP Digest Authentication

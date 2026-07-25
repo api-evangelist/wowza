@@ -1,0 +1,4949 @@
+openapi: 3.0.3
+info:
+  title: Wowza Streaming Engine REST advanced_token_authentication Virtual Hosts API
+  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
+  version: 2.0.0
+  contact:
+    name: Wowza Media Systems
+    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  license:
+    name: Wowza Media Systems
+    url: https://www.wowza.com
+servers:
+- url: http://localhost:8087
+  description: Wowza Streaming Engine Server
+security:
+- basicAuth: []
+tags:
+- name: Virtual Hosts
+  description: ''
+paths:
+  /v2/servers/{serverName}/vhosts:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getVHostsConfig
+      summary: Get vhost list
+      description: Retrieves the list of vhosts. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VHostsConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getVHostConfig
+      summary: Get vhost config
+      description: Retrieves the specified vhost configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        description: The vhost name
+        schema:
+          type: string
+          default: _defaultVHost_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VHostConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Virtual Hosts
+      operationId: putVHostConfig
+      summary: Update vhost config
+      description: Updates the specified vhost configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        description: The vhost name
+        schema:
+          type: string
+          default: _defaultVHost_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VHostConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/actions/{action}:
+    put:
+      tags:
+      - Virtual Hosts
+      operationId: putVHostAction
+      summary: Vhost actions
+      description: Vhost action. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: action
+        in: path
+        required: true
+        description: The action which should be performed by the server
+        schema:
+          type: string
+          enum:
+          - restart
+          - start
+          - stop
+      - name: vhostName
+        in: path
+        required: true
+        description: The name of the current VHost the action will be performed on
+        schema:
+          type: string
+          default: _defaultVHost_
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/adv:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getVHostConfigAdv
+      summary: Get vhost config (adv)
+      description: Retrieves the specified advanced vhost configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VHostConfigAdv'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Virtual Hosts
+      operationId: putVHostConfigAdv
+      summary: Update vhost config (adv)
+      description: Updates the specified advanced vhost configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VHostConfigAdv'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/hostports:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getHostPortsConfig
+      summary: Get host ports list
+      description: Retrieves the list of server host ports for the specified vhost. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HostPortsConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/hostports/{portname}:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getHostPortConfig
+      summary: Get host port
+      description: Retrieves the host port for the specified vhost and port. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: portname
+        in: path
+        required: true
+        description: The port name
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HostPortConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/hostports/{portname}/adv:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getHostPortConfigAdv
+      summary: Get host port config (adv)
+      description: Retrieves the advanced host port configuration for the specified vhost and port. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: portname
+        in: path
+        required: true
+        description: The port name
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HostPortConfigAdv'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Virtual Hosts
+      operationId: putHostPortConfigAdv
+      summary: Update host port config (adv)
+      description: Host port config adv. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: portname
+        in: path
+        required: true
+        description: The port name
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HostPortConfigAdv'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/hostports/{portname}/httpproviders/{baseClass}:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getHTTPProviderConfig
+      summary: Get HTTP providers
+      description: Retrieves the HTTP providers for the specified vhost, port and baseclass. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: portname
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: baseClass
+        in: path
+        required: true
+        description: Base class path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPProviderConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/hostports/{portname}/ssl:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getSSLConfig
+      summary: Get SSL config
+      description: Retrieves the SSL configuration for the specified vhost and port. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: portname
+        in: path
+        required: true
+        description: The port name
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SSLConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Virtual Hosts
+      operationId: putSSLConfig
+      summary: Update SSL config
+      description: Updates the SSL configuration for the specified vhost and port. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: portname
+        in: path
+        required: true
+        description: The port name
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SSLConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/mediacache/stores:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getMediaCacheStoreList
+      summary: Get media cache store list
+      description: Retrieves all entries in the media cache system. This API is available in builds 15942 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaCacheStoreList'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/mediacache/stores/actions/{action}:
+    put:
+      tags:
+      - Virtual Hosts
+      operationId: putMediaCacheStoreAction
+      summary: Media cache store actions
+      description: Media cache store action. This API is available in builds 15942 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: action
+        in: path
+        required: true
+        description: The action which should be performed by the server
+        schema:
+          type: string
+      - name: filename
+        in: query
+        required: false
+        description: The file or stream name item to be used in all rest action requests
+        schema:
+          type: string
+      - name: vhostName
+        in: path
+        required: true
+        description: The name of the current VHost the action will be performed on
+        schema:
+          type: string
+          default: _defaultVHost_
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/monitoring/current:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getCurrentVHostStatistics
+      summary: Get current vhost stats
+      description: Retrieves the current vhost statistics. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentVHostStatistics'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/monitoring/historic:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getHistoricVHostStatistics
+      summary: Get historic vhost stats
+      description: Retrieves the historic vhost statistics. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoricVHostStatistics'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/publishers:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getPublishersVhostConfig
+      summary: Get publisher list
+      description: Retrieves the list of publishers for the specified vhost. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        description: The vhost name
+        schema:
+          type: string
+          default: _defaultVHost_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublishersVhostConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+      - Virtual Hosts
+      operationId: postPublishersVhostConfig
+      summary: Update publisher list
+      description: Add a publisher to list of publishers for the specified vhost. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        description: The vhost name
+        schema:
+          type: string
+          default: _defaultVHost_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublisherVhostConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/publishers/{publisherName}:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getPublisherVhostConfig
+      summary: Get publisher config
+      description: Retrieves the specified publisher configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        description: The vhost name
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: publisherName
+        in: path
+        required: true
+        description: The publisher name
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublisherVhostConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Virtual Hosts
+      operationId: putPublisherVhostConfig
+      summary: Update publisher config
+      description: Updates the specified publisher configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        description: The vhost name
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: publisherName
+        in: path
+        required: true
+        description: The publisher name
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublisherVhostConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+      - Virtual Hosts
+      operationId: postPublisherVhostConfig
+      summary: Create publisher config
+      description: Adds the specified publisher configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        description: The vhost name
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: publisherName
+        in: path
+        required: true
+        description: The publisher name
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublisherVhostConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+      - Virtual Hosts
+      operationId: deletePublisherVhostConfig
+      summary: Delete publisher config
+      description: Deletes the specified publisher configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        description: The vhost name
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: publisherName
+        in: path
+        required: true
+        description: The publisher name
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/sdpfiles:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getSDPFilesConfig
+      summary: Get SDP file list
+      description: Retrieves the list of SDP Files for the specified vhost. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SDPFilesConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/sdpfiles/{sdpfileName}:
+    delete:
+      tags:
+      - Virtual Hosts
+      operationId: deleteSDPFileConfig
+      summary: Delete SDP file
+      description: Deletes the specified SDP file. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: sdpfileName
+        in: path
+        required: true
+        description: The SDP file name without the extension
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/sdpfiles/{sdpfileName}/actions/{action}:
+    put:
+      tags:
+      - Virtual Hosts
+      operationId: putSDPFileAction
+      summary: SDP file actions
+      description: SDPF file action. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: action
+        in: path
+        required: true
+        description: The action which should be performed by the server
+        schema:
+          type: string
+          enum:
+          - connect
+      - name: connectAppName
+        in: query
+        required: false
+        description: The name of the application to connect to
+        schema:
+          type: string
+      - name: appInstance
+        in: query
+        required: false
+        description: The name of the application instance to connect to
+        schema:
+          type: string
+      - name: mediaCasterType
+        in: query
+        required: true
+        description: 'The MediaCasterType to use for the connection '
+        schema:
+          type: string
+          enum:
+          - rtp
+          - ' rtp-record'
+          - shoutcast
+          - shoutcast-record
+          - liverepeater
+          default: rtp
+      - name: vhostName
+        in: path
+        required: true
+        description: The name of the current VHost the action will be performed on
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: sdpfileName
+        in: path
+        required: true
+        description: The SDP file name needed for this REST call
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/smilfiles:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getSMILFilesConfig
+      summary: Get SMIL files list
+      description: Retrieves the list of SMIL files for the specified vhost. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        description: The name of the current VHost the action will be performed on
+        schema:
+          type: string
+          default: _defaultVHost_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SMILFilesConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+      - Virtual Hosts
+      operationId: postSMILFilesConfig
+      summary: Update SMIL file list
+      description: Adds a SMIL file to the list of SMIL files for the specified vhost. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        description: The name of the current VHost the action will be performed on
+        schema:
+          type: string
+          default: _defaultVHost_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SMILFileConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/smilfiles/{smilfileName}:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getSMILFileConfig
+      summary: Get SMIL file
+      description: Retrieves the specified SMIL file configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: smilfileName
+        in: path
+        required: true
+        description: The SMIL file name without the extension
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SMILFileConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+      - Virtual Hosts
+      operationId: deleteSMILFileConfig
+      summary: Delete SMIL file
+      description: Deletes the specified SMIL file configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: smilfileName
+        in: path
+        required: true
+        description: The SMIL file name without the extension
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Virtual Hosts
+      operationId: putSMILFileConfig
+      summary: Update SMIL file
+      description: Updates the specified SMIL file configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: smilfileName
+        in: path
+        required: true
+        description: The SMIL file name without the extension
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SMILFileConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+      - Virtual Hosts
+      operationId: postSMILFileConfig
+      summary: Create SMIL file
+      description: Adds the specified SMIL file configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: smilfileName
+        in: path
+        required: true
+        description: The SMIL file name without the extension
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SMILFileConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/smilfiles/{smilfileName}/actions/{action}:
+    put:
+      tags:
+      - Virtual Hosts
+      operationId: putSMILFileAction
+      summary: SMIL file actions
+      description: SMIL file action. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: action
+        in: path
+        required: true
+        description: The action which should be performed by the server
+        schema:
+          type: string
+          enum:
+          - connect
+          - copy
+      - name: connectAppName
+        in: query
+        required: false
+        description: The name of the application to connect to
+        schema:
+          type: string
+      - name: appInstance
+        in: query
+        required: false
+        description: The name of the application instance to connect to
+        schema:
+          type: string
+      - name: mediaCasterType
+        in: query
+        required: true
+        description: 'The MediaCasterType to use for the connection '
+        schema:
+          type: string
+          enum:
+          - rtp
+          - ' rtp-record'
+          - shoutcast
+          - shoutcast-record
+          - liverepeater
+          default: rtp
+      - name: dstEntryName
+        in: query
+        required: false
+        description: 'The destination SMIL file name when copying '
+        schema:
+          type: string
+      - name: vhostName
+        in: path
+        required: true
+        description: The name of the current VHost the action will be performed on
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: smilfileName
+        in: path
+        required: true
+        description: The SMIL file, file name needed for this REST call
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/startupstreams:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getStartupStreamsConfig
+      summary: Get startup stream list
+      description: Retrieves the list of startup streams for the specified vhost. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartupStreamsConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+      - Virtual Hosts
+      operationId: postStartupStreamsConfig
+      summary: Update startup stream list
+      description: Adds a startup stream to the list of startup streams for the specified vhost. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartupStreamConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  ? /v2/servers/{serverName}/vhosts/{vhostName}/startupstreams/applications/{appName}/instances/{instanceName}/streams/{streamName}
+  : get:
+      tags:
+      - Virtual Hosts
+      operationId: getStartupStreamConfig
+      summary: Get startup stream config
+      description: Retrieves the specified startup stream configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: streamName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: appName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: instanceName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _definst_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartupStreamConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+      - Virtual Hosts
+      operationId: deleteStartupStreamConfig
+      summary: Delete startup stream config
+      description: Deletes the specified startup stream configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: streamName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: appName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: instanceName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _definst_
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+      - Virtual Hosts
+      operationId: postStartupStreamConfig
+      summary: Create startup stream config
+      description: Adds the specified startup stream configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: streamName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: appName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: instanceName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _definst_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartupStreamConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Virtual Hosts
+      operationId: putStartupStreamConfig
+      summary: Update startup stream config
+      description: Updates the specified startup stream configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: streamName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: appName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: instanceName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _definst_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartupStreamConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/streamfiles:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getStreamFilesConfig
+      summary: Get stream file list
+      description: Retrieves the list of stream files for the specified vhost. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamFilesConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+      - Virtual Hosts
+      operationId: postStreamFilesConfig
+      summary: Update stream file list
+      description: Adds a stream file to the list of stream files for the specified vhost. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StreamFileConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/streamfiles/{streamfileName}:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getStreamFileConfig
+      summary: Get stream file config
+      description: Retrieves the specified stream file configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: streamfileName
+        in: path
+        required: true
+        description: The stream file name without the extension
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamFileConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+      - Virtual Hosts
+      operationId: deleteStreamFileConfig
+      summary: Delete stream file config
+      description: Deletes the specified stream file configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: streamfileName
+        in: path
+        required: true
+        description: The stream file name without the extension
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Virtual Hosts
+      operationId: putStreamFileConfig
+      summary: Update stream file config
+      description: Updates the specified stream file configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: streamfileName
+        in: path
+        required: true
+        description: The stream file name without the extension
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StreamFileConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+      - Virtual Hosts
+      operationId: postStreamFileConfig
+      summary: Create stream file config
+      description: Adds the specified stream file configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: streamfileName
+        in: path
+        required: true
+        description: The stream file name without the extension
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StreamFileConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/streamfiles/{streamfileName}/actions/{action}:
+    put:
+      tags:
+      - Virtual Hosts
+      operationId: putStreamFileAction
+      summary: Update stream file action
+      description: Stream file action. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: action
+        in: path
+        required: true
+        description: The action which should be performed by the server
+        schema:
+          type: string
+          enum:
+          - connect
+          - copy
+      - name: connectAppName
+        in: query
+        required: false
+        description: The name of the application to connect to
+        schema:
+          type: string
+      - name: appInstance
+        in: query
+        required: false
+        description: The name of the application instance to connect to
+        schema:
+          type: string
+      - name: mediaCasterType
+        in: query
+        required: true
+        description: 'The MediaCasterType to use for the connection '
+        schema:
+          type: string
+          enum:
+          - rtp
+          - ' rtp-record'
+          - shoutcast
+          - shoutcast-record
+          - liverepeater
+          default: rtp
+      - name: dstEntryName
+        in: query
+        required: false
+        description: 'The destination stream file name when copying '
+        schema:
+          type: string
+      - name: vhostName
+        in: path
+        required: true
+        description: The name of the current VHost the action will be performed on
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: streamfileName
+        in: path
+        required: true
+        description: The stream file, file name needed for this REST call
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/streamfiles/{streamfileName}/adv:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getStreamFileConfigAdv
+      summary: Get stream file config (adv)
+      description: Retrieves the advanced stream file configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: streamfileName
+        in: path
+        required: true
+        description: The stream file name without the .stream extension
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamFileConfigAdv'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Virtual Hosts
+      operationId: putStreamFileConfigAdv
+      summary: Update stream file config (adv)
+      description: Updates the advanced stream file configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: streamfileName
+        in: path
+        required: true
+        description: The stream file name without the .stream extension
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StreamFileConfigAdv'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/testPlaybackInfo:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getTestPlaybackInfoConfig
+      summary: Get playback info
+      description: Retrieves the playback info for the specified vhost. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        description: The name of the VHost
+        schema:
+          type: string
+          default: _defaultVHost_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestPlaybackInfoConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/transcoder:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getVHostTranscoderConfig
+      summary: Get transcoder config
+      description: Retrieves the transcoder configuration for the specified vhost. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranscoderConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Virtual Hosts
+      operationId: putTranscoderConfig
+      summary: Update transcoder config
+      description: Updates the transcoder configuration for the specified vhost. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranscoderConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/transcoder/templates:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getTranscoderTemplatesConfig
+      summary: Get transcoder template list
+      description: Retrieves the list of transcoder template configurations for the specified vhost. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        description: The name of the current VHost the action will be performed on
+        schema:
+          type: string
+          default: _defaultVHost_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranscoderTemplatesConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+      - Virtual Hosts
+      operationId: postTranscoderTemplatesConfig
+      summary: Update transcoder template list
+      description: Adds a transcoder templates configuration to the specified vhost. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        description: The name of the current VHost the action will be performed on
+        schema:
+          type: string
+          default: _defaultVHost_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranscoderTemplateConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/transcoder/templates/{templateName}:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getTranscoderTemplateConfig
+      summary: Get transcoder template config
+      description: Retrieves the specified transcoder template configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: templateName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranscoderTemplateConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Virtual Hosts
+      operationId: putTranscoderTemplateConfig
+      summary: Update transcoder template config
+      description: Updates the specified transcoder template configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: templateName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranscoderTemplateConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+      - Virtual Hosts
+      operationId: postTranscoderTemplateConfig
+      summary: Create transcoder template config
+      description: Adds the specified transcoder template configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: templateName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranscoderTemplateConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+      - Virtual Hosts
+      operationId: deleteTranscoderTemplateConfig
+      summary: Delete transcoder template config
+      description: Deletes the specified transcoder template configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: templateName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/transcoder/templates/{templateName}/actions/{action}:
+    put:
+      tags:
+      - Virtual Hosts
+      operationId: putTranscoderTemplateAction
+      summary: Transcoder template actions
+      description: Transcoder template action. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: action
+        in: path
+        required: true
+        description: The action which should be performed by the server
+        schema:
+          type: string
+          enum:
+          - copy
+      - name: dstEntryName
+        in: query
+        required: false
+        description: 'The destination transcoder template name when copying '
+        schema:
+          type: string
+      - name: vhostName
+        in: path
+        required: true
+        description: The name of the current VHost the action will be performed on
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: templateName
+        in: path
+        required: true
+        description: The template name needed for this REST call
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/transcoder/templates/{templateName}/adv:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getTranscoderTemplateConfigAdv
+      summary: Get transcoder template config (adv)
+      description: Retrieves the advanced transcoder template configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: templateName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranscoderTemplateConfigAdv'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Virtual Hosts
+      operationId: putTranscoderTemplateConfigAdv
+      summary: Update transcoder template config (adv)
+      description: Updates the advanced transcoder template configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: templateName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranscoderTemplateConfigAdv'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/transcoder/templates/{templateName}/decode/overlays/{overlayName}:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getTranscoderOverlayDecodeConfig
+      summary: Get transcoder overlay decoder config
+      description: Retrieves the specified transcoder overlay decode configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: templateName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: overlayName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranscoderOverlayDecodeConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Virtual Hosts
+      operationId: putTranscoderOverlayDecodeConfig
+      summary: Update transcoder overlay decoder config
+      description: Updates the specified transcoder overlay decode configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: templateName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: overlayName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranscoderOverlayDecodeConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+      - Virtual Hosts
+      operationId: deleteTranscoderOverlayDecodeConfig
+      summary: Delete transcoder overlay decoder config
+      description: Deletes the specified transcoder overlay decode configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: templateName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: overlayName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/transcoder/templates/{templateName}/encodes:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getTranscoderEncodesConfig
+      summary: Get transcoder encoder list
+      description: Retrieves the list of transcoder encode configurations for the specified vhost. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: templateName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranscoderEncodesConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+      - Virtual Hosts
+      operationId: postTranscoderEncodesConfig
+      summary: Update transcoder encoder list
+      description: Adds a transcoder encode configuration to the specified vhost. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: templateName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranscoderEncodeConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/transcoder/templates/{templateName}/encodes/{encodeName}:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getTranscoderEncodeConfig
+      summary: Get transcoder encoder config
+      description: Retrieves the specified transcoder encode configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: templateName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: encodeName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranscoderEncodeConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+      - Virtual Hosts
+      operationId: postTranscoderEncodeConfig
+      summary: Create transcoder encoder config
+      description: Adds the specified transcoder encode configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: templateName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: encodeName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranscoderEncodeConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Virtual Hosts
+      operationId: putTranscoderEncodeConfig
+      summary: Update transcoder encoder config
+      description: Updates the specified transcoder encode configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: templateName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: encodeName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranscoderEncodeConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+      - Virtual Hosts
+      operationId: deleteTranscoderEncodeConfig
+      summary: Delete transcoder encoder config
+      description: Deletes the specified transcoder encode configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: templateName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: encodeName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/transcoder/templates/{templateName}/encodes/{encodeName}/adv:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getTranscoderEncodeConfigAdv
+      summary: Get transcoder encoder config (adv)
+      description: Retrieves the advanced transcoder encode configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: templateName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: encodeName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranscoderEncodeConfigAdv'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Virtual Hosts
+      operationId: putTranscoderEncodeConfigAdv
+      summary: Update transcoder encoder config (adv)
+      description: Updates the advanced transcoder encode configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: templateName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: encodeName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranscoderEncodeConfigAdv'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  ? /v2/servers/{serverName}/vhosts/{vhostName}/transcoder/templates/{templateName}/encodes/{encodeName}/overlays/{overlayName}
+  : get:
+      tags:
+      - Virtual Hosts
+      operationId: getTranscoderOverlayEncodeConfig
+      summary: Get transcoder overlay encoder config
+      description: Retrieves the specified transcoder overlay encode configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: templateName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: overlayName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: encodeName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranscoderOverlayEncodeConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Virtual Hosts
+      operationId: putTranscoderOverlayEncodeConfig
+      summary: Update transcoder overlay encoder config
+      description: Updates the specified transcoder overlay encode configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: templateName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: overlayName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: encodeName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranscoderOverlayEncodeConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+      - Virtual Hosts
+      operationId: deleteTranscoderOverlayEncodeConfig
+      summary: Delete transcoder overlay encoder config
+      description: Deletes the specified transcoder overlay encode configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: templateName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: overlayName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: encodeName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/transcoder/templates/{templateName}/streamnamegroups:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getTranscoderStreamNameGroupsConfig
+      summary: Get transcoder stream name group list
+      description: Retrieves the list of transcoder stream name groups for the specified Template. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: templateName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranscoderStreamNameGroupsConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+      - Virtual Hosts
+      operationId: postTranscoderStreamNameGroupsConfig
+      summary: Update transcoder stream name group list
+      description: Adds a transcoder stream name groups configuration to the specified template. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: templateName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranscoderStreamNameGroupConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/transcoder/templates/{templateName}/streamnamegroups/{groupName}:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getTranscoderStreamNameGroupConfig
+      summary: Get transcoder stream name group config
+      description: Retrieves the specified transcoder stream name group configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: templateName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: groupName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranscoderStreamNameGroupConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Virtual Hosts
+      operationId: putTranscoderStreamNameGroupConfig
+      summary: Update transcoder stream name group config
+      description: Updates the specified transcoder stream name group configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: templateName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: groupName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranscoderStreamNameGroupConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+      - Virtual Hosts
+      operationId: postTranscoderStreamNameGroupConfig
+      summary: Create transcoder stream name group config
+      description: Adds the specified transcoder stream name group configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: templateName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: groupName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranscoderStreamNameGroupConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+      - Virtual Hosts
+      operationId: deleteTranscoderStreamNameGroupConfig
+      summary: Delete transcoder stream name group config
+      description: Deletes the specified transcoder stream name group configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        schema:
+          type: string
+          default: _defaultVHost_
+      - name: templateName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: groupName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/tune:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getVHostTuneConfig
+      summary: Get tuning config
+      description: Retrieves the tuning configuration for the specified vhost. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        description: The vhost name
+        schema:
+          type: string
+          default: _defaultVHost_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VHostTuneConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Virtual Hosts
+      operationId: putVHostTuneConfig
+      summary: Update tuning config
+      description: Updates the tuning configuration for the specified vhost. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        description: The vhost name
+        schema:
+          type: string
+          default: _defaultVHost_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VHostTuneConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhosts/{vhostName}/tunehostports:
+    get:
+      tags:
+      - Virtual Hosts
+      operationId: getHostportsTuneConfig
+      summary: Get host port config
+      description: Retrieves the host port configuration used for server tuning for the specified vhost. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        description: The vhost name
+        schema:
+          type: string
+          default: _defaultVHost_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HostportsTuneConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Virtual Hosts
+      operationId: putHostportsTuneConfig
+      summary: Update host port config
+      description: Updates the host port configuration used for server tuning for the specified vhost. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: vhostName
+        in: path
+        required: true
+        description: The vhost name
+        schema:
+          type: string
+          default: _defaultVHost_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HostportsTuneConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    HostPortsConfig:
+      type: object
+      properties:
+        hostports:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShortObject'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - hostports
+    ShortObject:
+      type: object
+      properties:
+        id:
+          type: string
+        href:
+          type: string
+      required:
+      - id
+      - href
+    HostPortConfig:
+      type: object
+      properties:
+        sslDomainToKeyStoreMapPath:
+          type: string
+        ipAddress:
+          type: string
+        serverName:
+          type: string
+        sslKeyStoreType:
+          type: string
+        HTTPProviders:
+          type: array
+          items:
+            $ref: '#/components/schemas/HTTPProviderConfig'
+        sslAlgorithm:
+          type: string
+        type:
+          type: string
+        sslKeyStorePath:
+          type: string
+        version:
+          type: string
+        ssl:
+          type: array
+          items:
+            type: string
+        sslEnable:
+          type: boolean
+        sslKeyStorePassword:
+          type: string
+        sslProtocols:
+          type: array
+          items:
+            type: string
+        webRtcEnable:
+          $ref: '#/components/schemas/Boolean'
+        port:
+          type: string
+        name:
+          type: string
+        sslProtocol:
+          type: string
+        sslDomains:
+          type: array
+          items:
+            type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+      required:
+      - version
+      - serverName
+      - name
+      - type
+      - port
+      - ipAddress
+      - sslEnable
+      - sslKeyStorePath
+      - sslKeyStorePassword
+      - sslKeyStoreType
+      - sslDomainToKeyStoreMapPath
+      - sslProtocol
+      - sslAlgorithm
+      - ssl
+      - sslProtocols
+      - sslDomains
+      - webRtcEnable
+      - HTTPProviders
+    TranscoderOverlayDecodeConfig:
+      type: object
+      properties:
+        overlayName:
+          type: string
+        imagePath:
+          type: string
+        serverName:
+          type: string
+        description:
+          type: string
+        index:
+          type: integer
+          format: int32
+        align:
+          type: string
+        version:
+          type: string
+        enable:
+          type: boolean
+        x:
+          type: integer
+          format: int32
+        width:
+          type: string
+        y:
+          type: integer
+          format: int32
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        checkForUpdates:
+          type: boolean
+        opacity:
+          type: integer
+          format: int32
+        height:
+          type: string
+      required:
+      - version
+      - serverName
+      - overlayName
+      - description
+      - enable
+      - imagePath
+      - index
+      - checkForUpdates
+      - opacity
+      - x
+      - y
+      - width
+      - height
+      - align
+    ApplicationsConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        applications:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppShortObject'
+      required:
+      - version
+      - serverName
+      - applications
+    Boolean:
+      type: object
+      properties: {}
+    SMILFileStreamConfig:
+      type: object
+      properties:
+        systemLanguage:
+          type: string
+        dur:
+          type: string
+        ngrp:
+          type: string
+        keyFrameOnly:
+          type: string
+        src:
+          type: string
+        systemBitrate:
+          type: string
+        serverName:
+          type: string
+        videoCodecId:
+          type: string
+        type:
+          type: string
+        version:
+          type: string
+        audioBitrate:
+          type: string
+        audioCodecId:
+          type: string
+        videoBitrate:
+          type: string
+        isWowzaCaptionStream:
+          type: string
+        videoOnly:
+          type: string
+        audioOnly:
+          type: string
+        width:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        idx:
+          type: integer
+          format: int32
+        begin:
+          type: string
+        wowzaCaptionIngestType:
+          type: string
+        height:
+          type: string
+      required:
+      - version
+      - serverName
+      - idx
+      - type
+      - src
+      - systemLanguage
+      - systemBitrate
+      - width
+      - height
+      - begin
+      - dur
+      - videoBitrate
+      - videoCodecId
+      - videoOnly
+      - ngrp
+      - audioBitrate
+      - audioCodecId
+      - audioOnly
+      - keyFrameOnly
+      - isWowzaCaptionStream
+      - wowzaCaptionIngestType
+    VHostShortObject:
+      type: object
+      properties:
+        connectingSSLEnable:
+          type: boolean
+        connectingIPAddress:
+          type: string
+        connectingPort:
+          type: integer
+          format: int32
+        id:
+          type: string
+        href:
+          type: string
+      required:
+      - id
+      - href
+      - connectingIPAddress
+      - connectingPort
+      - connectingSSLEnable
+    StartupStreamConfig:
+      type: object
+      properties:
+        mediaCasterType:
+          type: string
+        instance:
+          type: string
+        appName:
+          type: string
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        streamName:
+          type: string
+      required:
+      - version
+      - serverName
+      - streamName
+      - appName
+      - instance
+      - mediaCasterType
+    TranscoderStreamNameGroupsConfig:
+      type: object
+      properties:
+        streamNameGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShortObject'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - streamNameGroups
+    TranscoderTemplatesConfig:
+      type: object
+      properties:
+        vhostName:
+          type: string
+        templates:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShortObject'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - vhostName
+      - templates
+    TranscoderEncodesConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        encodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShortObject'
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - encodes
+    StreamFilesConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        streamFiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShortObject'
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - streamFiles
+    StartupStreamsConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        Streams:
+          type: array
+          items:
+            $ref: '#/components/schemas/StartupStreamConfig'
+      required:
+      - version
+      - serverName
+      - Streams
+    VHostsConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        vhosts:
+          type: array
+          items:
+            $ref: '#/components/schemas/VHostShortObject'
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - vhosts
+    SMILFilesConfig:
+      type: object
+      properties:
+        vhostName:
+          type: string
+        serverName:
+          type: string
+        smilFiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShortObject'
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - vhostName
+      - smilFiles
+    SSLConfig:
+      type: object
+      properties:
+        sslKeyStorePassword:
+          type: string
+        sslProtocols:
+          type: array
+          items:
+            type: string
+        sslDomainToKeyStoreMapPath:
+          type: string
+        sslCipherSuites:
+          type: array
+          items:
+            type: string
+        serverName:
+          type: string
+        sslKeyStoreType:
+          type: string
+        sslProtocol:
+          type: string
+        sslAlgorithm:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        sslKeyStorePath:
+          type: string
+        version:
+          type: string
+        sslEnable:
+          type: boolean
+      required:
+      - version
+      - serverName
+      - sslEnable
+      - sslKeyStorePath
+      - sslKeyStorePassword
+      - sslKeyStoreType
+      - sslDomainToKeyStoreMapPath
+      - sslProtocol
+      - sslAlgorithm
+      - sslCipherSuites
+      - sslProtocols
+    StreamFileConfigAdv:
+      type: object
+      properties:
+        sourceControlDriver:
+          type: string
+        advancedSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedSetting'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        mpegTSFilters:
+          type: array
+          items:
+            $ref: '#/components/schemas/MpegTSFilter'
+      required:
+      - version
+      - serverName
+      - advancedSettings
+      - sourceControlDriver
+    Long:
+      type: object
+      properties: {}
+    StreamFileConfig:
+      type: object
+      properties:
+        sourceControlDriver:
+          type: string
+        sourceControlUserName:
+          type: string
+        sourceControlPassword:
+          type: string
+        name:
+          type: string
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        uri:
+          type: string
+      required:
+      - version
+      - serverName
+      - name
+      - uri
+      - sourceControlUserName
+      - sourceControlPassword
+      - sourceControlDriver
+    VHostConfigAdv:
+      type: object
+      properties:
+        advancedSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedSetting'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - advancedSettings
+    MpegTSFilter:
+      type: object
+      properties:
+        name:
+          type: string
+        mpegtsProgramID:
+          type: string
+        mpegtsVideoPID:
+          type: string
+        mpegtsAudioPID:
+          type: string
+      required:
+      - name
+      - mpegtsProgramID
+      - mpegtsVideoPID
+      - mpegtsAudioPID
+    PublisherVhostConfig:
+      type: object
+      properties:
+        password:
+          type: string
+        publisherName:
+          type: string
+        serverName:
+          type: string
+        description:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - publisherName
+      - description
+      - password
+    TranscoderConfig:
+      type: object
+      properties:
+        licenses:
+          type: integer
+          format: int32
+        licensed:
+          type: boolean
+        licensesInUse:
+          type: integer
+          format: int32
+        available:
+          type: boolean
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - available
+      - licensed
+      - licenses
+      - licensesInUse
+    HostportsTuneConfig:
+      type: object
+      properties:
+        hostports:
+          type: array
+          items:
+            $ref: '#/components/schemas/HostPortConfigAdv'
+        name:
+          type: string
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - name
+      - hostports
+    MediaCacheStoreList:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        mediacacheitemlist:
+          type: array
+          items:
+            type: string
+      required:
+      - version
+      - serverName
+      - mediacacheitemlist
+    TranscoderTemplateConfigAdv:
+      type: object
+      properties:
+        advancedSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedSetting'
+        name:
+          type: string
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - advancedSettings
+      - name
+    SMILFileConfig:
+      type: object
+      properties:
+        name:
+          type: string
+        serverName:
+          type: string
+        smilStreams:
+          type: array
+          items:
+            $ref: '#/components/schemas/SMILFileStreamConfig'
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        title:
+          type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - name
+      - title
+      - smilStreams
+    TranscoderEncodeConfigAdv:
+      type: object
+      properties:
+        advancedSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedSetting'
+        name:
+          type: string
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - advancedSettings
+      - name
+    TranscoderOverlayEncodeConfig:
+      type: object
+      properties:
+        overlayName:
+          type: string
+        imagePath:
+          type: string
+        serverName:
+          type: string
+        description:
+          type: string
+        index:
+          type: integer
+          format: int32
+        align:
+          type: string
+        version:
+          type: string
+        enable:
+          type: boolean
+        x:
+          type: integer
+          format: int32
+        width:
+          type: string
+        name:
+          type: string
+        y:
+          type: integer
+          format: int32
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        checkForUpdates:
+          type: boolean
+        opacity:
+          type: integer
+          format: int32
+        height:
+          type: string
+      required:
+      - version
+      - serverName
+      - overlayName
+      - description
+      - enable
+      - imagePath
+      - index
+      - checkForUpdates
+      - opacity
+      - x
+      - y
+      - width
+      - height
+      - align
+      - name
+    HTTPProviderConfig:
+      type: object
+      properties:
+        requestFilters:
+          type: string
+        authenticationMethod:
+          type: string
+        serverName:
+          type: string
+        baseClass:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - baseClass
+      - requestFilters
+      - authenticationMethod
+    AdvancedSetting:
+      type: object
+      properties:
+        sectionName:
+          type: string
+        canRemove:
+          type: boolean
+        defaultValue:
+          type: string
+        documented:
+          type: boolean
+        name:
+          type: string
+        section:
+          type: string
+        type:
+          type: string
+        value:
+          type: string
+        initialValue:
+          type: string
+        enabled:
+          type: boolean
+      required:
+      - enabled
+      - canRemove
+      - name
+      - value
+      - defaultValue
+      - type
+      - sectionName
+      - section
+      - documented
+      - initialValue
+    TranscoderTemplateConfig:
+      type: object
+      properties:
+        enableDynamicOverlays:
+          type: boolean
+        streamNameGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranscoderStreamNameGroupConfig'
+        implementationScale:
+          type: string
+        deinterlace:
+          type: boolean
+        implementation:
+          type: string
+        overlays:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranscoderOverlayDecodeConfig'
+        name:
+          type: string
+        serverName:
+          type: string
+        description:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        encodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranscoderEncodeConfig'
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - name
+      - description
+      - implementation
+      - implementationScale
+      - deinterlace
+      - enableDynamicOverlays
+      - encodes
+      - streamNameGroups
+      - overlays
+    HistoricVHostStatistics:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - entries
+    TranscoderMemberConfig:
+      type: object
+      properties:
+        wowzaVideoOnly:
+          type: boolean
+        encodeName:
+          type: string
+        wowzaAudioOnly:
+          type: boolean
+        serverName:
+          type: string
+        memberName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - memberName
+      - encodeName
+      - wowzaVideoOnly
+      - wowzaAudioOnly
+    PublishersVhostConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        publishers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublisherVhostConfig'
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - publishers
+    AppShortObject:
+      type: object
+      properties:
+        drmEnabled:
+          type: boolean
+        streamTargetsEnabled:
+          type: boolean
+        appType:
+          type: string
+        transcoderEnabled:
+          type: boolean
+        dvrEnabled:
+          type: boolean
+        id:
+          type: string
+        href:
+          type: string
+      required:
+      - id
+      - href
+      - appType
+      - dvrEnabled
+      - drmEnabled
+      - transcoderEnabled
+      - streamTargetsEnabled
+    VHostTuneConfig:
+      type: object
+      properties:
+        multicastOutgoingProcessorCountAutoValue:
+          type: string
+        netConnectionsProcessorCountAutoValue:
+          type: string
+        idleWorkerCountAutoValue:
+          type: string
+        unicastIncomingProcessorCountAutoValue:
+          type: string
+        unicastOutgoingProcessorCountAutoValue:
+          type: string
+        mediaCasterProcessorCount:
+          type: string
+        serverName:
+          type: string
+        multicastOutgoingProcessorCount:
+          type: string
+        multicastIncomingProcessorCountAutoValue:
+          type: string
+        version:
+          type: string
+        netConnectionsProcessorCount:
+          type: string
+        unicastOutgoingProcessorCount:
+          type: string
+        mediaCasterProcessorCountAutoValue:
+          type: string
+        idleWorkerCount:
+          type: string
+        transportThreadPoolSize:
+          type: integer
+          format: int32
+        clientIdleFrequency:
+          type: integer
+          format: int32
+        name:
+          type: string
+        unicastIncomingProcessorCount:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        multicastIncomingProcessorCount:
+          type: string
+        rtpIdleFrequency:
+          type: integer
+          format: int32
+        handlerThreadPoolSize:
+          type: integer
+          format: int32
+      required:
+      - version
+      - serverName
+      - name
+      - netConnectionsProcessorCount
+      - netConnectionsProcessorCountAutoValue
+      - mediaCasterProcessorCount
+      - mediaCasterProcessorCountAutoValue
+      - idleWorkerCount
+      - idleWorkerCountAutoValue
+      - unicastIncomingProcessorCount
+      - unicastIncomingProcessorCountAutoValue
+      - unicastOutgoingProcessorCount
+      - unicastOutgoingProcessorCountAutoValue
+      - multicastIncomingProcessorCount
+      - multicastIncomingProcessorCountAutoValue
+      - multicastOutgoingProcessorCount
+      - multicastOutgoingProcessorCountAutoValue
+      - clientIdleFrequency
+      - rtpIdleFrequency
+      - handlerThreadPoolSize
+      - transportThreadPoolSize
+    TranscoderEncodeConfig:
+      type: object
+      properties:
+        followSource:
+          type: boolean
+        implementation:
+          type: string
+        gpuid:
+          type: integer
+          format: int32
+        profile:
+          type: string
+        serverName:
+          type: string
+        description:
+          type: string
+        audioCodec:
+          type: string
+        version:
+          type: string
+        streamName:
+          type: string
+        Overlays:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranscoderOverlayEncodeConfig'
+        audioBitrate:
+          type: string
+        videoBitrate:
+          type: string
+        enable:
+          type: boolean
+        name:
+          type: string
+        width:
+          type: integer
+          format: int32
+        interval:
+          type: integer
+          format: int32
+        fitMode:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        crop:
+          type: string
+        convert8bit:
+          type: boolean
+        videoCodec:
+          type: string
+        height:
+          type: integer
+          format: int32
+        sourceRectangle:
+          type: string
+      required:
+      - version
+      - serverName
+      - name
+      - enable
+      - description
+      - streamName
+      - videoCodec
+      - implementation
+      - gpuid
+      - profile
+      - videoBitrate
+      - followSource
+      - interval
+      - fitMode
+      - width
+      - height
+      - crop
+      - sourceRectangle
+      - audioCodec
+      - audioBitrate
+      - Overlays
+      - convert8bit
+    HostPortConfigAdv:
+      type: object
+      properties:
+        processorCountAutoValue:
+          type: integer
+          format: int32
+        port:
+          type: string
+        processorCount:
+          type: string
+        advancedSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedSetting'
+        name:
+          type: string
+        ipAddress:
+          type: string
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        type:
+          type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - advancedSettings
+      - name
+      - type
+      - ipAddress
+      - port
+      - processorCount
+      - processorCountAutoValue
+    TranscoderStreamNameGroupConfig:
+      type: object
+      properties:
+        name:
+          type: string
+        serverName:
+          type: string
+        description:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        streamName:
+          type: string
+        Members:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranscoderMemberConfig'
+      required:
+      - version
+      - serverName
+      - name
+      - description
+      - streamName
+      - Members
+    SDPFilesConfig:
+      type: object
+      properties:
+        sdpFiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShortObject'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - sdpFiles
+    VHostConfig:
+      type: object
+      properties:
+        testPlayerSSLEnable:
+          type: string
+        securityPublishValidEncoders:
+          type: string
+        serverName:
+          type: string
+        description:
+          type: string
+        maximumConcurrentTranscodes:
+          type: integer
+          format: int32
+        srtListenerLocalPort:
+          type: integer
+          format: int32
+        version:
+          type: string
+        configurationDir:
+          type: string
+        testPlayerPort:
+          type: string
+        running:
+          type: boolean
+        HostPorts:
+          type: array
+          items:
+            $ref: '#/components/schemas/HostPortConfig'
+        connectionLimit:
+          type: integer
+          format: int32
+        testPlayerIPAddress:
+          type: string
+        name:
+          type: string
+        srtListenerLocalIPAddress:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        srtPassPhrase:
+          type: string
+      required:
+      - version
+      - serverName
+      - name
+      - description
+      - running
+      - configurationDir
+      - connectionLimit
+      - testPlayerIPAddress
+      - testPlayerPort
+      - testPlayerSSLEnable
+      - maximumConcurrentTranscodes
+      - securityPublishValidEncoders
+      - HostPorts
+      - srtListenerLocalIPAddress
+      - srtListenerLocalPort
+      - srtPassPhrase
+    CurrentVHostStatistics:
+      type: object
+      properties:
+        totalConnections:
+          $ref: '#/components/schemas/Long'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        uptime:
+          $ref: '#/components/schemas/Long'
+        bytesIn:
+          $ref: '#/components/schemas/Long'
+        bytesOut:
+          $ref: '#/components/schemas/Long'
+      required:
+      - version
+      - serverName
+      - uptime
+      - bytesIn
+      - bytesOut
+      - totalConnections
+      - connectionCount
+    TestPlaybackInfoConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        applications:
+          $ref: '#/components/schemas/ApplicationsConfig'
+      required:
+      - version
+      - serverName
+      - testPlayers
+      - applications
+      - instances
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
+    digestAuth:
+      type: http
+      scheme: digest
+      description: HTTP Digest Authentication

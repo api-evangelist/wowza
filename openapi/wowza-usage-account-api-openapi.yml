@@ -1,0 +1,564 @@
+openapi: 3.0.3
+info:
+  title: Wowza Streaming Engine REST advanced_token_authentication usage_account API
+  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
+  version: 2.0.0
+  contact:
+    name: Wowza Media Systems
+    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  license:
+    name: Wowza Media Systems
+    url: https://www.wowza.com
+servers:
+- url: http://localhost:8087
+  description: Wowza Streaming Engine Server
+security:
+- basicAuth: []
+tags:
+- name: usage_account
+  description: Operations related to stream analytics for an account.
+  x-displayName: Account
+paths:
+  /usage/account:
+    get:
+      summary: Fetch usage for an account
+      description: '(Available from version 1.8) This operation returns CDN usage details for the account related to the JSON web token used for API authentication. Defaults: from = last billing date, to = end of current day.'
+      operationId: showUsageAccountIndex
+      tags:
+      - usage_account
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"GET\" \\\n  \"${WV_HOST}/api/v2.0/usage/accounts\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/usage/accounts';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nhttps.get(options, function(res) {\n  var body = '';\n  res.on('data', function(data){\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\n"
+      parameters:
+      - name: filter
+        in: query
+        required: false
+        description: "Restricts the data that gets returned by filtering on one or more values associated with a field. Construct a filter using a two-part expression that specifies the field on which to filter and the logic to use to filter.\nKeep in mind the following for account trend filters:\n <ul><li>The only valid filter is **resource**.</li>\n <li>The only valid filter operators are **eq** with values of **transcoders** or **vod_streams** or **in** with a value of **transcoders,vod_streams**. </li>\n <li>Filters use a zero-based index.</li></ul>\n\n For example:\n  **filter[0][field]=resource&filter[0][eq]=vod_streams**"
+        schema:
+          type: string
+      - name: from
+        in: query
+        required: false
+        description: 'The start of the range of time you want to view. Specify **YYYY-MM-DD HH:00:00** where **HH** is a 24-hour clock in UTC. The range doesn''t include minutes and seconds and rounds minutes up to the hour. The maximum difference between **from** and **to** is 90 days. If you set the **from** query parameter without setting the **to** query parameter, the data returned will reflect 90 days starting at the **from** date, or data up to to the current day, whichever is shorter.
+
+
+          You can also specify **last_bill_date**.
+
+
+          **Default**: last billing date'
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        required: false
+        description: 'The end of the range of time you want to view. Specify **YYYY-MM-DD HH:00:00** where **HH** is a 24-hour clock in UTC. The range doesn''t include minutes and seconds and rounds minutes up to the hour. The maximum difference between **from** and **to** is 90 days. If you set the **to** query parameter without setting the **from** query parameter, the data returned will be from the past 90 days or from your last invoice date, whichever is shorter.
+
+
+          You can also specify **last_bill_date**.
+
+
+          **Default**: end of the current day'
+        schema:
+          type: string
+          format: date-time
+      - name: include
+        in: query
+        required: false
+        description: 'Specify the data you want returned in the response. You can send a comma-separated list of values.
+
+
+          Valid value is: **trend**.
+
+
+          Example:
+
+          **trend**'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/usage_account'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error422'
+components:
+  schemas:
+    Error403:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 403
+            code: ERR-403-RecordUnaccessible
+            title: Record Unaccessible Error
+            message: The requested resource isn't accessible.
+            description: ''
+            links: []
+    Error401:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 401
+            code: ERR-401-NoApiKey
+            title: No API Key Error
+            message: No API key sent in header.
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 401
+            code: ERR-401-NoAccessKey
+            title: No Access Key Error
+            message: No access key sent in header.
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 401
+            code: ERR-401-InvalidApiKey
+            title: Invalid Api Key Error
+            message: Invalid API key.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 401
+            code: ERR-401-InvalidAccessKey
+            title: Invalid Access Key Error
+            message: Invalid access key.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 401
+            code: ERR-401-BadAccountStatus
+            title: Bad Account Status Error
+            message: Your account's status doesn't allow this action.
+            description: ''
+            links: []
+        Example Response 6:
+          meta:
+            status: 401
+            code: ERR-401-FeatureNotEnabled
+            title: Feature Not Enabled Error
+            message: This feature isn't enabled.
+            description: ''
+            links: []
+        Example Response 7:
+          meta:
+            status: 401
+            code: ERR-401-TrialExceeded
+            title: Bad Billing Status Error
+            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
+            description: ''
+            links: []
+        Example Response 8:
+          meta:
+            status: 401
+            code: ERR-401-ExpiredToken
+            title: JWT is expired
+            message: Token has exired.
+            description: ''
+            links: []
+        Example Response 9:
+          meta:
+            status: 401
+            code: ERR-401-InvalidToken
+            title: JWT is invalid
+            message: Token is invalid.
+            description: ''
+            links: []
+    usage_account:
+      type: object
+      description: ''
+      properties:
+        account:
+          type: object
+          title: account
+          description: Data for the account.
+          properties:
+            id:
+              type: string
+              description: The unique alphanumeric string that identifies an account.
+              example: ''
+              format: int32
+            viewing_seconds:
+              type: integer
+              description: The total length of time, in seconds, that the stream was played at the target. May be longer than the duration of the stream.
+              example: ''
+              format: int32
+            viewing_bytes:
+              type: integer
+              description: The amount of content, in bytes, that went through the stream target during the selected time frame.
+              example: ''
+              format: int32
+            egress_seconds:
+              type: integer
+              description: The length of time, in seconds, that Wowza CDN on Fastly pulled from storage during the selected time frame.
+              example: ''
+              format: int32
+            egress_seconds_additional_targets:
+              type: integer
+              description: The length of time, in seconds, that additional stream targets pulled from storage during the selected time frame. Subscriptions prices include egress for one target; additional targets incur additional charges.
+              example: ''
+              format: int32
+            egress_bytes:
+              type: integer
+              description: The amount of content, in bytes, that Wowza CDN on Fastly pulled from storage during the selected time frame.
+              example: ''
+              format: int32
+            trend:
+              type: object
+              title: Array of viewer trends
+              description: 'An array of viewer trend data. The granularity of sampled data changes based on the from and to query values you use:
+
+
+                Requests made for data within the past 30 days, return the following sample intervals: <ul><li>0 minutes to 3 hours - Samples returned per minute</li> <li>3 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 90 days - Samples returned per day</li></ul>
+
+
+                <strong>Defaults</strong>: from = last billing date, to = end of current day'
+              properties:
+                sampled_at:
+                  type: string
+                  description: The date and time the trend data was sampled.
+                  format: date-time
+                viewing_seconds:
+                  type: integer
+                  description: The total length of time, in seconds, that the stream was played at the target. May be longer than the duration of the stream.
+                  example: ''
+                  format: int32
+                viewing_bytes:
+                  type: integer
+                  description: The amount of content, in bytes, that went through the transcoder during the selected time frame.
+                  example: ''
+                  format: int32
+        limits:
+          type: object
+          description: The query parameters applied to the request.
+          properties:
+            resources:
+              type: object
+              title: resources
+              description: The resources represented in the response.
+              properties:
+                transcoders:
+                  type: string
+                  description: The response includes transcoders.
+                  example: ''
+                vod_streams:
+                  type: string
+                  description: The response includes VOD streams.
+                  example: ''
+            from:
+              type: string
+              description: The start of the range of time represented in the response.
+              example: ''
+              format: date-time
+            to:
+              type: string
+              description: The end of the range of time represented in the response.
+              example: ''
+              format: date-time
+      example:
+        account:
+          id: rfP7rDv2
+          viewing_seconds: 44925498
+          avg_viewing_seconds: 2634
+          viewing_bytes: 22886
+          egress_seconds: 49549
+          egress_seconds_additional_targets: 345
+          egress_bytes: 7066810
+          trend:
+          - sampled_at: '2019-10-01T08:00:00.000Z'
+            viewing_seconds: 45
+            viewing_bytes: 20
+        limits:
+          resources:
+          - transcoders
+          - vod_streams
+          from: '2021-01-07T00:00:00.000Z'
+          to: '2021-10-05T00:00:00.000Z'
+    Error422:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. ... can't be blank
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. Provider wowza_video is not allowed
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
+            description: ''
+            links: []
+    Error410:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 410
+            code: ERR-410-RecordDeleted
+            title: Record Deleted Error
+            message: The requested resource has been deleted.
+            description: ''
+            links: []
+    Error404:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 404
+            code: ERR-404-RecordNotFound
+            title: Record Not Found Error
+            message: The requested resource couldn't be found.
+            description: ''
+            links: []
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
+    digestAuth:
+      type: http
+      scheme: digest
+      description: HTTP Digest Authentication

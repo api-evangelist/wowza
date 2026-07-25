@@ -1,0 +1,1058 @@
+openapi: 3.0.3
+info:
+  title: Wowza Streaming Engine REST advanced_token_authentication Server MediaCache API
+  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
+  version: 2.0.0
+  contact:
+    name: Wowza Media Systems
+    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  license:
+    name: Wowza Media Systems
+    url: https://www.wowza.com
+servers:
+- url: http://localhost:8087
+  description: Wowza Streaming Engine Server
+security:
+- basicAuth: []
+tags:
+- name: Server MediaCache
+  description: ''
+paths:
+  /v2/servers/{serverName}/mediacache:
+    get:
+      tags:
+      - Server MediaCache
+      operationId: getMediaCacheConfig
+      summary: Get media cache config
+      description: Retrieves the server MediaCache configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaCacheConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Server MediaCache
+      operationId: putMediaCacheConfig
+      summary: Update media cache config
+      description: Updates the server MediaCache configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MediaCacheConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/mediacache/adv:
+    get:
+      tags:
+      - Server MediaCache
+      operationId: getMediaCacheConfigAdv
+      summary: Get media cache config (adv)
+      description: Retrieves the advanced MediaCache configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaCacheConfigAdv'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Server MediaCache
+      operationId: putMediaCacheConfigAdv
+      summary: Update media cache config (adv)
+      description: Updates the advanced MediaCache configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MediaCacheConfigAdv'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+      - Server MediaCache
+      operationId: postMediaCacheConfigAdv
+      summary: Create media cache config (adv)
+      description: Adds an advanced MediaCache configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MediaCacheConfigAdv'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/mediacache/sources:
+    get:
+      tags:
+      - Server MediaCache
+      operationId: getMediaCacheSourcesConfig
+      summary: Get media cache source list
+      description: Retrieves the list of MediaCache Sources. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaCacheSourcesConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+      - Server MediaCache
+      operationId: postMediaCacheSourcesConfig
+      summary: Update media cache source list
+      description: Adds the specified MediaCache Source to the list. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MediaCacheSourceConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/mediacache/sources/{sourceName}:
+    get:
+      tags:
+      - Server MediaCache
+      operationId: getMediaCacheSourceConfig
+      summary: Get media cache source config
+      description: Retrieves the specified MediaCache Source configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaCacheSourceConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+      - Server MediaCache
+      operationId: postMediaCacheSourceConfig
+      summary: Create media cache source config
+      description: Adds the specified MediaCache Source configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MediaCacheSourceConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Server MediaCache
+      operationId: putMediaCacheSourceConfig
+      summary: Update media cache source config
+      description: Updates the specified MediaCache Source configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MediaCacheSourceConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+      - Server MediaCache
+      operationId: deleteMediaCacheSourceConfig
+      summary: Delete media cache source config
+      description: Deletes the specified MediaCache Source configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/mediacache/sources/{sourceName}/adv:
+    get:
+      tags:
+      - Server MediaCache
+      operationId: getMediaCacheSourceConfigAdv
+      summary: Get media cache source config (adv)
+      description: Retrieves the specified advanced MediaCache Source configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: sourceName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaCacheSourceConfigAdv'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Server MediaCache
+      operationId: putMediaCacheSourceConfigAdv
+      summary: Update media cache source config (adv)
+      description: Updates the specified advanced MediaCache Source configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: sourceName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MediaCacheSourceConfigAdv'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+      - Server MediaCache
+      operationId: postMediaCacheSourceConfigAdv
+      summary: Create media cache source config (adv)
+      description: Adds the specified advanced MediaCache Source configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: sourceName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MediaCacheSourceConfigAdv'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/mediacache/stores:
+    get:
+      tags:
+      - Server MediaCache
+      operationId: getMediaCacheStoresConfig
+      summary: Get media cache store list
+      description: Retrieves the list of MediaCache Stores. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaCacheStoresConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+      - Server MediaCache
+      operationId: postMediaCacheStoresConfig
+      summary: Update media cache store list
+      description: Adds the specified MediaCache Store to the list. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MediaCacheStoreConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/mediacache/stores/{storeName}:
+    get:
+      tags:
+      - Server MediaCache
+      operationId: getMediaCacheStoreConfig
+      summary: Get media cache store config
+      description: Retrieves the specified MediaCache Store configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaCacheStoreConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+      - Server MediaCache
+      operationId: postMediaCacheStoreConfig
+      summary: Create media cache store config
+      description: Adds the specified MediaCache Store configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MediaCacheStoreConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Server MediaCache
+      operationId: putMediaCacheStoreConfig
+      summary: Update media cache store config
+      description: Updates the specified MediaCache Store configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MediaCacheStoreConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+      - Server MediaCache
+      operationId: deleteMediaCacheStoreConfig
+      summary: Delete media cache store config
+      description: Deletes the specified MediaCache Store configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/mediacache/stores/{storeName}/adv:
+    get:
+      tags:
+      - Server MediaCache
+      operationId: getMediaCacheStoreConfigAdv
+      summary: Get media cache store config (adv)
+      description: Retrieves the specified advanced MediaCache Store configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: storeName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaCacheStoreConfigAdv'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Server MediaCache
+      operationId: putMediaCacheStoreConfigAdv
+      summary: Update media cache store config (adv)
+      description: Updates the specified advanced MediaCache Store configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: storeName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MediaCacheStoreConfigAdv'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+      - Server MediaCache
+      operationId: postMediaCacheStoreConfigAdv
+      summary: Create media cache store config (adv)
+      description: Adds the specified advanced MediaCache Store configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: storeName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MediaCacheStoreConfigAdv'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    MediaCacheConfig:
+      type: object
+      properties:
+        maxPendingWriteRequestSizeAutoValue:
+          type: string
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/MediaCacheSourceConfig'
+        stores:
+          type: array
+          items:
+            $ref: '#/components/schemas/MediaCacheStoreConfig'
+        serverName:
+          type: string
+        version:
+          type: string
+        maxPendingReadAheadRequestSizeAutoValue:
+          type: string
+        readAheadThreadPoolSizeAutoValue:
+          type: string
+        readAheadThreadPoolSize:
+          type: string
+        maxPendingReadAheadRequestSize:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        maxPendingWriteRequestSize:
+          type: string
+        writerThreadPoolSizeAutoValue:
+          type: string
+        writerThreadPoolSize:
+          type: string
+      required:
+      - version
+      - serverName
+      - writerThreadPoolSize
+      - writerThreadPoolSizeAutoValue
+      - readAheadThreadPoolSize
+      - readAheadThreadPoolSizeAutoValue
+      - maxPendingWriteRequestSize
+      - maxPendingWriteRequestSizeAutoValue
+      - maxPendingReadAheadRequestSize
+      - maxPendingReadAheadRequestSizeAutoValue
+      - stores
+      - sources
+    MediaCacheSourceConfig:
+      type: object
+      properties:
+        readerClass:
+          type: string
+        isPassThru:
+          type: boolean
+        minTimeToLive:
+          type: integer
+          format: int64
+        prefix:
+          type: string
+        serverName:
+          type: string
+        description:
+          type: string
+        baseClass:
+          type: string
+        type:
+          type: string
+        isAmazonS3:
+          type: boolean
+        s3BucketNameInDomain:
+          type: boolean
+        googleServicePrivateKeyFile:
+          type: string
+        googleServiceID:
+          type: string
+        googleServicePrivateKeyPassword:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        azureAccountKey:
+          type: string
+        awsSecretAccessKey:
+          type: string
+        azureAccountName:
+          type: string
+        awsAccessKeyId:
+          type: string
+        httpReaderFactoryClass:
+          type: string
+        googleServiceKey:
+          type: string
+        azureContainerName:
+          type: string
+        version:
+          type: string
+        basePath:
+          type: string
+        googleEncMethod:
+          type: string
+        name:
+          type: string
+        maxTimeToLive:
+          type: integer
+          format: int64
+      required:
+      - version
+      - serverName
+      - name
+      - type
+      - description
+      - basePath
+      - prefix
+      - minTimeToLive
+      - maxTimeToLive
+      - isAmazonS3
+      - s3BucketNameInDomain
+      - awsAccessKeyId
+      - awsSecretAccessKey
+      - isPassThru
+      - baseClass
+      - readerClass
+      - httpReaderFactoryClass
+      - azureAccountName
+      - azureContainerName
+      - azureAccountKey
+      - googleServiceID
+      - googleServiceKey
+      - googleServicePrivateKeyFile
+      - googleServicePrivateKeyPassword
+      - googleEncMethod
+    ShortObject:
+      type: object
+      properties:
+        id:
+          type: string
+        href:
+          type: string
+      required:
+      - id
+      - href
+    MediaCacheConfigAdv:
+      type: object
+      properties:
+        advancedSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedSetting'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - advancedSettings
+    MediaCacheSourcesConfig:
+      type: object
+      properties:
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShortObject'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - sources
+    MediaCacheStoreConfig:
+      type: object
+      properties:
+        path:
+          type: string
+        writeRate:
+          type: string
+        name:
+          type: string
+        serverName:
+          type: string
+        description:
+          type: string
+        maxSize:
+          type: string
+        writeRateMaxBucketSize:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - name
+      - description
+      - path
+      - maxSize
+      - writeRate
+      - writeRateMaxBucketSize
+    MediaCacheStoreConfigAdv:
+      type: object
+      properties:
+        advancedSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedSetting'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - advancedSettings
+    MediaCacheSourceConfigAdv:
+      type: object
+      properties:
+        advancedSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedSetting'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - advancedSettings
+    MediaCacheStoresConfig:
+      type: object
+      properties:
+        stores:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShortObject'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - stores
+    AdvancedSetting:
+      type: object
+      properties:
+        sectionName:
+          type: string
+        canRemove:
+          type: boolean
+        defaultValue:
+          type: string
+        documented:
+          type: boolean
+        name:
+          type: string
+        section:
+          type: string
+        type:
+          type: string
+        value:
+          type: string
+        initialValue:
+          type: string
+        enabled:
+          type: boolean
+      required:
+      - enabled
+      - canRemove
+      - name
+      - value
+      - defaultValue
+      - type
+      - sectionName
+      - section
+      - documented
+      - initialValue
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
+    digestAuth:
+      type: http
+      scheme: digest
+      description: HTTP Digest Authentication

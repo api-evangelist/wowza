@@ -1,0 +1,767 @@
+openapi: 3.0.3
+info:
+  title: Wowza Streaming Engine REST advanced_token_authentication recordings API
+  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
+  version: 2.0.0
+  contact:
+    name: Wowza Media Systems
+    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  license:
+    name: Wowza Media Systems
+    url: https://www.wowza.com
+servers:
+- url: http://localhost:8087
+  description: Wowza Streaming Engine Server
+security:
+- basicAuth: []
+tags:
+- name: recordings
+  description: "<blockquote>The <strong>recordings</strong> operations are deprecated in 2.0. Use the <strong>/videos</strong> endpoints instead.</blockquote> \n\nOperations related to recordings, which are created through the ``/live_streams`` or ``/transcoders`` resources. The Wowza Video service can create MP4 recordings of your live streams and transcoded output. Recordings can be downloaded and saved locally. They're based on the highest-bitrate output rendition that Wowza Video generates from your video source. See [About recordings](https://www.wowza.com/docs/record-live-streams-and-transcoders#aboutREC) to learn more."
+  x-displayName: Recordings
+paths:
+  /recordings:
+    get:
+      summary: Fetch all recordings
+      description: '<blockquote>The <strong>recordings</strong> operations are deprecated in 2.0. Use the <strong>/videos</strong> endpoints instead.</blockquote>
+
+        This operation shows limited details for all of your recordings. For detailed information, fetch a single recording.'
+      operationId: listRecordings
+      tags:
+      - recordings
+      parameters:
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"GET\" \\\n  \"${WV_HOST}/api/v2.0/recordings\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/recordings';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nhttps.get(options, function(res) {\n  var body = '';\n  res.on('data', function(data){\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\n"
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/recordings'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+  /recordings/{id}:
+    get:
+      summary: Fetch a recording
+      description: '<blockquote>The <strong>recordings</strong> operations are deprecated in 2.0. Use the <strong>/videos</strong> endpoints instead.</blockquote>
+
+        This operation shows the details of a specific recording.'
+      operationId: showRecording
+      tags:
+      - recordings
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"GET\" \\\n  \"${WV_HOST}/api/v2.0/recordings/2adffc17\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/recordings/2adffc17';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nhttps.get(options, function(res) {\n  var body = '';\n  res.on('data', function(data){\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\n"
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique alphanumeric string that identifies the recording.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - recording
+                properties:
+                  recording:
+                    $ref: '#/components/schemas/recording'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+    delete:
+      summary: Delete a recording
+      description: '<blockquote>The <strong>recordings</strong> operations are deprecated in 2.0. Use the <strong>/videos</strong> endpoints instead.</blockquote>
+
+
+        This operation deletes a recording. <br><br><b>Note</b>: You can''t remove recordings that have an asset_id. Assets must be removed by sending a DEL request to the /assets endpoint. '
+      operationId: deleteRecording
+      tags:
+      - recordings
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"DELETE\" \\\n  \"${WV_HOST}/api/v2.0/recordings/2adffc17\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/recordings/2adffc17';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  method: 'DELETE',\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nhttps.get(options, function(res) {\n  // no data being returned, just: 204 NO CONTENT\n  console.log(res.statusCode);\n}).on('error', function(e) {\n  console.log(e.message);\n});\n"
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique alphanumeric string that identifies the recording.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error422'
+  /recordings/{id}/state:
+    get:
+      summary: Fetch the state of a recording
+      description: '<blockquote>The <strong>recordings</strong> operations are deprecated in 2.0. Use the <strong>/videos</strong> endpoints instead.</blockquote>
+
+
+        This operation shows the current state of a recording.'
+      operationId: showRecordingState
+      tags:
+      - recordings
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"GET\" \\\n  \"${WV_HOST}/api/v2.0/recordings/2adffc17/state\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/recordings/2adffc17/state';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nhttps.get(options, function(res) {\n  var body = '';\n  res.on('data', function(data){\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\n"
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique alphanumeric string that identifies the recording.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - recording
+                properties:
+                  recording:
+                    type: object
+                    title: recording
+                    properties:
+                      state:
+                        type: string
+                        description: The state of the recording.
+                        example: completed
+                        enum:
+                        - uploading
+                        - converting
+                        - removing
+                        - completed
+                        - failed
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+components:
+  schemas:
+    Error403:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 403
+            code: ERR-403-RecordUnaccessible
+            title: Record Unaccessible Error
+            message: The requested resource isn't accessible.
+            description: ''
+            links: []
+    Error401:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 401
+            code: ERR-401-NoApiKey
+            title: No API Key Error
+            message: No API key sent in header.
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 401
+            code: ERR-401-NoAccessKey
+            title: No Access Key Error
+            message: No access key sent in header.
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 401
+            code: ERR-401-InvalidApiKey
+            title: Invalid Api Key Error
+            message: Invalid API key.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 401
+            code: ERR-401-InvalidAccessKey
+            title: Invalid Access Key Error
+            message: Invalid access key.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 401
+            code: ERR-401-BadAccountStatus
+            title: Bad Account Status Error
+            message: Your account's status doesn't allow this action.
+            description: ''
+            links: []
+        Example Response 6:
+          meta:
+            status: 401
+            code: ERR-401-FeatureNotEnabled
+            title: Feature Not Enabled Error
+            message: This feature isn't enabled.
+            description: ''
+            links: []
+        Example Response 7:
+          meta:
+            status: 401
+            code: ERR-401-TrialExceeded
+            title: Bad Billing Status Error
+            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
+            description: ''
+            links: []
+        Example Response 8:
+          meta:
+            status: 401
+            code: ERR-401-ExpiredToken
+            title: JWT is expired
+            message: Token has exired.
+            description: ''
+            links: []
+        Example Response 9:
+          meta:
+            status: 401
+            code: ERR-401-InvalidToken
+            title: JWT is invalid
+            message: Token is invalid.
+            description: ''
+            links: []
+    index_recordings:
+      type: object
+      description: ''
+      title: recordings
+      properties:
+        created_at:
+          type: string
+          description: The date and time that the recording was created.
+          example: '2020-01-29T17:16:21.993Z'
+          format: date-time
+        id:
+          type: string
+          description: The unique alphanumeric string that identifies the recording.
+          example: 4Jjzstdt
+        asset_id:
+          type: string
+          description: Only applies to recordings created for Asset Management. The id for the asset associated with your recording. You can manage your asset in Asset Management.
+          example: tk1plmzr
+        file_name:
+          type: string
+          description: 'The file name of the recording.
+
+
+            <blockquote><strong>Note:</strong> To avoid file management issues in storage, Wowza Video removes or replaces special characters in file names.</blockquote>'
+          example: ''
+        real_time_stream_id:
+          type: string
+          description: Only applies to Real-Time Streaming at Scale. The unique alphanumeric string that identifies the real-time stream that was recorded.
+          example: cj39nmrt
+        reason:
+          type: string
+          description: The reason that a recording has the state **failed**.
+          example: ''
+        state:
+          type: string
+          description: The state of the recording.
+          example: completed
+          enum:
+          - uploading
+          - converting
+          - removing
+          - completed
+          - failed
+        transcoder_id:
+          type: string
+          description: The unique alphanumeric string that identifies the transcoder that was recorded.
+          example: bjaplmrw
+        updated_at:
+          type: string
+          description: The date and time that the recording was updated.
+          example: '2020-01-31T14:14:01.993Z'
+          format: date-time
+    Error422:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. ... can't be blank
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. Provider wowza_video is not allowed
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
+            description: ''
+            links: []
+    Error410:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 410
+            code: ERR-410-RecordDeleted
+            title: Record Deleted Error
+            message: The requested resource has been deleted.
+            description: ''
+            links: []
+    recordings:
+      type: object
+      description: ''
+      required:
+      - recordings
+      properties:
+        recordings:
+          type: array
+          items:
+            $ref: '#/components/schemas/index_recordings'
+      example:
+        recordings:
+        - id: 4Jjzstdt
+          transcoder_id: bjaplmrw
+          state: converting
+          reason: ''
+          file_name: 31a4f9f4.stream.0.mp4
+          created_at: '2023-01-29T17:16:21.993Z'
+          updated_at: '2023-01-31T10:37:57.993Z'
+        - id: fFWxVsyj
+          state: completed
+          reason: ''
+          file_name: my_rts_recording.mp4
+          asset_id: thfsm6c2
+          real_time_asset_id: xbzk91ts
+          created_at: '2023-01-28T17:16:21.993Z'
+          updated_at: '2023-01-30T21:34:45.993Z'
+    Error404:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 404
+            code: ERR-404-RecordNotFound
+            title: Record Not Found Error
+            message: The requested resource couldn't be found.
+            description: ''
+            links: []
+    recording:
+      type: object
+      description: ''
+      properties:
+        asset_id:
+          type: string
+          description: Only applies to recordings created for Asset Management. The id for the asset associated with your recording. You can manage your asset in Asset Management.
+        created_at:
+          type: string
+          description: The date and time that the recording was created.
+          example: ''
+          format: date-time
+        download_url:
+          type: string
+          description: The URL that can be used to download the recording.
+          example: ''
+        duration:
+          type: integer
+          description: The length of the recording, in hours, minutes, and seconds.
+          example: ''
+          format: int64
+        file_name:
+          type: string
+          description: 'The file name of the recording.
+
+
+            <blockquote><strong>Note:</strong> To avoid file management issues in storage, Wowza Video removes or replaces special characters in file names.</blockquote>'
+          example: ''
+        file_size:
+          type: integer
+          description: The file size of the recording.
+          example: ''
+          format: int64
+        id:
+          type: string
+          description: The unique alphanumeric string that identifies the recording.
+          example: ''
+        real_time_stream_id:
+          type: string
+          description: Only applies to Real-Time Streaming at Scale. The unique alphanumeric string that identifies the real-time stream that was recorded.
+          example: cj39nmrt
+        reason:
+          type: string
+          description: The reason that a recording has the state **failed**.
+          example: ''
+        starts_at:
+          type: string
+          description: The date and time that the recording started.
+          example: ''
+        state:
+          type: string
+          description: The state of the recording.
+          example: ''
+          enum:
+          - uploading
+          - converting
+          - removing
+          - completed
+          - failed
+        transcoder_id:
+          type: string
+          description: The unique alphanumeric string that identifies the transcoder that was recorded.
+          example: ''
+        transcoder_name:
+          type: string
+          description: The descriptive name of the transcoder that was recorded.
+          example: ''
+        transcoding_uptime_id:
+          type: string
+          description: The unique identifier associated with the transcoding uptime for this recording.
+          example: ''
+          format: date-time
+        updated_at:
+          type: string
+          description: The date and time that the recording was updated.
+          example: ''
+          format: date-time
+      example:
+        created_at: '2020-01-29T17:16:21.993Z'
+        download_url: https://s3.amazonaws.com/prod-wse-recordings/transcoder_035163/64886_00a613bf@367500.stream.0.mp4
+        duration: 362905
+        file_name: 00a613bf@367500.stream.0.mp4
+        file_size: 53113429
+        id: 4Jjzstdt
+        reason: ''
+        starts_at: '2020-02-01T00:00:00.000Z'
+        transcoding_uptime_id: vxyz9876
+        state: completed
+        transcoder_id: bjQplmRw
+        transcoder_name: My Camera
+        updated_at: '2020-01-30T17:22:20.993Z'
+  parameters:
+    filter:
+      name: filter
+      in: query
+      description: 'Restricts the data that gets returned by filtering on one or more values associated with a field. Construct a filter using a two-part expression that specifies the field on which to filter and the logic to use to filter. Filters use a zero-based index.
+
+
+        For valid filter operators and filter fields, see [How to get filtered query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-filtered-query-results-with-the-wowza-video-rest-api).
+
+
+        Example:
+
+        **filter[0][field]=state&filter[0][eq]=stopped**'
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      description: "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
+      schema:
+        type: integer
+    per_page:
+      name: per_page
+      in: query
+      description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
+      schema:
+        type: integer
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
+    digestAuth:
+      type: http
+      scheme: digest
+      description: HTTP Digest Authentication

@@ -1,0 +1,1153 @@
+openapi: 3.0.3
+info:
+  title: Wowza Streaming Engine REST advanced_token_authentication schedules API
+  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
+  version: 2.0.0
+  contact:
+    name: Wowza Media Systems
+    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  license:
+    name: Wowza Media Systems
+    url: https://www.wowza.com
+servers:
+- url: http://localhost:8087
+  description: Wowza Streaming Engine Server
+security:
+- basicAuth: []
+tags:
+- name: schedules
+  description: Operations related to schedules. Schedules allow you to automatically start or stop a live stream or transcoder at a predetermined date and time. You can configure a schedule to start and/or stop a live stream or transcoder just once, or you can configure it to repeat the behavior on a regular basis. See [About schedules](https://www.wowza.com/docs/schedule-live-streams-and-transcoders#aboutSCH) to learn more.
+  x-displayName: Schedules
+paths:
+  /schedules:
+    post:
+      summary: Create a schedule
+      description: This operation creates a schedule.
+      operationId: createSchedule
+      tags:
+      - schedules
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"POST\" \\\n  \"${WV_HOST}/api/v2.0/schedules\" \\\n  -d $'{\n  \"schedule\": {\n    \"property\": \"My Value\",\n    \"...\": \"...\"\n  }\n}'\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/schedules';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  method: 'POST',\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nconst req = https.request(options, function(res) {\n  var body = '';\n  res.on('data', function(data) {\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\nreq.write(JSON.stringify({\n  \"schedule\": {\n    \"property\": \"My Value\",\n    \"...\": \"...\"\n  }\n}));\nreq.end();\n"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/schedule_create_input'
+        description: Provide the details of the schedule to create in the body of the request.
+        required: true
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - schedule
+                properties:
+                  schedule:
+                    $ref: '#/components/schemas/schedule'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error422'
+    get:
+      summary: Fetch all schedules
+      description: This operation shows the details of all of your schedules.
+      operationId: listSchedules
+      tags:
+      - schedules
+      parameters:
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"GET\" \\\n  \"${WV_HOST}/api/v2.0/schedules\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/schedules';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nhttps.get(options, function(res) {\n  var body = '';\n  res.on('data', function(data){\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\n"
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/schedules'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+  /schedules/{id}:
+    get:
+      summary: Fetch a schedule
+      description: This operation shows the details of a specific schedule.
+      operationId: showSchedule
+      tags:
+      - schedules
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"GET\" \\\n  \"${WV_HOST}/api/v2.0/schedules/2adffc17\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/schedules/2adffc17';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nhttps.get(options, function(res) {\n  var body = '';\n  res.on('data', function(data){\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\n"
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique alphanumeric string that identifies the schedule.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - schedule
+                properties:
+                  schedule:
+                    $ref: '#/components/schemas/schedule'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+    patch:
+      summary: Update a schedule
+      description: This operation updates a schedule.
+      operationId: updateSchedule
+      tags:
+      - schedules
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"PATCH\" \\\n  \"${WV_HOST}/api/v2.0/schedules/2adffc17\" \\\n  -d $'{\n  \"schedule\": {\n    \"property\": \"My Value\",\n    \"...\": \"...\"\n  }\n}'\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/schedules/2adffc17';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname',\n  path: path,\n  method: 'PATCH',\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nconst req = https.request(options, function(res) {\n  var body = '';\n  res.on('data', function(data) {\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\nreq.write(JSON.stringify({\n  \"schedule\": {\n    \"property\": \"My Value\",\n    \"...\": \"...\"\n  }\n}));\nreq.end();\n"
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique alphanumeric string that identifies the schedule.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/schedule_update_input'
+        description: Provide the details of the schedule to update in the body of the request.
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - schedule
+                properties:
+                  schedule:
+                    $ref: '#/components/schemas/schedule'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error422'
+    delete:
+      summary: Delete a schedule
+      description: This operation deletes a schedule.
+      operationId: deleteSchedule
+      tags:
+      - schedules
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"DELETE\" \\\n  \"${WV_HOST}/api/v2.0/schedules/2adffc17\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/schedules/2adffc17';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  method: 'DELETE',\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nhttps.get(options, function(res) {\n  // no data being returned, just: 204 NO CONTENT\n  console.log(res.statusCode);\n}).on('error', function(e) {\n  console.log(e.message);\n});\n"
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique alphanumeric string that identifies the schedule.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error422'
+  /schedules/{id}/enable:
+    put:
+      summary: Enable a schedule
+      description: This operation enables a schedule.
+      operationId: enableSchedule
+      tags:
+      - schedules
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"PUT\" \\\n  \"${WV_HOST}/api/v2.0/schedules/2adffc17/enable\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/schedules/2adffc17/enable';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  method: 'PUT',\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nconst req = https.request(options, function(res) {\n  var body = '';\n  res.on('data', function(data) {\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\nreq.end();\n"
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique alphanumeric string that identifies the schedule.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - schedule
+                properties:
+                  schedule:
+                    type: object
+                    title: schedule
+                    properties:
+                      state:
+                        type: string
+                        description: A schedule must be **enabled** to run. Specify **enabled** to run the schedule or **disabled** to turn off the schedule so that it doesn't run.
+                        example: enabled
+                        enum:
+                        - enabled
+                        - disabled
+                        - expired
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error422'
+  /schedules/{id}/disable:
+    put:
+      summary: Disable a schedule
+      description: This operation disables a schedule.
+      operationId: disableSchedule
+      tags:
+      - schedules
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"PUT\" \\\n  \"${WV_HOST}/api/v2.0/schedules/2adffc17/disable\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/schedules/2adffc17/disable';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  method: 'PUT',\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nconst req = https.request(options, function(res) {\n  var body = '';\n  res.on('data', function(data) {\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\nreq.end();\n"
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique alphanumeric string that identifies the schedule.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - schedule
+                properties:
+                  schedule:
+                    type: object
+                    title: schedule
+                    properties:
+                      state:
+                        type: string
+                        description: A schedule must be **enabled** to run. Specify **enabled** to run the schedule or **disabled** to turn off the schedule so that it doesn't run.
+                        example: disabled
+                        enum:
+                        - enabled
+                        - disabled
+                        - expired
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error422'
+  /schedules/{id}/state:
+    get:
+      summary: Fetch the state of a schedule
+      description: This operation shows the current state of a schedule.
+      operationId: showScheduleState
+      tags:
+      - schedules
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"GET\" \\\n  \"${WV_HOST}/api/v2.0/schedules/2adffc17/state\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/schedules/2adffc17/state';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nhttps.get(options, function(res) {\n  var body = '';\n  res.on('data', function(data){\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\n"
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique alphanumeric string that identifies the schedule.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - schedule
+                properties:
+                  schedule:
+                    type: object
+                    title: schedule
+                    properties:
+                      state:
+                        type: string
+                        description: A schedule must be **enabled** to run. Specify **enabled** to run the schedule or **disabled** to turn off the schedule so that it doesn't run.
+                        example: enabled
+                        enum:
+                        - enabled
+                        - disabled
+                        - expired
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+components:
+  schemas:
+    Error403:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 403
+            code: ERR-403-RecordUnaccessible
+            title: Record Unaccessible Error
+            message: The requested resource isn't accessible.
+            description: ''
+            links: []
+    Error401:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 401
+            code: ERR-401-NoApiKey
+            title: No API Key Error
+            message: No API key sent in header.
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 401
+            code: ERR-401-NoAccessKey
+            title: No Access Key Error
+            message: No access key sent in header.
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 401
+            code: ERR-401-InvalidApiKey
+            title: Invalid Api Key Error
+            message: Invalid API key.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 401
+            code: ERR-401-InvalidAccessKey
+            title: Invalid Access Key Error
+            message: Invalid access key.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 401
+            code: ERR-401-BadAccountStatus
+            title: Bad Account Status Error
+            message: Your account's status doesn't allow this action.
+            description: ''
+            links: []
+        Example Response 6:
+          meta:
+            status: 401
+            code: ERR-401-FeatureNotEnabled
+            title: Feature Not Enabled Error
+            message: This feature isn't enabled.
+            description: ''
+            links: []
+        Example Response 7:
+          meta:
+            status: 401
+            code: ERR-401-TrialExceeded
+            title: Bad Billing Status Error
+            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
+            description: ''
+            links: []
+        Example Response 8:
+          meta:
+            status: 401
+            code: ERR-401-ExpiredToken
+            title: JWT is expired
+            message: Token has exired.
+            description: ''
+            links: []
+        Example Response 9:
+          meta:
+            status: 401
+            code: ERR-401-InvalidToken
+            title: JWT is invalid
+            message: Token is invalid.
+            description: ''
+            links: []
+    schedules:
+      type: object
+      description: ''
+      required:
+      - schedules
+      properties:
+        schedules:
+          type: array
+          items:
+            $ref: '#/components/schemas/schedule'
+      example:
+        schedules:
+        - id: 28bwb5WT
+          state: disabled
+          name: Scheduled recurring start for my camera
+          transcoder_id: VGB21JFJ
+          transcoder_name: My Camera
+          recurrence_type: recur
+          recurrence_data: monday,tuesday,wednesday,thursday,friday
+          action_type: start_stop
+          start_transcoder: '2020-02-01T00:00:00.000Z'
+          stop_transcoder: '2020-02-29T23:59:59.999Z'
+          start_repeat: '2020-02-01T00:00:00.000Z'
+          end_repeat: '2020-02-29T00:00:00.000Z'
+          created_at: '2020-01-29T17:16:21.995Z'
+          updated_at: '2020-01-31T14:58:43.995Z'
+        - id: 4RCWgfS5
+          state: enabled
+          name: Scheduled stop for my live event
+          transcoder_id: Qjl5J38Z
+          transcoder_name: Awesome Live Event
+          recurrence_type: once
+          action_type: stop
+          start_transcoder: '2020-02-01T00:00:00.000Z'
+          stop_transcoder: '2020-02-29T23:59:59.999Z'
+          created_at: '2020-01-29T17:16:21.995Z'
+          updated_at: '2020-01-31T08:25:45.995Z'
+    Error422:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. ... can't be blank
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. Provider wowza_video is not allowed
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
+            description: ''
+            links: []
+    Error410:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 410
+            code: ERR-410-RecordDeleted
+            title: Record Deleted Error
+            message: The requested resource has been deleted.
+            description: ''
+            links: []
+    schedule_create_input:
+      type: object
+      description: ''
+      required:
+      - schedule
+      properties:
+        schedule:
+          type: object
+          title: schedule
+          description: ''
+          required:
+          - name
+          - transcoder_id
+          - action_type
+          - recurrence_type
+          properties:
+            action_type:
+              type: string
+              description: The type of action that the schedule should trigger on the transcoder. The default is **start**.
+              example: start_stop
+              enum:
+              - start
+              - stop
+              - start_stop
+            name:
+              type: string
+              description: A descriptive name for the schedule. Maximum 255 characters.
+              example: Scheduled start for my camera
+            recurrence_type:
+              type: string
+              description: A schedule can run one time only (**once**) or repeat (**recur**) until a specified *end_repeat* date. The default is **once**.
+              example: recur
+              enum:
+              - once
+              - recur
+            time_zone:
+              type: string
+              example: America/New_York
+              description: "The time zone the schedule runs in.\n<details> <summary>Click to expand for the full list of valid values</summary>\n\n  | Locations |  Wowza Video time_zone value |\n  |---|---|\n  | International Date Line West  | Etc/GMT+12                     |\n  | Midway Island                 | Pacific/Midway                 |\n  | American Samoa                | Pacific/Pago_Pago              |\n  | Hawaii                        | Pacific/Honolulu               |\n  | Alaska                        | America/Juneau                 |\n  | Pacific Time (US & Canada)    | America/Los_Angeles            |\n  | Tijuana                       | America/Tijuana                |\n  | Mountain Time (US & Canada)   | America/Denver                 |\n  | Arizona                       | America/Phoenix                |\n  | Chihuahua                     | America/Chihuahua              |\n  | Mazatlan                      | America/Mazatlan               |\n  | Central Time (US & Canada)    | America/Chicago                |\n  | Saskatchewan                  | America/Regina                 |\n  | Guadalajara                   | America/Mexico_City            |\n  | Mexico City                   | America/Mexico_City            |\n  | Monterrey                     | America/Monterrey              |\n  | Central America               | America/Guatemala              |\n  | Eastern Time (US & Canada)    | America/New_York               |\n  | Indiana (East)                | America/Indiana/Indianapolis   |\n  | Bogota                        | America/Bogota                 |\n  | Lima                          | America/Lima                   |\n  | Quito                         | America/Lima                   |\n  | Atlantic Time (Canada)        | America/Halifax                |\n  | Caracas                       | America/Caracas                |\n  | La Paz                        | America/La_Paz                 |\n  | Santiago                      | America/Santiago               |\n  | Newfoundland                  | America/St_Johns               |\n  | Brasilia                      | America/Sao_Paulo              |\n  | Buenos Aires                  | America/Argentina/Buenos_Aires |\n  | Montevideo                    | America/Montevideo             |\n  | Georgetown                    | America/Guyana                 |\n  | Puerto Rico                   | America/Puerto_Rico            |\n  | Greenland                     | America/Godthab                |\n  | Mid-Atlantic                  | Atlantic/South_Georgia         |\n  | Azores                        | Atlantic/Azores                |\n  | Cape Verde Is.                | Atlantic/Cape_Verde            |\n  | Dublin                        | Europe/Dublin                  |\n  | Edinburgh                     | Europe/London                  |\n  | Lisbon                        | Europe/Lisbon                  |\n  | London                        | Europe/London                  |\n  | Casablanca                    | Africa/Casablanca              |\n  | Monrovia                      | Africa/Monrovia                |\n  | UTC                           | Etc/UTC                        |\n  | Belgrade                      | Europe/Belgrade                |\n  | Bratislava                    | Europe/Bratislava              |\n  | Budapest                      | Europe/Budapest                |\n  | Ljubljana                     | Europe/Ljubljana               |\n  | Prague                        | Europe/Prague                  |\n  | Sarajevo                      | Europe/Sarajevo                |\n  | Skopje                        | Europe/Skopje                  |\n  | Warsaw                        | Europe/Warsaw                  |\n  | Zagreb                        | Europe/Zagreb                  |\n  | Brussels                      | Europe/Brussels                |\n  | Copenhagen                    | Europe/Copenhagen              |\n  | Madrid                        | Europe/Madrid                  |\n  | Paris                         | Europe/Paris                   |\n  | Amsterdam                     | Europe/Amsterdam               |\n  | Berlin                        | Europe/Berlin                  |\n  | Bern                          | Europe/Zurich                  |\n  | Zurich                        | Europe/Zurich                  |\n  | Rome                          | Europe/Rome                    |\n  | Stockholm                     | Europe/Stockholm               |\n  | Vienna                        | Europe/Vienna                  |\n  | West Central Africa           | Africa/Algiers                 |\n  | Bucharest                     | Europe/Bucharest               |\n  | Cairo                         | Africa/Cairo                   |\n  | Helsinki                      | Europe/Helsinki                |\n  | Kyiv                          | Europe/Kiev                    |\n  | Riga                          | Europe/Riga                    |\n  | Sofia                         | Europe/Sofia                   |\n  | Tallinn                       | Europe/Tallinn                 |\n  | Vilnius                       | Europe/Vilnius                 |\n  | Athens                        | Europe/Athens                  |\n  | Istanbul                      | Europe/Istanbul                |\n  | Minsk                         | Europe/Minsk                   |\n  | Jerusalem                     | Asia/Jerusalem                 |\n  | Harare                        | Africa/Harare                  |\n  | Pretoria                      | Africa/Johannesburg            |\n  | Kaliningrad                   | Europe/Kaliningrad             |\n  | Moscow                        | Europe/Moscow                  |\n  | St. Petersburg                | Europe/Moscow                  |\n  | Volgograd                     | Europe/Volgograd               |\n  | Samara                        | Europe/Samara                  |\n  | Kuwait                        | Asia/Kuwait                    |\n  | Riyadh                        | Asia/Riyadh                    |\n  | Nairobi                       | Africa/Nairobi                 |\n  | Baghdad                       | Asia/Baghdad                   |\n  | Tehran                        | Asia/Tehran                    |\n  | Abu Dhabi                     | Asia/Muscat                    |\n  | Muscat                        | Asia/Muscat                    |\n  | Baku                          | Asia/Baku                      |\n  | Tbilisi                       | Asia/Tbilisi                   |\n  | Yerevan                       | Asia/Yerevan                   |\n  | Kabul                         | Asia/Kabul                     |\n  | Ekaterinburg                  | Asia/Yekaterinburg             |\n  | Islamabad                     | Asia/Karachi                   |\n  | Karachi                       | Asia/Karachi                   |\n  | Tashkent                      | Asia/Tashkent                  |\n  | Chennai                       | Asia/Kolkata                   |\n  | Kolkata                       | Asia/Kolkata                   |\n  | Mumbai                        | Asia/Kolkata                   |\n  | New Delhi                     | Asia/Kolkata                   |\n  | Kathmandu                     | Asia/Kathmandu                 |\n  | Astana                        | Asia/Dhaka                     |\n  | Dhaka                         | Asia/Dhaka                     |\n  | Sri Jayawardenepura           | Asia/Colombo                   |\n  | Almaty                        | Asia/Almaty                    |\n  | Novosibirsk                   | Asia/Novosibirsk               |\n  | Rangoon                       | Asia/Rangoon                   |\n  | Bangkok                       | Asia/Bangkok                   |\n  | Hanoi                         | Asia/Bangkok                   |\n  | Jakarta                       | Asia/Jakarta                   |\n  | Krasnoyarsk                   | Asia/Krasnoyarsk               |\n  | Beijing                       | Asia/Shanghai                  |\n  | Chongqing                     | Asia/Chongqing                 |\n  | Hong Kong                     | Asia/Hong_Kong                 |\n  | Urumqi                        | Asia/Urumqi                    |\n  | Kuala Lumpur                  | Asia/Kuala_Lumpur              |\n  | Singapore                     | Asia/Singapore                 |\n  | Taipei                        | Asia/Taipei                    |\n  | Perth                         | Australia/Perth                |\n  | Irkutsk                       | Asia/Irkutsk                   |\n  | Ulaanbaatar                   | Asia/Ulaanbaatar               |\n  | Seoul                         | Asia/Seoul                     |\n  | Osaka                         | Asia/Tokyo                     |\n  | Sapporo                       | Asia/Tokyo                     |\n  | Tokyo                         | Asia/Tokyo                     |\n  | Yakutsk                       | Asia/Yakutsk                   |\n  | Darwin                        | Australia/Darwin               |\n  | Adelaide                      | Australia/Adelaide             |\n  | Canberra                      | Australia/Melbourne            |\n  | Melbourne                     | Australia/Melbourne            |\n  | Sydney                        | Australia/Sydney               |\n  | Brisbane                      | Australia/Brisbane             |\n  | Hobart                        | Australia/Hobart               |\n  | Vladivostok                   | Asia/Vladivostok               |\n  | Guam                          | Pacific/Guam                   |\n  | Port Moresby                  | Pacific/Port_Moresby           |\n  | Magadan                       | Asia/Magadan                   |\n  | Srednekolymsk                 | Asia/Srednekolymsk             |\n  | Solomon Is.                   | Pacific/Guadalcanal            |\n  | New Caledonia                 | Pacific/Noumea                 |\n  | Fiji                          | Pacific/Fiji                   |\n  | Kamchatka                     | Asia/Kamchatka                 |\n  | Marshall Is.                  | Pacific/Majuro                 |\n  | Auckland                      | Pacific/Auckland               |\n  | Wellington                    | Pacific/Auckland               |\n  | Nuku'alofa                    | Pacific/Tongatapu              |\n  | Tokelau Is.                   | Pacific/Fakaofo                |\n  | Chatham Is.                   | Pacific/Chatham                |\n  | Samoa                         | Pacific/Apia                   |\n\n</details>\n\n**Default:** `Etc/UTC`\n\n**Example:** `America/New_York`"
+            transcoder_id:
+              type: string
+              description: The unique alphanumeric string that identifies the transcoder being scheduled.
+              example: km1FSSVL
+            end_repeat:
+              type: string
+              description: 'The month, day, and year that a recurring schedule should stop running. Specify **YYYY-MM-DD**.
+
+
+                **Example:** <code>"end_repeat": "2020-02-29T00:00:00.000Z"</code>'
+              example: '2020-02-29T00:00:00.000Z'
+              format: date
+            recurrence_data:
+              type: string
+              description: 'The day or days of the week that a recurring schedule should run.
+
+
+                **Example:** <code>"recurrence_data": "monday,tuesday,wednesday,thursday,friday"</code>'
+              example: monday,tuesday,wednesday,thursday,friday
+              enum:
+              - sunday
+              - monday
+              - tuesday
+              - wednesday
+              - thursday
+              - friday
+              - saturday
+            start_repeat:
+              type: string
+              description: 'The month, day, and year that the recurring schedule should go into effect. Specify **YYYY-MM-DD**.
+
+
+                **Example:** <code>"start_repeat": "2020-02-01T00:00:00.000Z"</code>'
+              example: '2020-02-01T00:00:00.000Z'
+              format: date
+            start_transcoder:
+              type: string
+              description: 'The month, day, year, and time of day that the *action_type* **start** should occur. Specify **YYYY-MM-DD HH:MM:SS** where **HH** is a 24-hour clock in UTC.
+
+
+                Required when **action_type** is **start** or **start_stop**.
+
+
+                **Example:** <code>"start_transcoder": "2020-02-01T00:00:00.000Z"</code>'
+              example: '2020-02-01T00:00:00.000Z'
+              format: date-time
+            stop_transcoder:
+              type: string
+              description: 'The month, day, year, and time of day that the *action_type* **stop** should occur. Specify **YYYY-MM-DD HH:MM:SS** where **HH** is a 24-hour clock in UTC.
+
+
+                Required when **action_type** is **stop** or **start_stop**.
+
+
+                **Example:** <code>"start_transcoder": "2020-02-29T23:59:59.999Z"</code>'
+              example: '2020-02-29T23:59:59.999Z'
+              format: date-time
+    schedule_update_input:
+      type: object
+      description: ''
+      required:
+      - schedule
+      properties:
+        schedule:
+          type: object
+          title: schedule
+          description: ''
+          properties:
+            action_type:
+              type: string
+              description: 'The type of action that the schedule should trigger on the transcoder. The default is **start**.
+
+
+                **Example:** <code>"action_type": "stop"</code>'
+              example: start_stop
+              enum:
+              - start
+              - stop
+              - start_stop
+            name:
+              type: string
+              description: 'A descriptive name for the schedule. Maximum 255 characters.
+
+
+                **Example:** <code>"name": "My Updated Schedule"</code>'
+              example: Scheduled start for my camera
+            end_repeat:
+              type: string
+              description: 'The month, day, and year that a recurring schedule should stop running. Specify **YYYY-MM-DD**.
+
+
+                **Example:** <code>"end_repeat": "2020-02-29T00:00:00.000Z"</code>'
+              example: '2020-02-29T00:00:00.000Z'
+              format: date
+            recurrence_data:
+              type: string
+              description: 'The day or days of the week that a recurring schedule should run.
+
+
+                **Example:** <code>"recurrence_data": "monday,tuesday,wednesday,thursday,friday"</code>'
+              example: monday,tuesday,wednesday,thursday,friday
+              enum:
+              - sunday
+              - monday
+              - tuesday
+              - wednesday
+              - thursday
+              - friday
+              - saturday
+            start_repeat:
+              type: string
+              description: 'The month, day, and year that the recurring schedule should go into effect. Specify **YYYY-MM-DD**.
+
+
+                **Example:** <code>"start_repeat": "2020-02-01T00:00:00.000Z"</code>'
+              example: '2020-02-01T00:00:00.000Z'
+              format: date
+            start_transcoder:
+              type: string
+              description: 'The month, day, year, and time of day that the *action_type* **start** should occur. Specify **YYYY-MM-DD HH:MM:SS** where **HH** is a 24-hour clock in UTC.
+
+
+                **Example:** <code>"start_transcoder": "2020-02-01T00:00:00.000Z"</code>'
+              example: '2020-02-01T00:00:00.000Z'
+              format: date-time
+            stop_transcoder:
+              type: string
+              description: 'The month, day, year, and time of day that the *action_type* **stop** should occur. Specify **YYYY-MM-DD HH:MM:SS** where **HH** is a 24-hour clock in UTC.
+
+
+                **Example:** <code>"start_transcoder": "2020-02-29T23:59:59.999Z"</code>'
+              example: '2020-02-29T23:59:59.999Z'
+              format: date-time
+            time_zone:
+              type: string
+              description: "The time zone the schedule runs in.\n<details> <summary>Click to expand for the full list of valid values</summary>\n\n  | Locations |  Wowza Video time_zone value |\n  |---|---|\n  | International Date Line West  | Etc/GMT+12                     |\n  | Midway Island                 | Pacific/Midway                 |\n  | American Samoa                | Pacific/Pago_Pago              |\n  | Hawaii                        | Pacific/Honolulu               |\n  | Alaska                        | America/Juneau                 |\n  | Pacific Time (US & Canada)    | America/Los_Angeles            |\n  | Tijuana                       | America/Tijuana                |\n  | Mountain Time (US & Canada)   | America/Denver                 |\n  | Arizona                       | America/Phoenix                |\n  | Chihuahua                     | America/Chihuahua              |\n  | Mazatlan                      | America/Mazatlan               |\n  | Central Time (US & Canada)    | America/Chicago                |\n  | Saskatchewan                  | America/Regina                 |\n  | Guadalajara                   | America/Mexico_City            |\n  | Mexico City                   | America/Mexico_City            |\n  | Monterrey                     | America/Monterrey              |\n  | Central America               | America/Guatemala              |\n  | Eastern Time (US & Canada)    | America/New_York               |\n  | Indiana (East)                | America/Indiana/Indianapolis   |\n  | Bogota                        | America/Bogota                 |\n  | Lima                          | America/Lima                   |\n  | Quito                         | America/Lima                   |\n  | Atlantic Time (Canada)        | America/Halifax                |\n  | Caracas                       | America/Caracas                |\n  | La Paz                        | America/La_Paz                 |\n  | Santiago                      | America/Santiago               |\n  | Newfoundland                  | America/St_Johns               |\n  | Brasilia                      | America/Sao_Paulo              |\n  | Buenos Aires                  | America/Argentina/Buenos_Aires |\n  | Montevideo                    | America/Montevideo             |\n  | Georgetown                    | America/Guyana                 |\n  | Puerto Rico                   | America/Puerto_Rico            |\n  | Greenland                     | America/Godthab                |\n  | Mid-Atlantic                  | Atlantic/South_Georgia         |\n  | Azores                        | Atlantic/Azores                |\n  | Cape Verde Is.                | Atlantic/Cape_Verde            |\n  | Dublin                        | Europe/Dublin                  |\n  | Edinburgh                     | Europe/London                  |\n  | Lisbon                        | Europe/Lisbon                  |\n  | London                        | Europe/London                  |\n  | Casablanca                    | Africa/Casablanca              |\n  | Monrovia                      | Africa/Monrovia                |\n  | UTC                           | Etc/UTC                        |\n  | Belgrade                      | Europe/Belgrade                |\n  | Bratislava                    | Europe/Bratislava              |\n  | Budapest                      | Europe/Budapest                |\n  | Ljubljana                     | Europe/Ljubljana               |\n  | Prague                        | Europe/Prague                  |\n  | Sarajevo                      | Europe/Sarajevo                |\n  | Skopje                        | Europe/Skopje                  |\n  | Warsaw                        | Europe/Warsaw                  |\n  | Zagreb                        | Europe/Zagreb                  |\n  | Brussels                      | Europe/Brussels                |\n  | Copenhagen                    | Europe/Copenhagen              |\n  | Madrid                        | Europe/Madrid                  |\n  | Paris                         | Europe/Paris                   |\n  | Amsterdam                     | Europe/Amsterdam               |\n  | Berlin                        | Europe/Berlin                  |\n  | Bern                          | Europe/Zurich                  |\n  | Zurich                        | Europe/Zurich                  |\n  | Rome                          | Europe/Rome                    |\n  | Stockholm                     | Europe/Stockholm               |\n  | Vienna                        | Europe/Vienna                  |\n  | West Central Africa           | Africa/Algiers                 |\n  | Bucharest                     | Europe/Bucharest               |\n  | Cairo                         | Africa/Cairo                   |\n  | Helsinki                      | Europe/Helsinki                |\n  | Kyiv                          | Europe/Kiev                    |\n  | Riga                          | Europe/Riga                    |\n  | Sofia                         | Europe/Sofia                   |\n  | Tallinn                       | Europe/Tallinn                 |\n  | Vilnius                       | Europe/Vilnius                 |\n  | Athens                        | Europe/Athens                  |\n  | Istanbul                      | Europe/Istanbul                |\n  | Minsk                         | Europe/Minsk                   |\n  | Jerusalem                     | Asia/Jerusalem                 |\n  | Harare                        | Africa/Harare                  |\n  | Pretoria                      | Africa/Johannesburg            |\n  | Kaliningrad                   | Europe/Kaliningrad             |\n  | Moscow                        | Europe/Moscow                  |\n  | St. Petersburg                | Europe/Moscow                  |\n  | Volgograd                     | Europe/Volgograd               |\n  | Samara                        | Europe/Samara                  |\n  | Kuwait                        | Asia/Kuwait                    |\n  | Riyadh                        | Asia/Riyadh                    |\n  | Nairobi                       | Africa/Nairobi                 |\n  | Baghdad                       | Asia/Baghdad                   |\n  | Tehran                        | Asia/Tehran                    |\n  | Abu Dhabi                     | Asia/Muscat                    |\n  | Muscat                        | Asia/Muscat                    |\n  | Baku                          | Asia/Baku                      |\n  | Tbilisi                       | Asia/Tbilisi                   |\n  | Yerevan                       | Asia/Yerevan                   |\n  | Kabul                         | Asia/Kabul                     |\n  | Ekaterinburg                  | Asia/Yekaterinburg             |\n  | Islamabad                     | Asia/Karachi                   |\n  | Karachi                       | Asia/Karachi                   |\n  | Tashkent                      | Asia/Tashkent                  |\n  | Chennai                       | Asia/Kolkata                   |\n  | Kolkata                       | Asia/Kolkata                   |\n  | Mumbai                        | Asia/Kolkata                   |\n  | New Delhi                     | Asia/Kolkata                   |\n  | Kathmandu                     | Asia/Kathmandu                 |\n  | Astana                        | Asia/Dhaka                     |\n  | Dhaka                         | Asia/Dhaka                     |\n  | Sri Jayawardenepura           | Asia/Colombo                   |\n  | Almaty                        | Asia/Almaty                    |\n  | Novosibirsk                   | Asia/Novosibirsk               |\n  | Rangoon                       | Asia/Rangoon                   |\n  | Bangkok                       | Asia/Bangkok                   |\n  | Hanoi                         | Asia/Bangkok                   |\n  | Jakarta                       | Asia/Jakarta                   |\n  | Krasnoyarsk                   | Asia/Krasnoyarsk               |\n  | Beijing                       | Asia/Shanghai                  |\n  | Chongqing                     | Asia/Chongqing                 |\n  | Hong Kong                     | Asia/Hong_Kong                 |\n  | Urumqi                        | Asia/Urumqi                    |\n  | Kuala Lumpur                  | Asia/Kuala_Lumpur              |\n  | Singapore                     | Asia/Singapore                 |\n  | Taipei                        | Asia/Taipei                    |\n  | Perth                         | Australia/Perth                |\n  | Irkutsk                       | Asia/Irkutsk                   |\n  | Ulaanbaatar                   | Asia/Ulaanbaatar               |\n  | Seoul                         | Asia/Seoul                     |\n  | Osaka                         | Asia/Tokyo                     |\n  | Sapporo                       | Asia/Tokyo                     |\n  | Tokyo                         | Asia/Tokyo                     |\n  | Yakutsk                       | Asia/Yakutsk                   |\n  | Darwin                        | Australia/Darwin               |\n  | Adelaide                      | Australia/Adelaide             |\n  | Canberra                      | Australia/Melbourne            |\n  | Melbourne                     | Australia/Melbourne            |\n  | Sydney                        | Australia/Sydney               |\n  | Brisbane                      | Australia/Brisbane             |\n  | Hobart                        | Australia/Hobart               |\n  | Vladivostok                   | Asia/Vladivostok               |\n  | Guam                          | Pacific/Guam                   |\n  | Port Moresby                  | Pacific/Port_Moresby           |\n  | Magadan                       | Asia/Magadan                   |\n  | Srednekolymsk                 | Asia/Srednekolymsk             |\n  | Solomon Is.                   | Pacific/Guadalcanal            |\n  | New Caledonia                 | Pacific/Noumea                 |\n  | Fiji                          | Pacific/Fiji                   |\n  | Kamchatka                     | Asia/Kamchatka                 |\n  | Marshall Is.                  | Pacific/Majuro                 |\n  | Auckland                      | Pacific/Auckland               |\n  | Wellington                    | Pacific/Auckland               |\n  | Nuku'alofa                    | Pacific/Tongatapu              |\n  | Tokelau Is.                   | Pacific/Fakaofo                |\n  | Chatham Is.                   | Pacific/Chatham                |\n  | Samoa                         | Pacific/Apia                   |\n\n</details>\n\n**Default:** `Etc/UTC`\n\n**Example:** `America/New_York`"
+              example: America/New_York
+    Error404:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 404
+            code: ERR-404-RecordNotFound
+            title: Record Not Found Error
+            message: The requested resource couldn't be found.
+            description: ''
+            links: []
+    schedule:
+      type: object
+      description: ''
+      properties:
+        action_type:
+          type: string
+          description: The type of action that the schedule should trigger on the transcoder. The default is **start**.
+          example: start_stop
+          enum:
+          - start
+          - stop
+          - start_stop
+        created_at:
+          type: string
+          description: The date and time that the schedule was created.
+          example: '2020-01-29T17:16:21.995Z'
+          format: date-time
+        end_repeat:
+          type: string
+          description: The month, day, and year that a recurring schedule should stop running. Specify **YYYY-MM-DD**.
+          example: '2020-02-29T00:00:00.000Z'
+          format: date
+        id:
+          type: string
+          description: The unique alphanumeric string that identifies the schedule.
+          example: vhB0jSlB
+        name:
+          type: string
+          description: A descriptive name for the schedule. Maximum 255 characters.
+          example: Scheduled start for my camera
+        recurrence_data:
+          type: string
+          description: The day or days of the week that a recurring schedule should run.
+          example: monday,tuesday,wednesday,thursday,friday
+          enum:
+          - sunday
+          - monday
+          - tuesday
+          - wednesday
+          - thursday
+          - friday
+          - saturday
+        recurrence_type:
+          type: string
+          description: A schedule can run one time only (**once**) or repeat (**recur**) until a specified *end_repeat* date. The default is **once**.
+          example: recur
+          enum:
+          - once
+          - recur
+        start_repeat:
+          type: string
+          description: The month, day, and year that the recurring schedule should go into effect. Specify **YYYY-MM-DD**.
+          example: '2020-02-01T00:00:00.000Z'
+          format: date
+        start_transcoder:
+          type: string
+          description: The month, day, year, and time of day that the *action_type* **start** should occur. Specify **YYYY-MM-DD HH:MM:SS** where **HH** is a 24-hour clock in UTC.
+          example: '2020-02-01T00:00:00.000Z'
+          format: date-time
+        state:
+          type: string
+          description: A schedule must be **enabled** to run. Specify **enabled** to run the schedule or **disabled** to turn off the schedule so that it doesn't run.
+          example: enabled
+          enum:
+          - enabled
+          - disabled
+          - expired
+        stop_transcoder:
+          type: string
+          description: The month, day, year, and time of day that the *action_type* **stop** should occur. Specify **YYYY-MM-DD HH:MM:SS** where **HH** is a 24-hour clock in UTC.
+          example: '2020-02-29T23:59:59.999Z'
+          format: date-time
+        time_zone:
+          type: string
+          description: The time zone the schedule runs in.
+        transcoder_id:
+          type: string
+          description: The unique alphanumeric string that identifies the transcoder being scheduled.
+          example: P0NrTP7m
+        transcoder_name:
+          type: string
+          description: The name of the transcoder being scheduled.
+          example: My Camera
+        updated_at:
+          type: string
+          description: The date and time that the schedule was updated.
+          example: '2020-01-30T16:44:37.995Z'
+          format: date-time
+      example:
+        id: 28bwb5WT
+        state: disabled
+        name: Scheduled recurring start for my camera
+        time_zone: America/New_York
+        transcoder_id: VGB21JFJ
+        transcoder_name: My Camera
+        recurrence_type: recur
+        recurrence_data: monday,tuesday,wednesday,thursday,friday
+        action_type: start_stop
+        start_transcoder: '2020-02-01T00:00:00.000Z'
+        stop_transcoder: '2020-02-29T23:59:59.999Z'
+        start_repeat: '2020-02-01T00:00:00.000Z'
+        end_repeat: '2020-02-29T00:00:00.000Z'
+        created_at: '2020-01-29T17:16:21.995Z'
+        updated_at: '2020-01-31T07:00:48.995Z'
+  parameters:
+    filter:
+      name: filter
+      in: query
+      description: 'Restricts the data that gets returned by filtering on one or more values associated with a field. Construct a filter using a two-part expression that specifies the field on which to filter and the logic to use to filter. Filters use a zero-based index.
+
+
+        For valid filter operators and filter fields, see [How to get filtered query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-filtered-query-results-with-the-wowza-video-rest-api).
+
+
+        Example:
+
+        **filter[0][field]=state&filter[0][eq]=stopped**'
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      description: "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
+      schema:
+        type: integer
+    per_page:
+      name: per_page
+      in: query
+      description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
+      schema:
+        type: integer
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
+    digestAuth:
+      type: http
+      scheme: digest
+      description: HTTP Digest Authentication

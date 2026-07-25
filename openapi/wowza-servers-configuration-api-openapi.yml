@@ -1,0 +1,1063 @@
+openapi: 3.0.3
+info:
+  title: Wowza Streaming Engine REST advanced_token_authentication Servers Configuration API
+  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
+  version: 2.0.0
+  contact:
+    name: Wowza Media Systems
+    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  license:
+    name: Wowza Media Systems
+    url: https://www.wowza.com
+servers:
+- url: http://localhost:8087
+  description: Wowza Streaming Engine Server
+security:
+- basicAuth: []
+tags:
+- name: Servers Configuration
+  description: ''
+paths:
+  /v2/servers:
+    get:
+      tags:
+      - Servers Configuration
+      operationId: getServersConfig
+      summary: Get server list
+      description: Retrieves the list of servers. This API is available in builds 15089 or later.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServersConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}:
+    get:
+      tags:
+      - Servers Configuration
+      operationId: getServerConfig
+      summary: Get server config
+      description: Retrieves the server configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Servers Configuration
+      operationId: putServerConfig
+      summary: Update server config
+      description: Updates the server configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServerConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/actions/{action}:
+    put:
+      tags:
+      - Servers Configuration
+      operationId: putServerAction
+      summary: Server actions
+      description: Tells the server to perform an action. This API is available in builds 18647 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: action
+        in: path
+        required: true
+        description: The action which should be performed by the server
+        schema:
+          type: string
+          enum:
+          - heapDump
+          - restart
+          - stackTrace
+          - start
+          - stop
+      - name: filename
+        in: query
+        required: false
+        description: The file location to use when creating a heap dump or stack trace. By default the installation location and file are named appropriately for a heap dump or stack trace
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/adv:
+    get:
+      tags:
+      - Servers Configuration
+      operationId: getServerConfigAdv
+      summary: Get server config (adv)
+      description: Retrieves the advanced server configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerConfigAdv'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Servers Configuration
+      operationId: putServerConfigAdv
+      summary: Update server config (adv)
+      description: Updates the advanced server configuration. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServerConfigAdv'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/logfiles:
+    get:
+      tags:
+      - Servers Configuration
+      operationId: getServerLogFilesConfig
+      summary: Get log files
+      description: Retrieves the list of server log files. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: order
+        in: query
+        required: false
+        description: The order of files in serverLogs list
+        schema:
+          type: string
+          enum:
+          - newestFirst
+          - oldestFirst
+          default: newestFirst
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerLogFilesConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/logfiles/{logName}:
+    get:
+      tags:
+      - Servers Configuration
+      operationId: getServerLogFileConfig
+      summary: Get log file
+      description: Retrieves the contents of a server log with the specified log name. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: lineCount
+        in: query
+        required: false
+        description: The number of log lines requested, where a postive number indicates log lines after startOffset and a negative number indicate log lines before startOffset
+        schema:
+          type: string
+          default: '100'
+      - name: startOffset
+        in: query
+        required: false
+        description: The byte offset in the file at which to begin getting log lines
+        schema:
+          type: string
+      - name: filter
+        in: query
+        required: false
+        description: A string containing a list of predefined search filters separated by | where valid strings are noDebug,noInfo,noWarn,noError,noHeader,noColumnHeadings
+        schema:
+          type: string
+      - name: search
+        in: query
+        required: false
+        description: A string containing a literal string on which to filter or a regex
+        schema:
+          type: string
+      - name: regexSearch
+        in: query
+        required: false
+        description: 'Indicates if the ''search'' parameter is a regex or a literal string '
+        schema:
+          type: string
+          enum:
+          - 'false'
+          - 'true'
+          default: 'false'
+      - name: head
+        in: query
+        required: false
+        description: Returns the first x lines from the requested log file, the overrides the startoffset and linecount values
+        schema:
+          type: string
+      - name: tail
+        in: query
+        required: false
+        description: Returns the last x lines from the requested log file, the overrides the startoffset and linecount values
+        schema:
+          type: string
+      - name: logName
+        in: path
+        required: true
+        description: The name of the log
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerLogFileConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/logfiles/{logName}/download:
+    get:
+      tags:
+      - Servers Configuration
+      operationId: getServerLogFileDownloadConfig
+      summary: Get zipped log file
+      description: Retrieves the server log file for the specified log name, zipped. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: logName
+        in: path
+        required: true
+        description: The name of the log
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerLogFileDownloadConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/logs:
+    get:
+      tags:
+      - Servers Configuration
+      operationId: getServerLogTypesConfig
+      summary: Get log file types
+      description: Retrieves the list of available server log types. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerLogTypesConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/logs/{logType}:
+    get:
+      tags:
+      - Servers Configuration
+      operationId: getServerLogsConfig
+      summary: Get logs by type
+      description: Retrieves the contents of multiple server logs with the specified type in the log name. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: lineCount
+        in: query
+        required: false
+        description: The number of log lines requested, where a postive number indicates log lines after startOffset and a negative number indicate log lines before startOffset
+        schema:
+          type: string
+          default: '100'
+      - name: startOffset
+        in: query
+        required: false
+        description: The byte offset in the file at which to begin getting log lines
+        schema:
+          type: string
+      - name: filter
+        in: query
+        required: false
+        description: A string containing a list of predefined search filters separated by | where valid strings are noDebug,noInfo,noWarn,noError,noHeader,noColumnHeadings
+        schema:
+          type: string
+      - name: search
+        in: query
+        required: false
+        description: A string containing a literal string on which to filter or a regex
+        schema:
+          type: string
+      - name: regexSearch
+        in: query
+        required: false
+        description: 'Indicates if the ''search'' parameter is a regex or a literal string '
+        schema:
+          type: string
+          enum:
+          - 'false'
+          - 'true'
+          default: 'false'
+      - name: head
+        in: query
+        required: false
+        description: Returns the first x lines from the requested log file, the overrides the startoffset and linecount values
+        schema:
+          type: string
+      - name: tail
+        in: query
+        required: false
+        description: Returns the last x lines from the requested log file, the overrides the startoffset and linecount values
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        required: false
+        description: The start date to filter on (UTC milliseconds)
+        schema:
+          type: string
+      - name: endDate
+        in: query
+        required: false
+        description: The end date to filter on (UTC milliseconds)
+        schema:
+          type: string
+      - name: logType
+        in: path
+        required: true
+        description: The type of the log
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerLogsConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/sourcecontrol/drivernames:
+    get:
+      tags:
+      - Servers Configuration
+      operationId: getSourceDriverNamesList
+      summary: Get source control driver list
+      description: Get the list of source control drivers. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceDriverNamesList'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhostlisteners:
+    get:
+      tags:
+      - Servers Configuration
+      operationId: getVHostListenersConfig
+      summary: Get vhost listener list
+      description: Retrieves the list of vhost listeners. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VHostListenersConfig'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Servers Configuration
+      operationId: putVHostListenersConfig
+      summary: Update vhost listener list
+      description: Updates the full list of vhost listeners. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VHostListenersConfig'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /v2/servers/{serverName}/vhostlisteners/{baseclass}:
+    delete:
+      tags:
+      - Servers Configuration
+      operationId: deleteVHostListenerConfig
+      summary: Delete vhost listener by base class
+      description: Deletes the vhost listener with the given base class. This API is available in builds 15089 or later.
+      parameters:
+      - name: serverName
+        in: path
+        required: true
+        description: Reserved for future use
+        schema:
+          type: string
+          default: _defaultServer_
+      - name: baseclass
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    SourceDriverNamesList:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        list:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - list
+    ServerLogFilesConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        serverLogFiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServerLogShortObject'
+      required:
+      - version
+      - serverName
+      - serverLogFiles
+    ServerListenersConfig:
+      type: object
+      properties:
+        serverListeners:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServerListenerConfig'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - serverListeners
+    ServerLogsConfig:
+      type: object
+      properties:
+        endOffset:
+          type: integer
+          format: int64
+        logStartDate:
+          type: string
+        logDate:
+          type: string
+        endDate:
+          type: string
+        serverName:
+          type: string
+        version:
+          type: string
+        logLines:
+          type: array
+          items:
+            type: string
+        filterStr:
+          type: string
+        retLineCount:
+          type: integer
+          format: int64
+        logFields:
+          type: string
+        logSoftware:
+          type: string
+        startOffset:
+          type: integer
+          format: int64
+        searchStr:
+          type: string
+        regexSearch:
+          type: boolean
+        logVersion:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        fileLength:
+          type: integer
+          format: int64
+        startDate:
+          type: string
+      required:
+      - version
+      - serverName
+      - retLineCount
+      - startOffset
+      - endOffset
+      - fileLength
+      - filterStr
+      - logFields
+      - logVersion
+      - logStartDate
+      - logSoftware
+      - logDate
+      - logLines
+      - searchStr
+      - regexSearch
+      - startDate
+      - endDate
+    ServerLogFileConfig:
+      type: object
+      properties:
+        endOffset:
+          type: integer
+          format: int64
+        logStartDate:
+          type: string
+        logDate:
+          type: string
+        endDate:
+          type: string
+        serverName:
+          type: string
+        version:
+          type: string
+        logLines:
+          type: array
+          items:
+            type: string
+        filterStr:
+          type: string
+        retLineCount:
+          type: integer
+          format: int64
+        logFields:
+          type: string
+        logSoftware:
+          type: string
+        startOffset:
+          type: integer
+          format: int64
+        searchStr:
+          type: string
+        regexSearch:
+          type: boolean
+        logVersion:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        fileLength:
+          type: integer
+          format: int64
+        startDate:
+          type: string
+      required:
+      - version
+      - serverName
+      - retLineCount
+      - startOffset
+      - endOffset
+      - fileLength
+      - filterStr
+      - logFields
+      - logVersion
+      - logStartDate
+      - logSoftware
+      - logDate
+      - logLines
+      - searchStr
+      - regexSearch
+      - startDate
+      - endDate
+    ServerConfig:
+      type: object
+      properties:
+        transportThreadPoolAutoValue:
+          type: string
+        handlerThreadPool:
+          type: string
+        transportThreadPool:
+          type: string
+        ipAddress:
+          type: string
+        serverId1:
+          type: string
+        serverName:
+          type: string
+        description:
+          type: string
+        rtpDataPortSharingPort:
+          type: integer
+          format: int32
+        version:
+          type: string
+        serverId2:
+          type: string
+        serverTS:
+          type: integer
+          format: int64
+        port:
+          type: integer
+          format: int32
+        serverListeners:
+          $ref: '#/components/schemas/ServerListenersConfig'
+        name:
+          type: string
+        rtpDataPortSharing:
+          type: boolean
+        handlerThreadPoolAutoValue:
+          type: string
+        defaultStreamPrefix:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+      required:
+      - version
+      - serverName
+      - name
+      - description
+      - defaultStreamPrefix
+      - ipAddress
+      - port
+      - handlerThreadPool
+      - handlerThreadPoolAutoValue
+      - transportThreadPool
+      - transportThreadPoolAutoValue
+      - rtpDataPortSharing
+      - rtpDataPortSharingPort
+      - serverListeners
+      - serverId1
+      - serverId2
+      - serverTS
+    ServerLogShortObject:
+      type: object
+      properties:
+        fileSize:
+          type: integer
+          format: int64
+        startDateMS:
+          type: integer
+          format: int64
+        id:
+          type: string
+        href:
+          type: string
+      required:
+      - id
+      - href
+      - fileSize
+      - startDateMS
+    VHostListenerConfig:
+      type: object
+      properties:
+        baseclass:
+          type: string
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        order:
+          type: integer
+          format: int32
+      required:
+      - version
+      - serverName
+      - order
+      - baseclass
+    ServerListenerConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        baseClass:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        order:
+          type: integer
+          format: int32
+      required:
+      - version
+      - serverName
+      - order
+      - baseClass
+    VHostListenersConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        vhostListeners:
+          type: array
+          items:
+            $ref: '#/components/schemas/VHostListenerConfig'
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - vhostListeners
+    ServerConfigAdv:
+      type: object
+      properties:
+        serverListeners:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServerListenerConfig'
+        advancedSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedSetting'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - advancedSettings
+      - serverListeners
+    ServersConfig:
+      type: object
+      properties:
+        servers:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServerConfig'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - servers
+    AdvancedSetting:
+      type: object
+      properties:
+        sectionName:
+          type: string
+        canRemove:
+          type: boolean
+        defaultValue:
+          type: string
+        documented:
+          type: boolean
+        name:
+          type: string
+        section:
+          type: string
+        type:
+          type: string
+        value:
+          type: string
+        initialValue:
+          type: string
+        enabled:
+          type: boolean
+      required:
+      - enabled
+      - canRemove
+      - name
+      - value
+      - defaultValue
+      - type
+      - sectionName
+      - section
+      - documented
+      - initialValue
+    ServerLogFileDownloadConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+    ServerLogTypesConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        serverLogType:
+          type: array
+          items:
+            type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - serverLogType
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
+    digestAuth:
+      type: http
+      scheme: digest
+      description: HTTP Digest Authentication

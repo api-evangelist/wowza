@@ -1,0 +1,956 @@
+openapi: 3.0.3
+info:
+  title: Wowza Streaming Engine REST advanced_token_authentication usage_transcoders API
+  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
+  version: 2.0.0
+  contact:
+    name: Wowza Media Systems
+    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  license:
+    name: Wowza Media Systems
+    url: https://www.wowza.com
+servers:
+- url: http://localhost:8087
+  description: Wowza Streaming Engine Server
+security:
+- basicAuth: []
+tags:
+- name: usage_transcoders
+  description: Operations related to transcoder analytics.
+  x-displayName: Transcoders
+paths:
+  /usage/transcoders:
+    get:
+      summary: Fetch usage for all transcoders
+      description: This operation shows the amount of usage (egress) for all transcoders in the account. The default time frame is *from* the last billing date *to* the end of the current day.
+      operationId: usageTranscodersIndex
+      tags:
+      - usage_transcoders
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"GET\" \\\n  \"${WV_HOST}/api/v2.0/usage/transcoders\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/usage/transcoders';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nhttps.get(options, function(res) {\n  var body = '';\n  res.on('data', function(data){\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\n"
+      parameters:
+      - name: from
+        in: query
+        required: false
+        description: 'The start of the range of time you want to view. Specify **YYYY-MM-DD HH:00:00** where **HH** is a 24-hour clock in UTC. The range doesn''t include minutes and seconds and rounds minutes up to the hour. The maximum difference between **from** and **to** is 90 days. If you set the **from** query parameter without setting the **to** query parameter, the data returned will reflect 90 days starting at the **from** date, or data up to to the current day, whichever is shorter.
+
+
+          You can also specify **last_bill_date**.
+
+
+          **Default**: last billing date'
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        required: false
+        description: 'The end of the range of time you want to view. Specify **YYYY-MM-DD HH:00:00** where **HH** is a 24-hour clock in UTC. The range doesn''t include minutes and seconds and rounds minutes up to the hour. The maximum difference between **from** and **to** is 90 days. If you set the **to** query parameter without setting the **from** query parameter, the data returned will be from the past 90 days or from your last invoice date, whichever is shorter.
+
+
+          You can also specify **last_bill_date**.
+
+
+          **Default**: end of the current day'
+        schema:
+          type: string
+          format: date-time
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/usage_transcoders'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error422'
+  /usage/transcoders/{id}:
+    get:
+      summary: Fetch usage for a single transcoder
+      description: (Available from version 1.4) This operation shows the amount of usage (egress) for a specific transcoder. The default time frame is *from* the last billing date *to* the end of the current day.
+      operationId: showUsageTranscoder
+      tags:
+      - usage_transcoders
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"GET\" \\\n  \"${WV_HOST}/api/v2.0/usage/transcoders/2adffc17\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/usage/transcoders/2adffc17';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nhttps.get(options, function(res) {\n  var body = '';\n  res.on('data', function(data){\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\n"
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique alphanumeric string that identifies the transcoder.
+        schema:
+          type: string
+      - name: from
+        in: query
+        required: false
+        description: 'The start of the range of time you want to view. Specify **YYYY-MM-DD HH:00:00** where **HH** is a 24-hour clock in UTC. The range doesn''t include minutes and seconds and rounds minutes up to the hour. The maximum difference between **from** and **to** is 90 days. If you set the **from** query parameter without setting the **to** query parameter, the data returned will reflect 90 days starting at the **from** date, or data up to to the current day, whichever is shorter.
+
+
+          You can also specify **last_bill_date**.
+
+
+          **Default**: last billing date'
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        required: false
+        description: 'The end of the range of time you want to view. Specify **YYYY-MM-DD HH:00:00** where **HH** is a 24-hour clock in UTC. The range doesn''t include minutes and seconds and rounds minutes up to the hour. The maximum difference between **from** and **to** is 90 days. If you set the **to** query parameter without setting the **from** query parameter, the data returned will be from the past 90 days or from your last invoice date, whichever is shorter.
+
+
+          You can also specify **last_bill_date**.
+
+
+          **Default**: end of the current day'
+        schema:
+          type: string
+          format: date-time
+      - name: include
+        in: query
+        required: false
+        description: 'Specify the data you want returned in the response. You can send a comma-separated list of values.
+
+
+          Valid value is: **trend**.
+
+
+          Example:
+
+          **trend**'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/usage_transcoder'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error422'
+  /usage/transcoders/summary:
+    get:
+      summary: Fetch transcoder usage summary
+      description: (Available from version 1.4) This operation shows a summary of the amount of usage (egress) for all transcoders in the account. The default time frame is *from* the last billing date *to* the end of the current day.
+      operationId: summaryUsageTranscoder
+      tags:
+      - usage_transcoders
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"GET\" \\\n  \"${WV_HOST}/api/v2.0/usage/transcoders/summary\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/usage/transcoders/summary';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nhttps.get(options, function(res) {\n  var body = '';\n  res.on('data', function(data){\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\n"
+      parameters:
+      - name: from
+        in: query
+        required: false
+        description: 'The start of the range of time you want to view. Specify **YYYY-MM-DD HH:00:00** where **HH** is a 24-hour clock in UTC. The range doesn''t include minutes and seconds and rounds minutes up to the hour. The maximum difference between **from** and **to** is 90 days. If you set the **from** query parameter without setting the **to** query parameter, the data returned will reflect 90 days starting at the **from** date, or data up to to the current day, whichever is shorter.
+
+
+          You can also specify **last_bill_date**.
+
+
+          **Default**: last billing date'
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        required: false
+        description: 'The end of the range of time you want to view. Specify **YYYY-MM-DD HH:00:00** where **HH** is a 24-hour clock in UTC. The range doesn''t include minutes and seconds and rounds minutes up to the hour. The maximum difference between **from** and **to** is 90 days. If you set the **to** query parameter without setting the **from** query parameter, the data returned will be from the past 90 days or from your last invoice date, whichever is shorter.
+
+
+          You can also specify **last_bill_date**.
+
+
+          **Default**: end of the current day'
+        schema:
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/usage_transcoder_summary'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error422'
+components:
+  schemas:
+    Error403:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 403
+            code: ERR-403-RecordUnaccessible
+            title: Record Unaccessible Error
+            message: The requested resource isn't accessible.
+            description: ''
+            links: []
+    Error401:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 401
+            code: ERR-401-NoApiKey
+            title: No API Key Error
+            message: No API key sent in header.
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 401
+            code: ERR-401-NoAccessKey
+            title: No Access Key Error
+            message: No access key sent in header.
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 401
+            code: ERR-401-InvalidApiKey
+            title: Invalid Api Key Error
+            message: Invalid API key.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 401
+            code: ERR-401-InvalidAccessKey
+            title: Invalid Access Key Error
+            message: Invalid access key.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 401
+            code: ERR-401-BadAccountStatus
+            title: Bad Account Status Error
+            message: Your account's status doesn't allow this action.
+            description: ''
+            links: []
+        Example Response 6:
+          meta:
+            status: 401
+            code: ERR-401-FeatureNotEnabled
+            title: Feature Not Enabled Error
+            message: This feature isn't enabled.
+            description: ''
+            links: []
+        Example Response 7:
+          meta:
+            status: 401
+            code: ERR-401-TrialExceeded
+            title: Bad Billing Status Error
+            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
+            description: ''
+            links: []
+        Example Response 8:
+          meta:
+            status: 401
+            code: ERR-401-ExpiredToken
+            title: JWT is expired
+            message: Token has exired.
+            description: ''
+            links: []
+        Example Response 9:
+          meta:
+            status: 401
+            code: ERR-401-InvalidToken
+            title: JWT is invalid
+            message: Token is invalid.
+            description: ''
+            links: []
+    Error422:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. ... can't be blank
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. Provider wowza_video is not allowed
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
+            description: ''
+            links: []
+    Error410:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 410
+            code: ERR-410-RecordDeleted
+            title: Record Deleted Error
+            message: The requested resource has been deleted.
+            description: ''
+            links: []
+    usage_transcoders:
+      type: object
+      title: transcoders
+      description: ''
+      properties:
+        transcoders:
+          type: object
+          description: ''
+          properties:
+            id:
+              type: integer
+              description: The unique alphanumeric string that identifies the transcoder.
+              example: ''
+              format: int32
+            name:
+              type: string
+              description: A descriptive name for the transcoder.
+              example: ''
+            archived:
+              type: boolean
+              description: A value of **true** indicates that the transcoder has been removed from Wowza Video.
+              example: ''
+            billing_mode:
+              type: string
+              description: 'The billing mode for the transcoder. The default is **pay_as_you_go**.
+
+
+                **pay_as_you_go** — Billed as a single event. A single event is use-based and you incur charges for the time spent streaming.
+
+
+                **twentyfour_seven** — Billed as a 24x7 channel. A 24x7 channel is unlimited stream time for one channel. This billing mode doesn''t incur overages, since it''s unlimited.'
+              example: ''
+              enum:
+              - pay_as_you_go
+              - twentyfour_seven
+            transcoder_type:
+              type: string
+              description: The type of transcoder. The default is **transcoded**.
+              example: ''
+              enum:
+              - transcoded
+              - passthrough
+            egress_bytes:
+              type: integer
+              description: The amount of content, in bytes, that went through the transcoder during the selected time frame.
+              example: ''
+              format: int32
+            egress_seconds:
+              type: integer
+              description: The amount of time, in seconds, that it took for the stream to be processed.
+              example: ''
+            egress_seconds_additional_targets:
+              type: integer
+              description: The length of time, in seconds, that additional stream targets pulled from storage during the selected time frame. Subscriptions prices include egress for one target; additional targets incur additional charges.
+              example: ''
+              format: int32
+        pagination:
+          type: object
+          description: Page information for the results generated by the query.
+          properties:
+            payload_version:
+              type: integer
+              description: The pagination object version.
+            total_records:
+              type: integer
+              description: The total number of records in the database that match the query.
+              example: ''
+            page:
+              type: integer
+              description: The page being displayed.
+              example: ''
+            per_page:
+              type: integer
+              description: The number of records included on each page of results.
+              example: ''
+            total_pages:
+              type: integer
+              description: The total number of pages generated by the query.
+              example: ''
+            page_first_index:
+              type: integer
+              description: The 0-based index of the first record on the page returned.
+              example: ''
+            page_last_index:
+              type: integer
+              description: The 0-based index of the last record on the page returned.
+              example: ''
+        limits:
+          type: object
+          description: The time frame represented in the response.
+          properties:
+            from:
+              type: string
+              description: The start of the range of time represented in the response.
+              example: ''
+              format: date-time
+            to:
+              type: string
+              description: The end of the range of time represented in the response.
+              example: ''
+              format: date-time
+      example:
+        transcoders:
+        - id: bbrjj3ml
+          name: transcoder name
+          archived: false
+          transcoder_type: transcoded
+          billing_mode: pay_as_you_go
+          egress_bytes: 0
+          egress_seconds: 44
+          egress_seconds_additional_targets: 23
+        - id: mertj8nd
+          name: my other transcoder
+          archived: false
+          transcoder_type: transcoded
+          billing_mode: pay_as_you_go
+          egress_bytes: 80384481
+          egress_seconds: 158
+          egress_seconds_additional_targets: 0
+        pagination:
+          payload_version: '1.0'
+          total_records: 2130
+          page: 3
+          per_page: 3
+          total_pages: 710
+          page_first_index: 6
+          page_last_index: 8
+        limits:
+          from: '2019-10-01T07:00:00.000Z'
+          to: '2019-10-16T11:00:00.000Z'
+    usage_transcoder_summary:
+      type: object
+      title: transcoders
+      description: ''
+      properties:
+        summary:
+          type: object
+          description: ''
+          properties:
+            egress_bytes:
+              type: integer
+              description: The total amount of content, in bytes, that went through all transcoders during the selected time frame.
+              example: ''
+              format: int32
+            egress_seconds:
+              type: integer
+              description: The total amount of time, in seconds, that it took for all transcoders to be processed.
+              example: ''
+            configurations:
+              type: object
+              description: ''
+              properties:
+                transcoder_type:
+                  type: string
+                  description: The type of transcoder. The default is **transcoded**.
+                  example: ''
+                  enum:
+                  - transcoded
+                  - passthrough
+                billing_mode:
+                  type: string
+                  description: 'The billing mode for the transcoder. The default is **pay_as_you_go**.
+
+
+                    **pay_as_you_go** — Billed as a single event. A single event is use-based and you incur charges for the time spent streaming.
+
+
+                    **twentyfour_seven** — Billed as a 24x7 channel. A 24x7 channel is unlimited stream time for one channel. This billing mode doesn''t incur overages, since it''s unlimited.'
+                  example: ''
+                  enum:
+                  - pay_as_you_go
+                  - twentyfour_seven
+                egress_bytes:
+                  type: integer
+                  description: The amount of content, in bytes, that went through the transcoder during the selected time frame.
+                  example: ''
+                  format: int32
+                egress_seconds:
+                  type: integer
+                  description: The amount of time, in seconds, that it took for the transcoder to be processed.
+                  example: ''
+        limits:
+          type: object
+          description: The time frame represented in the response.
+          properties:
+            from:
+              type: string
+              description: The start of the range of time represented in the response.
+              example: ''
+              format: date-time
+            to:
+              type: string
+              description: The end of the range of time represented in the response.
+              example: ''
+              format: date-time
+      example:
+        summary:
+          egress_bytes: 3000
+          egress_seconds: 300
+          configurations:
+          - transcoder_type: transcoded
+            billing_mode: pay_as_you_go
+            egress_bytes: 1000
+            egress_seconds: 200
+          - transcoder_type: passthrough
+            billing_mode: twentyfour_seven
+            egress_bytes: 2000
+            egress_seconds: 100
+        limits:
+          from: '2019-02-15T00:00:00.000Z'
+          to: '2019-09-24T00:00:00.000Z'
+    usage_transcoder:
+      type: object
+      title: transcoders
+      description: ''
+      properties:
+        transcoders:
+          type: object
+          description: ''
+          properties:
+            id:
+              type: integer
+              description: The unique alphanumeric string that identifies the transcoder.
+              example: ''
+              format: int32
+            name:
+              type: string
+              description: A descriptive name for the transcoder.
+              example: ''
+            archived:
+              type: boolean
+              description: A value of **true** indicates that the transcoder has been removed from Wowza Video.
+              example: ''
+            billing_mode:
+              type: string
+              description: 'The billing mode for the transcoder. The default is **pay_as_you_go**.
+
+
+                **pay_as_you_go** — Billed as a single event. A single event is use-based and you incur charges for the time spent streaming.
+
+
+                **twentyfour_seven** — Billed as a 24x7 channel. A 24x7 channel is unlimited stream time for one channel. This billing mode doesn''t incur overages, since it''s unlimited.'
+              example: ''
+              enum:
+              - pay_as_you_go
+              - twentyfour_seven
+            transcoder_type:
+              type: string
+              description: The type of transcoder. The default is **transcoded**.
+              example: ''
+              enum:
+              - transcoded
+              - passthrough
+            egress_bytes:
+              type: integer
+              description: The amount of content, in bytes, that went through the transcoder during the selected time frame.
+              example: ''
+              format: int32
+            egress_seconds:
+              type: integer
+              description: The amount of time, in seconds, that it took for the stream to be processed.
+              example: ''
+            egress_seconds_additional_targets:
+              type: integer
+              description: The length of time, in seconds, that additional stream targets pulled from storage during the selected time frame. Subscriptions prices include egress for one target; additional targets incur additional charges.
+              example: ''
+              format: int32
+            viewing_seconds:
+              type: integer
+              description: The total length of time, in seconds, that the stream was played at the target. May be longer than the duration of the stream.
+              example: ''
+              format: int32
+            viewing_bytes:
+              type: integer
+              description: The amount of content, in bytes, that went through the transcoder during the selected time frame.
+              example: ''
+              format: int32
+            trend:
+              type: object
+              title: Array of viewer trends
+              description: 'An array of viewer trend data. The granularity of sampled data changes based on the from and to query values you use:
+
+
+                Requests made for data within the past 30 days, return the following sample intervals: <ul><li>0 minutes to 3 hours - Samples returned per minute</li> <li>3 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 90 days - Samples returned per day</li></ul>
+
+
+                <strong>Defaults</strong>: from = last billing date, to = end of current day'
+              properties:
+                sampled_at:
+                  type: string
+                  description: The date and time the trend data was sampled.
+                  format: date-time
+                viewing_seconds:
+                  type: integer
+                  description: The total length of time, in seconds, that the stream was played at the target. May be longer than the duration of the stream.
+                  example: ''
+                  format: int32
+                viewing_bytes:
+                  type: integer
+                  description: The amount of content, in bytes, that went through the transcoder during the selected time frame.
+                  example: ''
+                  format: int32
+        limits:
+          type: object
+          description: The time frame represented in the response.
+          properties:
+            from:
+              type: string
+              description: The start of the range of time represented in the response.
+              example: ''
+              format: date-time
+            to:
+              type: string
+              description: The end of the range of time represented in the response.
+              example: ''
+              format: date-time
+      example:
+        transcoder:
+          id: bbrjj3ml
+          name: transcoder name
+          archived: false
+          transcoder_type: transcoded
+          billing_mode: pay_as_you_go
+          egress_bytes: 0
+          egress_seconds: 44
+          egress_seconds_additional_targets: 23
+          viewing_seconds: 90
+          viewing_bytes: 49
+          trend:
+          - sampled_at: '2019-10-01T08:00:00.000Z'
+            viewing_seconds: 45
+            viewing_bytes: 20
+        limits:
+          from: '2019-10-01T07:00:00.000Z'
+          to: '2019-10-16T11:00:00.000Z'
+    Error404:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 404
+            code: ERR-404-RecordNotFound
+            title: Record Not Found Error
+            message: The requested resource couldn't be found.
+            description: ''
+            links: []
+  parameters:
+    page:
+      name: page
+      in: query
+      description: "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
+      schema:
+        type: integer
+    per_page:
+      name: per_page
+      in: query
+      description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
+      schema:
+        type: integer
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
+    digestAuth:
+      type: http
+      scheme: digest
+      description: HTTP Digest Authentication

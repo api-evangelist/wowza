@@ -1,0 +1,784 @@
+openapi: 3.0.3
+info:
+  title: Wowza Streaming Engine REST advanced_token_authentication API
+  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
+  version: 2.0.0
+  contact:
+    name: Wowza Media Systems
+    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  license:
+    name: Wowza Media Systems
+    url: https://www.wowza.com
+servers:
+- url: http://localhost:8087
+  description: Wowza Streaming Engine Server
+security:
+- basicAuth: []
+tags:
+- name: advanced_token_authentication
+  description: "Operations related to using advanced token authentication, known in Wowza Video as a default playback token behavior option, with videos. \n\nUse token authentication when distributing valuable or sensitive video content to audiences to ensure that only authorized users can access the content within the intended application. This allows for protection of intellectual property, compliance with regulations, and the ability to maintain control over content distribution.  The token is embedded in the videos' embed URLs. \n\nThrough the <a href=\"https://www.wowza.com/docs/video-details-page-in-wowza-video\" target=\"_blank\">UI</a> or <a href=\"https://developer.wowza.com/docs/wowza-video/api/video/current/tag/videos/#tag/videos/operation/patchVideo\" target=\"_blank\">Wowza Video API</a>, you can choose one of the following options for token authentication of a video:\n \n - **NO_TOKEN** - Video files are accessible and can be downloaded and played by anyone at any time. This is the default.  \n - **BASIC_TOKEN** - The platform automatically creates tokenized video URLs. This setting makes it hard for a viewer to extract the video URL and store it for usage in unintended applications over time since the embed URL, which has the token as part of the URL, will only be playable for 48 hours. The token auto renews after 48 hours when used in the intended application. \n - **ADVANCED_TOKEN** - You add the stream's JS embed code (Share Stream) and a token to your site to provide tokenization.  The protections are similar to those for the Basic Token option except you customize the time limit, geographical limits, etc. during token creation. \n - **FOLLOW_DEFAULT:** - The token behavior is based on the **Default Playback Token Behavior** setting you selected for your Wowza account. See the <a href=\"https://www.wowza.com/docs/org-setting-page-in-wowza-video\" target=\"_blank\">Org Settings page in Wowza Video</a> article for where to set this configuration. \n\n    **Note:** You'll use the <a href=\"https://developer.wowza.com/docs/wowza-video/api/video/current/tag/videos/#tag/videos/operation/patchVideo\" target=\"_blank\">/videos endpoints</a> to update and review the token authentication enums bulleted above.\n\nBefore selecting to use the **ADVANCED_TOKEN**, you must, first, either: \n\n - Generate a key id via the Wowza Video API, then customize and generate a token via the Wowza Video 2.0 API to add to your site. You'll need the key id to create and sign the token.  \n - Generate a key id and key via the Wowza Video 2.0 API, then customize and generate a standard common access token (CAT) through the means you usually use to create tokens to add to your site. You'll need the key id and key to create and sign the token.  \n\n\n After you have your playback token, you add the video JS-embed and the playback token to your site if you're going to use the **ADVANCED_TOKEN** option. The JS-embed code automatically adds the player and related video to your site. See the section on <a href=\"<a href=\"https://developer.wowza.com/docs/wowza-video/api/video/current/tag/videos/#tag/videos/operation/patchVideo\" target=\"_blank\">how to embed the player and video</a>\". "
+  x-displayName: Advanced Token Authentication
+paths:
+  /playback_tokens/keys:
+    post:
+      tags:
+      - advanced_token_authentication
+      summary: Create a playback token key
+      description: "This operation creates a playback token key that includes a key id and key value. You use one or both of these parameters to create a playback token for advanced token authentication. \n\nBefore using the **ADVANCED_TOKEN** option as your token authentication for a video, you must do **one** of the following: \n\n - Generate a playback token key that has a key id using this endpoint in the Wowza Video API, then customize and generate a token via the Wowza Video 2.0 API to add to your site. You'll need the key id to create and sign the token.  \n - Generate a playback token key that has a key id and key value using this endpoint in the Wowza Video 2.0 API, then customize and generate a standard common access token (CAT) through the means you usually use to create tokens to add to your site. You'll need the key id and key to create and sign the token.  \n   The key value is only returned in this endpoint so keep it in a place that you can access it later when you create your playback token. "
+      operationId: createKey
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"POST\" \\\n  \"${WV_HOST}/api/v2.0/playback_tokens/keys\" \\\n  -d $'{\n  \"name\": \"My key name\"\n}'"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/playback_tokens/keys';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  method: 'POST',\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nconst req = https.request(options, function(res) {\n  var body = '';\n  res.on('data', function(data) {\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\nreq.write(JSON.stringify({\n  \"name\": \"My key name\"\n}));\nreq.end();\n"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePlaybackTokenKeyRequestWrapper'
+        description: Provide the details of the playback token keys to create in the body of the request.
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePlaybackTokenKeyResponseWrapper'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error422'
+    get:
+      tags:
+      - advanced_token_authentication
+      summary: Fetch playback token keys
+      description: "This operation shows details for playback token keys you've created that are available in Wowza Video for your account. The details include a key id which you use to create a playback token for advanced token authentication. \n\nBefore using the **ADVANCED_TOKEN** option as your token authentication for a video, you must do **one** of the following: \n\n - Generate a playback token key that has a key id using the POST /playback_tokens/keys endpoint in the Wowza Video API, then customize and generate a token via Wowza Video 2.0 API to add to your site. You'll need the key id to create and sign the token.  \n - Generate a playback token key that has a key id and key value using the POST /playback_tokens/keys endpoint in the Wowza Video 2.0 API, then customize and generate a standard common access token (CAT) through the means you usually use to create tokens to add to your site. You'll need the key id and key to create and sign the token. \n   You received the key value in the response when you created the playback token key.  "
+      operationId: listPlaybackTokenKeys
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"GET\" \\\n  \"${WV_HOST}/api/v2.0/playback_tokens/keys\""
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/playback_tokens/keys';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nhttps.get(options, function(res) {\n  var body = '';\n  res.on('data', function(data){\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\n"
+      parameters:
+      - name: query
+        in: query
+        schema:
+          type: string
+        description: "\n`Name` is the only searchable field.\n\nLimit to a specific field with a `colon` (`:`).\n\nIf you have multiple search terms you can use `pipe` (`|`) to separate the search terms.\n\nExamples:\n\n | Query | Description |\n | ----- | ----------- |\n | `query=foo` | Searches name & description field for `foo`. |"
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPlaybackTokenKeyResponseWrapper'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+  /playback_tokens/keys/{id}:
+    delete:
+      tags:
+      - advanced_token_authentication
+      summary: Delete a playback token key
+      description: This operation deletes a playback token key.
+      operationId: deletePublicTokenKey
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n    \n  -H \"Content-Type: application/json\" \\\n  -X \"DELETE\" \\\n  \"${WV_HOST}/api/v2.0/playback_tokens/keys/2aa3343e-2fb5-42c3-8671-b52c24b7c3e2\"\n}'\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/plaayback_tokens/keys/51cd5c07-1583-4f5e-bd81-f1aa11510ea9';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  method: 'DELETE',\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nhttps.get(options, function(res) {\n  // no data being returned, just: 204 NO CONTENT\n  console.log(res.statusCode);\n}).on('error', function(e) {\n  console.log(e.message);\n});\n"
+      parameters:
+      - name: id
+        in: path
+        description: Unique identifier, or key id, for the playback token keys.
+        required: true
+        schema:
+          type: string
+          example: 51cd5c07-1583-4f5e-bd81-f1aa11510ea9
+      responses:
+        '204':
+          description: No content
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error422'
+  /playback_tokens:
+    post:
+      summary: Create a playback token
+      description: "This operation creates a playback token for use with advanced token authentication.\n\nYou'll use the PATCH /videos/{id} endpoint to select **ADVANCED_TOKEN** authentication for your video after you have the  playback token. Then, you'll add the token into your player site along with the JS-embed for the video.\n\nBefore using the **ADVANCED_TOKEN** option as your token authentication for a video, you must do the following: \n\n - Generate a playback token key that has a key id using the POST /playback_tokens/key in the Wowza Video API, then customize and generate a token via this endpoint in the Wowza Video 2.0 API to add to your site. You'll need the key id to create and sign the token.  "
+      operationId: CreatePlaybackToken
+      tags:
+      - advanced_token_authentication
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n\n   -H \"Content-Type: application/json\" \\\n   -X \"POST\" \\\n   \"${WV_HOST}/api/beta/playback_tokens\" \\\n   -d $'{\n   \"exp\": 1679816499,\n   \"key_id\": \"51cd5c07-1583-4f5e-bd81-f1aa11510ea9\",\n   \"nbf\": \"1759183200\",\n   \"iat\": \"1759183200\",\n   \"iss\": \"my-issuer\",\n   \"sub\": \"subscriber1234\",\n   \"aud\": \"my-audience\",\n   \"cti\": \"unique-token-id\",\n   \"catnip\": [\n       {\n          \"tag\": 52,\n          \"value\": [24, {\"0\": 188, \"1\": 4, \"2\": 23 }]\n        },\n        {\n          \"tag\": 54,\n          \"value\": [48, {\"0\": 42, \"1\": 2, \"2\": 33, \"3\": 73, \"4\": 135, \"5\":128}]\n       }\n   ],\n   \"catu\": {\n        \"1\":[\n          0,\n          \"cdn.example.com\"\n      ],\n        \"3\":[\n          3,\n          \"video-id\"\n      ]\n   },\n   \"catgeoiso3166\": [\n        \"US\",\n        \"CA-ON\"\n   ],\n   \"catv\": 1\n}'\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/beta/playback_tokens';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n   hostname: hostname,\n   path: path,\n   method: 'POST',\n   headers: {\n     'Authorization': wvJWT,\n     'Content-Type': 'application/json'\n   }\n };\n const req = https.request(options, function(res) {\n   var body = '';\n   res.on('data', function(data) {\n     body += data;\n   });\n   res.on('end', function() {\n     console.log(JSON.parse(body));\n   });\n }).on('error', function(e) {\n   console.log(e.message);\n });\n req.write(JSON.stringify({\n   \"exp\": 1679816499,\n   \"key_id\": \"51cd5c07-1583-4f5e-bd81-f1aa11510ea9\",\n   \"nbf\": \"1759183200\",\n   \"iat\": \"1759183200\",\n   \"iss\": \"my-issuer\",\n   \"sub\": \"subscriber1234\",\n   \"aud\": \"my-audience\",\n   \"cti\": \"unique-token-id\",\n   \"catnip\": [\n       {\n         \"tag\": 52,\n         \"value\": [24, {\"0\": 188, \"1\": 4, \"2\": 23 }]\n       },\n       {\n         \"tag\": 54,\n         \"value\": [48, {\"0\": 42, \"1\": 2, \"2\": 33, \"3\": 73, \"4\": 135, \"5\":128}]\n       } \n   ],\n   \"catu\": {\n        \"1\":[\n          0,\n          \"cdn.example.com\"\n      ],\n        \"3\":[\n          3,\n          \"video-id\"\n      ]\n   },\n   \"catgeoiso3166\": [\n        \"US\",\n        \"CA-ON\"\n   ],\n   \"catv\": 1\n }));\n req.end();\n"
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateTokenRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateTokenResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error422'
+components:
+  schemas:
+    Error403:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 403
+            code: ERR-403-RecordUnaccessible
+            title: Record Unaccessible Error
+            message: The requested resource isn't accessible.
+            description: ''
+            links: []
+    Error401:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 401
+            code: ERR-401-NoApiKey
+            title: No API Key Error
+            message: No API key sent in header.
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 401
+            code: ERR-401-NoAccessKey
+            title: No Access Key Error
+            message: No access key sent in header.
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 401
+            code: ERR-401-InvalidApiKey
+            title: Invalid Api Key Error
+            message: Invalid API key.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 401
+            code: ERR-401-InvalidAccessKey
+            title: Invalid Access Key Error
+            message: Invalid access key.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 401
+            code: ERR-401-BadAccountStatus
+            title: Bad Account Status Error
+            message: Your account's status doesn't allow this action.
+            description: ''
+            links: []
+        Example Response 6:
+          meta:
+            status: 401
+            code: ERR-401-FeatureNotEnabled
+            title: Feature Not Enabled Error
+            message: This feature isn't enabled.
+            description: ''
+            links: []
+        Example Response 7:
+          meta:
+            status: 401
+            code: ERR-401-TrialExceeded
+            title: Bad Billing Status Error
+            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
+            description: ''
+            links: []
+        Example Response 8:
+          meta:
+            status: 401
+            code: ERR-401-ExpiredToken
+            title: JWT is expired
+            message: Token has exired.
+            description: ''
+            links: []
+        Example Response 9:
+          meta:
+            status: 401
+            code: ERR-401-InvalidToken
+            title: JWT is invalid
+            message: Token is invalid.
+            description: ''
+            links: []
+    PlaybackTokenKeyResponseModel:
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the playback token key. It will contain the organization identifier.
+        organization_id:
+          type: string
+          description: The organization id.
+        name:
+          type: string
+          description: The name of the playback token key for the organization.
+        created_at:
+          type: string
+          description: The playback token creation timestamp.
+          format: date-time
+          example: '2020-01-01T12:33:22Z'
+    GenerateTokenRequest:
+      required:
+      - exp
+      - key_id
+      type: object
+      properties:
+        key_id:
+          type: string
+          description: The unique identifier for the id key returned when you used the POST /playback_tokens/keys endpoint to create a playback token key. This key will sign the token you create.
+          example: 51cd5c07-1583-4f5e-bd81-f1aa11510ea9
+        exp:
+          type: integer
+          description: The expiration time of the token which is the <a href="https://www.unixtimestamp.com/" target="_blank">unix timestamp</a> in seconds. If the current time is greater than the expiration time, the request will be considered invalid.
+          format: int64
+          example: 1679816499
+        nbf:
+          type: integer
+          description: The time before which the token must not be accepted for processing which is the <a href="https://www.unixtimestamp.com/" target="_blank">unix timestamp</a> in seconds.
+          format: int64
+          example: 1679816499
+        iat:
+          type: integer
+          description: The issue date of the token which is the <a href="https://www.unixtimestamp.com/" target="_blank">unix timestamp</a> in seconds.
+          format: int64
+          example: 1679816499
+        iss:
+          type: string
+          description: The issuer of the token.
+          example: my-issuer
+        sub:
+          type: string
+          description: The subject of the token.
+          example: subscriber1234
+        aud:
+          type: string
+          description: The audience of the token.
+          example: my-audience
+        cti:
+          type: string
+          description: Uniquely identifies a token to help prevent reuse or replay attacks.
+          example: unique-token-id
+        catnip:
+          type: array
+          description: "The IP address of the network for which the token was issued. The array contains objects with tag and value.  Each object represents a catnip claim. \n\nThe max number of items allowed is 5 and the minimum is zero. "
+          items:
+            $ref: '#/components/schemas/CatnipClaim'
+        catu:
+          type: object
+          description: 'A map of URIs to which the token applies. The maximum number of items allowed is five.  The object contains an array of key and value. '
+          additionalProperties:
+            type: array
+            description: "The object contains an array of keys and values. \n\n\n - Each key represents a URI component and must be between 0-8. \n\n\n - The value is a list of URIs. The first element of the value (match type) must be one of 0,1,2,3. The second element must be a string. \n\n\n**Examples based on tables below**: \n - \"1\": [0, \"token.dotv.wowza.com\"]          //Host (exact match)\n - \"3\": [3, \"ssai\"]          //Path (contains match)\n\n\n<details> <summary>Click to expand for the full list of valid values</summary>\n\n | Key |  URI Component | RFC Reference |\n |---|---|---|\n | 0 | Scheme                    | RFC 3986 Section 3.1   |\n | 1 | Host                      | RFC 3986 Section 3.2.2 |\n | 2 | Port                      | RFC 3986 Section 3.2.3 |\n | 3 | Path                      | RFC 3986 Section 3.3   |\n | 4 | Query                     | RFC 3986 Section 3.4   |\n | 5 | Parent Path               | -                      |\n | 6 | Filename                  | -                      |\n | 7 | Stem                      | -                      |\n | 8 | Extension                 | -                      |\n</details>\n<details> <summary>Click to expand for the full list of valid values</summary>\n\n | Value |Match Type          |\n |---|---|\n | 0     | Exact Text Match   |\n | 1     | Prefix Match       |\n | 2     | Suffix Match       |\n | 3     | Contains Match     |\n</details>"
+        catgeoiso3166:
+          type: array
+          description: 'The ISO3166 country codes from which the token was issued. Optionally, followed by a hyphen and a region code. the maximum number allowed is five. '
+          items:
+            type: string
+            example:
+            - US
+            - CA-ON
+        catv:
+          type: integer
+          description: The version of the token. The integer must be 1.
+          format: int323
+          example: 1
+    CreatePlaybackTokenKeyResponseWrapper:
+      type: object
+      description: Create playback token key for the Wowza Video REST API
+      properties:
+        playback_token_key:
+          type: object
+          $ref: '#/components/schemas/CreatePlaybackTokenKeyResponseModel'
+    GenerateTokenResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: "The unique identifier for the playback token. \n\nAdd this token to your site along with the JS-embed for the video to use advanced token authentication. You must also use PATCH /videos/{id} to select **ADVANCED_TOKEN** as your authentication type for the video after you create the playback token. "
+    Error422:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. ... can't be blank
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. Provider wowza_video is not allowed
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
+            description: ''
+            links: []
+    Error410:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 410
+            code: ERR-410-RecordDeleted
+            title: Record Deleted Error
+            message: The requested resource has been deleted.
+            description: ''
+            links: []
+    CreatePlaybackTokenKeyResponseModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the playback token key. The id will contain the organization id in the key id.
+          example: 51cd5c07-1583-4f5e-bd81-f1aa11510ea9
+        organization_id:
+          type: string
+          description: The organization id for Wowza Video.
+          example: 123456
+        name:
+          type: string
+          description: The name of the key for the organization.
+          example: key name
+        created_at:
+          type: string
+          description: The key creation timestamp.
+          format: date-time
+          example: '2020-01-01T12:33:22Z'
+        value:
+          type: string
+          description: 'The key value for the key.
+
+
+            If you generate a playback token for advanced token authentication by creating a  standard common access token (CAT) through the means you usually use to create tokens, you''ll need to add this key value during token creation to sign the token. The key  value is only returned in this endpoint to keep it in a place that you can access it later when you create your playback token. '
+    CatnipClaim:
+      type: object
+      properties:
+        tag:
+          type: integer
+          description: The tag must be 52 (IPV4 address) or 54 (IPV6 address).
+          format: int32
+          example: 52
+        value:
+          type: array
+          description: "A two-element array:\n\n\n  1. two-element array:\n     - For IPv4, must be < 24. \n     - For IPv6, must be < 56. \n  2. An object whose keys are byte-indices (\"0\", \"1\", ...) and values are the byte values.\n\n\nYou must have a minimum of two items and can have a maximum of two items. "
+          items:
+          - type: integer
+            description: The IP-prefix length.
+          - type: object
+            description: 'Byte-map of the IP-prefix.  '
+            additionalProperties:
+              type: integer
+              description: The byte value (0-255)
+          example:
+          - 24
+          - '0': 188
+            '1': 4
+            '2': 23
+    CreatePlaybackTokenKeyRequestModel:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the playback token key for the organization.
+          example: Key name
+    CreatePlaybackTokenKeyRequestWrapper:
+      type: object
+      description: Create playback token key for the Wowza Video REST API
+      properties:
+        playback_token_key:
+          type: object
+          $ref: '#/components/schemas/CreatePlaybackTokenKeyRequestModel'
+    ListPlaybackTokenKeyResponseWrapper:
+      type: object
+      properties:
+        playback_token_keys:
+          type: array
+          description: The list of playback token keys.
+          items:
+            $ref: '#/components/schemas/PlaybackTokenKeyResponseModel'
+        pagination:
+          type: object
+          description: Page information for the results generated by the query.
+          properties:
+            payload_version:
+              type: integer
+              description: The pagination object version.
+            total_records:
+              type: integer
+              description: The total number of records in the database that match the query.
+              example: ''
+            page:
+              type: integer
+              description: The page number, starting at 1. The default is 1.
+              example: ''
+            per_page:
+              type: integer
+              description: The number of records included per page. The default is 20.
+              example: ''
+            total_pages:
+              type: integer
+              description: The total number of pages generated by the query.
+              example: ''
+            page_first_index:
+              type: integer
+              description: The index of the first record in the response.
+              example: ''
+            page_last_index:
+              type: integer
+              description: The index of the last record in the response.
+              example: ''
+    Error404:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 404
+            code: ERR-404-RecordNotFound
+            title: Record Not Found Error
+            message: The requested resource couldn't be found.
+            description: ''
+            links: []
+  parameters:
+    page:
+      name: page
+      in: query
+      description: "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
+      schema:
+        type: integer
+    per_page:
+      name: per_page
+      in: query
+      description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
+      schema:
+        type: integer
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
+    digestAuth:
+      type: http
+      scheme: digest
+      description: HTTP Digest Authentication

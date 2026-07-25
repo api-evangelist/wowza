@@ -1,0 +1,769 @@
+openapi: 3.0.3
+info:
+  title: Wowza Streaming Engine REST advanced_token_authentication analytics_ingest API
+  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
+  version: 2.0.0
+  contact:
+    name: Wowza Media Systems
+    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  license:
+    name: Wowza Media Systems
+    url: https://www.wowza.com
+servers:
+- url: http://localhost:8087
+  description: Wowza Streaming Engine Server
+security:
+- basicAuth: []
+tags:
+- name: analytics_ingest
+  description: Operations related to ingest analytics for a live stream.
+  x-displayName: Ingest
+paths:
+  /analytics/ingest/live_streams/{id}:
+    get:
+      summary: Fetch ingest analytics data for a live stream
+      description: "(Available from version 1.11) This operation returns the ingest data for a specific live stream. You'll use the query parameters to return live vs historic data, as well as specific types of ingest data. \n\n\n**Querying live data**\n\nTo get data for currently live streams, do not send **include**, **from**, and **to** values.\n\nThis operation returns a hash of metrics keys, each of which identifies a status, text description, unit, and value. \n\n**Querying historic data**\n\nTo get data for streams that ran previously, send **include**, **from**, and **to** values. \n\nThis operation returns a hash of metrics keys, each of which identifies a status, text description, unit, and value in addition to trend data."
+      operationId: analyticLivestreamIngest
+      tags:
+      - analytics_ingest
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"GET\" \\\n  \"${WV_HOST}/api/v2.0/analytics/ingest/live_streams/tvctq36g?from=2024-03-14T10:31:54.486&to=2024-04-13T10:31:54.486Z&include=trend\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/analytics/ingest/live_streams/tvctq36g?from=2024-03-14T10:31:54.486&to=2024-04-13T10:31:54.486&include=trend';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nhttps.get(options, function(res) {\n  var body = '';\n  res.on('data', function(data){\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});"
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique alphanumeric string that identifies the live stream.
+        schema:
+          type: string
+      - name: from
+        in: query
+        required: false
+        description: "Use this parameter, along with **to**, to return historic viewer data. \n\nThe start of the range of time you want to view. Specify **YYYY-DD-MMT HH:MM:SSZ** where **HH** is a 24-hour clock in UTC. The range queried is rounded to the nearest second. The maximum difference between **from** and **to** is 90 days. If you set the **from** query parameter without setting the **to** query parameter, the data returned will reflect 30 days starting at the **from** date, or data up to to the current day, whichever is shorter.\n\nExample:\n**2023-01-14T10:31:54.486Z**"
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        required: false
+        description: "Use this parameter, along with **from**, to return historic viewer data. \n\n\nThe end of the range of time you want to view. Specify **YYYY-DD-MMT HH:MM:SSZ** where **HH** is a 24-hour clock in UTC. The range queried is rounded to the nearest second. The maximum difference between **from** and **to** is 90 days. If you set the **to** query parameter without setting the **from** query parameter, the data returned will be from the past 30 days or from your last invoice date, whichever is shorter.\n\nExample:\n**2023-02-14T10:31:54.486Z**"
+        schema:
+          type: string
+          format: date-time
+      - name: include
+        in: query
+        required: false
+        description: 'Specify the data you want returned in the response.
+
+
+          Valid value is: **trend**.
+
+
+          Example:
+
+          **trend**'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/analytics_ingest_live_stream'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error410'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error422'
+components:
+  schemas:
+    Error403:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 403
+            code: ERR-403-RecordUnaccessible
+            title: Record Unaccessible Error
+            message: The requested resource isn't accessible.
+            description: ''
+            links: []
+    Error401:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 401
+            code: ERR-401-NoApiKey
+            title: No API Key Error
+            message: No API key sent in header.
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 401
+            code: ERR-401-NoAccessKey
+            title: No Access Key Error
+            message: No access key sent in header.
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 401
+            code: ERR-401-InvalidApiKey
+            title: Invalid Api Key Error
+            message: Invalid API key.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 401
+            code: ERR-401-InvalidAccessKey
+            title: Invalid Access Key Error
+            message: Invalid access key.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 401
+            code: ERR-401-BadAccountStatus
+            title: Bad Account Status Error
+            message: Your account's status doesn't allow this action.
+            description: ''
+            links: []
+        Example Response 6:
+          meta:
+            status: 401
+            code: ERR-401-FeatureNotEnabled
+            title: Feature Not Enabled Error
+            message: This feature isn't enabled.
+            description: ''
+            links: []
+        Example Response 7:
+          meta:
+            status: 401
+            code: ERR-401-TrialExceeded
+            title: Bad Billing Status Error
+            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
+            description: ''
+            links: []
+        Example Response 8:
+          meta:
+            status: 401
+            code: ERR-401-ExpiredToken
+            title: JWT is expired
+            message: Token has exired.
+            description: ''
+            links: []
+        Example Response 9:
+          meta:
+            status: 401
+            code: ERR-401-InvalidToken
+            title: JWT is invalid
+            message: Token is invalid.
+            description: ''
+            links: []
+    analytics_ingest_live_stream:
+      type: object
+      description: ''
+      properties:
+        live_stream:
+          type: object
+          title: live_stream
+          description: ''
+          properties:
+            id:
+              type: string
+              description: The unique alphanumeric string that identifies the live stream.
+              example: tvctq36g
+              format: int32
+            audio_codec:
+              $ref: '#/components/schemas/audio_codec_metric'
+            bits_in_rate:
+              $ref: '#/components/schemas/bits_in_rate_metric'
+            bytes_in_rate:
+              $ref: '#/components/schemas/bytes_in_rate_metric'
+            connected:
+              $ref: '#/components/schemas/connected_metric'
+            frame_size:
+              $ref: '#/components/schemas/frame_size_metric'
+            frame_rate:
+              $ref: '#/components/schemas/frame_rate_metric'
+            height:
+              $ref: '#/components/schemas/height_metric'
+            keyframe_interval:
+              $ref: '#/components/schemas/keyframe_interval_metric'
+            video_codec:
+              $ref: '#/components/schemas/video_codec_metric'
+            width:
+              $ref: '#/components/schemas/width_metric'
+            stream_target_status:
+              type: array
+              description: An array of stream_target_status data.
+              items:
+                type: object
+                title: stream_target_status
+                properties:
+                  status:
+                    type: string
+                    description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
+                    example: normal
+                  text:
+                    type: string
+                    description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
+                    example: ''
+                  units:
+                    type: string
+                    description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
+                    example: ''
+                  value:
+                    type: integer
+                    description: The value of the associated key.
+                    example: Active
+                  id:
+                    type: string
+                    description: The unique alphanumeric string that identifies the stream_target_status. This ID id created by combining the output ID and stream target ID as OUTPUTIDX_STREAMTARGETIDX.
+                    example: 3lftlf1r_fcm6d98
+            trend:
+              $ref: '#/components/schemas/trend_metric'
+        limits:
+          $ref: '#/components/schemas/limits_metric'
+    trend_metric:
+      type: object
+      description: 'An array of viewer trend data.
+
+        > **Note:** This parameter only returns data for Fastly stream targets.'
+      properties:
+        bits_in_rate:
+          type: integer
+          description: The rate at which data is processed in.
+          example: ''
+        created_at:
+          type: string
+          description: The date and time that the trend was created.
+          example: ''
+        frame_rate:
+          type: integer
+          description: The number of frames that appear in a second.
+          example: ''
+        height:
+          type: integer
+          description: The height of the video player, in pixels.
+          example: ''
+        keyframe_interval:
+          type: integer
+          description: An encoding setting that determines how often the whole picture is transmitted.
+          example: ''
+        width:
+          type: integer
+          description: The width of the video player, in pixels.
+          example: ''
+      example:
+      - bits_in_rate: 1030123
+        created_at: '2023-03-30T22:42:57Z'
+        frame_rate: 30
+        height: 288
+        keyframe_interval: 60
+        width: 512
+      - bits_in_rate: 866928
+        created_at: '2023-03-30T22:42:58Z'
+        frame_rate: 30
+        height: 288
+        keyframe_interval: 60
+        width: 512
+    keyframe_interval_metric:
+      type: object
+      description: ''
+      properties:
+        status:
+          type: string
+          description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
+          example: normal
+        text:
+          type: string
+          description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
+          example: ''
+        units:
+          type: string
+          description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
+          example: GOP
+        value:
+          type: integer
+          description: The value of the associated key.
+          example: 69
+    width_metric:
+      type: object
+      description: ''
+      properties:
+        status:
+          type: string
+          description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
+          example: warning
+        text:
+          type: string
+          description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
+          example: 'Configured width is different from what Wowza Video is receiving from the source: 1280.'
+        units:
+          type: string
+          description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
+          example: px
+        value:
+          type: integer
+          description: The value of the associated key.
+          example: 1280
+    Error422:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. ... can't be blank
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. Provider wowza_video is not allowed
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
+            description: ''
+            links: []
+    Error410:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 410
+            code: ERR-410-RecordDeleted
+            title: Record Deleted Error
+            message: The requested resource has been deleted.
+            description: ''
+            links: []
+    bytes_in_rate_metric:
+      type: object
+      description: ''
+      properties:
+        status:
+          type: string
+          description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
+          example: normal
+        text:
+          type: string
+          description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
+          example: ''
+        units:
+          type: string
+          description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
+          example: KBps
+        value:
+          type: number
+          description: The value of the associated key.
+          example: 317.3
+          format: float
+    limits_metric:
+      type: object
+      description: The time frame represented in the response.
+      properties:
+        from:
+          type: string
+          description: The start of the range of time represented in the response.
+          example: '2024-03-14T10:31:54.000Z'
+          format: date-time
+        to:
+          type: string
+          description: The end of the range of time represented in the response.
+          example: '2024-04-13T10:31:54.000Z'
+          format: date-time
+    frame_size_metric:
+      type: object
+      description: ''
+      properties:
+        status:
+          type: string
+          description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
+          example: warning
+        text:
+          type: string
+          description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
+          example: 'Configured frame size is different from what Wowza Video is receiving from the source: 1280x720.'
+        units:
+          type: string
+          description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
+          example: ''
+        value:
+          type: string
+          description: The value of the associated key.
+          example: 1280x720
+    audio_codec_metric:
+      type: object
+      description: ''
+      properties:
+        status:
+          type: string
+          description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
+          example: normal
+        text:
+          type: string
+          description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
+          example: ''
+        units:
+          type: string
+          description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
+          example: ''
+        value:
+          type: string
+          description: The value of the associated key.
+          example: aac
+    video_codec_metric:
+      type: object
+      description: ''
+      properties:
+        status:
+          type: string
+          description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
+          example: normal
+        text:
+          type: string
+          description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
+          example: ''
+        units:
+          type: string
+          description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
+          example: ''
+        value:
+          type: string
+          description: 'The value of the associated key.
+
+
+            <blockquote>Note: You might see avc1 or h264 returned interchangeably.</blockquote>'
+          example: h264
+    frame_rate_metric:
+      type: object
+      description: ''
+      properties:
+        status:
+          type: string
+          description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
+          example: normal
+        text:
+          type: string
+          description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
+          example: ''
+        units:
+          type: string
+          description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
+          example: FPS
+        value:
+          type: integer
+          description: The value of the associated key.
+          example: 30
+    height_metric:
+      type: object
+      description: ''
+      properties:
+        status:
+          type: string
+          description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
+          example: warning
+        text:
+          type: string
+          description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
+          example: 'Configured height is different from what Wowza Video is receiving from the source: 720.'
+        units:
+          type: string
+          description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
+          example: px
+        value:
+          type: integer
+          description: The value of the associated key.
+          example: 720
+    bits_in_rate_metric:
+      type: object
+      description: ''
+      properties:
+        status:
+          type: string
+          description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
+          example: normal
+        text:
+          type: string
+          description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
+          example: ''
+        units:
+          type: string
+          description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
+          example: Kbps
+        value:
+          type: number
+          description: The value of the associated key.
+          example: 317.3
+          format: float
+    Error404:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 404
+            code: ERR-404-RecordNotFound
+            title: Record Not Found Error
+            message: The requested resource couldn't be found.
+            description: ''
+            links: []
+    connected_metric:
+      type: object
+      description: ''
+      properties:
+        status:
+          type: string
+          description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
+          example: normal
+        text:
+          type: string
+          description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
+          example: ''
+        units:
+          type: string
+          description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
+          example: ''
+        value:
+          type: string
+          description: The value of the associated key.
+          example: 'Yes'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
+    digestAuth:
+      type: http
+      scheme: digest
+      description: HTTP Digest Authentication

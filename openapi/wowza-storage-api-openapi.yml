@@ -1,0 +1,273 @@
+openapi: 3.0.3
+info:
+  title: Wowza Streaming Engine REST advanced_token_authentication storage API
+  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
+  version: 2.0.0
+  contact:
+    name: Wowza Media Systems
+    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  license:
+    name: Wowza Media Systems
+    url: https://www.wowza.com
+servers:
+- url: http://localhost:8087
+  description: Wowza Streaming Engine Server
+security:
+- basicAuth: []
+tags:
+- name: storage
+  description: '<blockquote>The <strong>storage</strong> operations are deprecated in 2.0.
+
+
+    Operations related to peak and current storage for an account.'
+  x-displayName: Storage
+paths:
+  /usage/storage/peak:
+    get:
+      summary: Fetch peak storage
+      description: 'This operation is deprecated in 2.0.
+
+
+        This operation shows the amount of peak recording and VOD stream storage used for the account. The default time frame is *from* the last billing date *to* the end of the current day.'
+      operationId: usageStoragePeakRecordingIndex
+      tags:
+      - storage
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"GET\" \\\n  \"${WV_HOST}/api/v2.0/usage/storage/peak\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/usage/storage/peak';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nhttps.get(options, function(res) {\n  var body = '';\n  res.on('data', function(data){\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\n"
+      parameters:
+      - name: from
+        in: query
+        required: false
+        description: 'The start of the range of time you want to view. Specify **YYYY-MM-DD HH:MM:SS** where **HH** is a 24-hour clock in UTC.
+
+
+          You can also specify **last_bill_date**.
+
+
+          **Default**: last billing date'
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        required: false
+        description: 'The end of the range of time you want to view. Specify **YYYY-MM-DD HH:MM:SS** where **HH** is a 24-hour clock in UTC.
+
+
+          You can also specify **last_bill_date**.
+
+
+          **Default**: end of the current day'
+        schema:
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/usage_storage_peak'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+  /usage/storage/current:
+    get:
+      summary: Fetch current storage
+      description: 'This operation was introduced and deprecated in 2.0.
+
+
+        This operation shows the total amount of recording and VOD stream storage used for the account at the current, or present, time of the request. '''
+      operationId: usageStorageCurrentRecordingIndex
+      tags:
+      - storage
+      x-codeSamples:
+      - lang: Shell
+        source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"GET\" \\\n  \"${WV_HOST}/api/v2.0/usage/storage/current\"\n"
+      - lang: JavaScript
+        source: "// Using Node.js\nconst https = require('https');\nconst crypto = require('crypto');\nvar hostname = 'api.video.wowza.com'\nvar path = '/api/v2.0/usage/storage/current';\n//For security, never reveal API token in client-side code\nvar wvJWT = 'Bearer [your JWT]';\n\nconst options = {\n  hostname: hostname,\n  path: path,\n  headers: {\n    'Authorization': wvJWT,\n    'Content-Type': 'application/json'\n  }\n};\nhttps.get(options, function(res) {\n  var body = '';\n  res.on('data', function(data){\n    body += data;\n  });\n  res.on('end', function() {\n    console.log(JSON.parse(body));\n  });\n}).on('error', function(e) {\n  console.log(e.message);\n});\n"
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/usage_storage_current'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+components:
+  schemas:
+    Error401:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 401
+            code: ERR-401-NoApiKey
+            title: No API Key Error
+            message: No API key sent in header.
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 401
+            code: ERR-401-NoAccessKey
+            title: No Access Key Error
+            message: No access key sent in header.
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 401
+            code: ERR-401-InvalidApiKey
+            title: Invalid Api Key Error
+            message: Invalid API key.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 401
+            code: ERR-401-InvalidAccessKey
+            title: Invalid Access Key Error
+            message: Invalid access key.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 401
+            code: ERR-401-BadAccountStatus
+            title: Bad Account Status Error
+            message: Your account's status doesn't allow this action.
+            description: ''
+            links: []
+        Example Response 6:
+          meta:
+            status: 401
+            code: ERR-401-FeatureNotEnabled
+            title: Feature Not Enabled Error
+            message: This feature isn't enabled.
+            description: ''
+            links: []
+        Example Response 7:
+          meta:
+            status: 401
+            code: ERR-401-TrialExceeded
+            title: Bad Billing Status Error
+            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
+            description: ''
+            links: []
+        Example Response 8:
+          meta:
+            status: 401
+            code: ERR-401-ExpiredToken
+            title: JWT is expired
+            message: Token has exired.
+            description: ''
+            links: []
+        Example Response 9:
+          meta:
+            status: 401
+            code: ERR-401-InvalidToken
+            title: JWT is invalid
+            message: Token is invalid.
+            description: ''
+            links: []
+    usage_storage_current:
+      type: object
+      description: ''
+      properties:
+        recording_bytes:
+          type: integer
+          description: The amount, in bytes, used to store all recordings.
+          example: ''
+          format: int32
+        vod_stream_bytes:
+          type: integer
+          description: The amount, in bytes, used to store all VOD streams.
+          example: ''
+          format: int32
+      example:
+        recording_bytes: 1057200777662
+        vod_stream_bytes: 2142226694010
+    usage_storage_peak:
+      type: object
+      description: ''
+      properties:
+        bytes:
+          type: integer
+          description: The amount, in bytes, used to store recordings and VOD streams during the selected time frame. If the time frame is in the past, *bytes* is the amount of storage that was used and billed. If the time frame includes the current billing period, *bytes* is the greatest amount of content stored in Wowza Video at any point to date in the billing period.
+          example: ''
+          format: int32
+        limits:
+          type: object
+          description: The time frame represented in the response.
+          properties:
+            from:
+              type: string
+              description: The start of the range of time represented in the response.
+              example: ''
+              format: date-time
+            to:
+              type: string
+              description: The end of the range of time represented in the response.
+              example: ''
+              format: date-time
+      example:
+        bytes: 163535997883
+        limits:
+          from: '2019-12-07T00:00:00.000Z'
+          to: '2019-12-21T00:00:00.000Z'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
+    digestAuth:
+      type: http
+      scheme: digest
+      description: HTTP Digest Authentication
