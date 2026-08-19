@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wowza Streaming Engine REST advanced_token_authentication storage API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "storage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch peak storage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/usage/storage/peak",
+            "params": [
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "The start of the range of time you want to view. Specify **YYYY-MM-DD HH:MM:SS** where **HH** is a 24-hour clock in UTC.\n\nYou can also specify **last_bill_date**.\n\n**Default**: last billing date"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "The end of the range of time you want to view. Specify **YYYY-MM-DD HH:MM:SS** where **HH** is a 24-hour clock in UTC.\n\nYou can also specify **last_bill_date**.\n\n**Default**: end of the current day"
+              }
+            ]
+          },
+          "docs": "This operation is deprecated in 2.0.\n\nThis operation shows the amount of peak recording and VOD stream storage used for the account. The default time frame is *from* the last billing date *to* the end of the current day."
+        },
+        {
+          "info": {
+            "name": "Fetch current storage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/usage/storage/current"
+          },
+          "docs": "This operation was introduced and deprecated in 2.0.\n\nThis operation shows the total amount of recording and VOD stream storage used for the account at the current, or present, time of the request. '"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

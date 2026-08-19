@@ -1,0 +1,124 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wowza Streaming Engine REST advanced_token_authentication usage API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "usage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch usage for all stream targets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/usage/stream_targets",
+            "params": [
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "The start of the range of time you want to view. Specify **YYYY-MM-DD HH:00:00** where **HH** is a 24-hour clock in UTC. The range doesn't include minutes and seconds and rounds minutes up to the hour. The maximum difference between **from** and **to** is 90 days. If you set the **from** query parameter without setting the **to** query parameter, the data returned will reflect 90 days starting at the **from** date, or data up to to the current day, whichever is shorter. T\n\nYou can also specify **last_bill_date**.\n\n**Default**: last billing date"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "The end of the range of time you want to view. Specify **YYYY-MM-DD HH:00:00** where **HH** is a 24-hour clock in UTC. The range doesn't include minutes and seconds and rounds minutes up to the hour. The maximum difference between **from** and **to** is 90 days. If you set the **to** query parameter without setting the **from** query parameter, the data returned will be from the past 90 days or from your last invoice date, whichever is shorter.\n\nYou can also specify **last_bill_date**.\n\n**Default**: end of the current day"
+              },
+              {
+                "name": "next_page_key",
+                "value": "",
+                "type": "query",
+                "description": "(Available from version 1.5) Returns a paginated view of results from the HTTP request. Specify a page key ID to indicate which page of the results should be displayed."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "For use with the *next_page_key* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**."
+              }
+            ]
+          },
+          "docs": "(Available from version 1.4) This operation returns detailed CDN usage data for all stream targets in the account. Defaults: from = last billing date, to = end of current day."
+        },
+        {
+          "info": {
+            "name": "Fetch usage for a single stream target",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/usage/stream_targets/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the stream target."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "The start of the range of time you want to view. Specify **YYYY-MM-DD HH:00:00** where **HH** is a 24-hour clock in UTC. The range doesn't include minutes and seconds and rounds minutes up to the hour. The maximum difference between **from** and **to** is 90 days. If you set the **from** query parameter without setting the **to** query parameter, the data returned will reflect 90 days starting at the **from** date, or data up to to the current day, whichever is shorter.\n\nYou can also specify **last_bill_date**.\n\n**Default**: last billing date"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "The end of the range of time you want to view. Specify **YYYY-MM-DD HH:00:00** where **HH** is a 24-hour clock in UTC. The range doesn't include minutes and seconds and rounds minutes up to the hour. The maximum difference between **from** and **to** is 90 days. If you set the **to** query parameter without setting the **from** query parameter, the data returned will be from the past 90 days or from your last invoice date, whichever is shorter.\n\nYou can also specify **last_bill_date**.\n\n**Default**: end of the current day"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Specify the data you want returned in the response. You can send a comma-separated list of values.\n\nValid value is: **trend**.\n\nExample:\n**trend**"
+              }
+            ]
+          },
+          "docs": "(Available from version 1.4) This operation returns CDN usage details for a specific stream target. Defaults: from = last billing date, to = end of current day."
+        },
+        {
+          "info": {
+            "name": "Fetch stream target usage summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/usage/stream_targets/summary",
+            "params": [
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "The start of the range of time you want to view. Specify **YYYY-MM-DD HH:00:00** where **HH** is a 24-hour clock in UTC. The range doesn't include minutes and seconds and rounds minutes up to the hour. The maximum difference between **from** and **to** is 90 days. If you set the **from** query parameter without setting the **to** query parameter, the data returned will reflect 90 days starting at the **from** date, or data up to to the current day, whichever is shorter.\n\nYou can also specify **last_bill_date**.\n\n**Default**: last billing date"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "The end of the range of time you want to view. Specify **YYYY-MM-DD HH:00:00** where **HH** is a 24-hour clock in UTC. The range doesn't include minutes and seconds and rounds minutes up to the hour. The maximum difference between **from** and **to** is 90 days. If you set the **to** query parameter without setting the **from** query parameter, the data returned will be from the past 90 days or from your last invoice date, whichever is shorter.\n\nYou can also specify **last_bill_date**.\n\n**Default**: end of the current day"
+              }
+            ]
+          },
+          "docs": "(Available from version 1.4) This operation returns a summary of CDN usage for all stream targets in the account. Defaults: from = last billing date, to = end of current day."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

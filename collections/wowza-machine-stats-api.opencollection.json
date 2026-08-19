@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wowza Streaming Engine REST advanced_token_authentication Machine Stats API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Machine Stats",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get current stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/machine/monitoring/current"
+          },
+          "docs": "Retrieves current statistics for the machine. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get historic stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/machine/monitoring/historic"
+          },
+          "docs": "Retrieves historic statistics for the machine. This API is available in builds 15089 or later."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

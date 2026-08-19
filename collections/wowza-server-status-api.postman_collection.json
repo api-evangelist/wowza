@@ -1,0 +1,345 @@
+{
+  "item": [
+    {
+      "id": "97f0574c-1a9d-4386-a556-509f6fd26668",
+      "name": "Server Status",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6ebf1a83-682c-48d4-a516-1af9e85d14fd",
+          "name": "Get server status",
+          "request": {
+            "name": "Get server status",
+            "description": {
+              "content": "Retrieves the server status. This API is available in builds 15089 or later.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "servers",
+                ":serverName",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "_defaultServer_",
+                  "key": "serverName",
+                  "description": "(Required) Reserved for future use"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "542e370f-335e-4cf5-b034-c0be5135de66",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "servers",
+                    ":serverName",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "_defaultServer_",
+                      "key": "serverName",
+                      "description": "(Required) Reserved for future use"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"version\": \"string\",\n  \"serverName\": \"string\",\n  \"wseName\": \"string\",\n  \"serverVersion\": \"string\",\n  \"serverBuild\": \"string\",\n  \"licenseType\": \"string\",\n  \"licenseExpireDate\": \"string\",\n  \"serverMode\": \"string\",\n  \"osName\": \"string\",\n  \"osVersion\": \"string\",\n  \"osArchitecture\": \"string\",\n  \"osBitness\": \"string\",\n  \"totalMemory\": 6556,\n  \"availableMemory\": 5558,\n  \"processorCores\": 2522,\n  \"gpuAcceleration\": \"string\",\n  \"javaVersion\": \"string\",\n  \"javaVMVersion\": \"string\",\n  \"javaBitness\": \"string\",\n  \"javaName\": \"string\",\n  \"javaVendor\": \"string\",\n  \"javaHome\": \"string\",\n  \"javaMaxHeapSize\": \"string\",\n  \"timeRunning\": 710.5656590648713,\n  \"currentConnections\": 242,\n  \"maxConnections\": 3085,\n  \"maxIncommingStreams\": 264,\n  \"restAPIAvailable\": false,\n  \"httpOriginAvailable\": false,\n  \"transcoderLicensed\": true,\n  \"transcoderAvailable\": true,\n  \"transcoderWatermark\": true,\n  \"transcoderLicenses\": 5823,\n  \"transcoderLicensesInUse\": 661,\n  \"transcoderApplications\": [\n    \"string\",\n    \"string\"\n  ],\n  \"dvrLicensed\": true,\n  \"dvrInUse\": true,\n  \"dvrApplications\": [\n    \"string\",\n    \"string\"\n  ],\n  \"drmLicensed\": false,\n  \"drmInUse\": false,\n  \"drmApplications\": [\n    \"string\",\n    \"string\"\n  ],\n  \"nativeBase\": \"string\",\n  \"saveFieldList\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4add1668-ef4e-4755-8d38-3befdaae3182",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "servers",
+                    ":serverName",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "_defaultServer_",
+                      "key": "serverName",
+                      "description": "(Required) Reserved for future use"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "18b58a68-cc70-4f54-b1dd-50f0650783d3",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "servers",
+                    ":serverName",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "_defaultServer_",
+                      "key": "serverName",
+                      "description": "(Required) Reserved for future use"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a3465271-c61d-4aa3-a2d1-9541e4ae6eef",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "servers",
+                    ":serverName",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "_defaultServer_",
+                      "key": "serverName",
+                      "description": "(Required) Reserved for future use"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ee5d89a1-8bc7-4ea2-a9e6-a2a3699e5213",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "servers",
+                    ":serverName",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "_defaultServer_",
+                      "key": "serverName",
+                      "description": "(Required) Reserved for future use"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8087",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f600518a-d931-44a8-ac31-5e205827b68c",
+    "name": "Wowza Streaming Engine REST advanced_token_authentication Server Status API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.\n\nContact Support:\n Name: Wowza Media Systems",
+      "type": "text/plain"
+    }
+  }
+}

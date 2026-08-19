@@ -1,0 +1,451 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wowza Streaming Engine REST advanced_token_authentication Servers Configuration API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Servers Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get server list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers"
+          },
+          "docs": "Retrieves the list of servers. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get server config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ]
+          },
+          "docs": "Retrieves the server configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update server config",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the server configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Server actions",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/actions/:action",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "action",
+                "value": "",
+                "type": "path",
+                "description": "The action which should be performed by the server"
+              },
+              {
+                "name": "filename",
+                "value": "",
+                "type": "query",
+                "description": "The file location to use when creating a heap dump or stack trace. By default the installation location and file are named appropriately for a heap dump or stack trace"
+              }
+            ]
+          },
+          "docs": "Tells the server to perform an action. This API is available in builds 18647 or later."
+        },
+        {
+          "info": {
+            "name": "Get server config (adv)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/adv",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ]
+          },
+          "docs": "Retrieves the advanced server configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update server config (adv)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/adv",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the advanced server configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get log files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/logfiles",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "The order of files in serverLogs list"
+              }
+            ]
+          },
+          "docs": "Retrieves the list of server log files. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get log file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/logfiles/:logName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "lineCount",
+                "value": "",
+                "type": "query",
+                "description": "The number of log lines requested, where a postive number indicates log lines after startOffset and a negative number indicate log lines before startOffset"
+              },
+              {
+                "name": "startOffset",
+                "value": "",
+                "type": "query",
+                "description": "The byte offset in the file at which to begin getting log lines"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "A string containing a list of predefined search filters separated by | where valid strings are noDebug,noInfo,noWarn,noError,noHeader,noColumnHeadings"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "A string containing a literal string on which to filter or a regex"
+              },
+              {
+                "name": "regexSearch",
+                "value": "",
+                "type": "query",
+                "description": "Indicates if the 'search' parameter is a regex or a literal string "
+              },
+              {
+                "name": "head",
+                "value": "",
+                "type": "query",
+                "description": "Returns the first x lines from the requested log file, the overrides the startoffset and linecount values"
+              },
+              {
+                "name": "tail",
+                "value": "",
+                "type": "query",
+                "description": "Returns the last x lines from the requested log file, the overrides the startoffset and linecount values"
+              },
+              {
+                "name": "logName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the log"
+              }
+            ]
+          },
+          "docs": "Retrieves the contents of a server log with the specified log name. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get zipped log file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/logfiles/:logName/download",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "logName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the log"
+              }
+            ]
+          },
+          "docs": "Retrieves the server log file for the specified log name, zipped. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get log file types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/logs",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ]
+          },
+          "docs": "Retrieves the list of available server log types. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get logs by type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/logs/:logType",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "lineCount",
+                "value": "",
+                "type": "query",
+                "description": "The number of log lines requested, where a postive number indicates log lines after startOffset and a negative number indicate log lines before startOffset"
+              },
+              {
+                "name": "startOffset",
+                "value": "",
+                "type": "query",
+                "description": "The byte offset in the file at which to begin getting log lines"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "A string containing a list of predefined search filters separated by | where valid strings are noDebug,noInfo,noWarn,noError,noHeader,noColumnHeadings"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "A string containing a literal string on which to filter or a regex"
+              },
+              {
+                "name": "regexSearch",
+                "value": "",
+                "type": "query",
+                "description": "Indicates if the 'search' parameter is a regex or a literal string "
+              },
+              {
+                "name": "head",
+                "value": "",
+                "type": "query",
+                "description": "Returns the first x lines from the requested log file, the overrides the startoffset and linecount values"
+              },
+              {
+                "name": "tail",
+                "value": "",
+                "type": "query",
+                "description": "Returns the last x lines from the requested log file, the overrides the startoffset and linecount values"
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "The start date to filter on (UTC milliseconds)"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "The end date to filter on (UTC milliseconds)"
+              },
+              {
+                "name": "logType",
+                "value": "",
+                "type": "path",
+                "description": "The type of the log"
+              }
+            ]
+          },
+          "docs": "Retrieves the contents of multiple server logs with the specified type in the log name. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get source control driver list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/sourcecontrol/drivernames",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ]
+          },
+          "docs": "Get the list of source control drivers. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get vhost listener list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhostlisteners",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ]
+          },
+          "docs": "Retrieves the list of vhost listeners. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update vhost listener list",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhostlisteners",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the full list of vhost listeners. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Delete vhost listener by base class",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhostlisteners/:baseclass",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "baseclass",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes the vhost listener with the given base class. This API is available in builds 15089 or later."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

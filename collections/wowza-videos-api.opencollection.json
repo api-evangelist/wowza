@@ -1,0 +1,201 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wowza Streaming Engine REST advanced_token_authentication videos API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "videos",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch all videos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/videos",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "For use with the page parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**."
+              },
+              {
+                "name": "created_at",
+                "value": "2024-01-01T00:00:00+0000,2024-02-01T00:00:00+0000",
+                "type": "query",
+                "description": "Filter the response based on an asset's timespan. The filter can be specified in following formats:\n\n| Spec | Description |\n|-----|-------|\n| `YYYY-MM-DD'T'HH:mm:ss`  | Returns all assets with created_at after the specified date |\n"
+              },
+              {
+                "name": "updated_at",
+                "value": "2024-01-01T00:00:00+0000,2024-02-01T00:00:00+0000",
+                "type": "query",
+                "description": "Filter the response based on an asset's timespan. The filter can be specified in following formats:\n\n| Spec | Description |\n|-----|-------|\n| `YYYY-MM-DD'T'HH:mm:ss`  | Returns all assets with updated_at after the specified date |\n"
+              },
+              {
+                "name": "published_at",
+                "value": "2024-01-01T00:00:00+0000,2024-02-01T00:00:00+0000",
+                "type": "query",
+                "description": "Filter the response based on an asset's timespan. The filter can be specified in following formats:\n\n| Spec | Description |\n|-----|-------|\n| `YYYY-MM-DD'T'HH:mm:ss`  | Returns all assets with published_at after the specified date |\n"
+              },
+              {
+                "name": "state",
+                "value": "FINISHED",
+                "type": "query",
+                "description": "The current state of the video. The state reflects the current status of the video files for the video asset. Possible states listed below:\n\n\n| State | Description |\n|-----------|-------|\n| UPLOADING  | The source file is currently being uploaded or waiting to be downloaded by our API. |\n| WAITING_FOR_ENCODER | The source file was successfully downloaded by the platform and is in queue to be encoded. |\n| PROCESSING  | Source file for the asset is encoding. The current encoding progress can be found on `encoding_progress` property. |\n| FINISHED | The encoding is done and the encoded files can be fetched. In this state it's possible to embed the video. |\n| ERROR  | If the platform, for some reason, could not download the source file or failed during the encoding process. `error_messsage` property can give more information about why it errored.  |\n| DELETED  | The video files have been deleted. Usually the video asset have been deleted when this state is reached and because of that it's very uncommon to see assets with this state. |\n"
+              },
+              {
+                "name": "query",
+                "value": "foo:name,custom_fields",
+                "type": "query",
+                "description": "Search multiple text fields in a search that is case insensitive and does not require full matches. URL encode the value of the `query` to ensure that it can be processed. There are free URL encoders online.\n\nIt searches `name`, `description`, `tags` searches all your custom fields for matching terms.\nYou can search specific fields by specifying them after a colon (`:`); if you have multiple search terms you can use `pipe` (`|`) to separate the search terms.\n\nSome examples:\n\n| Query | Description |\n| ----- | ----------- |\n| `query=foo` | Searches all fields for `foo`. |\n"
+              },
+              {
+                "name": "sort_column",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_direction",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "origin_id",
+                "value": "",
+                "type": "query",
+                "description": "The unique alphanumeric string that identifies the live stream or the real-time stream from which the video originated.\n\nReturns all the videos associated with the same ID."
+              },
+              {
+                "name": "categories",
+                "value": "",
+                "type": "query",
+                "description": "Filters videos by specific categories. Provide one or more category ID(s) to retrieve only the videos that belong to those categories.\nTo enter multiple category IDs, enter the IDs as a comma-separated list. You can specify up to four category IDs.\n\n**Note:** To get the ID of a category, call the GET /categories endpoint and choose the category ID you need."
+              }
+            ]
+          },
+          "docs": "This operation shows details for all videos available in Wowza Video."
+        },
+        {
+          "info": {
+            "name": "Create a video",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/videos",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This operation creates a video object in Wowza Video. You can upload a video from your local storage (DIRECT) or from an external storage provider (FETCH)."
+        },
+        {
+          "info": {
+            "name": "Fetch a video",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/videos/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the video."
+              }
+            ]
+          },
+          "docs": "This operation shows details for a single, specified video."
+        },
+        {
+          "info": {
+            "name": "Re-upload a video",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/videos/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the video."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This operation initiates a re-upload of a video."
+        },
+        {
+          "info": {
+            "name": "Update a video's metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:8087/videos/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the video."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This operation updates a video's metadata. To replace the video file, use the `PUT /video/ID`."
+        },
+        {
+          "info": {
+            "name": "Delete a video",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8087/videos/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the video"
+              }
+            ]
+          },
+          "docs": "This operation deletes a video and all its related files."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

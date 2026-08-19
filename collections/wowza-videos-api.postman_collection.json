@@ -1,0 +1,2012 @@
+{
+  "item": [
+    {
+      "id": "a63fbf98-8361-4ec9-8c42-ae7b61c3a3dc",
+      "name": "videos",
+      "description": {
+        "content": "Operations related to uploading and categorizing videos.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7fa9c446-d232-4b5b-9575-aa464f223101",
+          "name": "Create a video",
+          "request": {
+            "name": "Create a video",
+            "description": {
+              "content": "This operation creates a video object in Wowza Video. You can upload a video from your local storage (DIRECT) or from an external storage provider (FETCH).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "videos"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"video\": {\n    \"input\": {\n      \"method\": \"<string>\"\n    },\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"unpublish\": true,\n    \"unpublished_at\": \"<dateTime>\",\n    \"published\": \"<boolean>\",\n    \"published_at\": \"<dateTime>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"category_id\": \"<The account's default category>\",\n    \"ad_insertion_points\": [\n      {\n        \"offset_from_start_in_ms\": \"<long>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"offset_from_start_in_ms\": \"<long>\",\n        \"description\": \"<string>\"\n      }\n    ],\n    \"no_ads\": \"<boolean>\",\n    \"ad_keywords\": \"<string>\",\n    \"playback_token_behavior\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "98761fdf-1b57-414c-b5da-66347074cc87",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"video\": {\n    \"input\": {\n      \"method\": \"DIRECT\"\n    },\n    \"name\": \"My video\",\n    \"description\": \"A new video for my business.\",\n    \"unpublish\": true,\n    \"unpublished_at\": \"2025-01-01T12:33:22Z\",\n    \"published\": \"<boolean>\",\n    \"published_at\": \"2024-01-01T12:33:22Z\",\n    \"tags\": [\n      \"foo\",\n      \"bar\"\n    ],\n    \"category_id\": \"<The account's default category>\",\n    \"ad_insertion_points\": [\n      {\n        \"offset_from_start_in_ms\": 20000,\n        \"description\": \"mid-roll\"\n      },\n      {\n        \"offset_from_start_in_ms\": 20000,\n        \"description\": \"mid-roll\"\n      }\n    ],\n    \"no_ads\": \"<boolean>\",\n    \"ad_keywords\": \"special_ads\",\n    \"playback_token_behavior\": \"NO_TOKEN\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"video\": {\n    \"id\": \"2aa3343e-2fb5-42c3-8671-b52c24b7c3e2\",\n    \"name\": \"My video\",\n    \"description\": \"A new video for my business.\",\n    \"duration_in_ms\": 9599,\n    \"unpublish\": true,\n    \"unpublished_at\": \"2025-01-01T12:33:22Z\",\n    \"published\": true,\n    \"published_at\": \"2024-01-01T12:33:22Z\",\n    \"tags\": [\n      \"foo\",\n      \"bar\"\n    ],\n    \"category_id\": \"<The account's default category>\",\n    \"ad_insertion_points\": [\n      {\n        \"offset_from_start_in_ms\": 20000,\n        \"description\": \"mid-roll\"\n      },\n      {\n        \"offset_from_start_in_ms\": 20000,\n        \"description\": \"mid-roll\"\n      }\n    ],\n    \"no_ads\": false,\n    \"ad_keywords\": \"special_ads\",\n    \"created_at\": \"2025-01-01T12:33:22Z\",\n    \"updated_at\": \"2024-01-01T12:33:22Z\",\n    \"state\": \"FINISHED\",\n    \"encoding_progress\": 7625.105215738031,\n    \"upload_progress\": 1610.7608483163438,\n    \"error_message\": \"string\",\n    \"deactivated\": false,\n    \"images\": [\n      {\n        \"type\": \"image_4\",\n        \"url\": \"https://example.com/image.jpg\"\n      },\n      {\n        \"type\": \"image_5\",\n        \"url\": \"https://example.com/image.jpg\"\n      }\n    ],\n    \"encodings\": [\n      {\n        \"audio_bitrate_in_kbps\": 2300,\n        \"audio_channel\": 2,\n        \"audio_codec\": \"aac\",\n        \"audio_sample_rate\": 44100,\n        \"height\": 1080,\n        \"width\": 1920,\n        \"video_file_url\": \"https://flowplayer.com/video.mp4\",\n        \"video_container\": \"mp4\",\n        \"video_codec\": \"h264\",\n        \"total_bitrate_in_kbps\": 1023,\n        \"created_at\": \"2003-03-25T21:08:38.109Z\",\n        \"size_in_bytes\": 8325555\n      },\n      {\n        \"audio_bitrate_in_kbps\": 2300,\n        \"audio_channel\": 2,\n        \"audio_codec\": \"aac\",\n        \"audio_sample_rate\": 44100,\n        \"height\": 1080,\n        \"width\": 1920,\n        \"video_file_url\": \"https://flowplayer.com/video.mp4\",\n        \"video_container\": \"mp4\",\n        \"video_codec\": \"h264\",\n        \"total_bitrate_in_kbps\": 1023,\n        \"created_at\": \"1947-01-12T18:58:30.691Z\",\n        \"size_in_bytes\": 8325555\n      }\n    ],\n    \"drm\": {\n      \"com.widevine.alpha\": {\n        \"license_server\": \"string\",\n        \"certificate\": \"string\"\n      },\n      \"com.apple.fps.1_0\": {\n        \"license_server\": \"string\",\n        \"certificate\": \"string\"\n      },\n      \"com.microsoft.playready\": {\n        \"license_server\": \"string\",\n        \"certificate\": \"string\"\n      }\n    },\n    \"shallow_copy\": true,\n    \"shallow_copy_source_id\": \"string\",\n    \"multiple_audio_tracks\": false,\n    \"audio_only\": false,\n    \"version\": 7754,\n    \"thumbnails\": {\n      \"src\": \"string\"\n    },\n    \"animated_previews\": [\n      {\n        \"url\": \"string\",\n        \"type\": \"string\",\n        \"height\": 1080,\n        \"width\": 1920\n      },\n      {\n        \"url\": \"string\",\n        \"type\": \"string\",\n        \"height\": 1080,\n        \"width\": 1920\n      }\n    ],\n    \"playback_token_behavior\": \"NO_TOKEN\",\n    \"upload_url\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cb7c29a0-9292-49ef-86b0-70d9c2870db2",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"video\": {\n    \"input\": {\n      \"method\": \"DIRECT\"\n    },\n    \"name\": \"My video\",\n    \"description\": \"A new video for my business.\",\n    \"unpublish\": true,\n    \"unpublished_at\": \"2025-01-01T12:33:22Z\",\n    \"published\": \"<boolean>\",\n    \"published_at\": \"2024-01-01T12:33:22Z\",\n    \"tags\": [\n      \"foo\",\n      \"bar\"\n    ],\n    \"category_id\": \"<The account's default category>\",\n    \"ad_insertion_points\": [\n      {\n        \"offset_from_start_in_ms\": 20000,\n        \"description\": \"mid-roll\"\n      },\n      {\n        \"offset_from_start_in_ms\": 20000,\n        \"description\": \"mid-roll\"\n      }\n    ],\n    \"no_ads\": \"<boolean>\",\n    \"ad_keywords\": \"special_ads\",\n    \"playback_token_behavior\": \"NO_TOKEN\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 6805,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2993abdf-fccd-44d7-9bf5-5de1acf401e7",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"video\": {\n    \"input\": {\n      \"method\": \"DIRECT\"\n    },\n    \"name\": \"My video\",\n    \"description\": \"A new video for my business.\",\n    \"unpublish\": true,\n    \"unpublished_at\": \"2025-01-01T12:33:22Z\",\n    \"published\": \"<boolean>\",\n    \"published_at\": \"2024-01-01T12:33:22Z\",\n    \"tags\": [\n      \"foo\",\n      \"bar\"\n    ],\n    \"category_id\": \"<The account's default category>\",\n    \"ad_insertion_points\": [\n      {\n        \"offset_from_start_in_ms\": 20000,\n        \"description\": \"mid-roll\"\n      },\n      {\n        \"offset_from_start_in_ms\": 20000,\n        \"description\": \"mid-roll\"\n      }\n    ],\n    \"no_ads\": \"<boolean>\",\n    \"ad_keywords\": \"special_ads\",\n    \"playback_token_behavior\": \"NO_TOKEN\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 3091,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "065af47f-0027-4c82-bbaf-f2423b3a2336",
+          "name": "Fetch all videos",
+          "request": {
+            "name": "Fetch all videos",
+            "description": {
+              "content": "This operation shows details for all videos available in Wowza Video.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "videos"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "20",
+                  "description": "For use with the page parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**."
+                },
+                {
+                  "disabled": false,
+                  "key": "created_at",
+                  "value": "<string>",
+                  "description": "Filter the response based on an asset's timespan. The filter can be specified in following formats:\n\n| Spec | Description |\n|-----|-------|\n| `YYYY-MM-DD'T'HH:mm:ss`  | Returns all assets with created_at after the specified date |\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated_at",
+                  "value": "<string>",
+                  "description": "Filter the response based on an asset's timespan. The filter can be specified in following formats:\n\n| Spec | Description |\n|-----|-------|\n| `YYYY-MM-DD'T'HH:mm:ss`  | Returns all assets with updated_at after the specified date |\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "published_at",
+                  "value": "<string>",
+                  "description": "Filter the response based on an asset's timespan. The filter can be specified in following formats:\n\n| Spec | Description |\n|-----|-------|\n| `YYYY-MM-DD'T'HH:mm:ss`  | Returns all assets with published_at after the specified date |\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "The current state of the video. The state reflects the current status of the video files for the video asset. Possible states listed below:\n\n\n| State | Description |\n|-----------|-------|\n| UPLOADING  | The source file is currently being uploaded or waiting to be downloaded by our API. |\n| WAITING_FOR_ENCODER | The source file was successfully downloaded by the platform and is in queue to be encoded. |\n| PROCESSING  | Source file for the asset is encoding. The current encoding progress can be found on `encoding_progress` property. |\n| FINISHED | The encoding is done and the encoded files can be fetched. In this state it's possible to embed the video. |\n| ERROR  | If the platform, for some reason, could not download the source file or failed during the encoding process. `error_messsage` property can give more information about why it errored.  |\n| DELETED  | The video files have been deleted. Usually the video asset have been deleted when this state is reached and because of that it's very uncommon to see assets with this state. |\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Search multiple text fields in a search that is case insensitive and does not require full matches. URL encode the value of the `query` to ensure that it can be processed. There are free URL encoders online.\n\nIt searches `name`, `description`, `tags` searches all your custom fields for matching terms.\nYou can search specific fields by specifying them after a colon (`:`); if you have multiple search terms you can use `pipe` (`|`) to separate the search terms.\n\nSome examples:\n\n| Query | Description |\n| ----- | ----------- |\n| `query=foo` | Searches all fields for `foo`. |\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_column",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_direction",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "origin_id",
+                  "value": "<string>",
+                  "description": "The unique alphanumeric string that identifies the live stream or the real-time stream from which the video originated.\n\nReturns all the videos associated with the same ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "categories",
+                  "value": "<string>",
+                  "description": "Filters videos by specific categories. Provide one or more category ID(s) to retrieve only the videos that belong to those categories.\nTo enter multiple category IDs, enter the IDs as a comma-separated list. You can specify up to four category IDs.\n\n**Note:** To get the ID of a category, call the GET /categories endpoint and choose the category ID you need."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "86383479-87d4-4dce-9220-bcb12754f3c4",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2024-01-01T00:00:00+0000,2024-02-01T00:00:00+0000"
+                    },
+                    {
+                      "key": "updated_at",
+                      "value": "2024-01-01T00:00:00+0000,2024-02-01T00:00:00+0000"
+                    },
+                    {
+                      "key": "published_at",
+                      "value": "2024-01-01T00:00:00+0000,2024-02-01T00:00:00+0000"
+                    },
+                    {
+                      "key": "state",
+                      "value": "FINISHED"
+                    },
+                    {
+                      "key": "query",
+                      "value": "foo:name,custom_fields"
+                    },
+                    {
+                      "key": "sort_column",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "origin_id",
+                      "value": "edfg8k34"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "cb65a918-ad7d-406a-80d8-09c9c8d0dbb"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"videos\": [\n    {\n      \"id\": \"2aa3343e-2fb5-42c3-8671-b52c24b7c3e2\",\n      \"name\": \"My video\",\n      \"description\": \"A new video for my business.\",\n      \"duration_in_ms\": 7590,\n      \"unpublish\": true,\n      \"unpublished_at\": \"2025-01-01T12:33:22Z\",\n      \"published\": true,\n      \"published_at\": \"2024-01-01T12:33:22Z\",\n      \"tags\": [\n        \"foo\",\n        \"bar\"\n      ],\n      \"category_id\": \"<The account's default category>\",\n      \"no_ads\": false,\n      \"ad_keywords\": \"special_ads\",\n      \"created_at\": \"2024-01-01T12:33:22Z\",\n      \"updated_at\": \"2024-01-01T12:33:22Z\",\n      \"state\": \"FINISHED\",\n      \"playback_token_behavior\": \"NO_TOKEN\"\n    },\n    {\n      \"id\": \"2aa3343e-2fb5-42c3-8671-b52c24b7c3e2\",\n      \"name\": \"My video\",\n      \"description\": \"A new video for my business.\",\n      \"duration_in_ms\": 838,\n      \"unpublish\": true,\n      \"unpublished_at\": \"2025-01-01T12:33:22Z\",\n      \"published\": false,\n      \"published_at\": \"2024-01-01T12:33:22Z\",\n      \"tags\": [\n        \"foo\",\n        \"bar\"\n      ],\n      \"category_id\": \"<The account's default category>\",\n      \"no_ads\": true,\n      \"ad_keywords\": \"special_ads\",\n      \"created_at\": \"2024-01-01T12:33:22Z\",\n      \"updated_at\": \"2024-01-01T12:33:22Z\",\n      \"state\": \"FINISHED\",\n      \"playback_token_behavior\": \"NO_TOKEN\"\n    }\n  ],\n  \"pagination\": {\n    \"payload_version\": 550.2081421653238,\n    \"total_records\": 100,\n    \"page\": 1,\n    \"per_page\": 10,\n    \"total_pages\": 2,\n    \"page_first_index\": 10,\n    \"page_last_index\": 10\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0f71468b-b75b-45e8-a1a8-b1ab1206bf2a",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "created_at",
+                      "value": "2024-01-01T00:00:00+0000,2024-02-01T00:00:00+0000"
+                    },
+                    {
+                      "key": "updated_at",
+                      "value": "2024-01-01T00:00:00+0000,2024-02-01T00:00:00+0000"
+                    },
+                    {
+                      "key": "published_at",
+                      "value": "2024-01-01T00:00:00+0000,2024-02-01T00:00:00+0000"
+                    },
+                    {
+                      "key": "state",
+                      "value": "FINISHED"
+                    },
+                    {
+                      "key": "query",
+                      "value": "foo:name,custom_fields"
+                    },
+                    {
+                      "key": "sort_column",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "origin_id",
+                      "value": "edfg8k34"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "cb65a918-ad7d-406a-80d8-09c9c8d0dbb"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 6661,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "19bce295-ea01-4eb0-8554-92fd42258187",
+          "name": "Fetch a video",
+          "request": {
+            "name": "Fetch a video",
+            "description": {
+              "content": "This operation shows details for a single, specified video.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "videos",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier for the video."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "374b37dc-794b-4d47-8031-1407451b818e",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the video."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"video\": {\n    \"id\": \"2aa3343e-2fb5-42c3-8671-b52c24b7c3e2\",\n    \"name\": \"My video\",\n    \"description\": \"A new video for my business.\",\n    \"duration_in_ms\": 3434,\n    \"unpublish\": true,\n    \"unpublished_at\": \"2025-01-01T12:33:22Z\",\n    \"published\": true,\n    \"published_at\": \"2024-01-01T12:33:22Z\",\n    \"tags\": [\n      \"foo\",\n      \"bar\"\n    ],\n    \"category_id\": \"<The account's default category>\",\n    \"ad_insertion_points\": [\n      {\n        \"offset_from_start_in_ms\": 20000,\n        \"description\": \"mid-roll\"\n      },\n      {\n        \"offset_from_start_in_ms\": 20000,\n        \"description\": \"mid-roll\"\n      }\n    ],\n    \"no_ads\": false,\n    \"ad_keywords\": \"special_ads\",\n    \"created_at\": \"2024-01-01T12:33:22Z\",\n    \"updated_at\": \"2024-01-01T12:33:22Z\",\n    \"state\": \"FINISHED\",\n    \"encoding_progress\": 5239.206492068706,\n    \"upload_progress\": 143.61201423362724,\n    \"error_message\": \"string\",\n    \"deactivated\": false,\n    \"images\": [\n      {\n        \"type\": \"image_1\",\n        \"url\": \"https://example.com/image.jpg\"\n      },\n      {\n        \"type\": \"image_2\",\n        \"url\": \"https://example.com/image.jpg\"\n      }\n    ],\n    \"encodings\": [\n      {\n        \"audio_bitrate_in_kbps\": 2300,\n        \"audio_channel\": 2,\n        \"audio_codec\": \"aac\",\n        \"audio_sample_rate\": 44100,\n        \"height\": 1080,\n        \"width\": 1920,\n        \"video_file_url\": \"https://flowplayer.com/video.mp4\",\n        \"video_container\": \"mp4\",\n        \"video_codec\": \"h264\",\n        \"total_bitrate_in_kbps\": 1023,\n        \"created_at\": \"2010-09-08T02:03:20.264Z\",\n        \"size_in_bytes\": 8325555\n      },\n      {\n        \"audio_bitrate_in_kbps\": 2300,\n        \"audio_channel\": 2,\n        \"audio_codec\": \"aac\",\n        \"audio_sample_rate\": 44100,\n        \"height\": 1080,\n        \"width\": 1920,\n        \"video_file_url\": \"https://flowplayer.com/video.mp4\",\n        \"video_container\": \"mp4\",\n        \"video_codec\": \"h264\",\n        \"total_bitrate_in_kbps\": 1023,\n        \"created_at\": \"1967-10-06T14:49:06.087Z\",\n        \"size_in_bytes\": 8325555\n      }\n    ],\n    \"drm\": {\n      \"com.widevine.alpha\": {\n        \"license_server\": \"string\",\n        \"certificate\": \"string\"\n      },\n      \"com.apple.fps.1_0\": {\n        \"license_server\": \"string\",\n        \"certificate\": \"string\"\n      },\n      \"com.microsoft.playready\": {\n        \"license_server\": \"string\",\n        \"certificate\": \"string\"\n      }\n    },\n    \"shallow_copy\": false,\n    \"shallow_copy_source_id\": \"string\",\n    \"multiple_audio_tracks\": false,\n    \"audio_only\": false,\n    \"version\": 7255,\n    \"thumbnails\": {\n      \"src\": \"string\"\n    },\n    \"animated_previews\": [\n      {\n        \"url\": \"string\",\n        \"type\": \"string\",\n        \"height\": 1080,\n        \"width\": 1920\n      },\n      {\n        \"url\": \"string\",\n        \"type\": \"string\",\n        \"height\": 1080,\n        \"width\": 1920\n      }\n    ],\n    \"playback_token_behavior\": \"NO_TOKEN\",\n    \"origin\": {\n      \"id\": \"wqrs0k75\",\n      \"type\": \"live_stream\",\n      \"uptime_id\": \"hvpcp3kn\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "46200ad1-86aa-4981-91c3-aed26621bb83",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the video."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 6661,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a448c6fe-834e-48db-9dde-b4cde8ee8498",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the video."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 5530,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "95487f52-3e94-4d54-9b2e-bdb666508e82",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the video."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 7025,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6d8a40d9-5c00-4fa1-b467-61c349e1a769",
+              "name": "Gone",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the video."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Gone",
+              "code": 410,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 5056,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4d09ac9c-961c-4128-b48e-632debd7c149",
+          "name": "Update a video's metadata",
+          "request": {
+            "name": "Update a video's metadata",
+            "description": {
+              "content": "This operation updates a video's metadata. To replace the video file, use the `PUT /video/ID`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "videos",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier for the video."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"video\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"unpublish\": true,\n    \"unpublished_at\": \"<dateTime>\",\n    \"published\": \"<boolean>\",\n    \"published_at\": \"<dateTime>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"category_id\": \"<The account's default category>\",\n    \"ad_insertion_points\": [\n      {\n        \"offset_from_start_in_ms\": \"<long>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"offset_from_start_in_ms\": \"<long>\",\n        \"description\": \"<string>\"\n      }\n    ],\n    \"no_ads\": \"<boolean>\",\n    \"ad_keywords\": \"<string>\",\n    \"playback_token_behavior\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9975c807-1b1e-4779-9846-5448528a5090",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the video."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"video\": {\n    \"name\": \"My video\",\n    \"description\": \"A new video for my business.\",\n    \"unpublish\": true,\n    \"unpublished_at\": \"2025-01-01T12:33:22Z\",\n    \"published\": \"<boolean>\",\n    \"published_at\": \"2024-01-01T12:33:22Z\",\n    \"tags\": [\n      \"foo\",\n      \"bar\"\n    ],\n    \"category_id\": \"<The account's default category>\",\n    \"ad_insertion_points\": [\n      {\n        \"offset_from_start_in_ms\": 20000,\n        \"description\": \"mid-roll\"\n      },\n      {\n        \"offset_from_start_in_ms\": 20000,\n        \"description\": \"mid-roll\"\n      }\n    ],\n    \"no_ads\": \"<boolean>\",\n    \"ad_keywords\": \"special_ads\",\n    \"playback_token_behavior\": \"NO_TOKEN\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"video\": {\n    \"id\": \"2aa3343e-2fb5-42c3-8671-b52c24b7c3e2\",\n    \"name\": \"My video\",\n    \"description\": \"A new video for my business.\",\n    \"duration_in_ms\": 1761,\n    \"unpublish\": true,\n    \"unpublished_at\": \"2025-01-01T12:33:22Z\",\n    \"published\": true,\n    \"published_at\": \"2024-01-01T12:33:22Z\",\n    \"tags\": [\n      \"foo\",\n      \"bar\"\n    ],\n    \"category_id\": \"<The account's default category>\",\n    \"ad_insertion_points\": [\n      {\n        \"offset_from_start_in_ms\": 20000,\n        \"description\": \"mid-roll\"\n      },\n      {\n        \"offset_from_start_in_ms\": 20000,\n        \"description\": \"mid-roll\"\n      }\n    ],\n    \"no_ads\": false,\n    \"ad_keywords\": \"special_ads\",\n    \"created_at\": \"2024-01-01T12:33:22Z\",\n    \"updated_at\": \"2024-01-01T12:33:22Z\",\n    \"state\": \"FINISHED\",\n    \"encoding_progress\": 6382.438591190778,\n    \"upload_progress\": 1419.4347253421702,\n    \"error_message\": \"string\",\n    \"deactivated\": false,\n    \"images\": [\n      {\n        \"type\": \"image_4\",\n        \"url\": \"https://example.com/image.jpg\"\n      },\n      {\n        \"type\": \"image_1\",\n        \"url\": \"https://example.com/image.jpg\"\n      }\n    ],\n    \"encodings\": [\n      {\n        \"audio_bitrate_in_kbps\": 2300,\n        \"audio_channel\": 2,\n        \"audio_codec\": \"aac\",\n        \"audio_sample_rate\": 44100,\n        \"height\": 1080,\n        \"width\": 1920,\n        \"video_file_url\": \"https://flowplayer.com/video.mp4\",\n        \"video_container\": \"mp4\",\n        \"video_codec\": \"h264\",\n        \"total_bitrate_in_kbps\": 1023,\n        \"created_at\": \"1957-08-13T00:58:02.663Z\",\n        \"size_in_bytes\": 8325555\n      },\n      {\n        \"audio_bitrate_in_kbps\": 2300,\n        \"audio_channel\": 2,\n        \"audio_codec\": \"aac\",\n        \"audio_sample_rate\": 44100,\n        \"height\": 1080,\n        \"width\": 1920,\n        \"video_file_url\": \"https://flowplayer.com/video.mp4\",\n        \"video_container\": \"mp4\",\n        \"video_codec\": \"h264\",\n        \"total_bitrate_in_kbps\": 1023,\n        \"created_at\": \"2014-04-21T06:55:26.192Z\",\n        \"size_in_bytes\": 8325555\n      }\n    ],\n    \"drm\": {\n      \"com.widevine.alpha\": {\n        \"license_server\": \"string\",\n        \"certificate\": \"string\"\n      },\n      \"com.apple.fps.1_0\": {\n        \"license_server\": \"string\",\n        \"certificate\": \"string\"\n      },\n      \"com.microsoft.playready\": {\n        \"license_server\": \"string\",\n        \"certificate\": \"string\"\n      }\n    },\n    \"shallow_copy\": false,\n    \"shallow_copy_source_id\": \"string\",\n    \"multiple_audio_tracks\": false,\n    \"audio_only\": true,\n    \"version\": 7853,\n    \"thumbnails\": {\n      \"src\": \"string\"\n    },\n    \"animated_previews\": [\n      {\n        \"url\": \"string\",\n        \"type\": \"string\",\n        \"height\": 1080,\n        \"width\": 1920\n      },\n      {\n        \"url\": \"string\",\n        \"type\": \"string\",\n        \"height\": 1080,\n        \"width\": 1920\n      }\n    ],\n    \"playback_token_behavior\": \"NO_TOKEN\",\n    \"origin\": {\n      \"id\": \"wqrs0k75\",\n      \"type\": \"live_stream\",\n      \"uptime_id\": \"hvpcp3kn\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dcc6c291-c63e-4a70-9fb9-1460f101567c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the video."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"video\": {\n    \"name\": \"My video\",\n    \"description\": \"A new video for my business.\",\n    \"unpublish\": true,\n    \"unpublished_at\": \"2025-01-01T12:33:22Z\",\n    \"published\": \"<boolean>\",\n    \"published_at\": \"2024-01-01T12:33:22Z\",\n    \"tags\": [\n      \"foo\",\n      \"bar\"\n    ],\n    \"category_id\": \"<The account's default category>\",\n    \"ad_insertion_points\": [\n      {\n        \"offset_from_start_in_ms\": 20000,\n        \"description\": \"mid-roll\"\n      },\n      {\n        \"offset_from_start_in_ms\": 20000,\n        \"description\": \"mid-roll\"\n      }\n    ],\n    \"no_ads\": \"<boolean>\",\n    \"ad_keywords\": \"special_ads\",\n    \"playback_token_behavior\": \"NO_TOKEN\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 6661,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5d1e4ff-e6a1-4543-a6d8-f83ef23af00d",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the video."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"video\": {\n    \"name\": \"My video\",\n    \"description\": \"A new video for my business.\",\n    \"unpublish\": true,\n    \"unpublished_at\": \"2025-01-01T12:33:22Z\",\n    \"published\": \"<boolean>\",\n    \"published_at\": \"2024-01-01T12:33:22Z\",\n    \"tags\": [\n      \"foo\",\n      \"bar\"\n    ],\n    \"category_id\": \"<The account's default category>\",\n    \"ad_insertion_points\": [\n      {\n        \"offset_from_start_in_ms\": 20000,\n        \"description\": \"mid-roll\"\n      },\n      {\n        \"offset_from_start_in_ms\": 20000,\n        \"description\": \"mid-roll\"\n      }\n    ],\n    \"no_ads\": \"<boolean>\",\n    \"ad_keywords\": \"special_ads\",\n    \"playback_token_behavior\": \"NO_TOKEN\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 4694,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1da8b0c4-8961-4df3-ace0-de74a9cdb299",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the video."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"video\": {\n    \"name\": \"My video\",\n    \"description\": \"A new video for my business.\",\n    \"unpublish\": true,\n    \"unpublished_at\": \"2025-01-01T12:33:22Z\",\n    \"published\": \"<boolean>\",\n    \"published_at\": \"2024-01-01T12:33:22Z\",\n    \"tags\": [\n      \"foo\",\n      \"bar\"\n    ],\n    \"category_id\": \"<The account's default category>\",\n    \"ad_insertion_points\": [\n      {\n        \"offset_from_start_in_ms\": 20000,\n        \"description\": \"mid-roll\"\n      },\n      {\n        \"offset_from_start_in_ms\": 20000,\n        \"description\": \"mid-roll\"\n      }\n    ],\n    \"no_ads\": \"<boolean>\",\n    \"ad_keywords\": \"special_ads\",\n    \"playback_token_behavior\": \"NO_TOKEN\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 986,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9dc93c84-299b-4b3c-8444-0463d4e977cc",
+              "name": "Gone",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the video."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"video\": {\n    \"name\": \"My video\",\n    \"description\": \"A new video for my business.\",\n    \"unpublish\": true,\n    \"unpublished_at\": \"2025-01-01T12:33:22Z\",\n    \"published\": \"<boolean>\",\n    \"published_at\": \"2024-01-01T12:33:22Z\",\n    \"tags\": [\n      \"foo\",\n      \"bar\"\n    ],\n    \"category_id\": \"<The account's default category>\",\n    \"ad_insertion_points\": [\n      {\n        \"offset_from_start_in_ms\": 20000,\n        \"description\": \"mid-roll\"\n      },\n      {\n        \"offset_from_start_in_ms\": 20000,\n        \"description\": \"mid-roll\"\n      }\n    ],\n    \"no_ads\": \"<boolean>\",\n    \"ad_keywords\": \"special_ads\",\n    \"playback_token_behavior\": \"NO_TOKEN\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Gone",
+              "code": 410,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 8308,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9850b70d-8550-47a5-a507-8416b60c5f17",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the video."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"video\": {\n    \"name\": \"My video\",\n    \"description\": \"A new video for my business.\",\n    \"unpublish\": true,\n    \"unpublished_at\": \"2025-01-01T12:33:22Z\",\n    \"published\": \"<boolean>\",\n    \"published_at\": \"2024-01-01T12:33:22Z\",\n    \"tags\": [\n      \"foo\",\n      \"bar\"\n    ],\n    \"category_id\": \"<The account's default category>\",\n    \"ad_insertion_points\": [\n      {\n        \"offset_from_start_in_ms\": 20000,\n        \"description\": \"mid-roll\"\n      },\n      {\n        \"offset_from_start_in_ms\": 20000,\n        \"description\": \"mid-roll\"\n      }\n    ],\n    \"no_ads\": \"<boolean>\",\n    \"ad_keywords\": \"special_ads\",\n    \"playback_token_behavior\": \"NO_TOKEN\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 4074,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c6628a84-6733-4e7c-a580-704bc6324181",
+          "name": "Re-upload a video",
+          "request": {
+            "name": "Re-upload a video",
+            "description": {
+              "content": "This operation initiates a re-upload of a video.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "videos",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier for the video."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"video\": {\n    \"input\": {\n      \"method\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d8bb07fb-4525-4f53-b245-dbe120f651eb",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the video."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"video\": {\n    \"input\": {\n      \"method\": \"DIRECT\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"video\": {\n    \"id\": \"2aa3343e-2fb5-42c3-8671-b52c24b7c3e2\",\n    \"name\": \"My video\",\n    \"description\": \"A new video for my business.\",\n    \"duration_in_ms\": 3538,\n    \"unpublish\": true,\n    \"unpublished_at\": \"2025-01-01T12:33:22Z\",\n    \"published\": false,\n    \"published_at\": \"2024-01-01T12:33:22Z\",\n    \"tags\": [\n      \"foo\",\n      \"bar\"\n    ],\n    \"category_id\": \"<The account's default category>\",\n    \"ad_insertion_points\": [\n      {\n        \"offset_from_start_in_ms\": 20000,\n        \"description\": \"mid-roll\"\n      },\n      {\n        \"offset_from_start_in_ms\": 20000,\n        \"description\": \"mid-roll\"\n      }\n    ],\n    \"no_ads\": false,\n    \"ad_keywords\": \"special_ads\",\n    \"created_at\": \"2025-01-01T12:33:22Z\",\n    \"updated_at\": \"2024-01-01T12:33:22Z\",\n    \"state\": \"FINISHED\",\n    \"encoding_progress\": 1648.2336861078372,\n    \"upload_progress\": 2160.5226764922204,\n    \"error_message\": \"string\",\n    \"deactivated\": false,\n    \"images\": [\n      {\n        \"type\": \"thumbnail\",\n        \"url\": \"https://example.com/image.jpg\"\n      },\n      {\n        \"type\": \"image_5\",\n        \"url\": \"https://example.com/image.jpg\"\n      }\n    ],\n    \"encodings\": [\n      {\n        \"audio_bitrate_in_kbps\": 2300,\n        \"audio_channel\": 2,\n        \"audio_codec\": \"aac\",\n        \"audio_sample_rate\": 44100,\n        \"height\": 1080,\n        \"width\": 1920,\n        \"video_file_url\": \"https://flowplayer.com/video.mp4\",\n        \"video_container\": \"mp4\",\n        \"video_codec\": \"h264\",\n        \"total_bitrate_in_kbps\": 1023,\n        \"created_at\": \"2023-08-25T19:00:20.699Z\",\n        \"size_in_bytes\": 8325555\n      },\n      {\n        \"audio_bitrate_in_kbps\": 2300,\n        \"audio_channel\": 2,\n        \"audio_codec\": \"aac\",\n        \"audio_sample_rate\": 44100,\n        \"height\": 1080,\n        \"width\": 1920,\n        \"video_file_url\": \"https://flowplayer.com/video.mp4\",\n        \"video_container\": \"mp4\",\n        \"video_codec\": \"h264\",\n        \"total_bitrate_in_kbps\": 1023,\n        \"created_at\": \"1993-08-13T01:08:34.711Z\",\n        \"size_in_bytes\": 8325555\n      }\n    ],\n    \"drm\": {\n      \"com.widevine.alpha\": {\n        \"license_server\": \"string\",\n        \"certificate\": \"string\"\n      },\n      \"com.apple.fps.1_0\": {\n        \"license_server\": \"string\",\n        \"certificate\": \"string\"\n      },\n      \"com.microsoft.playready\": {\n        \"license_server\": \"string\",\n        \"certificate\": \"string\"\n      }\n    },\n    \"shallow_copy\": true,\n    \"shallow_copy_source_id\": \"string\",\n    \"multiple_audio_tracks\": true,\n    \"audio_only\": true,\n    \"version\": 3393,\n    \"thumbnails\": {\n      \"src\": \"string\"\n    },\n    \"animated_previews\": [\n      {\n        \"url\": \"string\",\n        \"type\": \"string\",\n        \"height\": 1080,\n        \"width\": 1920\n      },\n      {\n        \"url\": \"string\",\n        \"type\": \"string\",\n        \"height\": 1080,\n        \"width\": 1920\n      }\n    ],\n    \"playback_token_behavior\": \"NO_TOKEN\",\n    \"upload_url\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "889d50f3-2434-4332-b69a-01d651982568",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the video."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"video\": {\n    \"input\": {\n      \"method\": \"DIRECT\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 6661,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a997c4e6-c8db-417a-b044-0f89e89e570f",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the video."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"video\": {\n    \"input\": {\n      \"method\": \"DIRECT\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 4694,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e311823f-6e3f-485c-8074-de5a30995897",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the video."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"video\": {\n    \"input\": {\n      \"method\": \"DIRECT\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 986,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d307ce7-4bc4-4232-af69-adbf1fdf497a",
+              "name": "Gone",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the video."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"video\": {\n    \"input\": {\n      \"method\": \"DIRECT\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Gone",
+              "code": 410,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 8308,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "650a4cf8-d7b1-421a-999a-5436d2501582",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the video."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"video\": {\n    \"input\": {\n      \"method\": \"DIRECT\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 4074,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c0e6cf27-a8bf-431e-a7b9-58c608cd248e",
+          "name": "Delete a video",
+          "request": {
+            "name": "Delete a video",
+            "description": {
+              "content": "This operation deletes a video and all its related files.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "videos",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier for the video"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cca541f9-906a-4d9d-852d-679e3111e545",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the video"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "119f1b67-4962-4c40-a0f0-3e15b5eadb41",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the video"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 6661,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "436f97cc-bf7e-4291-a48d-4ed4abff1a1a",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the video"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 4694,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4a555c0e-8096-44f4-acc1-a987e7caa2a3",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the video"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 986,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aba19e72-6f87-4806-871a-d3bc1887c1c5",
+              "name": "Gone",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the video"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Gone",
+              "code": 410,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 8308,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1419bb01-d6e5-4f8c-9099-0f03b8aac4c1",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the video"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 4074,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8087",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a77af7ed-cd17-411c-85ea-4204cb661e90",
+    "name": "Wowza Streaming Engine REST advanced_token_authentication videos API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.\n\nContact Support:\n Name: Wowza Media Systems",
+      "type": "text/plain"
+    }
+  }
+}

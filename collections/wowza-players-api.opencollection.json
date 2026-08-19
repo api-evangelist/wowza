@@ -1,0 +1,251 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wowza Streaming Engine REST advanced_token_authentication players API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "players",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch all players",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/players",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**."
+              }
+            ]
+          },
+          "docs": "<blockquote>The <strong>player</strong> operations are deprecated in 2.0. Create and update player configurations in the user interface. Any values you send using the <strong>player</strong> operations will be ignored.</blockquote>\n\nThis operation shows limited details for all of your players. For detailed information, fetch a single player."
+        },
+        {
+          "info": {
+            "name": "Fetch a player",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/players/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the player."
+              }
+            ]
+          },
+          "docs": "<blockquote>The <strong>player</strong> operations are deprecated in 2.0. Create and update player configurations in the user interface. Any values you send using the <strong>player</strong> operations will be ignored.</blockquote>\nThis operation shows details of a specific player."
+        },
+        {
+          "info": {
+            "name": "Update a player",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:8087/players/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the player."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "<blockquote>The <strong>player</strong> operations are deprecated in 2.0. Create and update player configurations in the user interface. Any values you send using the <strong>player</strong> operations will be ignored.</blockquote>\nThis operation updates a player."
+        },
+        {
+          "info": {
+            "name": "Rebuild player code",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/players/:id/rebuild",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the player."
+              }
+            ]
+          },
+          "docs": "<blockquote>The <strong>player</strong> operations are deprecated in 2.0. Create and update player configurations in the user interface. Any values you send using the <strong>player</strong> operations will be ignored.</blockquote>\nThis operation rebuilds the player with the current configuration."
+        },
+        {
+          "info": {
+            "name": "Fetch the state of a player",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/players/:id/state",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the player."
+              }
+            ]
+          },
+          "docs": "<blockquote>The <strong>player</strong> operations are deprecated in 2.0. Create and update player configurations in the user interface. Any values you send using the <strong>player</strong> operations will be ignored.</blockquote>\nThis operation shows the current state of a player."
+        },
+        {
+          "info": {
+            "name": "Fetch all player URLs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/players/:player_id/urls",
+            "params": [
+              {
+                "name": "player_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the player."
+              }
+            ]
+          },
+          "docs": "<blockquote>The <strong>player</strong> operations are deprecated in 2.0. Create and update player configurations in the user interface. Any values you send using the <strong>player</strong> operations will be ignored.</blockquote>\nThis operation shows the details of all player URLs."
+        },
+        {
+          "info": {
+            "name": "Create a player URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/players/:player_id/urls",
+            "params": [
+              {
+                "name": "player_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the player."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "<blockquote>The <strong>player</strong> operations are deprecated in 2.0. Create and update player configurations in the user interface. Any values you send using the <strong>player</strong> operations will be ignored.</blockquote>\nThis operation creates a new player URL."
+        },
+        {
+          "info": {
+            "name": "Fetch a player URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/players/:player_id/urls/:id",
+            "params": [
+              {
+                "name": "player_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the player."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the player URL."
+              }
+            ]
+          },
+          "docs": "<blockquote>The <strong>player</strong> operations are deprecated in 2.0. Create and update player configurations in the user interface. Any values you send using the <strong>player</strong> operations will be ignored.</blockquote>\nThis operation shows the details of a player URL."
+        },
+        {
+          "info": {
+            "name": "Update a player URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:8087/players/:player_id/urls/:id",
+            "params": [
+              {
+                "name": "player_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the player."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the player URL."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "<blockquote>The <strong>player</strong> operations are deprecated in 2.0. Create and update player configurations in the user interface. Any values you send using the <strong>player</strong> operations will be ignored.</blockquote>\nThis operation updates a player URL."
+        },
+        {
+          "info": {
+            "name": "Delete a player URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8087/players/:player_id/urls/:id",
+            "params": [
+              {
+                "name": "player_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the player."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the player URL."
+              }
+            ]
+          },
+          "docs": "<blockquote>The <strong>player</strong> operations are deprecated in 2.0. Create and update player configurations in the user interface. Any values you send using the <strong>player</strong> operations will be ignored.</blockquote>\nThis operation deletes a player URL."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wowza Streaming Engine REST advanced_token_authentication clipping API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "clipping",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a clip",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/clipping",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This operation creates (or replaces) a video object in Wowza Video by clipping a video or live stream or, clipping and stitching together video or live stream clips.\n\n\n**Create a clip**\n\nTo create a clip off of an existing video or live stream, send the `id` of the video or live stream you want to clip along with the `asset_type`, `mode`, `start`, and `stop` parameters.\n\n**Create clips and stitch the clips**\n\nTo create multiple clips and stitch the clips together as one clip, send the `id` of th"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

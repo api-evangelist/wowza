@@ -1,0 +1,351 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wowza Streaming Engine REST advanced_token_authentication Webhooks API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get webhook config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/webhooks",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ]
+          },
+          "docs": "Get all webhooks configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update webhook config",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/webhooks",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replace the full webhooks JSON. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get filter list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/webhooks/filters",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ]
+          },
+          "docs": "List all filters. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Create filter list",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/v2/servers/:serverName/webhooks/filters",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a list of filters. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/webhooks/filters/:id",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Filter id"
+              }
+            ]
+          },
+          "docs": "Get filter. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/webhooks/filters/:id",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Filter id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create/replace filter. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Delete filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8087/v2/servers/:serverName/webhooks/filters/:id",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Filter id"
+              }
+            ]
+          },
+          "docs": "Delete filter. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get source",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/webhooks/source",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ]
+          },
+          "docs": "Get source. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update source",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/webhooks/source",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create/replace source. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get target list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/webhooks/targets",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ]
+          },
+          "docs": "List all targets. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Create target list",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/v2/servers/:serverName/webhooks/targets",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a list of targets. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get target",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/webhooks/targets/:id",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Target id"
+              }
+            ]
+          },
+          "docs": "Get target. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update target",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/webhooks/targets/:id",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Target id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create/replace target. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Delete target",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8087/v2/servers/:serverName/webhooks/targets/:id",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Target id"
+              }
+            ]
+          },
+          "docs": "Delete target. This API is available in builds 15089 or later."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,873 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wowza Streaming Engine REST advanced_token_authentication transcoders API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "transcoders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch all transcoders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/transcoders",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Restricts the data that gets returned by filtering on one or more values associated with a field. Construct a filter using a two-part expression that specifies the field on which to filter and the logic to use to filter. Filters use a zero-based index.\n\nFor valid filter operators and filter fields, see [How to get filtered query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-filtered-query-results-with-the-wowza-video-rest-api).\n\nExample:\n**filter[0][field]=state&filter[0][eq]=stopped**"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**."
+              }
+            ]
+          },
+          "docs": "This operation shows limited details for all of your transcoders. For detailed information, fetch a single transcoder."
+        },
+        {
+          "info": {
+            "name": "Create a transcoder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/transcoders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This operation creates a transcoder."
+        },
+        {
+          "info": {
+            "name": "Fetch a transcoder",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/transcoders/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              }
+            ]
+          },
+          "docs": "This operation shows the details of a specific transcoder."
+        },
+        {
+          "info": {
+            "name": "Update a transcoder",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:8087/transcoders/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This operation updates a transcoder."
+        },
+        {
+          "info": {
+            "name": "Delete a transcoder",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8087/transcoders/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              }
+            ]
+          },
+          "docs": "This operation deletes a transcoder, including all of its assigned output renditions and stream targets. <br><br><b>Note</b>: You can't remove transcoders that have an asset_id. Assets must be removed by sending a DEL request to the /assets endpoint. "
+        },
+        {
+          "info": {
+            "name": "Enable a transcoder's stream targets",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/transcoders/:id/enable_all_stream_targets",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              }
+            ]
+          },
+          "docs": "This operation enables all of the stream targets assigned to a specific transcoder."
+        },
+        {
+          "info": {
+            "name": "Disable a transcoder's stream targets",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/transcoders/:id/disable_all_stream_targets",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              }
+            ]
+          },
+          "docs": "This operation disables all of the stream targets assigned to a specific transcoder."
+        },
+        {
+          "info": {
+            "name": "Start a transcoder",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/transcoders/:id/start",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              }
+            ]
+          },
+          "docs": "This operation starts a transcoder."
+        },
+        {
+          "info": {
+            "name": "Stop a transcoder",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/transcoders/:id/stop",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              }
+            ]
+          },
+          "docs": "This operation stops a transcoder."
+        },
+        {
+          "info": {
+            "name": "Reset a transcoder",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/transcoders/:id/reset",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              }
+            ]
+          },
+          "docs": "This operation resets a transcoder."
+        },
+        {
+          "info": {
+            "name": "Start recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/transcoders/:id/start_recording",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              }
+            ]
+          },
+          "docs": "This operation starts the recording of a transcoder after the transcoder has started.\nIf you want the recording to start and stop automatically when you start or stop the transcoder instead, set _recording_ to **true** when you create a transcoder or update a transcoder."
+        },
+        {
+          "info": {
+            "name": "Stop recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/transcoders/:id/stop_recording",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              }
+            ]
+          },
+          "docs": "This operation stops the recording of a transcoder before the transcoder has stopped. Wowza Video begins converting the recording to an MP4 file after the transcoder has stopped. You can use this operation to manually stop recording even if _recording_ is set to **true** on the transcoder, meaning the recording was automatically started at transcoder start.\nIf you want the recording to start and stop automatically when you start and stop the transcoder, set _recording_ to **true** when you creat"
+        },
+        {
+          "info": {
+            "name": "Fetch a transcoder's recordings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/transcoders/:id/recordings",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              }
+            ]
+          },
+          "docs": "<blockquote>Deprecated in 2.0.</blockquote>\nThis operation shows limited details of all of the recordings for a specific transcoder. For detailed information about a recording, use the recording ID to fetch a recording."
+        },
+        {
+          "info": {
+            "name": "Fetch transcoder's schedules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/transcoders/:id/schedules",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              }
+            ]
+          },
+          "docs": "This operation shows the details of all of the schedules for a specific transcoder."
+        },
+        {
+          "info": {
+            "name": "Fetch the thumbnail URL of a transcoder",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/transcoders/:id/thumbnail_url",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              }
+            ]
+          },
+          "docs": "This operation shows the thumbnail URL of a started transcoder."
+        },
+        {
+          "info": {
+            "name": "Fetch the state and uptime ID of a transcoder",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/transcoders/:id/state",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              }
+            ]
+          },
+          "docs": "This operation shows the current state and uptime ID of a transcoder."
+        },
+        {
+          "info": {
+            "name": "Fetch all VOD streams for a transcoder",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/transcoders/:id/vod_streams",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              }
+            ]
+          },
+          "docs": "(Available from version 1.5) This operation shows the details of all VOD streams associated to a specific transcoder."
+        },
+        {
+          "info": {
+            "name": "Fetch all uptime records for a transcoder",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/transcoders/:transcoder_id/uptimes",
+            "params": [
+              {
+                "name": "transcoder_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**."
+              }
+            ]
+          },
+          "docs": "This operation shows all of the uptime records for a specific transcoder. An *uptime record* identifies a specific transcoding session."
+        },
+        {
+          "info": {
+            "name": "Fetch an uptime record",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/transcoders/:transcoder_id/uptimes/:id",
+            "params": [
+              {
+                "name": "transcoder_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the uptime record."
+              }
+            ]
+          },
+          "docs": "This operation shows the details of a specific uptime record for a specific transcoder. An *uptime record* identifies a transcoding session."
+        },
+        {
+          "info": {
+            "name": "Fetch all outputs of a transcoder",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/transcoders/:transcoder_id/outputs",
+            "params": [
+              {
+                "name": "transcoder_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              }
+            ]
+          },
+          "docs": "This operation shows the details of all of the output renditions of a specific transcoder."
+        },
+        {
+          "info": {
+            "name": "Create an output",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/transcoders/:transcoder_id/outputs",
+            "params": [
+              {
+                "name": "transcoder_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This operation creates an output rendition for a specific transcoder. You can create up to 10 outputs per transcoder."
+        },
+        {
+          "info": {
+            "name": "Fetch an output",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/transcoders/:transcoder_id/outputs/:id",
+            "params": [
+              {
+                "name": "transcoder_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the output rendition."
+              }
+            ]
+          },
+          "docs": "This operation shows the details of a specific output rendition for a specific transcoder."
+        },
+        {
+          "info": {
+            "name": "Update an output",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:8087/transcoders/:transcoder_id/outputs/:id",
+            "params": [
+              {
+                "name": "transcoder_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the output rendition."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This operation updates an output rendition."
+        },
+        {
+          "info": {
+            "name": "Delete an output",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8087/transcoders/:transcoder_id/outputs/:id",
+            "params": [
+              {
+                "name": "transcoder_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the output rendition."
+              }
+            ]
+          },
+          "docs": "This operation deletes an output, including all of its assigned targets."
+        },
+        {
+          "info": {
+            "name": "Fetch all output stream targets of an output of a transcoder",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/transcoders/:transcoder_id/outputs/:output_id/output_stream_targets",
+            "params": [
+              {
+                "name": "transcoder_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              },
+              {
+                "name": "output_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the output rendition."
+              }
+            ]
+          },
+          "docs": "This operation shows the details of all of the output stream targets of an output of a transcoder."
+        },
+        {
+          "info": {
+            "name": "Create an output stream target",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/transcoders/:transcoder_id/outputs/:output_id/output_stream_targets",
+            "params": [
+              {
+                "name": "transcoder_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              },
+              {
+                "name": "output_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the output rendition."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This operation creates an output stream target, assigning the stream target to the specified output rendition. "
+        },
+        {
+          "info": {
+            "name": "Fetch an output stream target",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/transcoders/:transcoder_id/outputs/:output_id/output_stream_targets/:stream_target_id",
+            "params": [
+              {
+                "name": "transcoder_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              },
+              {
+                "name": "output_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the output rendition."
+              },
+              {
+                "name": "stream_target_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the stream target.\n\n**Tip:** If you're using both the primary and backup URL for a stream target, send *output_stream_target_id* in the path instead. *output_stream_target_id* was returned when you added the stream target to the ouput rendition. This allows you to differentiate between the primary and backup URL versions of the stream target."
+              }
+            ]
+          },
+          "docs": "This operation shows the details of an output stream target."
+        },
+        {
+          "info": {
+            "name": "Update an output stream target",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:8087/transcoders/:transcoder_id/outputs/:output_id/output_stream_targets/:stream_target_id",
+            "params": [
+              {
+                "name": "transcoder_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              },
+              {
+                "name": "output_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the output rendition."
+              },
+              {
+                "name": "stream_target_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the stream target.\n\n**Tip:** If you're using both the primary and backup URL for a stream target, send *output_stream_target_id* in the path instead. *output_stream_target_id* was returned when you added the stream target to the ouput rendition. This allows you to differentiate between the primary and backup URL versions of the stream target."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This operation updates an output stream target."
+        },
+        {
+          "info": {
+            "name": "Delete an output stream target",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8087/transcoders/:transcoder_id/outputs/:output_id/output_stream_targets/:stream_target_id",
+            "params": [
+              {
+                "name": "transcoder_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              },
+              {
+                "name": "output_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the output rendition."
+              },
+              {
+                "name": "stream_target_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the stream target.\n\n**Tip:** If you're using both the primary and backup URL for a stream target, send *output_stream_target_id* in the path instead. *output_stream_target_id* was returned when you added the stream target to the ouput rendition. This allows you to differentiate between the primary and backup URL versions of the stream target."
+              }
+            ]
+          },
+          "docs": "This operation deletes an output stream target, including all of its assigned targets."
+        },
+        {
+          "info": {
+            "name": "Enable an output stream target",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/transcoders/:transcoder_id/outputs/:output_id/output_stream_targets/:stream_target_id/enable",
+            "params": [
+              {
+                "name": "transcoder_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              },
+              {
+                "name": "output_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the output rendition."
+              },
+              {
+                "name": "stream_target_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the stream target.\n\n**Tip:** If you're using both the primary and backup URL for a stream target, send *output_stream_target_id* in the path instead. *output_stream_target_id* was returned when you added the stream target to the ouput rendition. This allows you to differentiate between the primary and backup URL versions of the stream target."
+              }
+            ]
+          },
+          "docs": "This operation enables an output stream target."
+        },
+        {
+          "info": {
+            "name": "Disable an output stream target",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/transcoders/:transcoder_id/outputs/:output_id/output_stream_targets/:stream_target_id/disable",
+            "params": [
+              {
+                "name": "transcoder_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              },
+              {
+                "name": "output_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the output rendition."
+              },
+              {
+                "name": "stream_target_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the stream target.\n\n**Tip:** If you're using both the primary and backup URL for a stream target, send *output_stream_target_id* in the path instead. *output_stream_target_id* was returned when you added the stream target to the ouput rendition. This allows you to differentiate between the primary and backup URL versions of the stream target."
+              }
+            ]
+          },
+          "docs": "This operation disables an output stream target."
+        },
+        {
+          "info": {
+            "name": "Restart an output stream target",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/transcoders/:transcoder_id/outputs/:output_id/output_stream_targets/:stream_target_id/restart",
+            "params": [
+              {
+                "name": "transcoder_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              },
+              {
+                "name": "output_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the output rendition."
+              },
+              {
+                "name": "stream_target_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the stream target.\n\n**Tip:** If you're using both the primary and backup URL for a stream target, send *output_stream_target_id* in the path instead. *output_stream_target_id* was returned when you added the stream target to the ouput rendition. This allows you to differentiate between the primary and backup URL versions of the stream target."
+              }
+            ]
+          },
+          "docs": "This operation restarts an output stream target."
+        },
+        {
+          "info": {
+            "name": "Fetch a transcoder's properties",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/transcoders/:transcoder_id/properties",
+            "params": [
+              {
+                "name": "transcoder_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              }
+            ]
+          },
+          "docs": "This operation shows all of the properties of a specific transcoder."
+        },
+        {
+          "info": {
+            "name": "Configure a property for a transcoder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/transcoders/:transcoder_id/properties",
+            "params": [
+              {
+                "name": "transcoder_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This operation configures a single property or an array of properties for a transcoder.\n\nFor a comprehensive resource describing the use of advanced properties, see [Set advanced properties with the Wowza Video REST API](https://www.wowza.com/docs/how-to-set-advanced-properties-by-using-the-wowza-video-rest-api)."
+        },
+        {
+          "info": {
+            "name": "Fetch a property for a transcoder",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/transcoders/:transcoder_id/properties/:id",
+            "params": [
+              {
+                "name": "transcoder_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique string that identifies the transcoder property. The string contains the section and the key, connected by a dash. For example, **cupertino-aes128Secret**."
+              }
+            ]
+          },
+          "docs": "This operation shows the details of a specific property for a specific transcoder."
+        },
+        {
+          "info": {
+            "name": "Delete a transcoder's property",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8087/transcoders/:transcoder_id/properties/:id",
+            "params": [
+              {
+                "name": "transcoder_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the transcoder."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique string that identifies the transcoder property. The string contains the section and the key, connected by a dash. For example, **cupertino-aes128Secret**."
+              }
+            ]
+          },
+          "docs": "This operation deletes a specific property from a specific transcoder."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

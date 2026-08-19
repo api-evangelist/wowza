@@ -1,0 +1,2745 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wowza Streaming Engine REST advanced_token_authentication Virtual Hosts API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Virtual Hosts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get vhost list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ]
+          },
+          "docs": "Retrieves the list of vhosts. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get vhost config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path",
+                "description": "The vhost name"
+              }
+            ]
+          },
+          "docs": "Retrieves the specified vhost configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update vhost config",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path",
+                "description": "The vhost name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified vhost configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Vhost actions",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/actions/:action",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "action",
+                "value": "",
+                "type": "path",
+                "description": "The action which should be performed by the server"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the current VHost the action will be performed on"
+              }
+            ]
+          },
+          "docs": "Vhost action. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get vhost config (adv)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/adv",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the specified advanced vhost configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update vhost config (adv)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/adv",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified advanced vhost configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get host ports list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/hostports",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the list of server host ports for the specified vhost. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get host port",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/hostports/:portname",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "portname",
+                "value": "",
+                "type": "path",
+                "description": "The port name"
+              }
+            ]
+          },
+          "docs": "Retrieves the host port for the specified vhost and port. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get host port config (adv)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/hostports/:portname/adv",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "portname",
+                "value": "",
+                "type": "path",
+                "description": "The port name"
+              }
+            ]
+          },
+          "docs": "Retrieves the advanced host port configuration for the specified vhost and port. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update host port config (adv)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/hostports/:portname/adv",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "portname",
+                "value": "",
+                "type": "path",
+                "description": "The port name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Host port config adv. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get HTTP providers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/hostports/:portname/httpproviders/:baseClass",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "portname",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "baseClass",
+                "value": "",
+                "type": "path",
+                "description": "Base class path"
+              }
+            ]
+          },
+          "docs": "Retrieves the HTTP providers for the specified vhost, port and baseclass. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get SSL config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/hostports/:portname/ssl",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "portname",
+                "value": "",
+                "type": "path",
+                "description": "The port name"
+              }
+            ]
+          },
+          "docs": "Retrieves the SSL configuration for the specified vhost and port. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update SSL config",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/hostports/:portname/ssl",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "portname",
+                "value": "",
+                "type": "path",
+                "description": "The port name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the SSL configuration for the specified vhost and port. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get media cache store list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/mediacache/stores",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves all entries in the media cache system. This API is available in builds 15942 or later."
+        },
+        {
+          "info": {
+            "name": "Media cache store actions",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/mediacache/stores/actions/:action",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "action",
+                "value": "",
+                "type": "path",
+                "description": "The action which should be performed by the server"
+              },
+              {
+                "name": "filename",
+                "value": "",
+                "type": "query",
+                "description": "The file or stream name item to be used in all rest action requests"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the current VHost the action will be performed on"
+              }
+            ]
+          },
+          "docs": "Media cache store action. This API is available in builds 15942 or later."
+        },
+        {
+          "info": {
+            "name": "Get current vhost stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/monitoring/current",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the current vhost statistics. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get historic vhost stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/monitoring/historic",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the historic vhost statistics. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get publisher list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/publishers",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path",
+                "description": "The vhost name"
+              }
+            ]
+          },
+          "docs": "Retrieves the list of publishers for the specified vhost. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update publisher list",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/publishers",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path",
+                "description": "The vhost name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a publisher to list of publishers for the specified vhost. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get publisher config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/publishers/:publisherName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path",
+                "description": "The vhost name"
+              },
+              {
+                "name": "publisherName",
+                "value": "",
+                "type": "path",
+                "description": "The publisher name"
+              }
+            ]
+          },
+          "docs": "Retrieves the specified publisher configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Create publisher config",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/publishers/:publisherName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path",
+                "description": "The vhost name"
+              },
+              {
+                "name": "publisherName",
+                "value": "",
+                "type": "path",
+                "description": "The publisher name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds the specified publisher configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update publisher config",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/publishers/:publisherName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path",
+                "description": "The vhost name"
+              },
+              {
+                "name": "publisherName",
+                "value": "",
+                "type": "path",
+                "description": "The publisher name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified publisher configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Delete publisher config",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/publishers/:publisherName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path",
+                "description": "The vhost name"
+              },
+              {
+                "name": "publisherName",
+                "value": "",
+                "type": "path",
+                "description": "The publisher name"
+              }
+            ]
+          },
+          "docs": "Deletes the specified publisher configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get SDP file list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/sdpfiles",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the list of SDP Files for the specified vhost. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Delete SDP file",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/sdpfiles/:sdpfileName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sdpfileName",
+                "value": "",
+                "type": "path",
+                "description": "The SDP file name without the extension"
+              }
+            ]
+          },
+          "docs": "Deletes the specified SDP file. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "SDP file actions",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/sdpfiles/:sdpfileName/actions/:action",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "action",
+                "value": "",
+                "type": "path",
+                "description": "The action which should be performed by the server"
+              },
+              {
+                "name": "connectAppName",
+                "value": "",
+                "type": "query",
+                "description": "The name of the application to connect to"
+              },
+              {
+                "name": "appInstance",
+                "value": "",
+                "type": "query",
+                "description": "The name of the application instance to connect to"
+              },
+              {
+                "name": "mediaCasterType",
+                "value": "",
+                "type": "query",
+                "description": "The MediaCasterType to use for the connection "
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the current VHost the action will be performed on"
+              },
+              {
+                "name": "sdpfileName",
+                "value": "",
+                "type": "path",
+                "description": "The SDP file name needed for this REST call"
+              }
+            ]
+          },
+          "docs": "SDPF file action. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get SMIL files list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/smilfiles",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the current VHost the action will be performed on"
+              }
+            ]
+          },
+          "docs": "Retrieves the list of SMIL files for the specified vhost. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update SMIL file list",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/smilfiles",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the current VHost the action will be performed on"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a SMIL file to the list of SMIL files for the specified vhost. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get SMIL file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/smilfiles/:smilfileName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "smilfileName",
+                "value": "",
+                "type": "path",
+                "description": "The SMIL file name without the extension"
+              }
+            ]
+          },
+          "docs": "Retrieves the specified SMIL file configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Create SMIL file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/smilfiles/:smilfileName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "smilfileName",
+                "value": "",
+                "type": "path",
+                "description": "The SMIL file name without the extension"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds the specified SMIL file configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update SMIL file",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/smilfiles/:smilfileName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "smilfileName",
+                "value": "",
+                "type": "path",
+                "description": "The SMIL file name without the extension"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified SMIL file configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Delete SMIL file",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/smilfiles/:smilfileName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "smilfileName",
+                "value": "",
+                "type": "path",
+                "description": "The SMIL file name without the extension"
+              }
+            ]
+          },
+          "docs": "Deletes the specified SMIL file configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "SMIL file actions",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/smilfiles/:smilfileName/actions/:action",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "action",
+                "value": "",
+                "type": "path",
+                "description": "The action which should be performed by the server"
+              },
+              {
+                "name": "connectAppName",
+                "value": "",
+                "type": "query",
+                "description": "The name of the application to connect to"
+              },
+              {
+                "name": "appInstance",
+                "value": "",
+                "type": "query",
+                "description": "The name of the application instance to connect to"
+              },
+              {
+                "name": "mediaCasterType",
+                "value": "",
+                "type": "query",
+                "description": "The MediaCasterType to use for the connection "
+              },
+              {
+                "name": "dstEntryName",
+                "value": "",
+                "type": "query",
+                "description": "The destination SMIL file name when copying "
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the current VHost the action will be performed on"
+              },
+              {
+                "name": "smilfileName",
+                "value": "",
+                "type": "path",
+                "description": "The SMIL file, file name needed for this REST call"
+              }
+            ]
+          },
+          "docs": "SMIL file action. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get startup stream list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/startupstreams",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the list of startup streams for the specified vhost. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update startup stream list",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/startupstreams",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a startup stream to the list of startup streams for the specified vhost. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get startup stream config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/startupstreams/applications/:appName/instances/:instanceName/streams/:streamName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "streamName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "appName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "instanceName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the specified startup stream configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Create startup stream config",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/startupstreams/applications/:appName/instances/:instanceName/streams/:streamName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "streamName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "appName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "instanceName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds the specified startup stream configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update startup stream config",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/startupstreams/applications/:appName/instances/:instanceName/streams/:streamName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "streamName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "appName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "instanceName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified startup stream configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Delete startup stream config",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/startupstreams/applications/:appName/instances/:instanceName/streams/:streamName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "streamName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "appName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "instanceName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes the specified startup stream configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get stream file list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/streamfiles",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the list of stream files for the specified vhost. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update stream file list",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/streamfiles",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a stream file to the list of stream files for the specified vhost. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get stream file config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/streamfiles/:streamfileName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "streamfileName",
+                "value": "",
+                "type": "path",
+                "description": "The stream file name without the extension"
+              }
+            ]
+          },
+          "docs": "Retrieves the specified stream file configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Create stream file config",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/streamfiles/:streamfileName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "streamfileName",
+                "value": "",
+                "type": "path",
+                "description": "The stream file name without the extension"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds the specified stream file configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update stream file config",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/streamfiles/:streamfileName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "streamfileName",
+                "value": "",
+                "type": "path",
+                "description": "The stream file name without the extension"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified stream file configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Delete stream file config",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/streamfiles/:streamfileName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "streamfileName",
+                "value": "",
+                "type": "path",
+                "description": "The stream file name without the extension"
+              }
+            ]
+          },
+          "docs": "Deletes the specified stream file configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update stream file action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/streamfiles/:streamfileName/actions/:action",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "action",
+                "value": "",
+                "type": "path",
+                "description": "The action which should be performed by the server"
+              },
+              {
+                "name": "connectAppName",
+                "value": "",
+                "type": "query",
+                "description": "The name of the application to connect to"
+              },
+              {
+                "name": "appInstance",
+                "value": "",
+                "type": "query",
+                "description": "The name of the application instance to connect to"
+              },
+              {
+                "name": "mediaCasterType",
+                "value": "",
+                "type": "query",
+                "description": "The MediaCasterType to use for the connection "
+              },
+              {
+                "name": "dstEntryName",
+                "value": "",
+                "type": "query",
+                "description": "The destination stream file name when copying "
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the current VHost the action will be performed on"
+              },
+              {
+                "name": "streamfileName",
+                "value": "",
+                "type": "path",
+                "description": "The stream file, file name needed for this REST call"
+              }
+            ]
+          },
+          "docs": "Stream file action. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get stream file config (adv)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/streamfiles/:streamfileName/adv",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "streamfileName",
+                "value": "",
+                "type": "path",
+                "description": "The stream file name without the .stream extension"
+              }
+            ]
+          },
+          "docs": "Retrieves the advanced stream file configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update stream file config (adv)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/streamfiles/:streamfileName/adv",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "streamfileName",
+                "value": "",
+                "type": "path",
+                "description": "The stream file name without the .stream extension"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the advanced stream file configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get playback info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/testPlaybackInfo",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the VHost"
+              }
+            ]
+          },
+          "docs": "Retrieves the playback info for the specified vhost. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get transcoder config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the transcoder configuration for the specified vhost. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update transcoder config",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the transcoder configuration for the specified vhost. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get transcoder template list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder/templates",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the current VHost the action will be performed on"
+              }
+            ]
+          },
+          "docs": "Retrieves the list of transcoder template configurations for the specified vhost. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update transcoder template list",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder/templates",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the current VHost the action will be performed on"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a transcoder templates configuration to the specified vhost. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get transcoder template config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder/templates/:templateName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "templateName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the specified transcoder template configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Create transcoder template config",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder/templates/:templateName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "templateName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds the specified transcoder template configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update transcoder template config",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder/templates/:templateName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "templateName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified transcoder template configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Delete transcoder template config",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder/templates/:templateName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "templateName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes the specified transcoder template configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Transcoder template actions",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder/templates/:templateName/actions/:action",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "action",
+                "value": "",
+                "type": "path",
+                "description": "The action which should be performed by the server"
+              },
+              {
+                "name": "dstEntryName",
+                "value": "",
+                "type": "query",
+                "description": "The destination transcoder template name when copying "
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the current VHost the action will be performed on"
+              },
+              {
+                "name": "templateName",
+                "value": "",
+                "type": "path",
+                "description": "The template name needed for this REST call"
+              }
+            ]
+          },
+          "docs": "Transcoder template action. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get transcoder template config (adv)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder/templates/:templateName/adv",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "templateName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the advanced transcoder template configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update transcoder template config (adv)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder/templates/:templateName/adv",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "templateName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the advanced transcoder template configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get transcoder overlay decoder config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder/templates/:templateName/decode/overlays/:overlayName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "templateName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "overlayName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the specified transcoder overlay decode configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update transcoder overlay decoder config",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder/templates/:templateName/decode/overlays/:overlayName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "templateName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "overlayName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified transcoder overlay decode configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Delete transcoder overlay decoder config",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder/templates/:templateName/decode/overlays/:overlayName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "templateName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "overlayName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes the specified transcoder overlay decode configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get transcoder encoder list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder/templates/:templateName/encodes",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "templateName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the list of transcoder encode configurations for the specified vhost. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update transcoder encoder list",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder/templates/:templateName/encodes",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "templateName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a transcoder encode configuration to the specified vhost. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get transcoder encoder config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder/templates/:templateName/encodes/:encodeName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "templateName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "encodeName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the specified transcoder encode configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Create transcoder encoder config",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder/templates/:templateName/encodes/:encodeName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "templateName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "encodeName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds the specified transcoder encode configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update transcoder encoder config",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder/templates/:templateName/encodes/:encodeName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "templateName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "encodeName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified transcoder encode configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Delete transcoder encoder config",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder/templates/:templateName/encodes/:encodeName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "templateName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "encodeName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes the specified transcoder encode configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get transcoder encoder config (adv)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder/templates/:templateName/encodes/:encodeName/adv",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "templateName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "encodeName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the advanced transcoder encode configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update transcoder encoder config (adv)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder/templates/:templateName/encodes/:encodeName/adv",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "templateName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "encodeName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the advanced transcoder encode configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get transcoder overlay encoder config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder/templates/:templateName/encodes/:encodeName/overlays/:overlayName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "templateName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "overlayName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "encodeName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the specified transcoder overlay encode configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update transcoder overlay encoder config",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder/templates/:templateName/encodes/:encodeName/overlays/:overlayName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "templateName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "overlayName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "encodeName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified transcoder overlay encode configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Delete transcoder overlay encoder config",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder/templates/:templateName/encodes/:encodeName/overlays/:overlayName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "templateName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "overlayName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "encodeName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes the specified transcoder overlay encode configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get transcoder stream name group list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder/templates/:templateName/streamnamegroups",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "templateName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the list of transcoder stream name groups for the specified Template. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update transcoder stream name group list",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder/templates/:templateName/streamnamegroups",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "templateName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a transcoder stream name groups configuration to the specified template. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get transcoder stream name group config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder/templates/:templateName/streamnamegroups/:groupName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "templateName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "groupName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the specified transcoder stream name group configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Create transcoder stream name group config",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder/templates/:templateName/streamnamegroups/:groupName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "templateName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "groupName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds the specified transcoder stream name group configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update transcoder stream name group config",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder/templates/:templateName/streamnamegroups/:groupName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "templateName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "groupName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified transcoder stream name group configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Delete transcoder stream name group config",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/transcoder/templates/:templateName/streamnamegroups/:groupName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "templateName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "groupName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes the specified transcoder stream name group configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get tuning config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/tune",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path",
+                "description": "The vhost name"
+              }
+            ]
+          },
+          "docs": "Retrieves the tuning configuration for the specified vhost. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update tuning config",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/tune",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path",
+                "description": "The vhost name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the tuning configuration for the specified vhost. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get host port config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/tunehostports",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path",
+                "description": "The vhost name"
+              }
+            ]
+          },
+          "docs": "Retrieves the host port configuration used for server tuning for the specified vhost. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update host port config",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/vhosts/:vhostName/tunehostports",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "vhostName",
+                "value": "",
+                "type": "path",
+                "description": "The vhost name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the host port configuration used for server tuning for the specified vhost. This API is available in builds 15089 or later."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

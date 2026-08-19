@@ -1,0 +1,100 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wowza Streaming Engine REST advanced_token_authentication Server log4j system API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Server log4j system",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get log4j config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/log4j",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ]
+          },
+          "docs": "Retrieves the server log4j configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Log4j actions",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/log4j/actions/:action",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "action",
+                "value": "",
+                "type": "path",
+                "description": "The action which should be performed by the server"
+              }
+            ]
+          },
+          "docs": "Tells the log4j system to perform an action. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Log4j logger actions",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/log4j/:loggerName/actions/:action",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "action",
+                "value": "",
+                "type": "path",
+                "description": "The action which should be performed by the server"
+              },
+              {
+                "name": "loggerName",
+                "value": "",
+                "type": "path",
+                "description": "The logger name needed for this REST call"
+              }
+            ]
+          },
+          "docs": "Tells the specified log4j logger to perform an action. This API is available in builds 15089 or later."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

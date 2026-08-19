@@ -1,0 +1,544 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wowza Streaming Engine REST advanced_token_authentication Server MediaCache API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Server MediaCache",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get media cache config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/mediacache",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ]
+          },
+          "docs": "Retrieves the server MediaCache configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update media cache config",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/mediacache",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the server MediaCache configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get media cache config (adv)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/mediacache/adv",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ]
+          },
+          "docs": "Retrieves the advanced MediaCache configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Create media cache config (adv)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/v2/servers/:serverName/mediacache/adv",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds an advanced MediaCache configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update media cache config (adv)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/mediacache/adv",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the advanced MediaCache configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get media cache source list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/mediacache/sources",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ]
+          },
+          "docs": "Retrieves the list of MediaCache Sources. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update media cache source list",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/v2/servers/:serverName/mediacache/sources",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds the specified MediaCache Source to the list. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get media cache source config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/mediacache/sources/:sourceName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ]
+          },
+          "docs": "Retrieves the specified MediaCache Source configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Create media cache source config",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/v2/servers/:serverName/mediacache/sources/:sourceName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds the specified MediaCache Source configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update media cache source config",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/mediacache/sources/:sourceName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified MediaCache Source configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Delete media cache source config",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8087/v2/servers/:serverName/mediacache/sources/:sourceName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ]
+          },
+          "docs": "Deletes the specified MediaCache Source configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get media cache source config (adv)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/mediacache/sources/:sourceName/adv",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "sourceName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the specified advanced MediaCache Source configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Create media cache source config (adv)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/v2/servers/:serverName/mediacache/sources/:sourceName/adv",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "sourceName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds the specified advanced MediaCache Source configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update media cache source config (adv)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/mediacache/sources/:sourceName/adv",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "sourceName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified advanced MediaCache Source configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get media cache store list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/mediacache/stores",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ]
+          },
+          "docs": "Retrieves the list of MediaCache Stores. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update media cache store list",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/v2/servers/:serverName/mediacache/stores",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds the specified MediaCache Store to the list. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get media cache store config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/mediacache/stores/:storeName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ]
+          },
+          "docs": "Retrieves the specified MediaCache Store configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Create media cache store config",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/v2/servers/:serverName/mediacache/stores/:storeName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds the specified MediaCache Store configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update media cache store config",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/mediacache/stores/:storeName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified MediaCache Store configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Delete media cache store config",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8087/v2/servers/:serverName/mediacache/stores/:storeName",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              }
+            ]
+          },
+          "docs": "Deletes the specified MediaCache Store configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Get media cache store config (adv)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/v2/servers/:serverName/mediacache/stores/:storeName/adv",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "storeName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the specified advanced MediaCache Store configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Create media cache store config (adv)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/v2/servers/:serverName/mediacache/stores/:storeName/adv",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "storeName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds the specified advanced MediaCache Store configuration. This API is available in builds 15089 or later."
+        },
+        {
+          "info": {
+            "name": "Update media cache store config (adv)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/v2/servers/:serverName/mediacache/stores/:storeName/adv",
+            "params": [
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "Reserved for future use"
+              },
+              {
+                "name": "storeName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified advanced MediaCache Store configuration. This API is available in builds 15089 or later."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,228 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wowza Streaming Engine REST advanced_token_authentication assets API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "assets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch all assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/assets",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Restricts the data that gets returned by filtering on one or more values associated with a field. For more information and examples, see the technical article [How to get filtered query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-filtered-query-results-with-the-wowza-video-rest-api).\n\nExample:\n**filter[0][field]=created_at&filter[0][gte]=2021-07-14T17:47:45.000Z**"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Restricts the data that gets returned by querying on one or more values associated with a set of fields. For more information and examples, see the technical article [How to get filtered query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-filtered-query-results-with-the-wowza-video-rest-api).\n\nExample:\n**sort_direction=desc&sort_column=created_at&per_page=30&state=completed&query=sample**"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**."
+              }
+            ]
+          },
+          "docs": "<blockquote>The <strong>assets</strong> operations are deprecated in 2.0. Use the <strong>/videos</strong> endpoints instead.</blockquote>\n\nThis operation shows limited details for all of your assets. For detailed information, fetch a single asset."
+        },
+        {
+          "info": {
+            "name": "Create an asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/assets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "<blockquote>The <strong>assets</strong> operations are deprecated in 2.0. Use the <strong>/videos</strong> endpoints instead.</blockquote>\n\nThis operation creates an asset. You can only upload MP4 format and H.264 and AAC encoded files. Any files with unsupported codecs are rejected."
+        },
+        {
+          "info": {
+            "name": "Fetch an asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/assets/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the asset."
+              }
+            ]
+          },
+          "docs": "<blockquote>The <strong>assets</strong> operations are deprecated in 2.0. Use the <strong>/videos</strong> endpoints instead.</blockquote>\n\nThis operation shows the details of a specific asset.\n\nThe fields returned vary depending on when you send this request. For example, if a resource hasn't been created yet during the processing state, you won't see **available_renditions** in the response.\n\n**Tip**: If your original upload URL expired and you need a new one for an asset, send this request an"
+        },
+        {
+          "info": {
+            "name": "Update an asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:8087/assets/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the asset."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "<blockquote>The <strong>assets</strong> operations are deprecated in 2.0. Use the <strong>/videos</strong> endpoints instead.</blockquote>\n\nThis operation updates an asset. Assets must be uploaded and complete processing before they can be updated.\n\nThe fields returned vary depending on when you send this request. For example, if a stream doesn't have unique viewer data, you won't see **unique_viewers** in the response."
+        },
+        {
+          "info": {
+            "name": "Delete an asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8087/assets/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the asset."
+              }
+            ]
+          },
+          "docs": "<blockquote>The <strong>assets</strong> operations are deprecated in 2.0. Use the <strong>/videos</strong> endpoints instead.</blockquote>\n\nThis operation deletes an asset, including all assigned outputs and targets."
+        },
+        {
+          "info": {
+            "name": "Restream an asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/assets/:id/live_streams",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the asset."
+              }
+            ]
+          },
+          "docs": "<blockquote>The <strong>assets</strong> operations are deprecated in 2.0. Use the <strong>/videos</strong> endpoints instead.</blockquote>\n\nThis operation returns a live stream ID you can use to re-stream an uploaded asset."
+        },
+        {
+          "info": {
+            "name": "Fetch all asset tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/asset_tags",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**."
+              }
+            ]
+          },
+          "docs": "<blockquote>The <strong>assets</strong> operations are deprecated in 2.0. Use the <strong>/videos</strong> endpoints instead.</blockquote>\n\nThis operation retrieves a list of all of the tags that have been used previously by an organization."
+        },
+        {
+          "info": {
+            "name": "Report asset as uploaded",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:8087/assets/:id/upload_completed",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the asset."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "<blockquote>The <strong>assets</strong> operations are deprecated in 2.0. Use the <strong>/videos</strong> endpoints instead.</blockquote>\nThis operation reports that an asset was successfully uploaded to storage."
+        },
+        {
+          "info": {
+            "name": "Report asset upload as failed",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:8087/assets/:id/upload_failed",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the asset."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "<blockquote>The <strong>assets</strong> operations are deprecated in 2.0. Use the <strong>/videos</strong> endpoints instead.</blockquote>\n\nThis operation reports that an asset uploaded to storage failed. You can only upload MP4 format and H.264 and AAC encoded files. Any files with unsupported codecs are rejected."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

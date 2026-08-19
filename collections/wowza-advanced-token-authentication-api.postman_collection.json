@@ -1,0 +1,1459 @@
+{
+  "item": [
+    {
+      "id": "af37e8f3-554d-4cd6-a65c-fd46648cad06",
+      "name": "advanced_token_authentication",
+      "description": {
+        "content": "Operations related to using advanced token authentication, known in Wowza Video as a default playback token behavior option, with videos. \n\nUse token authentication when distributing valuable or sensitive video content to audiences to ensure that only authorized users can access the content within the intended application. This allows for protection of intellectual property, compliance with regulations, and the ability to maintain control over content distribution.  The token is embedded in the videos' embed URLs. \n\nThrough the <a href=\"https://www.wowza.com/docs/video-details-page-in-wowza-video\" target=\"_blank\">UI</a> or <a href=\"https://developer.wowza.com/docs/wowza-video/api/video/current/tag/videos/#tag/videos/operation/patchVideo\" target=\"_blank\">Wowza Video API</a>, you can choose one of the following options for token authentication of a video:\n \n - **NO_TOKEN** - Video files are accessible and can be downloaded and played by anyone at any time. This is the default.  \n - **BASIC_TOKEN** - The platform automatically creates tokenized video URLs. This setting makes it hard for a viewer to extract the video URL and store it for usage in unintended applications over time since the embed URL, which has the token as part of the URL, will only be playable for 48 hours. The token auto renews after 48 hours when used in the intended application. \n - **ADVANCED_TOKEN** - You add the stream's JS embed code (Share Stream) and a token to your site to provide tokenization.  The protections are similar to those for the Basic Token option except you customize the time limit, geographical limits, etc. during token creation. \n - **FOLLOW_DEFAULT:** - The token behavior is based on the **Default Playback Token Behavior** setting you selected for your Wowza account. See the <a href=\"https://www.wowza.com/docs/org-setting-page-in-wowza-video\" target=\"_blank\">Org Settings page in Wowza Video</a> article for where to set this configuration. \n\n    **Note:** You'll use the <a href=\"https://developer.wowza.com/docs/wowza-video/api/video/current/tag/videos/#tag/videos/operation/patchVideo\" target=\"_blank\">/videos endpoints</a> to update and review the token authentication enums bulleted above.\n\nBefore selecting to use the **ADVANCED_TOKEN**, you must, first, either: \n\n - Generate a key id via the Wowza Video API, then customize and generate a token via the Wowza Video 2.0 API to add to your site. You'll need the key id to create and sign the token.  \n - Generate a key id and key via the Wowza Video 2.0 API, then customize and generate a standard common access token (CAT) through the means you usually use to create tokens to add to your site. You'll need the key id and key to create and sign the token.  \n\n\n After you have your playback token, you add the video JS-embed and the playback token to your site if you're going to use the **ADVANCED_TOKEN** option. The JS-embed code automatically adds the player and related video to your site. See the section on <a href=\"<a href=\"https://developer.wowza.com/docs/wowza-video/api/video/current/tag/videos/#tag/videos/operation/patchVideo\" target=\"_blank\">how to embed the player and video</a>\". ",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6aeafc17-2def-4d0e-bd0b-9d06869964a2",
+          "name": "Create a playback token key",
+          "request": {
+            "name": "Create a playback token key",
+            "description": {
+              "content": "This operation creates a playback token key that includes a key id and key value. You use one or both of these parameters to create a playback token for advanced token authentication. \n\nBefore using the **ADVANCED_TOKEN** option as your token authentication for a video, you must do **one** of the following: \n\n - Generate a playback token key that has a key id using this endpoint in the Wowza Video API, then customize and generate a token via the Wowza Video 2.0 API to add to your site. You'll need the key id to create and sign the token.  \n - Generate a playback token key that has a key id and key value using this endpoint in the Wowza Video 2.0 API, then customize and generate a standard common access token (CAT) through the means you usually use to create tokens to add to your site. You'll need the key id and key to create and sign the token.  \n   The key value is only returned in this endpoint so keep it in a place that you can access it later when you create your playback token. ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "playback_tokens",
+                "keys"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"playback_token_key\": {\n    \"name\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bc7ea155-8136-49c1-ad46-a523bf38542d",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "playback_tokens",
+                    "keys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"playback_token_key\": {\n    \"name\": \"Key name\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"playback_token_key\": {\n    \"id\": \"51cd5c07-1583-4f5e-bd81-f1aa11510ea9\",\n    \"organization_id\": \"string\",\n    \"name\": \"key name\",\n    \"created_at\": \"2020-01-01T12:33:22Z\",\n    \"value\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d5a5a43-0ceb-4640-9e84-64b6541ceab9",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "playback_tokens",
+                    "keys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"playback_token_key\": {\n    \"name\": \"Key name\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 3387,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f0fbcdf-2ffd-43d7-ac72-ce8354e1ec07",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "playback_tokens",
+                    "keys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"playback_token_key\": {\n    \"name\": \"Key name\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 6479,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "62212a80-5e66-4b18-9b8e-92ef4805e553",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "playback_tokens",
+                    "keys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"playback_token_key\": {\n    \"name\": \"Key name\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 1660,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b0fe2491-69f9-43b4-adca-d894ad1fc801",
+              "name": "Gone",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "playback_tokens",
+                    "keys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"playback_token_key\": {\n    \"name\": \"Key name\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Gone",
+              "code": 410,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 1420,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d41d2877-11cd-4614-9ad8-8f496ff633d3",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "playback_tokens",
+                    "keys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"playback_token_key\": {\n    \"name\": \"Key name\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 5660,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3a1c851c-5c2d-4a38-913e-2041d0afa6dc",
+          "name": "Fetch playback token keys",
+          "request": {
+            "name": "Fetch playback token keys",
+            "description": {
+              "content": "This operation shows details for playback token keys you've created that are available in Wowza Video for your account. The details include a key id which you use to create a playback token for advanced token authentication. \n\nBefore using the **ADVANCED_TOKEN** option as your token authentication for a video, you must do **one** of the following: \n\n - Generate a playback token key that has a key id using the POST /playback_tokens/keys endpoint in the Wowza Video API, then customize and generate a token via Wowza Video 2.0 API to add to your site. You'll need the key id to create and sign the token.  \n - Generate a playback token key that has a key id and key value using the POST /playback_tokens/keys endpoint in the Wowza Video 2.0 API, then customize and generate a standard common access token (CAT) through the means you usually use to create tokens to add to your site. You'll need the key id and key to create and sign the token. \n   You received the key value in the response when you created the playback token key.  ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "playback_tokens",
+                "keys"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "\n`Name` is the only searchable field.\n\nLimit to a specific field with a `colon` (`:`).\n\nIf you have multiple search terms you can use `pipe` (`|`) to separate the search terms.\n\nExamples:\n\n | Query | Description |\n | ----- | ----------- |\n | `query=foo` | Searches name & description field for `foo`. |"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9a69c222-1c2d-4a10-b711-fb00f83290e1",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "playback_tokens",
+                    "keys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"playback_token_keys\": [\n    {\n      \"id\": \"string\",\n      \"organization_id\": \"string\",\n      \"name\": \"string\",\n      \"created_at\": \"2020-01-01T12:33:22Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"organization_id\": \"string\",\n      \"name\": \"string\",\n      \"created_at\": \"2020-01-01T12:33:22Z\"\n    }\n  ],\n  \"pagination\": {\n    \"payload_version\": 4847,\n    \"total_records\": 186,\n    \"page\": 8146,\n    \"per_page\": 8670,\n    \"total_pages\": 1442,\n    \"page_first_index\": 9527,\n    \"page_last_index\": 713\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "49b27903-88ea-4152-a49a-e4c4a654b684",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "playback_tokens",
+                    "keys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 2899,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "850579e5-de33-47e0-b481-4ec40b2409c3",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "playback_tokens",
+                    "keys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 1091,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0330a3a7-008a-49fc-a3c2-f3ce802b7391",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "playback_tokens",
+                    "keys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 5851,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dae87e0c-cf87-4a0d-a4f5-ee679fbd7f6a",
+              "name": "Gone",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "playback_tokens",
+                    "keys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Gone",
+              "code": 410,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 3464,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1ee21687-6a30-40ec-9a05-08bbbf8e0ed0",
+          "name": "Delete a playback token key",
+          "request": {
+            "name": "Delete a playback token key",
+            "description": {
+              "content": "This operation deletes a playback token key.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "playback_tokens",
+                "keys",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier, or key id, for the playback token keys."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "476639a7-c932-47d2-b84c-54c11b990eba",
+              "name": "No content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "playback_tokens",
+                    "keys",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier, or key id, for the playback token keys."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4516d6cd-2910-4f17-aa75-d3f0210f82b4",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "playback_tokens",
+                    "keys",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier, or key id, for the playback token keys."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 2899,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6fa8d189-9ebb-4def-9d67-b9a86bd2a63a",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "playback_tokens",
+                    "keys",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier, or key id, for the playback token keys."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 1091,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e17d5582-6a94-4084-861f-d613e26d4272",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "playback_tokens",
+                    "keys",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier, or key id, for the playback token keys."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 5851,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5d4c5bbd-a070-462a-b381-7221cf48a565",
+              "name": "Gone",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "playback_tokens",
+                    "keys",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier, or key id, for the playback token keys."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Gone",
+              "code": 410,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 3464,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "97fc9f51-1d2b-4bde-b7b1-7379038a4efa",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "playback_tokens",
+                    "keys",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier, or key id, for the playback token keys."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 7062,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "27465202-c405-4b83-b9ef-6479b77ed2a9",
+          "name": "Create a playback token",
+          "request": {
+            "name": "Create a playback token",
+            "description": {
+              "content": "This operation creates a playback token for use with advanced token authentication.\n\nYou'll use the PATCH /videos/{id} endpoint to select **ADVANCED_TOKEN** authentication for your video after you have the  playback token. Then, you'll add the token into your player site along with the JS-embed for the video.\n\nBefore using the **ADVANCED_TOKEN** option as your token authentication for a video, you must do the following: \n\n - Generate a playback token key that has a key id using the POST /playback_tokens/key in the Wowza Video API, then customize and generate a token via this endpoint in the Wowza Video 2.0 API to add to your site. You'll need the key id to create and sign the token.  ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "playback_tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"exp\": \"<long>\",\n  \"key_id\": \"<string>\",\n  \"nbf\": \"<long>\",\n  \"iat\": \"<long>\",\n  \"iss\": \"<string>\",\n  \"sub\": \"<string>\",\n  \"aud\": \"<string>\",\n  \"cti\": \"<string>\",\n  \"catnip\": [\n    {\n      \"tag\": \"<integer>\"\n    },\n    {\n      \"tag\": \"<integer>\"\n    }\n  ],\n  \"catu\": {\n    \"key_0\": \"<array>\"\n  },\n  \"catgeoiso3166\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"catv\": \"<int323>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "435965b3-d7ff-4746-bbdd-c56b4fcfb5b9",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "playback_tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"exp\": 1679816499,\n  \"key_id\": \"51cd5c07-1583-4f5e-bd81-f1aa11510ea9\",\n  \"nbf\": 1679816499,\n  \"iat\": 1679816499,\n  \"iss\": \"my-issuer\",\n  \"sub\": \"subscriber1234\",\n  \"aud\": \"my-audience\",\n  \"cti\": \"unique-token-id\",\n  \"catnip\": [\n    {\n      \"tag\": 52\n    },\n    {\n      \"tag\": 52\n    }\n  ],\n  \"catu\": {\n    \"key_0\": \"<array>\",\n    \"key_1\": \"<array>\"\n  },\n  \"catgeoiso3166\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"catv\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3441bfa9-883f-4544-9d86-ec540abe4e60",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "playback_tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"exp\": 1679816499,\n  \"key_id\": \"51cd5c07-1583-4f5e-bd81-f1aa11510ea9\",\n  \"nbf\": 1679816499,\n  \"iat\": 1679816499,\n  \"iss\": \"my-issuer\",\n  \"sub\": \"subscriber1234\",\n  \"aud\": \"my-audience\",\n  \"cti\": \"unique-token-id\",\n  \"catnip\": [\n    {\n      \"tag\": 52\n    },\n    {\n      \"tag\": 52\n    }\n  ],\n  \"catu\": {\n    \"key_0\": \"<array>\",\n    \"key_1\": \"<array>\"\n  },\n  \"catgeoiso3166\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"catv\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 2899,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "406fa9f3-bf28-4a4c-88d8-437d97a3f58f",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "playback_tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"exp\": 1679816499,\n  \"key_id\": \"51cd5c07-1583-4f5e-bd81-f1aa11510ea9\",\n  \"nbf\": 1679816499,\n  \"iat\": 1679816499,\n  \"iss\": \"my-issuer\",\n  \"sub\": \"subscriber1234\",\n  \"aud\": \"my-audience\",\n  \"cti\": \"unique-token-id\",\n  \"catnip\": [\n    {\n      \"tag\": 52\n    },\n    {\n      \"tag\": 52\n    }\n  ],\n  \"catu\": {\n    \"key_0\": \"<array>\",\n    \"key_1\": \"<array>\"\n  },\n  \"catgeoiso3166\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"catv\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 1091,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3c18cc93-7440-483e-aa91-c8f566fe5522",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "playback_tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"exp\": 1679816499,\n  \"key_id\": \"51cd5c07-1583-4f5e-bd81-f1aa11510ea9\",\n  \"nbf\": 1679816499,\n  \"iat\": 1679816499,\n  \"iss\": \"my-issuer\",\n  \"sub\": \"subscriber1234\",\n  \"aud\": \"my-audience\",\n  \"cti\": \"unique-token-id\",\n  \"catnip\": [\n    {\n      \"tag\": 52\n    },\n    {\n      \"tag\": 52\n    }\n  ],\n  \"catu\": {\n    \"key_0\": \"<array>\",\n    \"key_1\": \"<array>\"\n  },\n  \"catgeoiso3166\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"catv\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 5851,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1205a0ed-47fd-4d81-82ee-8a44d30d9be9",
+              "name": "Gone",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "playback_tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"exp\": 1679816499,\n  \"key_id\": \"51cd5c07-1583-4f5e-bd81-f1aa11510ea9\",\n  \"nbf\": 1679816499,\n  \"iat\": 1679816499,\n  \"iss\": \"my-issuer\",\n  \"sub\": \"subscriber1234\",\n  \"aud\": \"my-audience\",\n  \"cti\": \"unique-token-id\",\n  \"catnip\": [\n    {\n      \"tag\": 52\n    },\n    {\n      \"tag\": 52\n    }\n  ],\n  \"catu\": {\n    \"key_0\": \"<array>\",\n    \"key_1\": \"<array>\"\n  },\n  \"catgeoiso3166\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"catv\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Gone",
+              "code": 410,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 3464,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "64441384-24fb-48df-9941-01ddf24698a4",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "playback_tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"exp\": 1679816499,\n  \"key_id\": \"51cd5c07-1583-4f5e-bd81-f1aa11510ea9\",\n  \"nbf\": 1679816499,\n  \"iat\": 1679816499,\n  \"iss\": \"my-issuer\",\n  \"sub\": \"subscriber1234\",\n  \"aud\": \"my-audience\",\n  \"cti\": \"unique-token-id\",\n  \"catnip\": [\n    {\n      \"tag\": 52\n    },\n    {\n      \"tag\": 52\n    }\n  ],\n  \"catu\": {\n    \"key_0\": \"<array>\",\n    \"key_1\": \"<array>\"\n  },\n  \"catgeoiso3166\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"catv\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 7062,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8087",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d7ccaf42-306c-4ba1-a0f6-444bc4a74686",
+    "name": "Wowza Streaming Engine REST advanced_token_authentication API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.\n\nContact Support:\n Name: Wowza Media Systems",
+      "type": "text/plain"
+    }
+  }
+}

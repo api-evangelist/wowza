@@ -1,0 +1,105 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wowza Streaming Engine REST advanced_token_authentication API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "advanced_token_authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch playback token keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/playback_tokens/keys",
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "\n`Name` is the only searchable field.\n\nLimit to a specific field with a `colon` (`:`).\n\nIf you have multiple search terms you can use `pipe` (`|`) to separate the search terms.\n\nExamples:\n\n | Query | Description |\n | ----- | ----------- |\n | `query=foo` | Searches name & description field for `foo`. |"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**."
+              }
+            ]
+          },
+          "docs": "This operation shows details for playback token keys you've created that are available in Wowza Video for your account. The details include a key id which you use to create a playback token for advanced token authentication. \n\nBefore using the **ADVANCED_TOKEN** option as your token authentication for a video, you must do **one** of the following: \n\n - Generate a playback token key that has a key id using the POST /playback_tokens/keys endpoint in the Wowza Video API, then customize and generate"
+        },
+        {
+          "info": {
+            "name": "Create a playback token key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/playback_tokens/keys",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This operation creates a playback token key that includes a key id and key value. You use one or both of these parameters to create a playback token for advanced token authentication. \n\nBefore using the **ADVANCED_TOKEN** option as your token authentication for a video, you must do **one** of the following: \n\n - Generate a playback token key that has a key id using this endpoint in the Wowza Video API, then customize and generate a token via the Wowza Video 2.0 API to add to your site. You'll ne"
+        },
+        {
+          "info": {
+            "name": "Delete a playback token key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8087/playback_tokens/keys/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier, or key id, for the playback token keys."
+              }
+            ]
+          },
+          "docs": "This operation deletes a playback token key."
+        },
+        {
+          "info": {
+            "name": "Create a playback token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/playback_tokens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This operation creates a playback token for use with advanced token authentication.\n\nYou'll use the PATCH /videos/{id} endpoint to select **ADVANCED_TOKEN** authentication for your video after you have the  playback token. Then, you'll add the token into your player site along with the JS-embed for the video.\n\nBefore using the **ADVANCED_TOKEN** option as your token authentication for a video, you must do the following: \n\n - Generate a playback token key that has a key id using the POST /playbac"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

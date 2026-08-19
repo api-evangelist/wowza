@@ -1,0 +1,406 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wowza Streaming Engine REST advanced_token_authentication stream_targets API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "stream_targets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch all stream targets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/stream_targets",
+            "params": [
+              {
+                "name": "assignable",
+                "value": "",
+                "type": "query",
+                "description": "Returns stream targets that are assignable to an output. \nIf **true**, all assignable stream targets are included in the response. \nIf the parameter isn't used, all assignable and unassignable stream targets are included in the response.\n\n\n\nA **primary_stream_target** is a single stream target that automatically \ngets created for all output renditions (the ABR ladder) created when you create a live stream \nthrough a live stream flow. **Primary_stream_targets** cannot be deleted or reassigned so they will not\nbe listed when using the assignable parameter.\n\n Example:\n **api.video.wowza.com/api/v2.0/stream_targets?assignable=true**"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Restricts the data that gets returned by filtering on one or more values associated with a field. Construct a filter using a two-part expression that specifies the field on which to filter and the logic to use to filter. Filters use a zero-based index.\n\nFor valid filter operators and filter fields, see [How to get filtered query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-filtered-query-results-with-the-wowza-video-rest-api).\n\nExample:\n**filter[0][field]=state&filter[0][eq]=stopped**"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**."
+              }
+            ]
+          },
+          "docs": "This operation lists limited details for custom stream targets and Wowza CDN stream targets. For detailed information, fetch a single stream target of a specific type."
+        },
+        {
+          "info": {
+            "name": "Fetch a stream target",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/stream_targets/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the stream target."
+              }
+            ]
+          },
+          "docs": "This operation shows the details of a specific stream target whether it be a Wowza CDN, custom, Facebook Live, or LinkedIn Live stream target."
+        },
+        {
+          "info": {
+            "name": "Fetch all custom stream targets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/stream_targets/custom",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**."
+              }
+            ]
+          },
+          "docs": "This operation lists limited details for all of your custom stream targets. For detailed information, fetch a single custom stream target."
+        },
+        {
+          "info": {
+            "name": "Create a custom stream target",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/stream_targets/custom",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This operation creates a custom stream target for an external, third-party destination."
+        },
+        {
+          "info": {
+            "name": "Fetch a custom stream target",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/stream_targets/custom/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the custom stream target."
+              }
+            ]
+          },
+          "docs": "This operation shows the details of a specific custom stream target."
+        },
+        {
+          "info": {
+            "name": "Update a custom stream target",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:8087/stream_targets/custom/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the custom stream target."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This operation updates a custom stream target."
+        },
+        {
+          "info": {
+            "name": "Delete a custom stream target",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8087/stream_targets/custom/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the custom stream target."
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "When `true`, forces a hard delete by first disconnecting the stream target from any associated transcoder and then deleting it."
+              }
+            ]
+          },
+          "docs": "This operation deletes a custom stream target. <br><br><b>Note</b>: You can't remove stream targets that have an asset_id. Assets must be removed by sending a DEL request to the /assets endpoint. "
+        },
+        {
+          "info": {
+            "name": "Fetch all Wowza CDN stream targets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/stream_targets/wowza_cdn",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**."
+              }
+            ]
+          },
+          "docs": "(Available from version 1.4) This operation lists limited details for all of your Wowza CDN stream targets. For detailed information, fetch a single target."
+        },
+        {
+          "info": {
+            "name": "Create a Wowza CDN stream target",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/stream_targets/wowza_cdn",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "(Available from version 1.4) This operation creates a Wowza CDN stream target to deliver your stream using the Wowza CDN."
+        },
+        {
+          "info": {
+            "name": "Fetch a Wowza CDN stream target",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/stream_targets/wowza_cdn/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the stream target."
+              }
+            ]
+          },
+          "docs": "(Available from version 1.4) This operation shows the details of a specific Wowza CDN stream target."
+        },
+        {
+          "info": {
+            "name": "Update a Wowza CDN stream target",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:8087/stream_targets/wowza_cdn/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the stream target."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "(Available from version 1.4) This operation updates a Wowza CDN stream target."
+        },
+        {
+          "info": {
+            "name": "Delete a Wowza CDN stream target",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8087/stream_targets/wowza_cdn/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the stream target."
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "When `true`, forces a hard delete by first disconnecting the stream target from any associated transcoder and then deleting it."
+              }
+            ]
+          },
+          "docs": "(Available from version 1.4) This operation deletes a Wowza CDN stream target.  <br><br><b>Note</b>: You can't remove stream targets that have an asset_id. Assets must be removed by sending a DEL request to the /assets endpoint. "
+        },
+        {
+          "info": {
+            "name": "Regenerate the connection code for any stream target",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8087/stream_targets/:id/regenerate_connection_code",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the stream target."
+              }
+            ]
+          },
+          "docs": "This operation regenerates the connection code of any kind of stream target."
+        },
+        {
+          "info": {
+            "name": "Fetch all properties of a stream target",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/stream_targets/:stream_target_id/properties",
+            "params": [
+              {
+                "name": "stream_target_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the stream target."
+              }
+            ]
+          },
+          "docs": "This operation shows the details of all of the properties assigned to a specific stream target. The properties returned will depend on the *provider* you are using and are noted in the key descriptions below.\n\n\n  For a comprehensive resource describing the use of advanced properties, see [Set advanced properties with the Wowza Video\n  REST API](https://www.wowza.com/docs/how-to-set-advanced-properties-by-using-the-wowza-video-rest-api)."
+        },
+        {
+          "info": {
+            "name": "Configure a property for a stream target",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8087/stream_targets/:stream_target_id/properties",
+            "params": [
+              {
+                "name": "stream_target_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the stream target."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This operation configures a property for a stream target. The properties available will depend on the *provider* you are using and are noted in the key descriptions below. For example, if you are using the provider **Wowza CDN on Fastly**, look for that in the descriptions.\n\nFor a comprehensive resource describing the use of advanced properties, see [Set advanced properties with the Wowza Video REST API](https://www.wowza.com/docs/how-to-set-advanced-properties-by-using-the-wowza-video-rest-api)"
+        },
+        {
+          "info": {
+            "name": "Fetch a property of a stream target",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/stream_targets/:stream_target_id/properties/:id",
+            "params": [
+              {
+                "name": "stream_target_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the stream target."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique string that identifies the stream target property. The string contains the *section* and the *key*, connected by a dash. For example, **hls-chunkSize**."
+              }
+            ]
+          },
+          "docs": "This operation shows the details of a specific property assigned to a specific stream target. The properties returned will depend on the *provider* you are using and are noted in the key descriptions below. \n\n\n  For a comprehensive resource describing the use of advanced properties, see [Set advanced properties with the Wowza Video\n  REST API](https://www.wowza.com/docs/how-to-set-advanced-properties-by-using-the-wowza-video-rest-api)."
+        },
+        {
+          "info": {
+            "name": "Delete a stream target property",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8087/stream_targets/:stream_target_id/properties/:id",
+            "params": [
+              {
+                "name": "stream_target_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique alphanumeric string that identifies the stream target."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique string that identifies the stream target property. The string contains the *section* and the *key*, connected by a dash. For example, **hls-chunkSize**."
+              }
+            ]
+          },
+          "docs": "This operation removes a property from a stream target."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

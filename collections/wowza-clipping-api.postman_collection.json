@@ -1,0 +1,399 @@
+{
+  "item": [
+    {
+      "id": "3f8fef4a-f622-42b8-89a7-3eec9e81c8c2",
+      "name": "clipping",
+      "description": {
+        "content": "Operations related to clipping and stitching videos and live streams.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "10a99bdc-eae9-4b1e-9d3f-43e1383f0458",
+          "name": "Create a clip",
+          "request": {
+            "name": "Create a clip",
+            "description": {
+              "content": "This operation creates (or replaces) a video object in Wowza Video by clipping a video or live stream or, clipping and stitching together video or live stream clips.\n\n\n**Create a clip**\n\nTo create a clip off of an existing video or live stream, send the `id` of the video or live stream you want to clip along with the `asset_type`, `mode`, `start`, and `stop` parameters.\n\n**Create clips and stitch the clips**\n\nTo create multiple clips and stitch the clips together as one clip, send the `id` of the videos or live streams you want to clip along with the `asset_type`, `mode`, `start`, and `stop` parameters.\n\n**Create a clip and replace the original video**\n\nTo create a clip and replace the original video with the clip, send the `replace_video_id` parameter where `replace_video_id` is the video id of the video to be replaced, along with the `asset_type`, `mode`, `start`, and `stop` parameters.\n\n**Note**: The replace option works only with videos and not live streams. The `replace_video_id` is specifically a video ID and not a live stream ID.\n\n**Caution!** Once you replace the original video with the clip, you will no longer be able to retrieve the original video.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "clipping"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clipping\": {\n    \"mode\": \"<string>\",\n    \"clips\": [\n      {\n        \"id\": \"<string>\",\n        \"asset_type\": \"<string>\",\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"asset_type\": \"<string>\",\n        \"start\": \"<string>\",\n        \"stop\": \"<string>\"\n      }\n    ],\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"category_id\": \"<The account's default category>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"published_at\": \"<dateTime>\",\n    \"published\": \"<boolean>\",\n    \"unpublish\": false,\n    \"unpublished_at\": \"<dateTime>\",\n    \"no_ads\": \"<boolean>\",\n    \"ad_keywords\": \"<string>\",\n    \"replace_video_id\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e61890b1-5227-41de-af6b-d7cfeb340b56",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clipping"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clipping\": {\n    \"mode\": \"PRECISE\",\n    \"clips\": [\n      {\n        \"id\": \"73a0c613-8972-14cd-9d0c-3c993bddb388\",\n        \"asset_type\": \"VOD\",\n        \"start\": \"00:01:20:00\",\n        \"stop\": \"00:05:25:00\"\n      },\n      {\n        \"id\": \"73a0c613-8972-14cd-9d0c-3c993bddb388\",\n        \"asset_type\": \"VOD\",\n        \"start\": \"00:01:20:00\",\n        \"stop\": \"00:05:25:00\"\n      }\n    ],\n    \"name\": \"My video\",\n    \"description\": \"A new video for my business.\",\n    \"category_id\": \"<The account's default category>\",\n    \"tags\": [\n      \"foo\",\n      \"bar\"\n    ],\n    \"published_at\": \"2024-05-01T12:33:22Z\",\n    \"published\": \"<boolean>\",\n    \"unpublish\": false,\n    \"unpublished_at\": \"2025-01-01T12:33:22Z\",\n    \"no_ads\": \"<boolean>\",\n    \"ad_keywords\": \"special_ads\",\n    \"replace_video_id\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"video\": {\n    \"id\": \"73a0c613-8972-14cd-9d0c-3c993bddb388\",\n    \"name\": \"My video\",\n    \"description\": \"A new video for my business.\",\n    \"duration_in_ms\": 9355,\n    \"unpublish\": false,\n    \"unpublished_at\": \"2025-01-01T12:33:22Z\",\n    \"published\": true,\n    \"published_at\": \"2024-05-01T12:33:22Z\",\n    \"tags\": [\n      \"foo\",\n      \"bar\"\n    ],\n    \"remote\": false,\n    \"category_id\": \"<The account's default category>\",\n    \"no_ads\": false,\n    \"ad_keywords\": \"special_ads\",\n    \"created_at\": \"2024-05-15T12:33:22Z\",\n    \"updated_at\": \"2024-05-16T12:33:22Z\",\n    \"state\": \"PROCESSING\",\n    \"encoding_progress\": 3970.6244300265134,\n    \"upload_progress\": 933.2979681123021,\n    \"error_message\": \"string\",\n    \"deactivated\": false,\n    \"images\": [\n      {\n        \"type\": \"image_5\",\n        \"url\": \"https://example.com/image.jpg\"\n      },\n      {\n        \"type\": \"image_1\",\n        \"url\": \"https://example.com/image.jpg\"\n      }\n    ],\n    \"encodings\": [\n      {\n        \"audio_bitrate_in_kbps\": 2300,\n        \"audio_channel\": 2,\n        \"audio_codec\": \"aac\",\n        \"audio_sample_rate\": 44100,\n        \"height\": 1080,\n        \"width\": 1920,\n        \"video_file_url\": \"https://flowplayer.com/video.mp4\",\n        \"video_container\": \"mp4\",\n        \"video_codec\": \"h264\",\n        \"total_bitrate_in_kbps\": 1023,\n        \"created_at\": \"1985-09-09T08:46:05.007Z\",\n        \"size_in_bytes\": 8325555\n      },\n      {\n        \"audio_bitrate_in_kbps\": 2300,\n        \"audio_channel\": 2,\n        \"audio_codec\": \"aac\",\n        \"audio_sample_rate\": 44100,\n        \"height\": 1080,\n        \"width\": 1920,\n        \"video_file_url\": \"https://flowplayer.com/video.mp4\",\n        \"video_container\": \"mp4\",\n        \"video_codec\": \"h264\",\n        \"total_bitrate_in_kbps\": 1023,\n        \"created_at\": \"1995-06-24T11:55:07.121Z\",\n        \"size_in_bytes\": 8325555\n      }\n    ],\n    \"shallow_copy\": true,\n    \"shallow_copy_source_id\": \"string\",\n    \"multiple_audio_tracks\": true,\n    \"audio_only\": false,\n    \"version\": 1782\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "89049f3c-d3ee-47de-b8d6-ea60ccc6dd0f",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clipping"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clipping\": {\n    \"mode\": \"PRECISE\",\n    \"clips\": [\n      {\n        \"id\": \"73a0c613-8972-14cd-9d0c-3c993bddb388\",\n        \"asset_type\": \"VOD\",\n        \"start\": \"00:01:20:00\",\n        \"stop\": \"00:05:25:00\"\n      },\n      {\n        \"id\": \"73a0c613-8972-14cd-9d0c-3c993bddb388\",\n        \"asset_type\": \"VOD\",\n        \"start\": \"00:01:20:00\",\n        \"stop\": \"00:05:25:00\"\n      }\n    ],\n    \"name\": \"My video\",\n    \"description\": \"A new video for my business.\",\n    \"category_id\": \"<The account's default category>\",\n    \"tags\": [\n      \"foo\",\n      \"bar\"\n    ],\n    \"published_at\": \"2024-05-01T12:33:22Z\",\n    \"published\": \"<boolean>\",\n    \"unpublish\": false,\n    \"unpublished_at\": \"2025-01-01T12:33:22Z\",\n    \"no_ads\": \"<boolean>\",\n    \"ad_keywords\": \"special_ads\",\n    \"replace_video_id\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 3353,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6a76ced5-dad9-4dde-bfb8-ea2b7d6a7495",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clipping"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clipping\": {\n    \"mode\": \"PRECISE\",\n    \"clips\": [\n      {\n        \"id\": \"73a0c613-8972-14cd-9d0c-3c993bddb388\",\n        \"asset_type\": \"VOD\",\n        \"start\": \"00:01:20:00\",\n        \"stop\": \"00:05:25:00\"\n      },\n      {\n        \"id\": \"73a0c613-8972-14cd-9d0c-3c993bddb388\",\n        \"asset_type\": \"VOD\",\n        \"start\": \"00:01:20:00\",\n        \"stop\": \"00:05:25:00\"\n      }\n    ],\n    \"name\": \"My video\",\n    \"description\": \"A new video for my business.\",\n    \"category_id\": \"<The account's default category>\",\n    \"tags\": [\n      \"foo\",\n      \"bar\"\n    ],\n    \"published_at\": \"2024-05-01T12:33:22Z\",\n    \"published\": \"<boolean>\",\n    \"unpublish\": false,\n    \"unpublished_at\": \"2025-01-01T12:33:22Z\",\n    \"no_ads\": \"<boolean>\",\n    \"ad_keywords\": \"special_ads\",\n    \"replace_video_id\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 3549,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2eb3c93c-33e8-4609-9a6b-ca00c010a577",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clipping"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clipping\": {\n    \"mode\": \"PRECISE\",\n    \"clips\": [\n      {\n        \"id\": \"73a0c613-8972-14cd-9d0c-3c993bddb388\",\n        \"asset_type\": \"VOD\",\n        \"start\": \"00:01:20:00\",\n        \"stop\": \"00:05:25:00\"\n      },\n      {\n        \"id\": \"73a0c613-8972-14cd-9d0c-3c993bddb388\",\n        \"asset_type\": \"VOD\",\n        \"start\": \"00:01:20:00\",\n        \"stop\": \"00:05:25:00\"\n      }\n    ],\n    \"name\": \"My video\",\n    \"description\": \"A new video for my business.\",\n    \"category_id\": \"<The account's default category>\",\n    \"tags\": [\n      \"foo\",\n      \"bar\"\n    ],\n    \"published_at\": \"2024-05-01T12:33:22Z\",\n    \"published\": \"<boolean>\",\n    \"unpublish\": false,\n    \"unpublished_at\": \"2025-01-01T12:33:22Z\",\n    \"no_ads\": \"<boolean>\",\n    \"ad_keywords\": \"special_ads\",\n    \"replace_video_id\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 8073,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "823146fc-1421-4c2b-86b9-c4a5743e9caf",
+              "name": "Gone",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clipping"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clipping\": {\n    \"mode\": \"PRECISE\",\n    \"clips\": [\n      {\n        \"id\": \"73a0c613-8972-14cd-9d0c-3c993bddb388\",\n        \"asset_type\": \"VOD\",\n        \"start\": \"00:01:20:00\",\n        \"stop\": \"00:05:25:00\"\n      },\n      {\n        \"id\": \"73a0c613-8972-14cd-9d0c-3c993bddb388\",\n        \"asset_type\": \"VOD\",\n        \"start\": \"00:01:20:00\",\n        \"stop\": \"00:05:25:00\"\n      }\n    ],\n    \"name\": \"My video\",\n    \"description\": \"A new video for my business.\",\n    \"category_id\": \"<The account's default category>\",\n    \"tags\": [\n      \"foo\",\n      \"bar\"\n    ],\n    \"published_at\": \"2024-05-01T12:33:22Z\",\n    \"published\": \"<boolean>\",\n    \"unpublish\": false,\n    \"unpublished_at\": \"2025-01-01T12:33:22Z\",\n    \"no_ads\": \"<boolean>\",\n    \"ad_keywords\": \"special_ads\",\n    \"replace_video_id\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Gone",
+              "code": 410,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 5792,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42f10ea7-f07c-43e3-a870-6f0926bb08a9",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clipping"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clipping\": {\n    \"mode\": \"PRECISE\",\n    \"clips\": [\n      {\n        \"id\": \"73a0c613-8972-14cd-9d0c-3c993bddb388\",\n        \"asset_type\": \"VOD\",\n        \"start\": \"00:01:20:00\",\n        \"stop\": \"00:05:25:00\"\n      },\n      {\n        \"id\": \"73a0c613-8972-14cd-9d0c-3c993bddb388\",\n        \"asset_type\": \"VOD\",\n        \"start\": \"00:01:20:00\",\n        \"stop\": \"00:05:25:00\"\n      }\n    ],\n    \"name\": \"My video\",\n    \"description\": \"A new video for my business.\",\n    \"category_id\": \"<The account's default category>\",\n    \"tags\": [\n      \"foo\",\n      \"bar\"\n    ],\n    \"published_at\": \"2024-05-01T12:33:22Z\",\n    \"published\": \"<boolean>\",\n    \"unpublish\": false,\n    \"unpublished_at\": \"2025-01-01T12:33:22Z\",\n    \"no_ads\": \"<boolean>\",\n    \"ad_keywords\": \"special_ads\",\n    \"replace_video_id\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 2450,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8087",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bee25ae1-3fa4-438c-8372-4e9aa3d49f1b",
+    "name": "Wowza Streaming Engine REST advanced_token_authentication clipping API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.\n\nContact Support:\n Name: Wowza Media Systems",
+      "type": "text/plain"
+    }
+  }
+}

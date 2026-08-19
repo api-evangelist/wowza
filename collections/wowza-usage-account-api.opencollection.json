@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wowza Streaming Engine REST advanced_token_authentication usage_account API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "usage_account",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch usage for an account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8087/usage/account",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Restricts the data that gets returned by filtering on one or more values associated with a field. Construct a filter using a two-part expression that specifies the field on which to filter and the logic to use to filter.\nKeep in mind the following for account trend filters:\n <ul><li>The only valid filter is **resource**.</li>\n <li>The only valid filter operators are **eq** with values of **transcoders** or **vod_streams** or **in** with a value of **transcoders,vod_streams**. </li>\n <li>Filters use a zero-based index.</li></ul>\n\n For example:\n  **filter[0][field]=resource&filter[0][eq]=vod_streams**"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "The start of the range of time you want to view. Specify **YYYY-MM-DD HH:00:00** where **HH** is a 24-hour clock in UTC. The range doesn't include minutes and seconds and rounds minutes up to the hour. The maximum difference between **from** and **to** is 90 days. If you set the **from** query parameter without setting the **to** query parameter, the data returned will reflect 90 days starting at the **from** date, or data up to to the current day, whichever is shorter.\n\nYou can also specify **last_bill_date**.\n\n**Default**: last billing date"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "The end of the range of time you want to view. Specify **YYYY-MM-DD HH:00:00** where **HH** is a 24-hour clock in UTC. The range doesn't include minutes and seconds and rounds minutes up to the hour. The maximum difference between **from** and **to** is 90 days. If you set the **to** query parameter without setting the **from** query parameter, the data returned will be from the past 90 days or from your last invoice date, whichever is shorter.\n\nYou can also specify **last_bill_date**.\n\n**Default**: end of the current day"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Specify the data you want returned in the response. You can send a comma-separated list of values.\n\nValid value is: **trend**.\n\nExample:\n**trend**"
+              }
+            ]
+          },
+          "docs": "(Available from version 1.8) This operation returns CDN usage details for the account related to the JSON web token used for API authentication. Defaults: from = last billing date, to = end of current day."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

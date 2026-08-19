@@ -1,0 +1,3557 @@
+{
+  "item": [
+    {
+      "id": "963db06a-d150-480f-bc58-50658e3e8dc4",
+      "name": "live_streams",
+      "description": {
+        "content": "Operations related to live streams. A live stream is a single, linear video broadcast. You broadcast a live stream by receiving encoded source video into the Wowza Video service and letting Wowza Video transcode the stream and deliver it to viewers. A live stream is essentially a one-stop method for creating a transcoder, output renditions, stream targets, and associated players.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a36ce067-48cc-4b4f-8bd7-c4c85c2db794",
+          "name": "Create a live stream",
+          "request": {
+            "name": "Create a live stream",
+            "description": {
+              "content": "This operation creates a live stream.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "live_streams"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"live_stream\": {\n    \"name\": \"<string>\",\n    \"broadcast_location\": \"<string>\",\n    \"encoder\": \"<string>\",\n    \"aspect_ratio_height\": \"<integer>\",\n    \"aspect_ratio_width\": \"<integer>\",\n    \"billing_mode\": \"<string>\",\n    \"closed_caption_type\": \"<string>\",\n    \"delivery_method\": \"<string>\",\n    \"delivery_protocols\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"description\": \"<string>\",\n    \"disable_authentication\": \"<boolean>\",\n    \"hosted_page\": {\n      \"enabled\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"logo_image\": \"<string>\",\n      \"sharing_icons\": \"<boolean>\",\n      \"title\": \"<string>\"\n    },\n    \"low_latency\": \"<boolean>\",\n    \"password\": \"<string>\",\n    \"player\": {\n      \"customizations\": {\n        \"play_icon\": \"<string>\",\n        \"thin_timeline\": \"<boolean>\",\n        \"drag_handle\": \"<boolean>\",\n        \"volume\": \"<boolean>\",\n        \"mute\": \"<boolean>\",\n        \"fullscreen\": \"<boolean>\",\n        \"show_player_title\": \"<boolean>\",\n        \"color\": \"<string>\"\n      },\n      \"countdown\": \"<boolean>\",\n      \"countdown_at\": \"<string>\",\n      \"logo_image\": \"<string>\",\n      \"logo_position\": \"<string>\",\n      \"plugins\": {\n        \"airplay\": \"<boolean>\",\n        \"chromecast\": \"<boolean>\"\n      },\n      \"responsive\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"video_poster_image\": \"<string>\",\n      \"width\": \"<integer>\"\n    },\n    \"player_id\": \"<string>\",\n    \"logo_image\": \"<string>\",\n    \"logo_position\": \"<string>\",\n    \"video_poster_image\": \"<string>\",\n    \"width\": \"<integer>\",\n    \"recording\": \"<boolean>\",\n    \"reference_id\": \"<string>\",\n    \"save_asset\": \"<boolean>\",\n    \"security\": {\n      \"force_ssl_playback\": \"<boolean>\",\n      \"geoblock_enabled\": \"<boolean>\",\n      \"geoblock_by_location\": \"<string>\",\n      \"geoblock_country_codes\": \"<string>\",\n      \"geoblock_ip_override\": \"<string>\",\n      \"geoblock_ip_addresses\": \"<string>\",\n      \"token_auth_enabled\": \"<boolean>\",\n      \"token_auth_shared_secret\": \"<string>\",\n      \"token_auth_playlist_only\": \"<boolean>\"\n    },\n    \"source_url\": \"<string>\",\n    \"target_delivery_protocol\": \"<string>\",\n    \"transcoder_type\": \"<string>\",\n    \"use_stream_source\": \"<boolean>\",\n    \"username\": \"<string>\",\n    \"vod_stream\": \"<boolean>\",\n    \"watermark\": \"<boolean>\",\n    \"watermark_height\": \"<integer>\",\n    \"watermark_image\": \"<string>\",\n    \"watermark_opacity\": \"<integer>\",\n    \"watermark_position\": \"<string>\",\n    \"watermark_width\": \"<integer>\",\n    \"countdown\": \"<boolean>\",\n    \"countdown_at\": \"<dateTime>\",\n    \"countdown_timezone\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4cd98e18-cb8f-423d-be4e-da44f9d4d7b9",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"live_stream\": {\n    \"name\": \"My Live Stream\",\n    \"broadcast_location\": \"eu_germany\",\n    \"encoder\": \"other_webrtc\",\n    \"aspect_ratio_height\": 1080,\n    \"aspect_ratio_width\": 1920,\n    \"billing_mode\": \"pay_as_you_go\",\n    \"closed_caption_type\": \"none\",\n    \"delivery_method\": \"push\",\n    \"delivery_protocols\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"description\": \"\",\n    \"disable_authentication\": false,\n    \"hosted_page\": {\n      \"enabled\": \"<boolean>\",\n      \"description\": \"\",\n      \"logo_image\": \"[Base64-encoded string representation of GIF, JPEG, or PNG file]\",\n      \"sharing_icons\": \"<boolean>\",\n      \"title\": \"\"\n    },\n    \"low_latency\": false,\n    \"password\": \"68332313\",\n    \"player\": {\n      \"customizations\": {\n        \"play_icon\": \"solid\",\n        \"thin_timeline\": \"<boolean>\",\n        \"drag_handle\": \"<boolean>\",\n        \"volume\": \"<boolean>\",\n        \"mute\": \"<boolean>\",\n        \"fullscreen\": \"<boolean>\",\n        \"show_player_title\": \"<boolean>\",\n        \"color\": \"\"\n      },\n      \"countdown\": \"<boolean>\",\n      \"countdown_at\": \"\",\n      \"logo_image\": \"\",\n      \"logo_position\": \"<string>\",\n      \"plugins\": {\n        \"airplay\": \"<boolean>\",\n        \"chromecast\": \"<boolean>\"\n      },\n      \"responsive\": \"<boolean>\",\n      \"type\": \"\",\n      \"video_poster_image\": \"\",\n      \"width\": \"<integer>\"\n    },\n    \"player_id\": \"\",\n    \"logo_image\": \"\",\n    \"logo_position\": \"<string>\",\n    \"video_poster_image\": \"\",\n    \"width\": \"<integer>\",\n    \"recording\": true,\n    \"reference_id\": \"mySystemID_01\",\n    \"save_asset\": true,\n    \"security\": {\n      \"force_ssl_playback\": \"<boolean>\",\n      \"geoblock_enabled\": \"<boolean>\",\n      \"geoblock_by_location\": \"<string>\",\n      \"geoblock_country_codes\": \"\",\n      \"geoblock_ip_override\": \"<string>\",\n      \"geoblock_ip_addresses\": \"\",\n      \"token_auth_enabled\": \"<boolean>\",\n      \"token_auth_shared_secret\": \"\",\n      \"token_auth_playlist_only\": \"<boolean>\"\n    },\n    \"source_url\": \"xyz.streamlock.net/vod/mp4:Movie.mov\",\n    \"target_delivery_protocol\": \"hls-https\",\n    \"transcoder_type\": \"transcoded\",\n    \"use_stream_source\": false,\n    \"username\": \"client2\",\n    \"vod_stream\": true,\n    \"watermark\": \"<boolean>\",\n    \"watermark_height\": \"<integer>\",\n    \"watermark_image\": \"\",\n    \"watermark_opacity\": \"<integer>\",\n    \"watermark_position\": \"<string>\",\n    \"watermark_width\": \"<integer>\",\n    \"countdown\": \"<boolean>\",\n    \"countdown_at\": \"2024-02-01T00:00:00.000Z\",\n    \"countdown_timezone\": \"America/New_York\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"live_stream\": {\n    \"aspect_ratio_height\": 3792,\n    \"aspect_ratio_width\": 5574,\n    \"asset_id\": \"string\",\n    \"billing_mode\": \"pay_as_you_go\",\n    \"broadcast_location\": \"eu_germany\",\n    \"closed_caption_type\": \"cea\",\n    \"connection_code\": \"\",\n    \"connection_code_expires_at\": \"1999-03-16T13:02:43.266Z\",\n    \"created_at\": \"1974-05-30T08:24:36.290Z\",\n    \"delivery_method\": \"cdn\",\n    \"delivery_protocols\": [\n      \"string\",\n      \"string\"\n    ],\n    \"description\": \"\",\n    \"direct_playback_urls\": {\n      \"delivery_protocol\": [\n        {\n          \"name\": \"\",\n          \"output_id\": \"dcxq5q6c\",\n          \"url\": \"https://abcdef.dev.entrypoint.video.wowza.com/app-B8P6K226/ngrp:43a23e5a_all/playlist.m3u8\",\n          \"application_name\": \"\",\n          \"stream_name\": \"\"\n        },\n        {\n          \"name\": \"\",\n          \"output_id\": \"dcxq5q6c\",\n          \"url\": \"https://abcdef.dev.entrypoint.video.wowza.com/app-B8P6K226/ngrp:43a23e5a_all/playlist.m3u8\",\n          \"application_name\": \"\",\n          \"stream_name\": \"\"\n        }\n      ]\n    },\n    \"encoder\": \"hauppauge\",\n    \"flowplayer\": false,\n    \"hosted_page\": {\n      \"enabled\": false,\n      \"description\": \"\",\n      \"logo_image_url\": \"string\",\n      \"sharing_icons\": true,\n      \"title\": \"\",\n      \"url\": \"\"\n    },\n    \"id\": \"\",\n    \"low_latency\": false,\n    \"name\": \"\",\n    \"playback_stream_name\": \"\",\n    \"player\": {\n      \"customizations\": {\n        \"play_icon\": \"ring\",\n        \"thin_timeline\": true,\n        \"drag_handle\": false,\n        \"volume\": false,\n        \"mute\": true,\n        \"fullscreen\": false,\n        \"show_player_title\": false,\n        \"color\": \"\"\n      },\n      \"countdown\": false,\n      \"countdown_at\": \"\",\n      \"embed_code\": \"\",\n      \"hls_playback_url\": \"\",\n      \"id\": \"\",\n      \"logo_image_url\": \"\",\n      \"logo_position\": \"top-right\",\n      \"plugins\": {\n        \"airplay\": false,\n        \"chromecast\": false\n      },\n      \"responsive\": false,\n      \"type\": \"\",\n      \"video_poster_image_url\": \"\",\n      \"width\": 5516\n    },\n    \"player_id\": \"string\",\n    \"player_type\": \"wowza_flowplayer_v1\",\n    \"embed_code\": \"\",\n    \"hls_playback_url\": \"\",\n    \"countdown_at\": \"2024-02-01T00:00:00.000Z\",\n    \"countdown_timezone\": \"America/New_York\",\n    \"countdown\": false,\n    \"logo_image_url\": \"\",\n    \"logo_position\": \"bottom-left\",\n    \"video_poster_image_url\": \"\",\n    \"width\": 7683,\n    \"recording\": false,\n    \"reference_id\": \"\",\n    \"save_asset\": true,\n    \"security\": {\n      \"force_ssl_playback\": true,\n      \"geoblock_enabled\": false,\n      \"geoblock_by_location\": \"deny\",\n      \"geoblock_country_codes\": \"\",\n      \"geoblock_ip_override\": \"deny\",\n      \"geoblock_ip_addresses\": \"\",\n      \"token_auth_enabled\": false,\n      \"token_auth_shared_secret\": \"\",\n      \"token_auth_playlist_only\": true\n    },\n    \"source_connection_information\": {},\n    \"state\": \"started\",\n    \"stream_source_id\": \"\",\n    \"stream_targets\": [\n      {\n        \"id\": \"dcxq5q6c\"\n      },\n      {\n        \"id\": \"dcxq5q6c\"\n      }\n    ],\n    \"target_delivery_protocol\": \"hls-https\",\n    \"transcoder_type\": \"passthrough\",\n    \"updated_at\": \"1994-04-08T23:25:31.727Z\",\n    \"use_stream_source\": false,\n    \"vod_stream\": true,\n    \"watermark\": true,\n    \"watermark_height\": 603,\n    \"watermark_image_url\": \"\",\n    \"watermark_opacity\": 59,\n    \"watermark_position\": \"top-right\",\n    \"watermark_width\": 7908\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "37faf2f8-99c7-43bc-a251-208fe866323f",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"live_stream\": {\n    \"name\": \"My Live Stream\",\n    \"broadcast_location\": \"eu_germany\",\n    \"encoder\": \"other_webrtc\",\n    \"aspect_ratio_height\": 1080,\n    \"aspect_ratio_width\": 1920,\n    \"billing_mode\": \"pay_as_you_go\",\n    \"closed_caption_type\": \"none\",\n    \"delivery_method\": \"push\",\n    \"delivery_protocols\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"description\": \"\",\n    \"disable_authentication\": false,\n    \"hosted_page\": {\n      \"enabled\": \"<boolean>\",\n      \"description\": \"\",\n      \"logo_image\": \"[Base64-encoded string representation of GIF, JPEG, or PNG file]\",\n      \"sharing_icons\": \"<boolean>\",\n      \"title\": \"\"\n    },\n    \"low_latency\": false,\n    \"password\": \"68332313\",\n    \"player\": {\n      \"customizations\": {\n        \"play_icon\": \"solid\",\n        \"thin_timeline\": \"<boolean>\",\n        \"drag_handle\": \"<boolean>\",\n        \"volume\": \"<boolean>\",\n        \"mute\": \"<boolean>\",\n        \"fullscreen\": \"<boolean>\",\n        \"show_player_title\": \"<boolean>\",\n        \"color\": \"\"\n      },\n      \"countdown\": \"<boolean>\",\n      \"countdown_at\": \"\",\n      \"logo_image\": \"\",\n      \"logo_position\": \"<string>\",\n      \"plugins\": {\n        \"airplay\": \"<boolean>\",\n        \"chromecast\": \"<boolean>\"\n      },\n      \"responsive\": \"<boolean>\",\n      \"type\": \"\",\n      \"video_poster_image\": \"\",\n      \"width\": \"<integer>\"\n    },\n    \"player_id\": \"\",\n    \"logo_image\": \"\",\n    \"logo_position\": \"<string>\",\n    \"video_poster_image\": \"\",\n    \"width\": \"<integer>\",\n    \"recording\": true,\n    \"reference_id\": \"mySystemID_01\",\n    \"save_asset\": true,\n    \"security\": {\n      \"force_ssl_playback\": \"<boolean>\",\n      \"geoblock_enabled\": \"<boolean>\",\n      \"geoblock_by_location\": \"<string>\",\n      \"geoblock_country_codes\": \"\",\n      \"geoblock_ip_override\": \"<string>\",\n      \"geoblock_ip_addresses\": \"\",\n      \"token_auth_enabled\": \"<boolean>\",\n      \"token_auth_shared_secret\": \"\",\n      \"token_auth_playlist_only\": \"<boolean>\"\n    },\n    \"source_url\": \"xyz.streamlock.net/vod/mp4:Movie.mov\",\n    \"target_delivery_protocol\": \"hls-https\",\n    \"transcoder_type\": \"transcoded\",\n    \"use_stream_source\": false,\n    \"username\": \"client2\",\n    \"vod_stream\": true,\n    \"watermark\": \"<boolean>\",\n    \"watermark_height\": \"<integer>\",\n    \"watermark_image\": \"\",\n    \"watermark_opacity\": \"<integer>\",\n    \"watermark_position\": \"<string>\",\n    \"watermark_width\": \"<integer>\",\n    \"countdown\": \"<boolean>\",\n    \"countdown_at\": \"2024-02-01T00:00:00.000Z\",\n    \"countdown_timezone\": \"America/New_York\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 5221,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c75997d2-e482-4a39-887d-34a41619a5c7",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"live_stream\": {\n    \"name\": \"My Live Stream\",\n    \"broadcast_location\": \"eu_germany\",\n    \"encoder\": \"other_webrtc\",\n    \"aspect_ratio_height\": 1080,\n    \"aspect_ratio_width\": 1920,\n    \"billing_mode\": \"pay_as_you_go\",\n    \"closed_caption_type\": \"none\",\n    \"delivery_method\": \"push\",\n    \"delivery_protocols\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"description\": \"\",\n    \"disable_authentication\": false,\n    \"hosted_page\": {\n      \"enabled\": \"<boolean>\",\n      \"description\": \"\",\n      \"logo_image\": \"[Base64-encoded string representation of GIF, JPEG, or PNG file]\",\n      \"sharing_icons\": \"<boolean>\",\n      \"title\": \"\"\n    },\n    \"low_latency\": false,\n    \"password\": \"68332313\",\n    \"player\": {\n      \"customizations\": {\n        \"play_icon\": \"solid\",\n        \"thin_timeline\": \"<boolean>\",\n        \"drag_handle\": \"<boolean>\",\n        \"volume\": \"<boolean>\",\n        \"mute\": \"<boolean>\",\n        \"fullscreen\": \"<boolean>\",\n        \"show_player_title\": \"<boolean>\",\n        \"color\": \"\"\n      },\n      \"countdown\": \"<boolean>\",\n      \"countdown_at\": \"\",\n      \"logo_image\": \"\",\n      \"logo_position\": \"<string>\",\n      \"plugins\": {\n        \"airplay\": \"<boolean>\",\n        \"chromecast\": \"<boolean>\"\n      },\n      \"responsive\": \"<boolean>\",\n      \"type\": \"\",\n      \"video_poster_image\": \"\",\n      \"width\": \"<integer>\"\n    },\n    \"player_id\": \"\",\n    \"logo_image\": \"\",\n    \"logo_position\": \"<string>\",\n    \"video_poster_image\": \"\",\n    \"width\": \"<integer>\",\n    \"recording\": true,\n    \"reference_id\": \"mySystemID_01\",\n    \"save_asset\": true,\n    \"security\": {\n      \"force_ssl_playback\": \"<boolean>\",\n      \"geoblock_enabled\": \"<boolean>\",\n      \"geoblock_by_location\": \"<string>\",\n      \"geoblock_country_codes\": \"\",\n      \"geoblock_ip_override\": \"<string>\",\n      \"geoblock_ip_addresses\": \"\",\n      \"token_auth_enabled\": \"<boolean>\",\n      \"token_auth_shared_secret\": \"\",\n      \"token_auth_playlist_only\": \"<boolean>\"\n    },\n    \"source_url\": \"xyz.streamlock.net/vod/mp4:Movie.mov\",\n    \"target_delivery_protocol\": \"hls-https\",\n    \"transcoder_type\": \"transcoded\",\n    \"use_stream_source\": false,\n    \"username\": \"client2\",\n    \"vod_stream\": true,\n    \"watermark\": \"<boolean>\",\n    \"watermark_height\": \"<integer>\",\n    \"watermark_image\": \"\",\n    \"watermark_opacity\": \"<integer>\",\n    \"watermark_position\": \"<string>\",\n    \"watermark_width\": \"<integer>\",\n    \"countdown\": \"<boolean>\",\n    \"countdown_at\": \"2024-02-01T00:00:00.000Z\",\n    \"countdown_timezone\": \"America/New_York\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 2897,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f02be756-6aa9-4eed-8db9-90d57be69da4",
+          "name": "Fetch all live streams",
+          "request": {
+            "name": "Fetch all live streams",
+            "description": {
+              "content": "This operation shows limited details for all of your live streams. For detailed information, fetch a single live stream.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "live_streams"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Restricts the data that gets returned by filtering on one or more values associated with a field. Construct a filter using a two-part expression that specifies the field on which to filter and the logic to use to filter. Filters use a zero-based index.\n\nFor valid filter operators and filter fields, see [How to get filtered query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-filtered-query-results-with-the-wowza-video-rest-api).\n\nExample:\n**filter[0][field]=state&filter[0][eq]=stopped**"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6e991477-5057-40e8-bf10-83505c30ea9f",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"live_streams\": [\n    {\n      \"created_at\": \"1953-08-27T19:59:49.738Z\",\n      \"id\": \"\",\n      \"name\": \"\",\n      \"state\": \"started\",\n      \"updated_at\": \"1961-11-23T05:55:30.270Z\"\n    },\n    {\n      \"created_at\": \"1947-03-05T22:36:54.075Z\",\n      \"id\": \"\",\n      \"name\": \"\",\n      \"state\": \"started\",\n      \"updated_at\": \"1969-09-11T05:20:08.565Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0fcbca6f-8f27-4ea7-95f9-0300ab7f0ba8",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 5505,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1788a924-ddf5-4f77-9108-e2eb6d6d7768",
+          "name": "Fetch a live stream",
+          "request": {
+            "name": "Fetch a live stream",
+            "description": {
+              "content": "This operation shows the details of a specific live stream.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "live_streams",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4d78f318-bb2c-4052-a2c2-b999e426f1db",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"live_stream\": {\n    \"aspect_ratio_height\": 7949,\n    \"aspect_ratio_width\": 1458,\n    \"asset_id\": \"string\",\n    \"billing_mode\": \"twentyfour_seven\",\n    \"broadcast_location\": \"eu_germany\",\n    \"closed_caption_type\": \"both\",\n    \"connection_code\": \"\",\n    \"connection_code_expires_at\": \"1981-06-15T14:02:13.050Z\",\n    \"created_at\": \"1947-04-16T07:36:04.007Z\",\n    \"delivery_method\": \"pull\",\n    \"delivery_protocols\": [\n      \"string\",\n      \"string\"\n    ],\n    \"description\": \"\",\n    \"direct_playback_urls\": {\n      \"delivery_protocol\": [\n        {\n          \"name\": \"\",\n          \"output_id\": \"dcxq5q6c\",\n          \"url\": \"https://abcdef.dev.entrypoint.video.wowza.com/app-B8P6K226/ngrp:43a23e5a_all/playlist.m3u8\",\n          \"application_name\": \"\",\n          \"stream_name\": \"\"\n        },\n        {\n          \"name\": \"\",\n          \"output_id\": \"dcxq5q6c\",\n          \"url\": \"https://abcdef.dev.entrypoint.video.wowza.com/app-B8P6K226/ngrp:43a23e5a_all/playlist.m3u8\",\n          \"application_name\": \"\",\n          \"stream_name\": \"\"\n        }\n      ]\n    },\n    \"encoder\": \"teradek_cube\",\n    \"flowplayer\": true,\n    \"hosted_page\": {\n      \"enabled\": true,\n      \"description\": \"\",\n      \"logo_image_url\": \"string\",\n      \"sharing_icons\": true,\n      \"title\": \"\",\n      \"url\": \"\"\n    },\n    \"id\": \"\",\n    \"low_latency\": true,\n    \"name\": \"\",\n    \"playback_stream_name\": \"\",\n    \"player\": {\n      \"customizations\": {\n        \"play_icon\": \"solid\",\n        \"thin_timeline\": false,\n        \"drag_handle\": true,\n        \"volume\": true,\n        \"mute\": true,\n        \"fullscreen\": false,\n        \"show_player_title\": false,\n        \"color\": \"\"\n      },\n      \"countdown\": false,\n      \"countdown_at\": \"\",\n      \"embed_code\": \"\",\n      \"hls_playback_url\": \"\",\n      \"id\": \"\",\n      \"logo_image_url\": \"\",\n      \"logo_position\": \"top-left\",\n      \"plugins\": {\n        \"airplay\": true,\n        \"chromecast\": false\n      },\n      \"responsive\": false,\n      \"type\": \"\",\n      \"video_poster_image_url\": \"\",\n      \"width\": 1341\n    },\n    \"player_id\": \"string\",\n    \"player_type\": \"wowza_flowplayer_v2\",\n    \"embed_code\": \"\",\n    \"hls_playback_url\": \"\",\n    \"countdown_at\": \"2024-02-01T00:00:00.000Z\",\n    \"countdown_timezone\": \"America/New_York\",\n    \"countdown\": true,\n    \"logo_image_url\": \"\",\n    \"logo_position\": \"bottom-right\",\n    \"video_poster_image_url\": \"\",\n    \"width\": 2521,\n    \"recording\": true,\n    \"reference_id\": \"\",\n    \"save_asset\": true,\n    \"security\": {\n      \"force_ssl_playback\": true,\n      \"geoblock_enabled\": false,\n      \"geoblock_by_location\": \"allow\",\n      \"geoblock_country_codes\": \"\",\n      \"geoblock_ip_override\": \"disabled\",\n      \"geoblock_ip_addresses\": \"\",\n      \"token_auth_enabled\": true,\n      \"token_auth_shared_secret\": \"\",\n      \"token_auth_playlist_only\": false\n    },\n    \"source_connection_information\": {},\n    \"state\": \"started\",\n    \"stream_source_id\": \"\",\n    \"stream_targets\": [\n      {\n        \"id\": \"dcxq5q6c\"\n      },\n      {\n        \"id\": \"dcxq5q6c\"\n      }\n    ],\n    \"target_delivery_protocol\": \"hls-https\",\n    \"transcoder_type\": \"passthrough\",\n    \"updated_at\": \"1967-09-15T07:02:08.070Z\",\n    \"use_stream_source\": false,\n    \"vod_stream\": true,\n    \"watermark\": false,\n    \"watermark_height\": 6534,\n    \"watermark_image_url\": \"\",\n    \"watermark_opacity\": 80,\n    \"watermark_position\": \"bottom-right\",\n    \"watermark_width\": 1034\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8b328d92-b3a7-4462-a3c0-15eff298ffc5",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 5505,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7cd7fc5f-6042-4e9e-b16a-71550b38f5aa",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 6770,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "680393dd-3a00-41a7-b970-c75369c1bad4",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 5884,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "492b2561-51a3-452e-9a22-bbbb546dbfb3",
+              "name": "Gone",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Gone",
+              "code": 410,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 5076,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6e1e8c17-4557-4c75-b1c8-00c3b1af1bd6",
+          "name": "Update a live stream",
+          "request": {
+            "name": "Update a live stream",
+            "description": {
+              "content": "This operation updates a live stream.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "live_streams",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"live_stream\": {\n    \"aspect_ratio_height\": \"<integer>\",\n    \"aspect_ratio_width\": \"<integer>\",\n    \"encoder\": \"<string>\",\n    \"name\": \"<string>\",\n    \"closed_caption_type\": \"<string>\",\n    \"delivery_method\": \"<string>\",\n    \"delivery_protocols\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"description\": \"<string>\",\n    \"disable_authentication\": \"<boolean>\",\n    \"hosted_page\": {\n      \"enabled\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"logo_image\": \"<string>\",\n      \"remove_logo_image\": \"<boolean>\",\n      \"sharing_icons\": \"<boolean>\",\n      \"title\": \"<string>\"\n    },\n    \"password\": \"<string>\",\n    \"player\": {\n      \"customizations\": {\n        \"play_icon\": \"<string>\",\n        \"thin_timeline\": \"<boolean>\",\n        \"drag_handle\": \"<boolean>\",\n        \"volume\": \"<boolean>\",\n        \"mute\": \"<boolean>\",\n        \"fullscreen\": \"<boolean>\",\n        \"show_player_title\": \"<boolean>\",\n        \"color\": \"<string>\"\n      },\n      \"countdown\": \"<boolean>\",\n      \"countdown_at\": \"<string>\",\n      \"logo_image\": \"<string>\",\n      \"logo_position\": \"<string>\",\n      \"plugins\": {\n        \"airplay\": \"<boolean>\",\n        \"chromecast\": \"<boolean>\"\n      },\n      \"remove_logo_image\": \"<boolean>\",\n      \"remove_video_poster_image\": \"<boolean>\",\n      \"responsive\": \"<boolean>\",\n      \"type\": \"<string>\",\n      \"video_poster_image\": \"<string>\",\n      \"width\": \"<integer>\"\n    },\n    \"player_id\": \"<string>\",\n    \"logo_image\": \"<string>\",\n    \"logo_position\": \"<string>\",\n    \"video_poster_image\": \"<string>\",\n    \"width\": \"<integer>\",\n    \"remove_logo_image\": \"<boolean>\",\n    \"remove_video_poster_image\": \"<boolean>\",\n    \"recording\": \"<boolean>\",\n    \"reference_id\": \"<string>\",\n    \"save_asset\": \"<boolean>\",\n    \"security\": {\n      \"force_ssl_playback\": \"<boolean>\",\n      \"geoblock_enabled\": \"<boolean>\",\n      \"geoblock_by_location\": \"<string>\",\n      \"geoblock_country_codes\": \"<string>\",\n      \"geoblock_ip_override\": \"<string>\",\n      \"geoblock_ip_addresses\": \"<string>\",\n      \"token_auth_enabled\": \"<boolean>\",\n      \"token_auth_shared_secret\": \"<string>\",\n      \"token_auth_playlist_only\": \"<boolean>\"\n    },\n    \"source_url\": \"<string>\",\n    \"target_delivery_protocol\": \"<string>\",\n    \"use_stream_source\": \"<boolean>\",\n    \"username\": \"<string>\",\n    \"vod_stream\": \"<boolean>\",\n    \"watermark\": \"<boolean>\",\n    \"watermark_height\": \"<integer>\",\n    \"watermark_image\": \"<string>\",\n    \"watermark_opacity\": \"<integer>\",\n    \"watermark_position\": \"<string>\",\n    \"watermark_width\": \"<integer>\",\n    \"countdown\": \"<boolean>\",\n    \"countdown_at\": \"<dateTime>\",\n    \"countdown_timezone\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d37d4a3a-0982-48c9-ad77-ac74edc0af62",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"live_stream\": {\n    \"name\": \"My Updated Live Stream\",\n    \"description\": \"This is my first live stream.\",\n    \"recording\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"live_stream\": {\n    \"aspect_ratio_height\": 7949,\n    \"aspect_ratio_width\": 1458,\n    \"asset_id\": \"string\",\n    \"billing_mode\": \"twentyfour_seven\",\n    \"broadcast_location\": \"eu_germany\",\n    \"closed_caption_type\": \"both\",\n    \"connection_code\": \"\",\n    \"connection_code_expires_at\": \"1981-06-15T14:02:13.050Z\",\n    \"created_at\": \"1947-04-16T07:36:04.007Z\",\n    \"delivery_method\": \"pull\",\n    \"delivery_protocols\": [\n      \"string\",\n      \"string\"\n    ],\n    \"description\": \"\",\n    \"direct_playback_urls\": {\n      \"delivery_protocol\": [\n        {\n          \"name\": \"\",\n          \"output_id\": \"dcxq5q6c\",\n          \"url\": \"https://abcdef.dev.entrypoint.video.wowza.com/app-B8P6K226/ngrp:43a23e5a_all/playlist.m3u8\",\n          \"application_name\": \"\",\n          \"stream_name\": \"\"\n        },\n        {\n          \"name\": \"\",\n          \"output_id\": \"dcxq5q6c\",\n          \"url\": \"https://abcdef.dev.entrypoint.video.wowza.com/app-B8P6K226/ngrp:43a23e5a_all/playlist.m3u8\",\n          \"application_name\": \"\",\n          \"stream_name\": \"\"\n        }\n      ]\n    },\n    \"encoder\": \"teradek_cube\",\n    \"flowplayer\": true,\n    \"hosted_page\": {\n      \"enabled\": true,\n      \"description\": \"\",\n      \"logo_image_url\": \"string\",\n      \"sharing_icons\": true,\n      \"title\": \"\",\n      \"url\": \"\"\n    },\n    \"id\": \"\",\n    \"low_latency\": true,\n    \"name\": \"\",\n    \"playback_stream_name\": \"\",\n    \"player\": {\n      \"customizations\": {\n        \"play_icon\": \"solid\",\n        \"thin_timeline\": false,\n        \"drag_handle\": true,\n        \"volume\": true,\n        \"mute\": true,\n        \"fullscreen\": false,\n        \"show_player_title\": false,\n        \"color\": \"\"\n      },\n      \"countdown\": false,\n      \"countdown_at\": \"\",\n      \"embed_code\": \"\",\n      \"hls_playback_url\": \"\",\n      \"id\": \"\",\n      \"logo_image_url\": \"\",\n      \"logo_position\": \"top-left\",\n      \"plugins\": {\n        \"airplay\": true,\n        \"chromecast\": false\n      },\n      \"responsive\": false,\n      \"type\": \"\",\n      \"video_poster_image_url\": \"\",\n      \"width\": 1341\n    },\n    \"player_id\": \"string\",\n    \"player_type\": \"wowza_flowplayer_v2\",\n    \"embed_code\": \"\",\n    \"hls_playback_url\": \"\",\n    \"countdown_at\": \"2024-02-01T00:00:00.000Z\",\n    \"countdown_timezone\": \"America/New_York\",\n    \"countdown\": true,\n    \"logo_image_url\": \"\",\n    \"logo_position\": \"bottom-right\",\n    \"video_poster_image_url\": \"\",\n    \"width\": 2521,\n    \"recording\": true,\n    \"reference_id\": \"\",\n    \"save_asset\": true,\n    \"security\": {\n      \"force_ssl_playback\": true,\n      \"geoblock_enabled\": false,\n      \"geoblock_by_location\": \"allow\",\n      \"geoblock_country_codes\": \"\",\n      \"geoblock_ip_override\": \"disabled\",\n      \"geoblock_ip_addresses\": \"\",\n      \"token_auth_enabled\": true,\n      \"token_auth_shared_secret\": \"\",\n      \"token_auth_playlist_only\": false\n    },\n    \"source_connection_information\": {},\n    \"state\": \"started\",\n    \"stream_source_id\": \"\",\n    \"stream_targets\": [\n      {\n        \"id\": \"dcxq5q6c\"\n      },\n      {\n        \"id\": \"dcxq5q6c\"\n      }\n    ],\n    \"target_delivery_protocol\": \"hls-https\",\n    \"transcoder_type\": \"passthrough\",\n    \"updated_at\": \"1967-09-15T07:02:08.070Z\",\n    \"use_stream_source\": false,\n    \"vod_stream\": true,\n    \"watermark\": false,\n    \"watermark_height\": 6534,\n    \"watermark_image_url\": \"\",\n    \"watermark_opacity\": 80,\n    \"watermark_position\": \"bottom-right\",\n    \"watermark_width\": 1034\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb0a27ea-7482-4be2-be83-7f37fef0386e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"live_stream\": {\n    \"name\": \"My Updated Live Stream\",\n    \"description\": \"This is my first live stream.\",\n    \"recording\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 5505,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5fbb51ac-9c7a-471e-9ea4-12cf45107822",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"live_stream\": {\n    \"name\": \"My Updated Live Stream\",\n    \"description\": \"This is my first live stream.\",\n    \"recording\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 1494,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "08665229-840c-490b-a3be-75cb76474ec1",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"live_stream\": {\n    \"name\": \"My Updated Live Stream\",\n    \"description\": \"This is my first live stream.\",\n    \"recording\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 6390,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c0d897a0-e513-4ae6-b080-dce7a9a12e70",
+              "name": "Gone",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"live_stream\": {\n    \"name\": \"My Updated Live Stream\",\n    \"description\": \"This is my first live stream.\",\n    \"recording\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Gone",
+              "code": 410,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 6231,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd92041c-9716-4fea-b643-2eb5be62a2d4",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"live_stream\": {\n    \"name\": \"My Updated Live Stream\",\n    \"description\": \"This is my first live stream.\",\n    \"recording\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 4837,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5ea2713b-f159-4834-a643-562ff8ffb8f4",
+          "name": "Delete a live stream",
+          "request": {
+            "name": "Delete a live stream",
+            "description": {
+              "content": "This operation deletes a live stream, including all assigned outputs and targets. <br><br><b>Note</b>: You can't remove live streams that have an asset_id. Assets must be removed by sending a DEL request to the /assets endpoint. ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "live_streams",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cf6f385a-9056-4128-b9f4-6687dc81263e",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8eda5ed9-ed60-41e2-94a4-942bb2c7f4c6",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 5505,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0cf318cb-f380-4eff-bdaa-25c3ec7306b0",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 1494,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a852a0d9-8d69-4889-aaa0-4965868399bd",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 6390,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc9631ca-6e8b-4dbe-8f28-8a67fac8919c",
+              "name": "Gone",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Gone",
+              "code": 410,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 6231,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd7b0df8-0137-45be-a595-31eda236c268",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 4837,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fbcebd18-e3cd-4543-8af9-e9e21df4a83a",
+          "name": "Start a live stream",
+          "request": {
+            "name": "Start a live stream",
+            "description": {
+              "content": "This operation starts a live stream.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "live_streams",
+                ":id",
+                "start"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6b4bb3e7-e53a-44fe-9cfb-2f1db1bb3173",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"live_stream\": {\n    \"state\": \"starting\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5d144a3a-cf3a-49b2-82e9-4e60c6e84b34",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 5505,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88046608-5e30-40c9-bd7b-f0c44d055ddc",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 1494,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e3465d04-77d8-4d31-9910-1d16e590480e",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 6390,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "11da80ce-4ef7-46dd-a2d8-5b8e68f60005",
+              "name": "Gone",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Gone",
+              "code": 410,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 6231,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "915cf12e-f57d-46a1-9bf9-7cfa4f07f173",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 4837,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "637a5520-0825-4824-b73f-4683453b296d",
+          "name": "Stop a live stream",
+          "request": {
+            "name": "Stop a live stream",
+            "description": {
+              "content": "This operation stops a live stream.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "live_streams",
+                ":id",
+                "stop"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "86bdf708-0fad-4488-a86e-a104f78135ba",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"live_stream\": {\n    \"state\": \"stopped\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "97c6ff9c-02d6-4387-849f-3688813ad88d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 5505,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "354fdd5d-8753-42bd-be46-5f739aa29b83",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 1494,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "62203f6c-d86b-41d4-9c33-77b9df2b1513",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 6390,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f222db9-87b8-4159-af65-655e6a1c4594",
+              "name": "Gone",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Gone",
+              "code": 410,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 6231,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a0c29a70-5f5e-4dbc-bc2f-d00dcdbb2232",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 4837,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7ce79fb0-a313-400d-b714-06ee32b5745f",
+          "name": "Reset a live stream",
+          "request": {
+            "name": "Reset a live stream",
+            "description": {
+              "content": "This operation resets a live stream.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "live_streams",
+                ":id",
+                "reset"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ec8dbcba-b371-4c00-8ff7-92b84293f7c6",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "reset"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"live_stream\": {\n    \"state\": \"resetting\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "67110ab0-eff6-47c4-a29c-fec59d6b051c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "reset"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 5505,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "630c8ce0-abd5-4fc2-9365-fb2626f80e13",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "reset"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 1494,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63c48357-6686-4bf1-bf07-e005cb9b6448",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "reset"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 6390,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6995d9e7-5297-491d-9984-f025df111e75",
+              "name": "Gone",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "reset"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Gone",
+              "code": 410,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 6231,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c68770ea-1102-4568-9e31-b36e0c9bff2b",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "reset"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 4837,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fc544739-59f8-4636-874c-cd5b2f89c349",
+          "name": "Regenerate the connection code for a live stream",
+          "request": {
+            "name": "Regenerate the connection code for a live stream",
+            "description": {
+              "content": "This operation regenerates the connection code of a live stream.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "live_streams",
+                ":id",
+                "regenerate_connection_code"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "742c07b4-1e1d-4f00-a11d-891f58bdc20c",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "regenerate_connection_code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"live_stream\": {\n    \"connection_code\": \"0cd2e8\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2134e910-ee4d-49e8-83e8-32323c38a8b7",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "regenerate_connection_code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 5505,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "81afa9c4-423d-4863-b72f-f2b9d4ff647e",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "regenerate_connection_code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 1494,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "07410a6d-ec0d-4d5f-8143-e1ee0e89bc8b",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "regenerate_connection_code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 6390,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ffcca598-43c0-40f6-aa1d-ccad0f916013",
+              "name": "Gone",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "regenerate_connection_code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Gone",
+              "code": 410,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 6231,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2078c676-0938-4f6f-aadb-16db638eea88",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "regenerate_connection_code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 4837,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7c0d4d44-4831-49c8-97cf-0b747183717e",
+          "name": "Fetch the thumbnail URL of a live stream",
+          "request": {
+            "name": "Fetch the thumbnail URL of a live stream",
+            "description": {
+              "content": "This operation shows the thumbnail URL of a started live stream.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "live_streams",
+                ":id",
+                "thumbnail_url"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "78154c9c-7f72-4fc7-9268-5030be5b4ff1",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "thumbnail_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"live_stream\": {\n    \"thumbnail_url\": \"https://cloud.wowza.com/proxy/stats/?target=10.11.12.13&app=app-B8P6K226&stream=99b62146@130135.stream&media=json\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "00a47766-a08a-4497-ac5b-54a9887e31ef",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "thumbnail_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 5505,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab873132-9477-420e-bca9-0bf6ab81de53",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "thumbnail_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 1494,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e66020c7-1bcd-434b-94e8-629eb7a6283e",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "thumbnail_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 6390,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d8f1eca4-450d-4c35-b891-d22f8a872e06",
+              "name": "Gone",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "thumbnail_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Gone",
+              "code": 410,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 6231,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ef36e428-c282-45c6-bd39-50c4fba7b447",
+          "name": "Fetch the state of a live stream",
+          "request": {
+            "name": "Fetch the state of a live stream",
+            "description": {
+              "content": "This operation shows the current state of a live stream.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "live_streams",
+                ":id",
+                "state"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "41fdeef9-970d-4d04-9886-114c9b533fe0",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "state"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"live_stream\": {\n    \"ip_address\": \"0.0.0.0\",\n    \"state\": \"stopped\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c5af79a-13b2-44eb-b013-57a6d238e51e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "state"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 5505,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1ed38f90-89b8-4332-bb58-38e8965c09a2",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "state"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 1494,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "67762353-b82f-44db-99b1-0f2caae1e6e7",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "state"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 6390,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "40d188b3-32b4-45af-9b6d-110fff23a633",
+              "name": "Gone",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live_streams",
+                    ":id",
+                    "state"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique alphanumeric string that identifies the live stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Gone",
+              "code": 410,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": 6231,\n    \"code\": \"\",\n    \"title\": \"\",\n    \"message\": \"\",\n    \"description\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8087",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "efe81eb6-d1ea-4604-966d-f6d97e77e122",
+    "name": "Wowza Streaming Engine REST advanced_token_authentication live_streams API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.\n\nContact Support:\n Name: Wowza Media Systems",
+      "type": "text/plain"
+    }
+  }
+}
