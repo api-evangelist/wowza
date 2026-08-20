@@ -21,6 +21,31 @@ tags:
   - Video
   - Streaming
   - Live Streaming
+  - Video-on-Demand
+  - Transcoding
+  - Media Server
+  - RTMP
+  - RTSP
+  - SRT
+  - WebRTC
+  - HLS
+  - MPEG-DASH
+  - Real-Time Streaming
+  - Low Latency
+  - Video Player
+  - HTML5 Player
+  - DRM
+  - CDN
+  - Video Analytics
+  - QoE
+  - Webhook
+  - Edge
+  - Surveillance
+  - OTT
+tags_raw:
+  - Video
+  - Streaming
+  - Live Streaming
   - Video On Demand
   - Transcoding
   - Media Server
@@ -172,7 +197,8 @@ apis:
     \ target=\"_blank\">how to embed the player and video</a>\"."
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
-  tags:
+  tags: []
+  tags_raw:
   - advanced_token_authentication
   properties:
   - type: OpenAPI
@@ -211,7 +237,8 @@ apis:
   description: Operations related to engagement analytics for a VOD stream.
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
-  tags:
+  tags: []
+  tags_raw:
   - analytics_engagement
   properties:
   - type: OpenAPI
@@ -250,7 +277,8 @@ apis:
   description: Operations related to ingest analytics for a live stream.
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
-  tags:
+  tags: []
+  tags_raw:
   - analytics_ingest
   properties:
   - type: OpenAPI
@@ -289,7 +317,8 @@ apis:
   description: Operations related to popularity analytics.
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
-  tags:
+  tags: []
+  tags_raw:
   - analytics_popularity
   properties:
   - type: OpenAPI
@@ -328,7 +357,8 @@ apis:
   description: Operations related to viewer analytics.
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
-  tags:
+  tags: []
+  tags_raw:
   - analytics_viewers
   properties:
   - type: OpenAPI
@@ -368,6 +398,8 @@ apis:
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
   tags:
+  - Application
+  tags_raw:
   - Applications
   properties:
   - type: OpenAPI
@@ -413,6 +445,8 @@ apis:
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
   tags:
+  - Assets
+  tags_raw:
   - assets
   properties:
   - type: OpenAPI
@@ -452,6 +486,8 @@ apis:
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
   tags:
+  - Categories
+  tags_raw:
   - categories
   properties:
   - type: OpenAPI
@@ -534,6 +570,8 @@ apis:
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
   tags:
+  - Live Streams
+  tags_raw:
   - live_streams
   properties:
   - type: OpenAPI
@@ -620,6 +658,8 @@ apis:
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
   tags:
+  - Players
+  tags_raw:
   - players
   properties:
   - type: OpenAPI
@@ -659,6 +699,8 @@ apis:
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
   tags:
+  - Quality of Experience
+  tags_raw:
   - quality_of_experience
   properties:
   - type: OpenAPI
@@ -706,6 +748,8 @@ apis:
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
   tags:
+  - Real-Time
+  tags_raw:
   - real_time
   properties:
   - type: OpenAPI
@@ -751,6 +795,8 @@ apis:
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
   tags:
+  - Recordings
+  tags_raw:
   - recordings
   properties:
   - type: OpenAPI
@@ -834,6 +880,8 @@ apis:
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
   tags:
+  - Schedules
+  tags_raw:
   - schedules
   properties:
   - type: OpenAPI
@@ -1425,6 +1473,8 @@ apis:
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
   tags:
+  - Storage
+  tags_raw:
   - storage
   properties:
   - type: OpenAPI
@@ -1470,6 +1520,8 @@ apis:
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
   tags:
+  - Stream Sources
+  tags_raw:
   - stream_sources
   properties:
   - type: OpenAPI
@@ -1517,7 +1569,8 @@ apis:
     \ streams to viewers. You manually create custom stream targets and associate them to a transcoder."
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
-  tags:
+  tags: []
+  tags_raw:
   - stream_targets
   properties:
   - type: OpenAPI
@@ -1619,7 +1672,8 @@ apis:
   description: Operations related to stream analytics for an account.
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
-  tags:
+  tags: []
+  tags_raw:
   - usage_account
   properties:
   - type: OpenAPI
@@ -1659,6 +1713,8 @@ apis:
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
   tags:
+  - Usage
+  tags_raw:
   - usage
   properties:
   - type: OpenAPI
@@ -1697,7 +1753,8 @@ apis:
   description: Operations related to real-time streams analytics.
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
-  tags:
+  tags: []
+  tags_raw:
   - usage_real_time_streams
   properties:
   - type: OpenAPI
@@ -1736,7 +1793,8 @@ apis:
   description: Operations related to transcoder analytics.
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
-  tags:
+  tags: []
+  tags_raw:
   - usage_transcoders
   properties:
   - type: OpenAPI
@@ -1779,7 +1837,8 @@ apis:
     Operations related to video on demand (VOD) stream analytics.
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
-  tags:
+  tags: []
+  tags_raw:
   - usage_vod_streams
   properties:
   - type: OpenAPI
@@ -1819,6 +1878,8 @@ apis:
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
   tags:
+  - Videos
+  tags_raw:
   - videos
   properties:
   - type: OpenAPI
@@ -1902,7 +1963,8 @@ apis:
     \ to learn more."
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
-  tags:
+  tags: []
+  tags_raw:
   - vod_streams
   properties:
   - type: OpenAPI
@@ -1942,6 +2004,8 @@ apis:
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
