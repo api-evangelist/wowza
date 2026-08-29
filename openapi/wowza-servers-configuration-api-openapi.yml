@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Wowza Streaming Engine REST advanced_token_authentication Servers Configuration API
+  title: Wowza Streaming Engine REST Servers Configuration API
   description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
   version: 2.0.0
   contact:
@@ -614,51 +614,13 @@ paths:
           description: Internal server error
 components:
   schemas:
-    SourceDriverNamesList:
+    ServersConfig:
       type: object
       properties:
-        serverName:
-          type: string
-        saveFieldList:
+        servers:
           type: array
           items:
-            type: string
-        list:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - list
-    ServerLogFilesConfig:
-      type: object
-      properties:
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-        serverLogFiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/ServerLogShortObject'
-      required:
-      - version
-      - serverName
-      - serverLogFiles
-    ServerListenersConfig:
-      type: object
-      properties:
-        serverListeners:
-          type: array
-          items:
-            $ref: '#/components/schemas/ServerListenerConfig'
+            $ref: '#/components/schemas/ServerConfig'
         serverName:
           type: string
         saveFieldList:
@@ -670,72 +632,7 @@ components:
       required:
       - version
       - serverName
-      - serverListeners
-    ServerLogsConfig:
-      type: object
-      properties:
-        endOffset:
-          type: integer
-          format: int64
-        logStartDate:
-          type: string
-        logDate:
-          type: string
-        endDate:
-          type: string
-        serverName:
-          type: string
-        version:
-          type: string
-        logLines:
-          type: array
-          items:
-            type: string
-        filterStr:
-          type: string
-        retLineCount:
-          type: integer
-          format: int64
-        logFields:
-          type: string
-        logSoftware:
-          type: string
-        startOffset:
-          type: integer
-          format: int64
-        searchStr:
-          type: string
-        regexSearch:
-          type: boolean
-        logVersion:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        fileLength:
-          type: integer
-          format: int64
-        startDate:
-          type: string
-      required:
-      - version
-      - serverName
-      - retLineCount
-      - startOffset
-      - endOffset
-      - fileLength
-      - filterStr
-      - logFields
-      - logVersion
-      - logStartDate
-      - logSoftware
-      - logDate
-      - logLines
-      - searchStr
-      - regexSearch
-      - startDate
-      - endDate
+      - servers
     ServerLogFileConfig:
       type: object
       properties:
@@ -801,6 +698,160 @@ components:
       - regexSearch
       - startDate
       - endDate
+    SourceDriverNamesList:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        list:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - list
+    ServerConfigAdv:
+      type: object
+      properties:
+        serverListeners:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServerListenerConfig'
+        advancedSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedSetting'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - advancedSettings
+      - serverListeners
+    AdvancedSetting:
+      type: object
+      properties:
+        sectionName:
+          type: string
+        canRemove:
+          type: boolean
+        defaultValue:
+          type: string
+        documented:
+          type: boolean
+        name:
+          type: string
+        section:
+          type: string
+        type:
+          type: string
+        value:
+          type: string
+        initialValue:
+          type: string
+        enabled:
+          type: boolean
+      required:
+      - enabled
+      - canRemove
+      - name
+      - value
+      - defaultValue
+      - type
+      - sectionName
+      - section
+      - documented
+      - initialValue
+    ServerListenerConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        baseClass:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        order:
+          type: integer
+          format: int32
+      required:
+      - version
+      - serverName
+      - order
+      - baseClass
+    ServerLogFilesConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        serverLogFiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServerLogShortObject'
+      required:
+      - version
+      - serverName
+      - serverLogFiles
+    ServerLogShortObject:
+      type: object
+      properties:
+        fileSize:
+          type: integer
+          format: int64
+        startDateMS:
+          type: integer
+          format: int64
+        id:
+          type: string
+        href:
+          type: string
+      required:
+      - id
+      - href
+      - fileSize
+      - startDateMS
+    ServerListenersConfig:
+      type: object
+      properties:
+        serverListeners:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServerListenerConfig'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - serverListeners
     ServerConfig:
       type: object
       properties:
@@ -863,24 +914,123 @@ components:
       - serverId1
       - serverId2
       - serverTS
-    ServerLogShortObject:
+    VHostListenersConfig:
       type: object
       properties:
-        fileSize:
-          type: integer
-          format: int64
-        startDateMS:
-          type: integer
-          format: int64
-        id:
+        serverName:
           type: string
-        href:
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        vhostListeners:
+          type: array
+          items:
+            $ref: '#/components/schemas/VHostListenerConfig'
+        version:
           type: string
       required:
-      - id
-      - href
-      - fileSize
-      - startDateMS
+      - version
+      - serverName
+      - vhostListeners
+    ServerLogsConfig:
+      type: object
+      properties:
+        endOffset:
+          type: integer
+          format: int64
+        logStartDate:
+          type: string
+        logDate:
+          type: string
+        endDate:
+          type: string
+        serverName:
+          type: string
+        version:
+          type: string
+        logLines:
+          type: array
+          items:
+            type: string
+        filterStr:
+          type: string
+        retLineCount:
+          type: integer
+          format: int64
+        logFields:
+          type: string
+        logSoftware:
+          type: string
+        startOffset:
+          type: integer
+          format: int64
+        searchStr:
+          type: string
+        regexSearch:
+          type: boolean
+        logVersion:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        fileLength:
+          type: integer
+          format: int64
+        startDate:
+          type: string
+      required:
+      - version
+      - serverName
+      - retLineCount
+      - startOffset
+      - endOffset
+      - fileLength
+      - filterStr
+      - logFields
+      - logVersion
+      - logStartDate
+      - logSoftware
+      - logDate
+      - logLines
+      - searchStr
+      - regexSearch
+      - startDate
+      - endDate
+    ServerLogTypesConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        serverLogType:
+          type: array
+          items:
+            type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - serverLogType
+    ServerLogFileDownloadConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
     VHostListenerConfig:
       type: object
       properties:
@@ -902,156 +1052,6 @@ components:
       - serverName
       - order
       - baseclass
-    ServerListenerConfig:
-      type: object
-      properties:
-        serverName:
-          type: string
-        baseClass:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-        order:
-          type: integer
-          format: int32
-      required:
-      - version
-      - serverName
-      - order
-      - baseClass
-    VHostListenersConfig:
-      type: object
-      properties:
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        vhostListeners:
-          type: array
-          items:
-            $ref: '#/components/schemas/VHostListenerConfig'
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - vhostListeners
-    ServerConfigAdv:
-      type: object
-      properties:
-        serverListeners:
-          type: array
-          items:
-            $ref: '#/components/schemas/ServerListenerConfig'
-        advancedSettings:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdvancedSetting'
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - advancedSettings
-      - serverListeners
-    ServersConfig:
-      type: object
-      properties:
-        servers:
-          type: array
-          items:
-            $ref: '#/components/schemas/ServerConfig'
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - servers
-    AdvancedSetting:
-      type: object
-      properties:
-        sectionName:
-          type: string
-        canRemove:
-          type: boolean
-        defaultValue:
-          type: string
-        documented:
-          type: boolean
-        name:
-          type: string
-        section:
-          type: string
-        type:
-          type: string
-        value:
-          type: string
-        initialValue:
-          type: string
-        enabled:
-          type: boolean
-      required:
-      - enabled
-      - canRemove
-      - name
-      - value
-      - defaultValue
-      - type
-      - sectionName
-      - section
-      - documented
-      - initialValue
-    ServerLogFileDownloadConfig:
-      type: object
-      properties:
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-    ServerLogTypesConfig:
-      type: object
-      properties:
-        serverName:
-          type: string
-        serverLogType:
-          type: array
-          items:
-            type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - serverLogType
   securitySchemes:
     basicAuth:
       type: http

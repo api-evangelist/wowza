@@ -1,19 +1,13 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Wowza Streaming Engine REST advanced_token_authentication stream_targets API
-  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
-  version: 2.0.0
-  contact:
-    name: Wowza Media Systems
-    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  version: v2.0
+  title: Wowza Video REST API Reference Documentation Stream Targets API
   license:
-    name: Wowza Media Systems
-    url: https://www.wowza.com
+    name: Terms of Use
+    url: https://www.wowza.com/legal/terms-of-use
+  description: "API lifecycle phase: [Current](https://www.wowza.com/docs/wowza-video-rest-api-lifecycle-management#api-lifecycle0)\n\n\n<table>\n<tr style=\"background-color:lightgrey;\"><td>\n<strong>Want to take the API for a test run?</strong>\n\nAll you'll need is a [Wowza Video subscription](https://www.wowza.com/pricing), or [free trial](https://www.wowza.com/free-trial), for the API access token. Then, fork [our collection in Postman](https://www.postman.com/wowzavideo/workspace/wowza-video-rest-api) and you'll be\nmaking calls to our REST API in minutes!\n\nSee [Trial the Wowza Video REST API using Postman](https://www.wowza.com/docs/trial-the-wowza-video-rest-api-using-postman) for more information.\n</td>\n</tr>\n</table>\n\n\nThis reference documentation provides details about the operations, parameters, and request and response schemas for every resource and endpoint in the Wowza Video REST API.\nSamples appear in the right column. Sample requests are presented in cURL (Shell) and JavaScript; some samples also include just the JSON object. Response samples are all JSON. \nExamples in cURL use environment variables so you can easily copy and paste them. To learn more, see [Using cURL](https://wowza.com/docs/how-to-use-the-wowza-video-rest-api#curl).\n\n\nReference documentation is available for every version of the API. Use the **Version** menu at the top of the page to access the reference doc for a different version of the API.\n\n<blockquote><strong>Note</strong>: If you haven't moved over to the new Wowza Video UI experience, you won't be able to access v2.0 of the API. We're migrating customers iteratively. See <a href=\"https://developer.wowza.com/docs/wowza-video/upgrade-to-wowza-video/\">Upgrade to the Wowza Video 2.0 REST API</a> for more information.</blockquote>\n"
 servers:
-- url: http://localhost:8087
-  description: Wowza Streaming Engine Server
-security:
-- basicAuth: []
+- url: https://api.video.wowza.com/api/v2.0
 tags:
 - name: stream_targets
   description: "Operations related to stream targets. A stream target is a destination for a stream. Stream targets can be Wowza Video edge resources; custom, external destinations, target destinations.\n \n ### Wowza CDN Stream Targets\n Wowza CDN stream targets distribute streams to players. When you create a live stream in the API, a Wowza CDN stream target is created automatically. \n \n \n In contrast, you can use ``/stream_targets/wowza_cdn`` endpoints to manually create Wowza CDN stream targets and associate them with transcoders.\n \n \n With Wowza CDN stream targets, you can use geo-blocking to control locations where your stream can be viewed, and you can use token authentication to restrict access to streams. Advanced configuration properties are available for Wowza CDN stream targets.\n \n ### Custom Stream Targets\n Custom stream targets connect to external CDNs to deliver streams to viewers. You manually create custom stream targets and associate them to a transcoder."
@@ -871,39 +865,601 @@ paths:
                 $ref: '#/components/schemas/Error422'
 components:
   schemas:
-    stream_target_properties_create_input_response:
+    stream_target_custom:
       type: object
-      title: properties
+      description: ''
+      properties:
+        backup_url:
+          type: string
+          description: The backup ingest URL for a custom stream target. Not for use with the akamai_cupertino custom *provider*.
+          example: ''
+        created_at:
+          type: string
+          description: The date and time that the custom stream target was created.
+          example: ''
+          format: date-time
+        delivery_protocols:
+          type: array
+          description: An array of the delivery protocols available for this stream target. Available from version 1.7.
+          example: ''
+          items:
+            type: string
+        id:
+          type: string
+          description: The unique alphanumeric string that identifies the custom stream target.
+          example: ''
+        name:
+          type: string
+          description: A descriptive name for the custom stream target. Maximum 255 characters.
+          example: ''
+        password:
+          type: string
+          description: A *username* must be present. The password associated with the target username for RTMP authentication. Not for use with the akamai_cupertino custom *provider*.
+          example: ''
+        playback_urls:
+          type: object
+          description: Web addresses that the target uses to play streams. Available from version 1.7.
+          properties:
+            hls:
+              type: array
+              description: Web address that the target uses to play HLS streams.
+              items:
+                type: object
+                title: hls
+                properties:
+                  name:
+                    type: string
+                    description: The name of the playback URL.
+                    example: default
+                  url:
+                    type: string
+                    description: The playback URL.
+                    example: ''
+            hds:
+              type: array
+              description: Web address that the target uses to play HDS streams. Not for use with the akamai_cupertino custom *provider*.
+              items:
+                type: object
+                title: hds
+                properties:
+                  name:
+                    type: string
+                    description: The name of the playback URL.
+                    example: default
+                  url:
+                    type: string
+                    description: The playback URL.
+                    example: ''
+            rtmp:
+              type: array
+              description: Web address that the target uses to play RTMP streams.
+              items:
+                type: object
+                title: rtmp
+                properties:
+                  name:
+                    type: string
+                    description: The name of the playback URL.
+                    example: default
+                  url:
+                    type: string
+                    description: The playback URL.
+                    example: ''
+        primary_url:
+          type: string
+          description: The primary ingest URL of the custom stream target.
+          example: ''
+        provider:
+          type: string
+          description: The CDN for the target.
+          example: ''
+        stream_name:
+          type: string
+          description: The name of the stream being ingested into the target.
+          example: ''
+        updated_at:
+          type: string
+          description: The date and time that the custom stream target was updated.
+          example: ''
+          format: date-time
+        username:
+          type: string
+          description: The username or ID that the target uses for RTMP authentication. Not for use with the akamai_cupertino custom *provider*.
+          example: ''
+      example:
+        created_at: '2020-01-28T17:16:22.011Z'
+        delivery_protocols:
+        - rtmp
+        id: RMS45lfvx
+        name: My Custom Stream Target
+        playback_urls:
+          rtmp:
+          - name: default
+            url: rtmp://cp123456.live.edgefcs.net/live/[EVENT]@654321
+        primary_url: rtmp://p.ep123456.i.akamaientrypoint.net/EntryPoint
+        provider: rtmp
+        stream_name: c8467d50@123456
+        updated_at: '2020-01-30T19:14:11.011Z'
+    custom_stream_target_input:
+      type: object
       description: ''
       required:
-      - properties
+      - stream_target_custom
       properties:
-        properties:
-          type: array
-          description: An array of properties. The property configuration consists of a key/value pair and the section of the stream target configuration table the key/value pair is stored in. You can only set an array of properties on a Fastly or Akamai stream target. Available from version 1.7.
-          items:
-            $ref: '#/components/schemas/stream_target_property'
-      example:
-        properties:
-        - key: acao
-          section: hls
-          value: http://www.example.com
-        - key: chunkSize
-          section: hls
-          value: 6
-        - key: relativePlaylists
-          section: playlist
-          value: true
-    custom_stream_target_create_input:
+        stream_target_custom:
+          type: object
+          title: stream_target_custom
+          description: ''
+          required:
+          - name
+          - primary_url
+          - provider
+          - stream_name
+          properties:
+            name:
+              type: string
+              description: A descriptive name for the custom stream target. Maximum 255 characters.
+              example: My Custom Stream Target
+            primary_url:
+              type: string
+              description: The primary RTMP ingest URL. Hostnames can't contain underscores.
+              example: rtmp://p.ep337857.i.akamaientrypoint.net/EntryPoint
+            provider:
+              type: string
+              description: The CDN for the target.
+              example: rtmp
+              enum:
+              - akamai_cupertino
+              - rtmp
+              - rtmps
+            stream_name:
+              type: string
+              description: The name of the stream as defined in the target's ingestion settings. The protocol, host name, and path components of the stream name URL must be 255 characters or less. The query strings and parameter components of the stream name URL must be 1024 characters or less.
+              example: c8467d50@337857
+            backup_url:
+              type: string
+              description: 'The backup RTMP ingest URL of the custom stream target. Not all providers or third-party CDNs provide backup URLs. Not for use with the akamai_cuptertino custom *provider*.
+
+
+                **Note:** When both the primary and backup URLs are used, Wowza Video sends the stream to both URLs, allowing a provider or 3rd party CDN to improve reliability and prevent playback disruption. If you want to use both URLs, make sure you add the stream target to the output rendition twice, once with *use_stream_target_backup_url* as **false** (the default) and once with *use_stream_target_backup_url* as **true**. See <a href="https://api.docs.video.wowza.com/index/current/tag/transcoders/#tag/transcoders/operation/createTranscoderOutputOutputStreamTarget">POST /transcoders/[ID]/outputs/[ID]/output_stream_targets</a> for more information.
+
+
+                **Example:** <code>"backup_url": "rtmp://b.ep337857.i.akamaientrypoint.net/EntryPoint"</code>'
+              example: rtmp://b.ep337857.i.akamaientrypoint.net/EntryPoint
+            playback_urls:
+              type: object
+              title: Hash of playback URLs
+              description: 'Web addresses that the target uses to play streams. Available from version 1.7.
+
+
+                **Example:** See response body sample'
+              properties:
+                hls:
+                  type: string
+                  description: Web address that the target uses to play HLS streams. <br/><br/> The format is a hash where the key is **hls** and the value is the playback URL. <br/>Example&#58; "hls":&nbsp;"http&#58;//&lt;*domain*&gt;/master.m3u8"
+                hds:
+                  type: string
+                  description: Web address that the target uses to play HDS streams. Not for use with the akamai_cupertino custom *provider*. <br/><br/>The format is a hash where the key is **hds** and the value is the playback URL. <br/>Example&#58; "hds":&nbsp;"http&#58;//&lt;*domain*&gt;/manifest.f4m"
+                rtmp:
+                  type: string
+                  description: Web address that the target uses to play RTMP streams. <br/><br/>The format is a hash where the key is **rtmp** and the value is the playback URL. <br/>Example&#58; "rtmp":&nbsp;"rtmp&#58;//cp319499.live.edgefcs.net/live/c9467d50@337857"
+            password:
+              type: string
+              description: 'A *username* must also be present. The password associated with the target username for RTMP authentication. Not for use with the akamai_cupertino custom *provider*.
+
+                **Example:** <code>"password": "cb1e77e98d"</code>'
+              example: cb1e77e98d
+            username:
+              type: string
+              description: The username or ID that the target uses for RTMP authentication. Not for use with the akamai_cupertino custom *provider*.
+              example: '319699'
+    fastly_stream_target_create_input:
       description: ''
       allOf:
-      - $ref: '#/components/schemas/custom_stream_target_input'
+      - $ref: '#/components/schemas/fastly_stream_target_input'
       example:
-        stream_target_custom:
-          name: My Custom Stream Target
-          primary_url: rtmp://p.ep123456.i.akamaientrypoint.net/EntryPoint
-          provider: rtmp
-          stream_name: c8467d50@123456
+        stream_target_wowza_cdn:
+          name: My Wowza CDN Stream Target
+    stream_target_property:
+      type: object
+      title: property
+      description: A stream target property. The property configuration consists of a key/value pair and the section of the stream target configuration table the key/value pair is stored in.
+      required:
+      - key
+      - section
+      - value
+      properties:
+        key:
+          type: string
+          description: 'The key of the property.
+
+
+            The following table lists the available property keys.
+
+
+            Key | Description
+
+            ----------------|-------------
+
+            **acao** | Explicitly specifies the origin that can access the stream. While most streams won''t need the origin explicitly set, you might use this property for older players that don''t send the Referer header in their stream request. <br/><br/>**Available on these targets types:** Wowza CDN on Fastly
+
+            **chunkSize** | Defines the duration of the time-based audio and video chunks that Wowza Video delivers to the target. <br/><br/>**Available on these targets types:** Wowza CDN on Fastly, Custom: akamai_cupertino
+
+            **convertAMFData** | Determines whether Wowza Video converts incoming AMF data into ID3 tags. <br/><br/>**Available on these targets types:** Wowza CDN on Fastly, Custom: akamai_cupertino
+
+            **playlistSeconds** | Defines the maximum allowable length of the playlist. <br/><br/>**Available on these targets types:** Wowza CDN on Fastly, Custom: akamai_cupertino
+
+            **playSSL** | Determines whether Wowza Video sends the stream from the target to the player by using SSL (HTTPS).   <br/><br/>**Available on these targets types:** Custom: akamai_cupertino
+
+            **sendSSL** | Determines whether Wowza Video sends the stream from the transcoder to the target by using SSL (HTTPS).   <br/><br/>**Available on these targets types:** Custom: akamai_cupertino
+
+            **redundantChunklists** | Determines whether Wowza Video creates redundant chunklists within a playlist. If a primary chunklist within a playlist fails, players that support redundancy during playback can switch to the redundant chunklist. <br/><br/> **Note:** Enabling **redundantChunklists** increases playback reliability but doubles egress data usage and associated charges. <br/><br/>**Available on these targets types:** Custom: akamai_cupertino
+
+            **relativePlaylists** | Allows the viewer to watch the stream over HTTP and HTTPS, whichever protocol their browser calls. <br/><br/>**Available on these targets types:** Wowza CDN on Fastly, Custom: akamai_cupertino'
+          example: ''
+          enum:
+          - acao
+          - chunkSize
+          - convertAMFData
+          - sendSSL
+          - playSSL
+          - playlistSeconds
+          - redundantChunklists
+          - relativePlaylists
+        section:
+          type: string
+          description: 'The section of the stream target configuration table that contains the
+
+            property.
+
+
+
+            Section | Valid keys for the section
+
+            ----------------|-------------
+
+            **hls** | **acao**, **chunkSize**, **convertAMFData**, and **sendSSL**
+
+            **playlist** | **playSSL**, **playlistSeconds**, **redundantChunklists**, and **relativePlaylists**'
+          example: ''
+          enum:
+          - hls
+          - playlist
+        value:
+          type: string
+          description: '
+
+            The value of the property.
+
+
+            The following table provides information about valid values for each property key.
+
+
+            Key(s) | Values for the key
+
+            ----------------|-------------
+
+            **acao** | Displays as **http://&lt;_origin_&gt;**
+
+            **chunkSize** | Valid values are the integers **2**, **4**, **6**, **8**, and **10**.
+
+            **convertAMFData** <br/> **playSSL** <br/> **sendSSL** <br/> **redundantChunklists** <br/> **relativePlaylists** | Valid values are the Booleans **true** and **false**.
+
+            **playlistSeconds** | Valid values are any integer between **6** and **28800** (8 hours).'
+          example: ''
+      example:
+        key: chunkSize
+        section: hls
+        value: 6
+    Error403:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 403
+            code: ERR-403-RecordUnaccessible
+            title: Record Unaccessible Error
+            message: The requested resource isn't accessible.
+            description: ''
+            links: []
+    stream_target_linkedin:
+      type: object
+      description: ''
+      properties:
+        title:
+          type: string
+          description: The title of the stream target.
+          example: ''
+        created_at:
+          type: string
+          description: The date and time that the stream target was created.
+          example: ''
+          format: date-time
+        member_type:
+          type: string
+          description: Indicates wethher you're streaming into LinkedIn as a person or organization.
+          example: ''
+          enum:
+          - person
+          - organization
+        id:
+          type: string
+          description: The unique alphanumeric string that identifies the stream target.
+          example: ''
+        name:
+          type: string
+          description: A descriptive name for the stream target. Maximum 255 characters.
+          example: ''
+        description:
+          type: string
+          description: An optional description of the stream target.
+          example: ''
+        region:
+          type: string
+          description: The region that is closest to the broadcast location of your transcoder.
+          example: ''
+          enum:
+          - WEST_US
+          - EAST_US_NORTH
+          - EAST_US_SOUTH
+          - CENTRAL_US
+          - SOUTH_CENTRAL_US
+          - SOUTH_AMERICA
+          - SOUTHEAST_ASIA
+          - CENTRAL_INDIA
+          - NORTH_EUROPE
+          - WEST_EUROPE
+        urn:
+          type: string
+          description: A globally unique alphanumeric identifier used to represent an entity's association in an API.
+        member_description:
+          type: string
+          description: A description of the person or organization.
+          example: ''
+        updated_at:
+          type: string
+          description: The date and time that the stream target was updated.
+          example: ''
+          format: date-time
+        access_token:
+          type: string
+          description: A unique alphanumeric string that allows access to LinkedIn from Wowza Video. When the token expires, you must log in again.
+          example: ''
+      example:
+        id: RMS45lfvx
+        title: LinkedIn Live
+        description: This is my LinkedIn Live stream.
+        region: WEST_EUROPE
+        name: My LinkedIn Stream Target
+        urn: Xd4aGv6ZXR
+        member_type: person
+        member_description: Drew Bennet
+        access_token: AQW4H_TnVj9jgYr7U2WjTTq60R31xsjmSXvdJ_2QHF2h07rqfoa7Jm8fdlV8BHmpOE8cgBGH7e4F8eUcuQrsg_Jam11U4NOdlA7M5C5T6cAwlRJDZ-gGn-eRb97cfqEolZLymX8Mb3RV_DaPCm2NYXsOZUhRbz52cWFnNfdzcFWmo5KqJY8gXD4TwBbNSTu5KW3nRO9X7gQuDSTOvP-IaJFKzSqTxsCDZDrKmi4D9mwPGW1vo9ED4-6CCB9XFGq8Bvn4XOn03AjVY1SM61xP5G5K0aIxM4OnBWgHP3SSEiDpglmrm96mepYc8tuekIsERkaydSfGxTXgOyfKy7kP1HrpXzarBw
+        access_token_expires_at: '2024-12-15'
+        created_at: '2023-01-28T17:16:22.011Z'
+        updated_at: '2024-01-30T19:14:11.011Z'
+    Error401:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 401
+            code: ERR-401-NoApiKey
+            title: No API Key Error
+            message: No API key sent in header.
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 401
+            code: ERR-401-NoAccessKey
+            title: No Access Key Error
+            message: No access key sent in header.
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 401
+            code: ERR-401-InvalidApiKey
+            title: Invalid Api Key Error
+            message: Invalid API key.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 401
+            code: ERR-401-InvalidAccessKey
+            title: Invalid Access Key Error
+            message: Invalid access key.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 401
+            code: ERR-401-BadAccountStatus
+            title: Bad Account Status Error
+            message: Your account's status doesn't allow this action.
+            description: ''
+            links: []
+        Example Response 6:
+          meta:
+            status: 401
+            code: ERR-401-FeatureNotEnabled
+            title: Feature Not Enabled Error
+            message: This feature isn't enabled.
+            description: ''
+            links: []
+        Example Response 7:
+          meta:
+            status: 401
+            code: ERR-401-TrialExceeded
+            title: Bad Billing Status Error
+            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
+            description: ''
+            links: []
+        Example Response 8:
+          meta:
+            status: 401
+            code: ERR-401-ExpiredToken
+            title: JWT is expired
+            message: Token has exired.
+            description: ''
+            links: []
+        Example Response 9:
+          meta:
+            status: 401
+            code: ERR-401-InvalidToken
+            title: JWT is invalid
+            message: Token is invalid.
+            description: ''
+            links: []
+    stream_target_facebook:
+      type: object
+      description: ''
+      properties:
+        title:
+          type: string
+          description: The title of the stream target.
+          example: ''
+        created_at:
+          type: string
+          description: The date and time that the stream target was created.
+          example: ''
+          format: date-time
+        delivery_protocols:
+          type: array
+          description: An array of the delivery protocols available for this stream target.
+          example: ''
+          items:
+            type: string
+        id:
+          type: string
+          description: The unique alphanumeric string that identifies the stream target.
+          example: ''
+        name:
+          type: string
+          description: A descriptive name for the stream target. Maximum 255 characters.
+          example: ''
+        facebook_privacy:
+          type: string
+          description: The Facebook setting that determines who can watch your stream.
+          example: ''
+          enum:
+          - self
+          - all_friends
+          - friends_of_friends
+          - everyone
+        facebook_resource_id:
+          type: integer
+          description: A unique identifier assigned to each individual item (like a post, page, ad, or user) within the Facebook platform.
+        facebook_resource_type:
+          type: string
+          description: The video's destination within Facebook where users can view the stream.
+          example: ''
+        facebook_save_vod:
+          type: boolean
+          description: Whether or not the video data should be saved for later consumption in VOD format. This is set to **true** by default. This can only be set at the time of creation.
+          example: ''
+        updated_at:
+          type: string
+          description: The date and time that the stream target was updated.
+          example: ''
+          format: date-time
+        facebook_token:
+          type: string
+          description: A unique alphanumeric string that identifies a user, app, or page and allows an application to access an API.
+          example: ''
+        type:
+          type: string
+          description: The type of stream target returned.
+          example: ''
+          enum:
+          - FacebookStreamTarget
+      example:
+        created_at: '2020-01-28T17:16:22.011Z'
+        id: RMS45lfvx
+        type: FAcebookStreamTarget
+        name: My Facebook Stream Target
+        title: My Facebook Stream Target
+        description: This is my Facebook stream.
+        delivery_protocols:
+        - rtmp
+        facebook_resource_id: 277111822674604
+        facebook_resource_type: timeline
+        facebook_save_vod: true
+        facebook_token: EAAX01HBCtQ0BO0LTScgBW4OLwqqI9DZAVLwu6lUDbKhfQH5leQnJu3FvNn9d5p32YZAgKZByLUxKiSZCcZBsUm72TPwnW3NiZCgZAKbn8jkvqUE2TRnVZBcSjeSt3eCctlYS8VPfGRm2Sew9h4C4MNvNtS8FuEckrZCE1putjYaPOWzVphAZCDAZBKlw62u
+        facebook_privacy: self
+        updated_at: '2020-01-30T19:14:11.011Z'
     fastly_stream_target_update_input:
       type: object
       description: ''
@@ -1096,6 +1652,447 @@ components:
               example: ''
           example:
             name: My Updated Wowza CDN Stream Target
+    custom_stream_target_patch_response:
+      type: object
+      title: stream_target_custom
+      description: ''
+      properties:
+        backup_url:
+          type: string
+          description: The backup ingest URL for a custom stream target. Not for use with the akamai_cupertino custom *provider*.
+          example: ''
+        created_at:
+          type: string
+          description: The date and time that the custom stream target was created.
+          example: ''
+          format: date-time
+        delivery_protocols:
+          type: array
+          description: An array of the delivery protocols available for this stream target. Available from version 1.7.
+          example: ''
+          items:
+            type: string
+        id:
+          type: string
+          description: The unique alphanumeric string that identifies the custom stream target.
+          example: ''
+        name:
+          type: string
+          description: A descriptive name for the custom stream target. Maximum 255 characters.
+          example: ''
+        password:
+          type: string
+          description: A *username* must be present. The password associated with the target username for RTMP authentication. Not for use with the akamai_cupertino custom *provider*.
+          example: ''
+        playback_urls:
+          type: object
+          description: Web addresses that the target uses to play streams. Available from version 1.7.
+          properties:
+            hls:
+              type: array
+              description: Web address that the target uses to play HLS streams.
+              items:
+                type: object
+                title: hls
+                properties:
+                  name:
+                    type: string
+                    description: The name of the playback URL.
+                    example: default
+                  url:
+                    type: string
+                    description: The playback URL.
+                    example: ''
+            hds:
+              type: array
+              description: Web address that the target uses to play HDS streams. Not for use with the akamai_cupertino custom *provider*.
+              items:
+                type: object
+                title: hds
+                properties:
+                  name:
+                    type: string
+                    description: The name of the playback URL.
+                    example: default
+                  url:
+                    type: string
+                    description: The playback URL.
+                    example: ''
+            rtmp:
+              type: array
+              description: Web address that the target uses to play RTMP streams.
+              items:
+                type: object
+                title: rtmp
+                properties:
+                  name:
+                    type: string
+                    description: The name of the playback URL.
+                    example: default
+                  url:
+                    type: string
+                    description: The playback URL.
+                    example: ''
+        primary_url:
+          type: string
+          description: The primary ingest URL of the custom stream target.
+          example: ''
+        provider:
+          type: string
+          description: The CDN for the target.
+          example: ''
+        stream_name:
+          type: string
+          description: The name of the stream being ingested into the target.
+          example: ''
+        updated_at:
+          type: string
+          description: The date and time that the custom stream target was updated.
+          example: ''
+          format: date-time
+        username:
+          type: string
+          description: he username or ID that the target uses for RTMP authentication. Not for use with the akamai_cupertino custom *provider*.
+          example: ''
+      example:
+        created_at: '2020-01-28T17:16:22.011Z'
+        delivery_protocols:
+        - rtmp
+        id: RMS45lfvx
+        name: My Updated Custom Stream Target
+        playback_urls:
+          rtmp:
+          - name: default
+            url: rtmp://cp123456.live.edgefcs.net/live/[EVENT]@654321
+        primary_url: rtmp://p.ep123456.i.akamaientrypoint.net/EntryPoint
+        provider: rtmp
+        stream_name: c8467d50@123456
+        updated_at: '2020-01-30T19:46:22.012Z'
+    stream_target_properties:
+      type: object
+      title: properties
+      description: ''
+      required:
+      - properties
+      properties:
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/stream_target_property'
+      example:
+        properties:
+        - key: acao
+          section: hls
+          value: http://www.example.com
+        - key: chunkSize
+          section: hls
+          value: 6
+        - key: relativePlaylists
+          section: playlist
+          value: true
+    stream_target_property_create_input_repsonse:
+      type: object
+      title: property
+      description: ''
+      required:
+      - property
+      properties:
+        property:
+          title: property
+          description: A single stream target property.
+          $ref: '#/components/schemas/stream_target_property'
+    stream_target_properties_create_input_response:
+      type: object
+      title: properties
+      description: ''
+      required:
+      - properties
+      properties:
+        properties:
+          type: array
+          description: An array of properties. The property configuration consists of a key/value pair and the section of the stream target configuration table the key/value pair is stored in. You can only set an array of properties on a Fastly or Akamai stream target. Available from version 1.7.
+          items:
+            $ref: '#/components/schemas/stream_target_property'
+      example:
+        properties:
+        - key: acao
+          section: hls
+          value: http://www.example.com
+        - key: chunkSize
+          section: hls
+          value: 6
+        - key: relativePlaylists
+          section: playlist
+          value: true
+    stream_target_properties_create_input:
+      type: object
+      title: properties
+      description: ''
+      required:
+      - properties
+      properties:
+        properties:
+          type: array
+          description: An array of properties. The property configuration consists of a key/value pair and the section of the stream target configuration table the key/value pair is stored in. You can only set an array of properties on a Fastly or Akamai stream target. Available from version 1.7.
+          items:
+            $ref: '#/components/schemas/stream_target_property'
+      example:
+        properties:
+        - key: acao
+          section: hls
+          value: http://www.example.com
+        - key: chunkSize
+          section: hls
+          value: 6
+        - key: relativePlaylists
+          section: playlist
+          value: true
+    stream_targets_custom:
+      type: object
+      description: ''
+      required:
+      - stream_targets_custom
+      properties:
+        stream_targets_custom:
+          type: array
+          items:
+            $ref: '#/components/schemas/index_custom_stream_target'
+      example:
+        stream_targets_custom:
+        - created_at: '2020-01-28T17:16:22.008Z'
+          id: RMS45lfvx
+          name: My Custom Stream Target
+          updated_at: '2020-01-31T00:44:50.008Z'
+        - created_at: '2020-01-28T17:16:22.008Z'
+          id: ABC45lxyz
+          name: My Second Custom Stream Target
+          updated_at: '2020-01-31T02:05:33.008Z'
+    stream_targets_fastly:
+      type: object
+      description: ''
+      required:
+      - stream_targets_wowza_cdn
+      properties:
+        stream_targets_wowza_cdn:
+          type: array
+          items:
+            $ref: '#/components/schemas/index_fastly_stream_target'
+      example:
+        stream_targets_wowza_cdn:
+        - created_at: '2020-01-28T17:16:22.010Z'
+          id: abc45lfyz
+          name: My Wowza CDN Stream Target
+          updated_at: '2020-01-31T12:37:22.010Z'
+        - created_at: '2020-01-28T17:16:22.010Z'
+          id: rdm45lxyz
+          name: My Second Wowza CDN Stream Target
+          updated_at: '2020-01-31T14:17:28.010Z'
+    fastly_stream_target_patch_response:
+      type: object
+      title: stream_target_wowza_cdn
+      description: ''
+      properties:
+        created_at:
+          type: string
+          description: The date and time that the stream target was created.
+          example: ''
+          format: date-time
+        custom_origin_region:
+          type: string
+          description: The region where your Wowza Streaming Engine instance is located. Available from version 1.6.
+          example: ''
+          format: string
+        custom_origin_url:
+          type: string
+          description: The Wowza Streaming Engine instance's domain or IP address. Available from version 1.6.
+          example: ''
+          format: string
+        url_suffix:
+          type: string
+          description: "The path appended to the end of the playback url to make it a valid URL, to have playback throuogh the Wowza Video Flowplayer. This is available for HLS playback only and necessary for stream targets with a custom origin.\n\nYou must have a **url_suffix** to enable the Share Stream feature for this stream target. The Share Stream feature enables you to host the player and use the Wowza Video player for your viewers to view your stream.   \n\nExample: \"custom_origin/cW8JTDFr\""
+          example: ''
+          format: string
+        delivery_protocols:
+          type: array
+          description: An array of the delivery protocols available for this stream target. Available from version 1.7.
+          example: ''
+          items:
+            type: string
+        force_ssl_playback:
+          type: boolean
+          description: If **true**, requires users to play the stream over HTTPS. If **false**, the default, users can play the stream over HTTPS or HTTP.
+          example: ''
+        geoblock_enabled:
+          type: boolean
+          description: If **true**, controls access to the stream from specific locations and, optionally, IP addresses. The default is **false**.
+          example: ''
+        geoblock_by_location:
+          type: string
+          description: Specifies whether to **allow** or **deny** access to the stream from specific locations. The default is **disabled**.
+          example: ''
+          enum:
+          - allow
+          - deny
+          - disabled
+        geoblock_country_codes:
+          type: string
+          description: Required when *geoblock_by_location* is **allow** or **deny**. The locations affected by the geo-blocking. Enter a comma-separated list of capitalized two-letter ISO 3166-1 country codes. For a list, see [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) on Wikipedia.
+          example: ''
+        geoblock_ip_override:
+          type: string
+          description: Specifies whether specific IP addresses can override the locations that are allowed or restricted. **allow** permits access from IP addresses within a location that's been blocked, while **deny** restricts access from IP addresses within locations that are allowed. The default is **disabled**.
+          example: ''
+          enum:
+          - allow
+          - deny
+          - disabled
+        geoblock_ip_addresses:
+          type: string
+          description: Required when *geoblock_ip_override* is **allow** or **deny**. Addresses that can access or restrict the stream even if they're within a specified geo-blocked location. Enter a comma-separated list of IPv4 and IPv6 IP addresses that always allow or deny streaming based on the *geoblock_ip_override* value.
+          example: ''
+        id:
+          type: string
+          description: The unique alphanumeric string that identifies the stream target.
+          example: ''
+        name:
+          type: string
+          description: A descriptive name for the stream target. Maximum 255 characters.
+          example: ''
+        playback_urls:
+          type: object
+          description: Web addresses that the target uses to play streams.
+          properties:
+            hls:
+              type: array
+              description: Web address that the target uses to play HLS streams.
+              items:
+                type: object
+                title: hls
+                properties:
+                  name:
+                    type: string
+                    description: The name of the playback URL.
+                    example: default
+                  url:
+                    type: string
+                    description: The playback URL.
+                    example: ''
+        referer_enabled:
+          type: boolean
+          description: 'If **true**, controls access to the stream from specific domains. The client or player requesting access to the stream must send the Referer header so the origin of the request can be validated. The default is **false**.
+
+
+            **Note:** If you change *referer_enabled* to **false** after configuring the referer policy, then later re-enable it, you''ll need to re-configure the other referer policy values as well.
+
+
+            Available from version 1.7. For more information about the Referer header, see the [HTTP specification](https://tools.ietf.org/html/rfc7231#section-5.5.2).'
+          example: ''
+        referer_allow_empty:
+          type: boolean
+          description: 'The Referer header sent by the client or player can be empty and not identify the origin of the request. The default is **false** when *referer_enabled* is **true**. While less secure, if you know you''ll have viewers with a client or player that won''t send a Referer header, you can specify **true** to allow an empty Referer header so those viewers can still access the stream.
+
+
+            Available from version 1.7.'
+          example: ''
+        referer_policy:
+          type: string
+          description: 'Specifies whether to **allow** or **deny** access to the stream from specific domains. The default is **allow** when *referer_enabled* is **true**. Specify the domains to allow or deny in *referer_domains*.
+
+
+            Available from version 1.7.'
+          example: ''
+          enum:
+          - allow
+          - deny
+        referer_domains:
+          type: string
+          description: 'Domains that are either allowed or blocked from accessing the stream. Enter a comma-separated list of domains that are always allowed or denied access based on the *referer_policy* value. Required when *referer_enabled* is **true**.
+
+
+            We recommend you enter the simplest form of the domain as possible, but you do need to build out the domain to the level of subdomains you want to allow or deny. You can fully express to the subdomain (_mysubdomain.example.com_) to specify that single, specific subdomain or you can use a wildcard (&#42;) to cover all subdomains at a specific level (_&#42;.example.com_).
+
+
+            **Example:** _example.com, *.example.com, *.mysubdomain.example.com_
+
+
+            If you entered the above example value for *referer_domains*, and *referer_policy* is **allow**, the following domains are allowed access to the stream: <ul> <li>https://example.com</li> <li>https://subdomain.example.com, https://subdomain2.example.com, etc.</li> <li>https://subdomainA.mysubdomain.example.com, https://subdomainB.mysubdomain.example.com, etc.</li> </ul>
+
+
+            Available from version 1.7.'
+          example: ''
+        state:
+          type: string
+          description: The state of the stream target.
+          example: ''
+          enum:
+          - activated
+          - archived
+        stream_name:
+          type: string
+          description: The name of the stream being ingested into the target.
+          example: ''
+        token_auth_enabled:
+          type: boolean
+          description: If **true**, token authentication protects the stream by ensuring that it's delivered only to authorized viewers and can't be shared by unauthorized links or player hijacking attacks. The default is **false**.
+          example: ''
+        token_auth_shared_secret:
+          type: string
+          description: The shared secret of the token authentication. Must contain only hexadecimal characters and be an even number of total characters not exceeding 32.
+          example: ''
+        token_auth_playlist_only:
+          type: boolean
+          description: 'If **true**, Wowza Video uses token authentication to protect the master playlist only and leaves individual media playlists and media segments  unprotected. This feature enables playback compatibility with media players that don’t support the *withCredentials* property. It may also be  useful when addressing token auth compatibility issues with specific browsers. The default is **false**.
+
+
+            **Note**: If you''ve enabled MPEG-DASH on your stream target, `token_auth_playlist_only` applies to both the `playlist.m3u8` for HLS and `manifest.mpd` for MPEG-DASH.'
+          example: ''
+        updated_at:
+          type: string
+          description: The date and time that the stream target was updated.
+          example: ''
+          format: date-time
+      example:
+        id: abc45lfyz
+        name: My Updated Wowza CDN Stream Target
+        state: activated
+        stream_name: 9a00105a
+        delivery_protocols:
+        - hls
+        playback_urls:
+          hls:
+          - name: default
+            url: https://wowzasubdomain.wowza.com/1/TWhoL3BiZnJXMFhmNzZVN3JrZDAwUT09/ZmYxSXRrTERrUlk9/hls/live/playlist.m3u8
+        token_auth_enabled: false
+        token_auth_playlist_only: false
+        geoblock_enabled: false
+        referer_enabled: false
+        force_ssl_playback: false
+        created_at: '2020-01-28T17:16:22.086Z'
+        updated_at: '2020-01-30T18:13:55.087Z'
+    stream_targets:
+      type: object
+      description: ''
+      required:
+      - stream_targets
+      properties:
+        stream_targets:
+          type: array
+          items:
+            $ref: '#/components/schemas/index_stream_target'
+      example:
+        stream_targets:
+        - created_at: '2020-01-29T17:16:22.007Z'
+          id: qvvjyjjk
+          name: My RTMP Stream Target
+          state: deactivated
+          type: wowza
+          updated_at: '2020-01-31T02:05:18.007Z'
+        - created_at: '2020-01-28T17:16:22.007Z'
+          id: j75mlh3v
+          name: My HLS Push Stream Target
+          state: activated
+          type: custom
+          updated_at: '2020-01-31T11:02:53.007Z'
     fastly_stream_target_input:
       type: object
       description: ''
@@ -1283,675 +2280,6 @@ components:
 
                 **Example:** <code>"token_auth_playlist_only": true</code>'
               example: ''
-    fastly_stream_target_patch_response:
-      type: object
-      title: stream_target_wowza_cdn
-      description: ''
-      properties:
-        created_at:
-          type: string
-          description: The date and time that the stream target was created.
-          example: ''
-          format: date-time
-        custom_origin_region:
-          type: string
-          description: The region where your Wowza Streaming Engine instance is located. Available from version 1.6.
-          example: ''
-          format: string
-        custom_origin_url:
-          type: string
-          description: The Wowza Streaming Engine instance's domain or IP address. Available from version 1.6.
-          example: ''
-          format: string
-        url_suffix:
-          type: string
-          description: "The path appended to the end of the playback url to make it a valid URL, to have playback throuogh the Wowza Video Flowplayer. This is available for HLS playback only and necessary for stream targets with a custom origin.\n\nYou must have a **url_suffix** to enable the Share Stream feature for this stream target. The Share Stream feature enables you to host the player and use the Wowza Video player for your viewers to view your stream.   \n\nExample: \"custom_origin/cW8JTDFr\""
-          example: ''
-          format: string
-        delivery_protocols:
-          type: array
-          description: An array of the delivery protocols available for this stream target. Available from version 1.7.
-          example: ''
-          items:
-            type: string
-        force_ssl_playback:
-          type: boolean
-          description: If **true**, requires users to play the stream over HTTPS. If **false**, the default, users can play the stream over HTTPS or HTTP.
-          example: ''
-        geoblock_enabled:
-          type: boolean
-          description: If **true**, controls access to the stream from specific locations and, optionally, IP addresses. The default is **false**.
-          example: ''
-        geoblock_by_location:
-          type: string
-          description: Specifies whether to **allow** or **deny** access to the stream from specific locations. The default is **disabled**.
-          example: ''
-          enum:
-          - allow
-          - deny
-          - disabled
-        geoblock_country_codes:
-          type: string
-          description: Required when *geoblock_by_location* is **allow** or **deny**. The locations affected by the geo-blocking. Enter a comma-separated list of capitalized two-letter ISO 3166-1 country codes. For a list, see [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) on Wikipedia.
-          example: ''
-        geoblock_ip_override:
-          type: string
-          description: Specifies whether specific IP addresses can override the locations that are allowed or restricted. **allow** permits access from IP addresses within a location that's been blocked, while **deny** restricts access from IP addresses within locations that are allowed. The default is **disabled**.
-          example: ''
-          enum:
-          - allow
-          - deny
-          - disabled
-        geoblock_ip_addresses:
-          type: string
-          description: Required when *geoblock_ip_override* is **allow** or **deny**. Addresses that can access or restrict the stream even if they're within a specified geo-blocked location. Enter a comma-separated list of IPv4 and IPv6 IP addresses that always allow or deny streaming based on the *geoblock_ip_override* value.
-          example: ''
-        id:
-          type: string
-          description: The unique alphanumeric string that identifies the stream target.
-          example: ''
-        name:
-          type: string
-          description: A descriptive name for the stream target. Maximum 255 characters.
-          example: ''
-        playback_urls:
-          type: object
-          description: Web addresses that the target uses to play streams.
-          properties:
-            hls:
-              type: array
-              description: Web address that the target uses to play HLS streams.
-              items:
-                type: object
-                title: hls
-                properties:
-                  name:
-                    type: string
-                    description: The name of the playback URL.
-                    example: default
-                  url:
-                    type: string
-                    description: The playback URL.
-                    example: ''
-        referer_enabled:
-          type: boolean
-          description: 'If **true**, controls access to the stream from specific domains. The client or player requesting access to the stream must send the Referer header so the origin of the request can be validated. The default is **false**.
-
-
-            **Note:** If you change *referer_enabled* to **false** after configuring the referer policy, then later re-enable it, you''ll need to re-configure the other referer policy values as well.
-
-
-            Available from version 1.7. For more information about the Referer header, see the [HTTP specification](https://tools.ietf.org/html/rfc7231#section-5.5.2).'
-          example: ''
-        referer_allow_empty:
-          type: boolean
-          description: 'The Referer header sent by the client or player can be empty and not identify the origin of the request. The default is **false** when *referer_enabled* is **true**. While less secure, if you know you''ll have viewers with a client or player that won''t send a Referer header, you can specify **true** to allow an empty Referer header so those viewers can still access the stream.
-
-
-            Available from version 1.7.'
-          example: ''
-        referer_policy:
-          type: string
-          description: 'Specifies whether to **allow** or **deny** access to the stream from specific domains. The default is **allow** when *referer_enabled* is **true**. Specify the domains to allow or deny in *referer_domains*.
-
-
-            Available from version 1.7.'
-          example: ''
-          enum:
-          - allow
-          - deny
-        referer_domains:
-          type: string
-          description: 'Domains that are either allowed or blocked from accessing the stream. Enter a comma-separated list of domains that are always allowed or denied access based on the *referer_policy* value. Required when *referer_enabled* is **true**.
-
-
-            We recommend you enter the simplest form of the domain as possible, but you do need to build out the domain to the level of subdomains you want to allow or deny. You can fully express to the subdomain (_mysubdomain.example.com_) to specify that single, specific subdomain or you can use a wildcard (&#42;) to cover all subdomains at a specific level (_&#42;.example.com_).
-
-
-            **Example:** _example.com, *.example.com, *.mysubdomain.example.com_
-
-
-            If you entered the above example value for *referer_domains*, and *referer_policy* is **allow**, the following domains are allowed access to the stream: <ul> <li>https://example.com</li> <li>https://subdomain.example.com, https://subdomain2.example.com, etc.</li> <li>https://subdomainA.mysubdomain.example.com, https://subdomainB.mysubdomain.example.com, etc.</li> </ul>
-
-
-            Available from version 1.7.'
-          example: ''
-        state:
-          type: string
-          description: The state of the stream target.
-          example: ''
-          enum:
-          - activated
-          - archived
-        stream_name:
-          type: string
-          description: The name of the stream being ingested into the target.
-          example: ''
-        token_auth_enabled:
-          type: boolean
-          description: If **true**, token authentication protects the stream by ensuring that it's delivered only to authorized viewers and can't be shared by unauthorized links or player hijacking attacks. The default is **false**.
-          example: ''
-        token_auth_shared_secret:
-          type: string
-          description: The shared secret of the token authentication. Must contain only hexadecimal characters and be an even number of total characters not exceeding 32.
-          example: ''
-        token_auth_playlist_only:
-          type: boolean
-          description: 'If **true**, Wowza Video uses token authentication to protect the master playlist only and leaves individual media playlists and media segments  unprotected. This feature enables playback compatibility with media players that don’t support the *withCredentials* property. It may also be  useful when addressing token auth compatibility issues with specific browsers. The default is **false**.
-
-
-            **Note**: If you''ve enabled MPEG-DASH on your stream target, `token_auth_playlist_only` applies to both the `playlist.m3u8` for HLS and `manifest.mpd` for MPEG-DASH.'
-          example: ''
-        updated_at:
-          type: string
-          description: The date and time that the stream target was updated.
-          example: ''
-          format: date-time
-      example:
-        id: abc45lfyz
-        name: My Updated Wowza CDN Stream Target
-        state: activated
-        stream_name: 9a00105a
-        delivery_protocols:
-        - hls
-        playback_urls:
-          hls:
-          - name: default
-            url: https://wowzasubdomain.wowza.com/1/TWhoL3BiZnJXMFhmNzZVN3JrZDAwUT09/ZmYxSXRrTERrUlk9/hls/live/playlist.m3u8
-        token_auth_enabled: false
-        token_auth_playlist_only: false
-        geoblock_enabled: false
-        referer_enabled: false
-        force_ssl_playback: false
-        created_at: '2020-01-28T17:16:22.086Z'
-        updated_at: '2020-01-30T18:13:55.087Z'
-    stream_target_facebook:
-      type: object
-      description: ''
-      properties:
-        title:
-          type: string
-          description: The title of the stream target.
-          example: ''
-        created_at:
-          type: string
-          description: The date and time that the stream target was created.
-          example: ''
-          format: date-time
-        delivery_protocols:
-          type: array
-          description: An array of the delivery protocols available for this stream target.
-          example: ''
-          items:
-            type: string
-        id:
-          type: string
-          description: The unique alphanumeric string that identifies the stream target.
-          example: ''
-        name:
-          type: string
-          description: A descriptive name for the stream target. Maximum 255 characters.
-          example: ''
-        facebook_privacy:
-          type: string
-          description: The Facebook setting that determines who can watch your stream.
-          example: ''
-          enum:
-          - self
-          - all_friends
-          - friends_of_friends
-          - everyone
-        facebook_resource_id:
-          type: integer
-          description: A unique identifier assigned to each individual item (like a post, page, ad, or user) within the Facebook platform.
-        facebook_resource_type:
-          type: string
-          description: The video's destination within Facebook where users can view the stream.
-          example: ''
-        facebook_save_vod:
-          type: boolean
-          description: Whether or not the video data should be saved for later consumption in VOD format. This is set to **true** by default. This can only be set at the time of creation.
-          example: ''
-        updated_at:
-          type: string
-          description: The date and time that the stream target was updated.
-          example: ''
-          format: date-time
-        facebook_token:
-          type: string
-          description: A unique alphanumeric string that identifies a user, app, or page and allows an application to access an API.
-          example: ''
-        type:
-          type: string
-          description: The type of stream target returned.
-          example: ''
-          enum:
-          - FacebookStreamTarget
-      example:
-        created_at: '2020-01-28T17:16:22.011Z'
-        id: RMS45lfvx
-        type: FAcebookStreamTarget
-        name: My Facebook Stream Target
-        title: My Facebook Stream Target
-        description: This is my Facebook stream.
-        delivery_protocols:
-        - rtmp
-        facebook_resource_id: 277111822674604
-        facebook_resource_type: timeline
-        facebook_save_vod: true
-        facebook_token: EAAX01HBCtQ0BO0LTScgBW4OLwqqI9DZAVLwu6lUDbKhfQH5leQnJu3FvNn9d5p32YZAgKZByLUxKiSZCcZBsUm72TPwnW3NiZCgZAKbn8jkvqUE2TRnVZBcSjeSt3eCctlYS8VPfGRm2Sew9h4C4MNvNtS8FuEckrZCE1putjYaPOWzVphAZCDAZBKlw62u
-        facebook_privacy: self
-        updated_at: '2020-01-30T19:14:11.011Z'
-    stream_target_linkedin:
-      type: object
-      description: ''
-      properties:
-        title:
-          type: string
-          description: The title of the stream target.
-          example: ''
-        created_at:
-          type: string
-          description: The date and time that the stream target was created.
-          example: ''
-          format: date-time
-        member_type:
-          type: string
-          description: Indicates wethher you're streaming into LinkedIn as a person or organization.
-          example: ''
-          enum:
-          - person
-          - organization
-        id:
-          type: string
-          description: The unique alphanumeric string that identifies the stream target.
-          example: ''
-        name:
-          type: string
-          description: A descriptive name for the stream target. Maximum 255 characters.
-          example: ''
-        description:
-          type: string
-          description: An optional description of the stream target.
-          example: ''
-        region:
-          type: string
-          description: The region that is closest to the broadcast location of your transcoder.
-          example: ''
-          enum:
-          - WEST_US
-          - EAST_US_NORTH
-          - EAST_US_SOUTH
-          - CENTRAL_US
-          - SOUTH_CENTRAL_US
-          - SOUTH_AMERICA
-          - SOUTHEAST_ASIA
-          - CENTRAL_INDIA
-          - NORTH_EUROPE
-          - WEST_EUROPE
-        urn:
-          type: string
-          description: A globally unique alphanumeric identifier used to represent an entity's association in an API.
-        member_description:
-          type: string
-          description: A description of the person or organization.
-          example: ''
-        updated_at:
-          type: string
-          description: The date and time that the stream target was updated.
-          example: ''
-          format: date-time
-        access_token:
-          type: string
-          description: A unique alphanumeric string that allows access to LinkedIn from Wowza Video. When the token expires, you must log in again.
-          example: ''
-      example:
-        id: RMS45lfvx
-        title: LinkedIn Live
-        description: This is my LinkedIn Live stream.
-        region: WEST_EUROPE
-        name: My LinkedIn Stream Target
-        urn: Xd4aGv6ZXR
-        member_type: person
-        member_description: Drew Bennet
-        access_token: AQW4H_TnVj9jgYr7U2WjTTq60R31xsjmSXvdJ_2QHF2h07rqfoa7Jm8fdlV8BHmpOE8cgBGH7e4F8eUcuQrsg_Jam11U4NOdlA7M5C5T6cAwlRJDZ-gGn-eRb97cfqEolZLymX8Mb3RV_DaPCm2NYXsOZUhRbz52cWFnNfdzcFWmo5KqJY8gXD4TwBbNSTu5KW3nRO9X7gQuDSTOvP-IaJFKzSqTxsCDZDrKmi4D9mwPGW1vo9ED4-6CCB9XFGq8Bvn4XOn03AjVY1SM61xP5G5K0aIxM4OnBWgHP3SSEiDpglmrm96mepYc8tuekIsERkaydSfGxTXgOyfKy7kP1HrpXzarBw
-        access_token_expires_at: '2024-12-15'
-        created_at: '2023-01-28T17:16:22.011Z'
-        updated_at: '2024-01-30T19:14:11.011Z'
-    stream_target_property_create_input:
-      type: object
-      title: property
-      description: ''
-      required:
-      - property
-      properties:
-        property:
-          title: property
-          description: A single stream target property.
-          $ref: '#/components/schemas/stream_target_property'
-    stream_target_custom:
-      type: object
-      description: ''
-      properties:
-        backup_url:
-          type: string
-          description: The backup ingest URL for a custom stream target. Not for use with the akamai_cupertino custom *provider*.
-          example: ''
-        created_at:
-          type: string
-          description: The date and time that the custom stream target was created.
-          example: ''
-          format: date-time
-        delivery_protocols:
-          type: array
-          description: An array of the delivery protocols available for this stream target. Available from version 1.7.
-          example: ''
-          items:
-            type: string
-        id:
-          type: string
-          description: The unique alphanumeric string that identifies the custom stream target.
-          example: ''
-        name:
-          type: string
-          description: A descriptive name for the custom stream target. Maximum 255 characters.
-          example: ''
-        password:
-          type: string
-          description: A *username* must be present. The password associated with the target username for RTMP authentication. Not for use with the akamai_cupertino custom *provider*.
-          example: ''
-        playback_urls:
-          type: object
-          description: Web addresses that the target uses to play streams. Available from version 1.7.
-          properties:
-            hls:
-              type: array
-              description: Web address that the target uses to play HLS streams.
-              items:
-                type: object
-                title: hls
-                properties:
-                  name:
-                    type: string
-                    description: The name of the playback URL.
-                    example: default
-                  url:
-                    type: string
-                    description: The playback URL.
-                    example: ''
-            hds:
-              type: array
-              description: Web address that the target uses to play HDS streams. Not for use with the akamai_cupertino custom *provider*.
-              items:
-                type: object
-                title: hds
-                properties:
-                  name:
-                    type: string
-                    description: The name of the playback URL.
-                    example: default
-                  url:
-                    type: string
-                    description: The playback URL.
-                    example: ''
-            rtmp:
-              type: array
-              description: Web address that the target uses to play RTMP streams.
-              items:
-                type: object
-                title: rtmp
-                properties:
-                  name:
-                    type: string
-                    description: The name of the playback URL.
-                    example: default
-                  url:
-                    type: string
-                    description: The playback URL.
-                    example: ''
-        primary_url:
-          type: string
-          description: The primary ingest URL of the custom stream target.
-          example: ''
-        provider:
-          type: string
-          description: The CDN for the target.
-          example: ''
-        stream_name:
-          type: string
-          description: The name of the stream being ingested into the target.
-          example: ''
-        updated_at:
-          type: string
-          description: The date and time that the custom stream target was updated.
-          example: ''
-          format: date-time
-        username:
-          type: string
-          description: The username or ID that the target uses for RTMP authentication. Not for use with the akamai_cupertino custom *provider*.
-          example: ''
-      example:
-        created_at: '2020-01-28T17:16:22.011Z'
-        delivery_protocols:
-        - rtmp
-        id: RMS45lfvx
-        name: My Custom Stream Target
-        playback_urls:
-          rtmp:
-          - name: default
-            url: rtmp://cp123456.live.edgefcs.net/live/[EVENT]@654321
-        primary_url: rtmp://p.ep123456.i.akamaientrypoint.net/EntryPoint
-        provider: rtmp
-        stream_name: c8467d50@123456
-        updated_at: '2020-01-30T19:14:11.011Z'
-    stream_target_property:
-      type: object
-      title: property
-      description: A stream target property. The property configuration consists of a key/value pair and the section of the stream target configuration table the key/value pair is stored in.
-      required:
-      - key
-      - section
-      - value
-      properties:
-        key:
-          type: string
-          description: 'The key of the property.
-
-
-            The following table lists the available property keys.
-
-
-            Key | Description
-
-            ----------------|-------------
-
-            **acao** | Explicitly specifies the origin that can access the stream. While most streams won''t need the origin explicitly set, you might use this property for older players that don''t send the Referer header in their stream request. <br/><br/>**Available on these targets types:** Wowza CDN on Fastly
-
-            **chunkSize** | Defines the duration of the time-based audio and video chunks that Wowza Video delivers to the target. <br/><br/>**Available on these targets types:** Wowza CDN on Fastly, Custom: akamai_cupertino
-
-            **convertAMFData** | Determines whether Wowza Video converts incoming AMF data into ID3 tags. <br/><br/>**Available on these targets types:** Wowza CDN on Fastly, Custom: akamai_cupertino
-
-            **playlistSeconds** | Defines the maximum allowable length of the playlist. <br/><br/>**Available on these targets types:** Wowza CDN on Fastly, Custom: akamai_cupertino
-
-            **playSSL** | Determines whether Wowza Video sends the stream from the target to the player by using SSL (HTTPS).   <br/><br/>**Available on these targets types:** Custom: akamai_cupertino
-
-            **sendSSL** | Determines whether Wowza Video sends the stream from the transcoder to the target by using SSL (HTTPS).   <br/><br/>**Available on these targets types:** Custom: akamai_cupertino
-
-            **redundantChunklists** | Determines whether Wowza Video creates redundant chunklists within a playlist. If a primary chunklist within a playlist fails, players that support redundancy during playback can switch to the redundant chunklist. <br/><br/> **Note:** Enabling **redundantChunklists** increases playback reliability but doubles egress data usage and associated charges. <br/><br/>**Available on these targets types:** Custom: akamai_cupertino
-
-            **relativePlaylists** | Allows the viewer to watch the stream over HTTP and HTTPS, whichever protocol their browser calls. <br/><br/>**Available on these targets types:** Wowza CDN on Fastly, Custom: akamai_cupertino'
-          example: ''
-          enum:
-          - acao
-          - chunkSize
-          - convertAMFData
-          - sendSSL
-          - playSSL
-          - playlistSeconds
-          - redundantChunklists
-          - relativePlaylists
-        section:
-          type: string
-          description: 'The section of the stream target configuration table that contains the
-
-            property.
-
-
-
-            Section | Valid keys for the section
-
-            ----------------|-------------
-
-            **hls** | **acao**, **chunkSize**, **convertAMFData**, and **sendSSL**
-
-            **playlist** | **playSSL**, **playlistSeconds**, **redundantChunklists**, and **relativePlaylists**'
-          example: ''
-          enum:
-          - hls
-          - playlist
-        value:
-          type: string
-          description: '
-
-            The value of the property.
-
-
-            The following table provides information about valid values for each property key.
-
-
-            Key(s) | Values for the key
-
-            ----------------|-------------
-
-            **acao** | Displays as **http://&lt;_origin_&gt;**
-
-            **chunkSize** | Valid values are the integers **2**, **4**, **6**, **8**, and **10**.
-
-            **convertAMFData** <br/> **playSSL** <br/> **sendSSL** <br/> **redundantChunklists** <br/> **relativePlaylists** | Valid values are the Booleans **true** and **false**.
-
-            **playlistSeconds** | Valid values are any integer between **6** and **28800** (8 hours).'
-          example: ''
-      example:
-        key: chunkSize
-        section: hls
-        value: 6
-    Error401:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 401
-            code: ERR-401-NoApiKey
-            title: No API Key Error
-            message: No API key sent in header.
-            description: ''
-            links: []
-        Example Response 2:
-          meta:
-            status: 401
-            code: ERR-401-NoAccessKey
-            title: No Access Key Error
-            message: No access key sent in header.
-            description: ''
-            links: []
-        Example Response 3:
-          meta:
-            status: 401
-            code: ERR-401-InvalidApiKey
-            title: Invalid Api Key Error
-            message: Invalid API key.
-            description: ''
-            links: []
-        Example Response 4:
-          meta:
-            status: 401
-            code: ERR-401-InvalidAccessKey
-            title: Invalid Access Key Error
-            message: Invalid access key.
-            description: ''
-            links: []
-        Example Response 5:
-          meta:
-            status: 401
-            code: ERR-401-BadAccountStatus
-            title: Bad Account Status Error
-            message: Your account's status doesn't allow this action.
-            description: ''
-            links: []
-        Example Response 6:
-          meta:
-            status: 401
-            code: ERR-401-FeatureNotEnabled
-            title: Feature Not Enabled Error
-            message: This feature isn't enabled.
-            description: ''
-            links: []
-        Example Response 7:
-          meta:
-            status: 401
-            code: ERR-401-TrialExceeded
-            title: Bad Billing Status Error
-            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
-            description: ''
-            links: []
-        Example Response 8:
-          meta:
-            status: 401
-            code: ERR-401-ExpiredToken
-            title: JWT is expired
-            message: Token has exired.
-            description: ''
-            links: []
-        Example Response 9:
-          meta:
-            status: 401
-            code: ERR-401-InvalidToken
-            title: JWT is invalid
-            message: Token is invalid.
-            description: ''
-            links: []
-    fastly_stream_target_create_input:
-      description: ''
-      allOf:
-      - $ref: '#/components/schemas/fastly_stream_target_input'
-      example:
-        stream_target_wowza_cdn:
-          name: My Wowza CDN Stream Target
     index_custom_stream_target:
       type: object
       description: ''
@@ -1975,211 +2303,6 @@ components:
           description: The date and time that the custom stream target was updated.
           example: ''
           format: date-time
-    stream_target_properties:
-      type: object
-      title: properties
-      description: ''
-      required:
-      - properties
-      properties:
-        properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/stream_target_property'
-      example:
-        properties:
-        - key: acao
-          section: hls
-          value: http://www.example.com
-        - key: chunkSize
-          section: hls
-          value: 6
-        - key: relativePlaylists
-          section: playlist
-          value: true
-    stream_targets:
-      type: object
-      description: ''
-      required:
-      - stream_targets
-      properties:
-        stream_targets:
-          type: array
-          items:
-            $ref: '#/components/schemas/index_stream_target'
-      example:
-        stream_targets:
-        - created_at: '2020-01-29T17:16:22.007Z'
-          id: qvvjyjjk
-          name: My RTMP Stream Target
-          state: deactivated
-          type: wowza
-          updated_at: '2020-01-31T02:05:18.007Z'
-        - created_at: '2020-01-28T17:16:22.007Z'
-          id: j75mlh3v
-          name: My HLS Push Stream Target
-          state: activated
-          type: custom
-          updated_at: '2020-01-31T11:02:53.007Z'
-    stream_target_properties_create_input:
-      type: object
-      title: properties
-      description: ''
-      required:
-      - properties
-      properties:
-        properties:
-          type: array
-          description: An array of properties. The property configuration consists of a key/value pair and the section of the stream target configuration table the key/value pair is stored in. You can only set an array of properties on a Fastly or Akamai stream target. Available from version 1.7.
-          items:
-            $ref: '#/components/schemas/stream_target_property'
-      example:
-        properties:
-        - key: acao
-          section: hls
-          value: http://www.example.com
-        - key: chunkSize
-          section: hls
-          value: 6
-        - key: relativePlaylists
-          section: playlist
-          value: true
-    custom_stream_target_patch_response:
-      type: object
-      title: stream_target_custom
-      description: ''
-      properties:
-        backup_url:
-          type: string
-          description: The backup ingest URL for a custom stream target. Not for use with the akamai_cupertino custom *provider*.
-          example: ''
-        created_at:
-          type: string
-          description: The date and time that the custom stream target was created.
-          example: ''
-          format: date-time
-        delivery_protocols:
-          type: array
-          description: An array of the delivery protocols available for this stream target. Available from version 1.7.
-          example: ''
-          items:
-            type: string
-        id:
-          type: string
-          description: The unique alphanumeric string that identifies the custom stream target.
-          example: ''
-        name:
-          type: string
-          description: A descriptive name for the custom stream target. Maximum 255 characters.
-          example: ''
-        password:
-          type: string
-          description: A *username* must be present. The password associated with the target username for RTMP authentication. Not for use with the akamai_cupertino custom *provider*.
-          example: ''
-        playback_urls:
-          type: object
-          description: Web addresses that the target uses to play streams. Available from version 1.7.
-          properties:
-            hls:
-              type: array
-              description: Web address that the target uses to play HLS streams.
-              items:
-                type: object
-                title: hls
-                properties:
-                  name:
-                    type: string
-                    description: The name of the playback URL.
-                    example: default
-                  url:
-                    type: string
-                    description: The playback URL.
-                    example: ''
-            hds:
-              type: array
-              description: Web address that the target uses to play HDS streams. Not for use with the akamai_cupertino custom *provider*.
-              items:
-                type: object
-                title: hds
-                properties:
-                  name:
-                    type: string
-                    description: The name of the playback URL.
-                    example: default
-                  url:
-                    type: string
-                    description: The playback URL.
-                    example: ''
-            rtmp:
-              type: array
-              description: Web address that the target uses to play RTMP streams.
-              items:
-                type: object
-                title: rtmp
-                properties:
-                  name:
-                    type: string
-                    description: The name of the playback URL.
-                    example: default
-                  url:
-                    type: string
-                    description: The playback URL.
-                    example: ''
-        primary_url:
-          type: string
-          description: The primary ingest URL of the custom stream target.
-          example: ''
-        provider:
-          type: string
-          description: The CDN for the target.
-          example: ''
-        stream_name:
-          type: string
-          description: The name of the stream being ingested into the target.
-          example: ''
-        updated_at:
-          type: string
-          description: The date and time that the custom stream target was updated.
-          example: ''
-          format: date-time
-        username:
-          type: string
-          description: he username or ID that the target uses for RTMP authentication. Not for use with the akamai_cupertino custom *provider*.
-          example: ''
-      example:
-        created_at: '2020-01-28T17:16:22.011Z'
-        delivery_protocols:
-        - rtmp
-        id: RMS45lfvx
-        name: My Updated Custom Stream Target
-        playback_urls:
-          rtmp:
-          - name: default
-            url: rtmp://cp123456.live.edgefcs.net/live/[EVENT]@654321
-        primary_url: rtmp://p.ep123456.i.akamaientrypoint.net/EntryPoint
-        provider: rtmp
-        stream_name: c8467d50@123456
-        updated_at: '2020-01-30T19:46:22.012Z'
-    stream_targets_fastly:
-      type: object
-      description: ''
-      required:
-      - stream_targets_wowza_cdn
-      properties:
-        stream_targets_wowza_cdn:
-          type: array
-          items:
-            $ref: '#/components/schemas/index_fastly_stream_target'
-      example:
-        stream_targets_wowza_cdn:
-        - created_at: '2020-01-28T17:16:22.010Z'
-          id: abc45lfyz
-          name: My Wowza CDN Stream Target
-          updated_at: '2020-01-31T12:37:22.010Z'
-        - created_at: '2020-01-28T17:16:22.010Z'
-          id: rdm45lxyz
-          name: My Second Wowza CDN Stream Target
-          updated_at: '2020-01-31T14:17:28.010Z'
     stream_target_fastly:
       type: object
       title: stream_target_wowza_cdn
@@ -2368,422 +2491,16 @@ components:
         force_ssl_playback: false
         created_at: '2020-01-28T17:16:22.086Z'
         updated_at: '2020-01-30T15:33:43.086Z'
-    index_stream_target:
-      type: object
+    custom_stream_target_create_input:
       description: ''
-      title: stream_targets
-      properties:
-        created_at:
-          type: string
-          description: The date and time that the stream target was created.
-          example: ''
-          format: date-time
-        id:
-          type: string
-          description: The unique alphanumeric string that identifies the stream target.
-          example: ''
-        name:
-          type: string
-          description: A descriptive name for the stream target. Maximum 255 characters.
-          example: ''
-        state:
-          type: string
-          description: The state of the stream target.
-          example: activated
-          enum:
-          - activated
-          - archived
-        type:
-          type: string
-          description: '**custom** is an external, third-party destination and **wowza_cdn** is a Wowza CDN target. '
-          example: ''
-          enum:
-          - custom
-          - wowza_cdn
-        updated_at:
-          type: string
-          description: The date and time that the stream target was updated.
-          example: ''
-          format: date-time
-    stream_target_property_create_input_repsonse:
-      type: object
-      title: property
-      description: ''
-      required:
-      - property
-      properties:
-        property:
-          title: property
-          description: A single stream target property.
-          $ref: '#/components/schemas/stream_target_property'
-    Error403:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
+      allOf:
+      - $ref: '#/components/schemas/custom_stream_target_input'
       example:
-        Example Response 1:
-          meta:
-            status: 403
-            code: ERR-403-RecordUnaccessible
-            title: Record Unaccessible Error
-            message: The requested resource isn't accessible.
-            description: ''
-            links: []
-    custom_stream_target_input:
-      type: object
-      description: ''
-      required:
-      - stream_target_custom
-      properties:
         stream_target_custom:
-          type: object
-          title: stream_target_custom
-          description: ''
-          required:
-          - name
-          - primary_url
-          - provider
-          - stream_name
-          properties:
-            name:
-              type: string
-              description: A descriptive name for the custom stream target. Maximum 255 characters.
-              example: My Custom Stream Target
-            primary_url:
-              type: string
-              description: The primary RTMP ingest URL. Hostnames can't contain underscores.
-              example: rtmp://p.ep337857.i.akamaientrypoint.net/EntryPoint
-            provider:
-              type: string
-              description: The CDN for the target.
-              example: rtmp
-              enum:
-              - akamai_cupertino
-              - rtmp
-              - rtmps
-            stream_name:
-              type: string
-              description: The name of the stream as defined in the target's ingestion settings. The protocol, host name, and path components of the stream name URL must be 255 characters or less. The query strings and parameter components of the stream name URL must be 1024 characters or less.
-              example: c8467d50@337857
-            backup_url:
-              type: string
-              description: 'The backup RTMP ingest URL of the custom stream target. Not all providers or third-party CDNs provide backup URLs. Not for use with the akamai_cuptertino custom *provider*.
-
-
-                **Note:** When both the primary and backup URLs are used, Wowza Video sends the stream to both URLs, allowing a provider or 3rd party CDN to improve reliability and prevent playback disruption. If you want to use both URLs, make sure you add the stream target to the output rendition twice, once with *use_stream_target_backup_url* as **false** (the default) and once with *use_stream_target_backup_url* as **true**. See <a href="https://api.docs.video.wowza.com/index/current/tag/transcoders/#tag/transcoders/operation/createTranscoderOutputOutputStreamTarget">POST /transcoders/[ID]/outputs/[ID]/output_stream_targets</a> for more information.
-
-
-                **Example:** <code>"backup_url": "rtmp://b.ep337857.i.akamaientrypoint.net/EntryPoint"</code>'
-              example: rtmp://b.ep337857.i.akamaientrypoint.net/EntryPoint
-            playback_urls:
-              type: object
-              title: Hash of playback URLs
-              description: 'Web addresses that the target uses to play streams. Available from version 1.7.
-
-
-                **Example:** See response body sample'
-              properties:
-                hls:
-                  type: string
-                  description: Web address that the target uses to play HLS streams. <br/><br/> The format is a hash where the key is **hls** and the value is the playback URL. <br/>Example&#58; "hls":&nbsp;"http&#58;//&lt;*domain*&gt;/master.m3u8"
-                hds:
-                  type: string
-                  description: Web address that the target uses to play HDS streams. Not for use with the akamai_cupertino custom *provider*. <br/><br/>The format is a hash where the key is **hds** and the value is the playback URL. <br/>Example&#58; "hds":&nbsp;"http&#58;//&lt;*domain*&gt;/manifest.f4m"
-                rtmp:
-                  type: string
-                  description: Web address that the target uses to play RTMP streams. <br/><br/>The format is a hash where the key is **rtmp** and the value is the playback URL. <br/>Example&#58; "rtmp":&nbsp;"rtmp&#58;//cp319499.live.edgefcs.net/live/c9467d50@337857"
-            password:
-              type: string
-              description: 'A *username* must also be present. The password associated with the target username for RTMP authentication. Not for use with the akamai_cupertino custom *provider*.
-
-                **Example:** <code>"password": "cb1e77e98d"</code>'
-              example: cb1e77e98d
-            username:
-              type: string
-              description: The username or ID that the target uses for RTMP authentication. Not for use with the akamai_cupertino custom *provider*.
-              example: '319699'
-    stream_target_property_fastly:
-      type: object
-      title: property
-      description: ''
-      required:
-      - key
-      - section
-      - value
-      properties:
-        key:
-          type: string
-          description: 'The key of the property.
-
-
-            The following table lists the available property keys.
-
-
-            Key | Description
-
-            ----------------|-------------
-
-            **acao** | Explicitly specifies the origin that can access the stream. While most streams won''t need the origin explicitly set, you might use this property for older players that don''t send the Referer header in their stream request.
-
-            **chunkSize** | Defines the duration of the time-based audio and video chunks that Wowza Video delivers to the target.
-
-            **convertAMFData** | Determines whether Wowza Video converts incoming AMF data into ID3 tags.
-
-            **playlistSeconds** | Defines the maximum allowable length of the playlist.
-
-            **relativePlaylists** | Allows the viewer to watch the stream over HTTP and HTTPS, whichever protocol their browser calls.'
-          example: ''
-          enum:
-          - acao
-          - chunkSize
-          - convertAMFData
-          - playlistSeconds
-          - relativePlaylists
-        section:
-          type: string
-          description: 'The section of the stream target configuration table that contains the
-
-            property.
-
-
-
-            Section | Valid keys for the section
-
-            ----------------|-------------
-
-            **hls** | **acao**, **chunkSize**, and **convertAMFData**
-
-            **playlist** | **playlistSeconds** and **relativePlaylists**'
-          example: ''
-          enum:
-          - hls
-          - playlist
-        value:
-          type: string
-          description: '
-
-            The value of the property.
-
-
-            The following table provides information about valid values for each property key.
-
-
-            Key(s) | Values for the key
-
-            ----------------|-------------
-
-            **acao** | Displays as **http://&lt;_origin_&gt;**
-
-            **chunkSize** | Valid values are the integers **2**, **4**, **6**, **8**, and **10**.
-
-            **convertAMFData** <br/> **relativePlaylists** | Valid values are the Booleans **true** and **false**.
-
-            **playlistSeconds** | Valid values are any integer between **6** and **28800** (8 hours).'
-          example: ''
-      example:
-        key: chunkSize
-        section: hls
-        value: 6
-    index_fastly_stream_target:
-      type: object
-      description: ''
-      title: stream_targets_wowza_cdn
-      properties:
-        created_at:
-          type: string
-          description: The date and time that the stream target was created.
-          example: ''
-          format: date-time
-        id:
-          type: string
-          description: The unique alphanumeric string that identifies the stream target.
-          example: ''
-        name:
-          type: string
-          description: A descriptive name for the stream target. Maximum 255 characters.
-          example: ''
-        updated_at:
-          type: string
-          description: The date and time that the stream target was updated.
-          example: ''
-          format: date-time
-    Error422:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. ... can't be blank
-            description: ''
-            links: []
-        Example Response 2:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. Provider wowza_video is not allowed
-            description: ''
-            links: []
-        Example Response 3:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
-            description: ''
-            links: []
-        Example Response 4:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
-            description: ''
-            links: []
-        Example Response 5:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
-            description: ''
-            links: []
-    stream_targets_custom:
-      type: object
-      description: ''
-      required:
-      - stream_targets_custom
-      properties:
-        stream_targets_custom:
-          type: array
-          items:
-            $ref: '#/components/schemas/index_custom_stream_target'
-      example:
-        stream_targets_custom:
-        - created_at: '2020-01-28T17:16:22.008Z'
-          id: RMS45lfvx
           name: My Custom Stream Target
-          updated_at: '2020-01-31T00:44:50.008Z'
-        - created_at: '2020-01-28T17:16:22.008Z'
-          id: ABC45lxyz
-          name: My Second Custom Stream Target
-          updated_at: '2020-01-31T02:05:33.008Z'
-    Error410:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 410
-            code: ERR-410-RecordDeleted
-            title: Record Deleted Error
-            message: The requested resource has been deleted.
-            description: ''
-            links: []
+          primary_url: rtmp://p.ep123456.i.akamaientrypoint.net/EntryPoint
+          provider: rtmp
+          stream_name: c8467d50@123456
     custom_stream_target_update_input:
       type: object
       description: ''
@@ -2877,6 +2594,189 @@ components:
               example: '319699'
           example:
             name: My Updated Custom Stream Target
+    stream_target_property_fastly:
+      type: object
+      title: property
+      description: ''
+      required:
+      - key
+      - section
+      - value
+      properties:
+        key:
+          type: string
+          description: 'The key of the property.
+
+
+            The following table lists the available property keys.
+
+
+            Key | Description
+
+            ----------------|-------------
+
+            **acao** | Explicitly specifies the origin that can access the stream. While most streams won''t need the origin explicitly set, you might use this property for older players that don''t send the Referer header in their stream request.
+
+            **chunkSize** | Defines the duration of the time-based audio and video chunks that Wowza Video delivers to the target.
+
+            **convertAMFData** | Determines whether Wowza Video converts incoming AMF data into ID3 tags.
+
+            **playlistSeconds** | Defines the maximum allowable length of the playlist.
+
+            **relativePlaylists** | Allows the viewer to watch the stream over HTTP and HTTPS, whichever protocol their browser calls.'
+          example: ''
+          enum:
+          - acao
+          - chunkSize
+          - convertAMFData
+          - playlistSeconds
+          - relativePlaylists
+        section:
+          type: string
+          description: 'The section of the stream target configuration table that contains the
+
+            property.
+
+
+
+            Section | Valid keys for the section
+
+            ----------------|-------------
+
+            **hls** | **acao**, **chunkSize**, and **convertAMFData**
+
+            **playlist** | **playlistSeconds** and **relativePlaylists**'
+          example: ''
+          enum:
+          - hls
+          - playlist
+        value:
+          type: string
+          description: '
+
+            The value of the property.
+
+
+            The following table provides information about valid values for each property key.
+
+
+            Key(s) | Values for the key
+
+            ----------------|-------------
+
+            **acao** | Displays as **http://&lt;_origin_&gt;**
+
+            **chunkSize** | Valid values are the integers **2**, **4**, **6**, **8**, and **10**.
+
+            **convertAMFData** <br/> **relativePlaylists** | Valid values are the Booleans **true** and **false**.
+
+            **playlistSeconds** | Valid values are any integer between **6** and **28800** (8 hours).'
+          example: ''
+      example:
+        key: chunkSize
+        section: hls
+        value: 6
+    Error422:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. ... can't be blank
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. Provider wowza_video is not allowed
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
+            description: ''
+            links: []
+    index_fastly_stream_target:
+      type: object
+      description: ''
+      title: stream_targets_wowza_cdn
+      properties:
+        created_at:
+          type: string
+          description: The date and time that the stream target was created.
+          example: ''
+          format: date-time
+        id:
+          type: string
+          description: The unique alphanumeric string that identifies the stream target.
+          example: ''
+        name:
+          type: string
+          description: A descriptive name for the stream target. Maximum 255 characters.
+          example: ''
+        updated_at:
+          type: string
+          description: The date and time that the stream target was updated.
+          example: ''
+          format: date-time
     Error404:
       type: object
       description: ''
@@ -2923,7 +2823,119 @@ components:
             message: The requested resource couldn't be found.
             description: ''
             links: []
+    Error410:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 410
+            code: ERR-410-RecordDeleted
+            title: Record Deleted Error
+            message: The requested resource has been deleted.
+            description: ''
+            links: []
+    stream_target_property_create_input:
+      type: object
+      title: property
+      description: ''
+      required:
+      - property
+      properties:
+        property:
+          title: property
+          description: A single stream target property.
+          $ref: '#/components/schemas/stream_target_property'
+    index_stream_target:
+      type: object
+      description: ''
+      title: stream_targets
+      properties:
+        created_at:
+          type: string
+          description: The date and time that the stream target was created.
+          example: ''
+          format: date-time
+        id:
+          type: string
+          description: The unique alphanumeric string that identifies the stream target.
+          example: ''
+        name:
+          type: string
+          description: A descriptive name for the stream target. Maximum 255 characters.
+          example: ''
+        state:
+          type: string
+          description: The state of the stream target.
+          example: activated
+          enum:
+          - activated
+          - archived
+        type:
+          type: string
+          description: '**custom** is an external, third-party destination and **wowza_cdn** is a Wowza CDN target. '
+          example: ''
+          enum:
+          - custom
+          - wowza_cdn
+        updated_at:
+          type: string
+          description: The date and time that the stream target was updated.
+          example: ''
+          format: date-time
   parameters:
+    page:
+      name: page
+      in: query
+      description: "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
+      schema:
+        type: integer
+    per_page:
+      name: per_page
+      in: query
+      description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
+      schema:
+        type: integer
+    assignable:
+      name: assignable
+      in: query
+      description: "Returns stream targets that are assignable to an output. \nIf **true**, all assignable stream targets are included in the response. \nIf the parameter isn't used, all assignable and unassignable stream targets are included in the response.\n\n\n\nA **primary_stream_target** is a single stream target that automatically \ngets created for all output renditions (the ABR ladder) created when you create a live stream \nthrough a live stream flow. **Primary_stream_targets** cannot be deleted or reassigned so they will not\nbe listed when using the assignable parameter.\n\n Example:\n **api.video.wowza.com/api/v2.0/stream_targets?assignable=true**"
+      schema:
+        type: boolean
     filter:
       name: filter
       in: query
@@ -2938,30 +2950,42 @@ components:
         **filter[0][field]=state&filter[0][eq]=stopped**'
       schema:
         type: string
-    per_page:
-      name: per_page
-      in: query
-      description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
-      schema:
-        type: integer
-    assignable:
-      name: assignable
-      in: query
-      description: "Returns stream targets that are assignable to an output. \nIf **true**, all assignable stream targets are included in the response. \nIf the parameter isn't used, all assignable and unassignable stream targets are included in the response.\n\n\n\nA **primary_stream_target** is a single stream target that automatically \ngets created for all output renditions (the ABR ladder) created when you create a live stream \nthrough a live stream flow. **Primary_stream_targets** cannot be deleted or reassigned so they will not\nbe listed when using the assignable parameter.\n\n Example:\n **api.video.wowza.com/api/v2.0/stream_targets?assignable=true**"
-      schema:
-        type: boolean
-    page:
-      name: page
-      in: query
-      description: "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
-      schema:
-        type: integer
   securitySchemes:
-    basicAuth:
+    WV_JWT:
       type: http
-      scheme: basic
-      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
-    digestAuth:
-      type: http
-      scheme: digest
-      description: HTTP Digest Authentication
+      scheme: bearer
+      description: Your Wowza-generated access token, also called a JSON web token (JWT). Send it as a bearer token in the Authentication header of your requests. See [Authentication](https://www.wowza.com/docs/how-to-use-the-wowza-video-rest-api#authentication).
+x-tagGroups:
+- name: Resource Management
+  tags:
+  - live_streams
+  - transcoders
+  - stream_sources
+  - stream_targets
+  - schedules
+  - real_time
+  - videos
+  - categories
+  - advanced_token_authentication
+  - clipping
+- name: Analytics
+  tags:
+  - analytics_viewers
+  - analytics_ingest
+  - analytics_engagement
+  - analytics_popularity
+  - quality_of_experience
+- name: Usage
+  tags:
+  - usage_account
+  - usage_transcoders
+  - usage
+  - usage_real_time_streams
+- name: Deprecated in 2.0
+  tags:
+  - assets
+  - players
+  - recordings
+  - vod_streams
+  - storage
+  - usage_vod_streams

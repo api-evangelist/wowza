@@ -1,19 +1,13 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Wowza Streaming Engine REST advanced_token_authentication analytics_viewers API
-  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
-  version: 2.0.0
-  contact:
-    name: Wowza Media Systems
-    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  version: v2.0
+  title: Wowza Video REST API Reference Documentation Analytics Viewers API
   license:
-    name: Wowza Media Systems
-    url: https://www.wowza.com
+    name: Terms of Use
+    url: https://www.wowza.com/legal/terms-of-use
+  description: "API lifecycle phase: [Current](https://www.wowza.com/docs/wowza-video-rest-api-lifecycle-management#api-lifecycle0)\n\n\n<table>\n<tr style=\"background-color:lightgrey;\"><td>\n<strong>Want to take the API for a test run?</strong>\n\nAll you'll need is a [Wowza Video subscription](https://www.wowza.com/pricing), or [free trial](https://www.wowza.com/free-trial), for the API access token. Then, fork [our collection in Postman](https://www.postman.com/wowzavideo/workspace/wowza-video-rest-api) and you'll be\nmaking calls to our REST API in minutes!\n\nSee [Trial the Wowza Video REST API using Postman](https://www.wowza.com/docs/trial-the-wowza-video-rest-api-using-postman) for more information.\n</td>\n</tr>\n</table>\n\n\nThis reference documentation provides details about the operations, parameters, and request and response schemas for every resource and endpoint in the Wowza Video REST API.\nSamples appear in the right column. Sample requests are presented in cURL (Shell) and JavaScript; some samples also include just the JSON object. Response samples are all JSON. \nExamples in cURL use environment variables so you can easily copy and paste them. To learn more, see [Using cURL](https://wowza.com/docs/how-to-use-the-wowza-video-rest-api#curl).\n\n\nReference documentation is available for every version of the API. Use the **Version** menu at the top of the page to access the reference doc for a different version of the API.\n\n<blockquote><strong>Note</strong>: If you haven't moved over to the new Wowza Video UI experience, you won't be able to access v2.0 of the API. We're migrating customers iteratively. See <a href=\"https://developer.wowza.com/docs/wowza-video/upgrade-to-wowza-video/\">Upgrade to the Wowza Video 2.0 REST API</a> for more information.</blockquote>\n"
 servers:
-- url: http://localhost:8087
-  description: Wowza Streaming Engine Server
-security:
-- basicAuth: []
+- url: https://api.video.wowza.com/api/v2.0
 tags:
 - name: analytics_viewers
   description: Operations related to viewer analytics.
@@ -891,22 +885,123 @@ paths:
                 $ref: '#/components/schemas/Error422'
 components:
   schemas:
-    analytics_viewers_live_streams:
+    analytics_viewers_vod_stream_total:
+      type: object
+      description: ''
+      properties:
+        vod_stream:
+          type: object
+          title: vod_stream
+          description: ''
+          properties:
+            id:
+              type: string
+              description: The unique alphanumeric string that identifies the VOD stream.
+              format: int32
+            viewers:
+              type: integer
+              description: The total number of unique viewers to download at least one chunk of the stream. A unique viewer is a single IP address; multiple users that share the same IP address are counted once.
+              example: ''
+              format: int32
+            countries:
+              type: object
+              title: countries
+              description: An array of viewer countries.
+              properties:
+                code:
+                  type: string
+                  description: A country code where the stream was requested.
+                  example: ''
+                viewers:
+                  type: integer
+                  description: The total number of unique viewers to download at least one chunk of the stream. A unique viewer is a single IP address; multiple users that share the same IP address are counted once.
+                  example: ''
+                  format: int32
+            renditions:
+              type: object
+              title: renditions
+              description: An array of viewer renditions.
+              properties:
+                name:
+                  type: integer
+                  description: 'The rendition of the stream played. A rendition name is the smaller number of the resolution. The resolution is [width]x[height] in which the stream was played. Renditions names have to be unique. If you''ve created two renditions that have the same height and width, Wowza Video increments the value of the height and uses that as the rendition name.
+
+
+                    Example: Two renditions of 1280x720 will result in rendition names of 720 and 721.'
+                  example: ''
+                viewers:
+                  type: integer
+                  description: The total number of unique viewers to download at least one chunk of the stream. A unique viewer is a single IP address; multiple users that share the same IP address are counted once.
+                  example: ''
+                  format: int32
+            devices:
+              type: object
+              title: devices
+              description: An array of viewer devices.
+              properties:
+                name:
+                  type: string
+                  description: A device where the stream was played.
+                  example: ''
+                viewers:
+                  type: integer
+                  description: The total number of unique viewers to download at least one chunk of the stream. A unique viewer is a single IP address; multiple users that share the same IP address are counted once.
+                  example: ''
+                  format: int32
+            time_zone:
+              title: time_zone
+              type: string
+              description: 'The time zone in which the data is returned. The default time zone in which the data is returned is **Etc/UTC**. '
+              example: ''
+            limits:
+              type: object
+              description: The time frame represented in the response.
+              properties:
+                from:
+                  type: string
+                  description: The start of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+                to:
+                  type: string
+                  description: The end of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+      example:
+        vod_stream:
+          id: tvctq36g
+          viewers: 7
+          countries:
+          - code: US
+            viewers: 4
+          - code: DE
+            viewers: 3
+          renditions:
+          - name: 720
+            viewers: 7
+          devices:
+          - name: Desktop
+            viewers: 7
+          time_zone: America/New_York
+        limits:
+          from: '2024-04-01T00:00:00.000Z'
+          to: '2024-04-09T14:20:03.000Z'
+    analytics_viewers_vod_streams:
       type: object
       description: ''
       required:
-      - live_streams
+      - vod_streams
       properties:
-        live_streams:
+        vod_streams:
           type: array
           items:
             type: object
             description: ''
-            title: live_streams
+            title: vod_streams
             properties:
               id:
                 type: string
-                description: The unique alphanumeric string that identifies the live stream.
+                description: The unique alphanumeric string that identifies the VOD stream.
                 example: 4Jjzstdt
                 format: int32
               viewers:
@@ -929,7 +1024,7 @@ components:
               example: ''
               format: date-time
       example:
-        live_streams:
+        vod_streams:
         - id: 4Jjzstdt
           viewers: 3
         - id: fFWxVsyj
@@ -937,162 +1032,6 @@ components:
         limits:
           from: '2023-04-14T10:31:54.000Z'
           to: '2023-07-13T10:31:54.000Z'
-    Error403:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 403
-            code: ERR-403-RecordUnaccessible
-            title: Record Unaccessible Error
-            message: The requested resource isn't accessible.
-            description: ''
-            links: []
-    Error401:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 401
-            code: ERR-401-NoApiKey
-            title: No API Key Error
-            message: No API key sent in header.
-            description: ''
-            links: []
-        Example Response 2:
-          meta:
-            status: 401
-            code: ERR-401-NoAccessKey
-            title: No Access Key Error
-            message: No access key sent in header.
-            description: ''
-            links: []
-        Example Response 3:
-          meta:
-            status: 401
-            code: ERR-401-InvalidApiKey
-            title: Invalid Api Key Error
-            message: Invalid API key.
-            description: ''
-            links: []
-        Example Response 4:
-          meta:
-            status: 401
-            code: ERR-401-InvalidAccessKey
-            title: Invalid Access Key Error
-            message: Invalid access key.
-            description: ''
-            links: []
-        Example Response 5:
-          meta:
-            status: 401
-            code: ERR-401-BadAccountStatus
-            title: Bad Account Status Error
-            message: Your account's status doesn't allow this action.
-            description: ''
-            links: []
-        Example Response 6:
-          meta:
-            status: 401
-            code: ERR-401-FeatureNotEnabled
-            title: Feature Not Enabled Error
-            message: This feature isn't enabled.
-            description: ''
-            links: []
-        Example Response 7:
-          meta:
-            status: 401
-            code: ERR-401-TrialExceeded
-            title: Bad Billing Status Error
-            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
-            description: ''
-            links: []
-        Example Response 8:
-          meta:
-            status: 401
-            code: ERR-401-ExpiredToken
-            title: JWT is expired
-            message: Token has exired.
-            description: ''
-            links: []
-        Example Response 9:
-          meta:
-            status: 401
-            code: ERR-401-InvalidToken
-            title: JWT is invalid
-            message: Token is invalid.
-            description: ''
-            links: []
     analytics_viewers_stream_target_total:
       type: object
       description: ''
@@ -1295,19 +1234,61 @@ components:
         limits:
           from: '2024-04-01T00:00:00.000Z'
           to: '2024-04-09T14:20:03.000Z'
-    analytics_viewers_live_stream:
+    Error403:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 403
+            code: ERR-403-RecordUnaccessible
+            title: Record Unaccessible Error
+            message: The requested resource isn't accessible.
+            description: ''
+            links: []
+    analytics_viewers_account_total:
       type: object
       description: ''
       properties:
-        live_stream:
+        account:
           type: object
-          title: live_stream
+          title: account
           description: ''
           properties:
-            id:
-              type: string
-              description: The unique alphanumeric string that identifies the live stream.
-              format: int32
             viewers:
               type: integer
               description: The total number of unique viewers to download at least one chunk of the stream. A unique viewer is a single IP address; multiple users that share the same IP address are counted once.
@@ -1358,26 +1339,6 @@ components:
                   description: The total number of unique viewers to download at least one chunk of the stream. A unique viewer is a single IP address; multiple users that share the same IP address are counted once.
                   example: ''
                   format: int32
-            trend:
-              type: object
-              title: Array of viewer trends
-              description: 'An array of viewer trend data. The granularity of sampled data changes based on the from and to query values you use:
-
-
-                <ul><li>0 minutes to 8 hours - Samples returned per minute</li> <li>8 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 175 days - Samples returned per day</li> <li>175 days to 14 years - Samples returned per month</li> <li>14 years or greater - Samples returned per year</li></ul>
-
-
-                <strong>Defaults</strong>: from = last billing date, to = end of current day'
-              properties:
-                sampled_at:
-                  type: string
-                  description: The date and time the trend data was sampled.
-                  format: date-time
-                viewers:
-                  type: integer
-                  description: The total number of unique viewers to download at least one chunk of the stream. A unique viewer is a single IP address; multiple users that share the same IP address are counted once.
-                  example: ''
-                  format: int32
             time_zone:
               title: time_zone
               type: string
@@ -1398,8 +1359,7 @@ components:
                   example: ''
                   format: date-time
       example:
-        live_stream:
-          id: tvctq36g
+        account:
           viewers: 7
           countries:
           - code: US
@@ -1413,18 +1373,87 @@ components:
           - name: Desktop
             viewers: 7
           time_zone: America/New_York
-          trend:
-          - sampled_at: '2024-03-14T00:00:00Z'
-            viewers: 7
-          - sampled_at: '2024-03-15T00:00:00Z'
-            viewers: 7
-          - sampled_at: '2024-03-16T00:00:00Z'
-            viewers: 7
-          - sampled_at: '2024-03-17T00:00:00Z'
-            viewers: 7
         limits:
-          from: '2024-03-14T10:31:54.000Z'
-          to: '2024-04-13T10:31:54.000Z'
+          from: '2024-04-01T00:00:00.000Z'
+          to: '2024-04-09T14:20:03.000Z'
+    Error422:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. ... can't be blank
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. Provider wowza_video is not allowed
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
+            description: ''
+            links: []
     analytics_viewers_vod_stream:
       type: object
       description: ''
@@ -1555,7 +1584,178 @@ components:
         limits:
           from: '2024-03-14T10:31:54.000Z'
           to: '2024-04-13T10:31:54.000Z'
-    Error422:
+    analytics_viewers_account:
+      type: object
+      description: ''
+      properties:
+        account:
+          type: object
+          title: account
+          description: ''
+          properties:
+            viewers:
+              type: integer
+              description: The total number of unique viewers to download at least one chunk of the stream. A unique viewer is a single IP address; multiple users that share the same IP address are counted once.
+              example: ''
+              format: int32
+            countries:
+              type: object
+              title: countries
+              description: An array of viewer countries.
+              properties:
+                code:
+                  type: string
+                  description: A country code where the stream was requested.
+                  example: ''
+                viewers:
+                  type: integer
+                  description: The total number of unique viewers to download at least one chunk of the stream. A unique viewer is a single IP address; multiple users that share the same IP address are counted once.
+                  example: ''
+                  format: int32
+            renditions:
+              type: object
+              title: renditions
+              description: An array of viewer renditions.
+              properties:
+                name:
+                  type: integer
+                  description: 'The rendition of the stream played. A rendition name is the smaller number of the resolution. The resolution is [width]x[height] in which the stream was played. Renditions names have to be unique. If you''ve created two renditions that have the same height and width, Wowza Video increments the value of the height and uses that as the rendition name.
+
+
+                    Example: Two renditions of 1280x720 will result in rendition names of 720 and 721.'
+                  example: ''
+                viewers:
+                  type: integer
+                  description: The total number of unique viewers to download at least one chunk of the stream. A unique viewer is a single IP address; multiple users that share the same IP address are counted once.
+                  example: ''
+                  format: int32
+            devices:
+              type: object
+              title: devices
+              description: An array of viewer devices.
+              properties:
+                name:
+                  type: string
+                  description: A device where the stream was played.
+                  example: ''
+                viewers:
+                  type: integer
+                  description: The total number of unique viewers to download at least one chunk of the stream. A unique viewer is a single IP address; multiple users that share the same IP address are counted once.
+                  example: ''
+                  format: int32
+            trend:
+              type: object
+              title: Array of viewer trends
+              description: 'An array of viewer trend data. The granularity of sampled data changes based on the from and to query values you use:
+
+
+                <ul><li>0 minutes to 8 hours - Samples returned per minute</li> <li>8 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 175 days - Samples returned per day</li> <li>175 days to 14 years - Samples returned per month</li> <li>14 years or greater - Samples returned per year</li></ul>
+
+
+                <strong>Defaults</strong>: from = last billing date, to = end of current day'
+              properties:
+                sampled_at:
+                  type: string
+                  description: The date and time the trend data was sampled.
+                  format: date-time
+                viewers:
+                  type: integer
+                  description: The total number of unique viewers to download at least one chunk of the stream. A unique viewer is a single IP address; multiple users that share the same IP address are counted once.
+                  example: ''
+                  format: int32
+            time_zone:
+              title: time_zone
+              type: string
+              description: 'The time zone in which the data is returned. The default time zone in which the data is returned is **Etc/UTC**.  '
+              example: ''
+            limits:
+              type: object
+              description: The time frame represented in the response.
+              properties:
+                from:
+                  type: string
+                  description: The start of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+                to:
+                  type: string
+                  description: The end of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+      example:
+        account:
+          viewers: 7
+          countries:
+          - code: US
+            viewers: 4
+          - code: DE
+            viewers: 3
+          renditions:
+          - name: 720
+            viewers: 7
+          devices:
+          - name: Desktop
+            viewers: 7
+          time_zone: America/New_York
+          trend:
+          - sampled_at: '2024-03-14T00:00:00Z'
+            viewers: 7
+          - sampled_at: '2024-03-15T00:00:00Z'
+            viewers: 7
+          - sampled_at: '2024-03-16T00:00:00Z'
+            viewers: 7
+          - sampled_at: '2024-03-17T00:00:00Z'
+            viewers: 7
+        limits:
+          from: '2024-03-14T10:31:54.000Z'
+          to: '2024-04-13T10:31:54.000Z'
+    analytics_viewers_live_streams:
+      type: object
+      description: ''
+      required:
+      - live_streams
+      properties:
+        live_streams:
+          type: array
+          items:
+            type: object
+            description: ''
+            title: live_streams
+            properties:
+              id:
+                type: string
+                description: The unique alphanumeric string that identifies the live stream.
+                example: 4Jjzstdt
+                format: int32
+              viewers:
+                type: integer
+                description: The total number of unique viewers to download at least one chunk of the stream. A unique viewer is a single IP address; multiple users that share  the same IP address are counted once.
+                example: 3
+                format: int32
+        limits:
+          type: object
+          description: The time frame represented in the response.
+          properties:
+            from:
+              type: string
+              description: The start of the range of time represented in the response.
+              example: ''
+              format: date-time
+            to:
+              type: string
+              description: The end of the range of time represented in the response.
+              example: ''
+              format: date-time
+      example:
+        live_streams:
+        - id: 4Jjzstdt
+          viewers: 3
+        - id: fFWxVsyj
+          viewers: 4
+        limits:
+          from: '2023-04-14T10:31:54.000Z'
+          to: '2023-07-13T10:31:54.000Z'
+    Error404:
       type: object
       description: ''
       required:
@@ -1595,42 +1795,10 @@ components:
       example:
         Example Response 1:
           meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. ... can't be blank
-            description: ''
-            links: []
-        Example Response 2:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. Provider wowza_video is not allowed
-            description: ''
-            links: []
-        Example Response 3:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
-            description: ''
-            links: []
-        Example Response 4:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
-            description: ''
-            links: []
-        Example Response 5:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
+            status: 404
+            code: ERR-404-RecordNotFound
+            title: Record Not Found Error
+            message: The requested resource couldn't be found.
             description: ''
             links: []
     Error410:
@@ -1679,64 +1847,128 @@ components:
             message: The requested resource has been deleted.
             description: ''
             links: []
-    analytics_viewers_vod_streams:
+    Error401:
       type: object
       description: ''
       required:
-      - vod_streams
+      - meta
       properties:
-        vod_streams:
-          type: array
-          items:
-            type: object
-            description: ''
-            title: vod_streams
-            properties:
-              id:
-                type: string
-                description: The unique alphanumeric string that identifies the VOD stream.
-                example: 4Jjzstdt
-                format: int32
-              viewers:
-                type: integer
-                description: The total number of unique viewers to download at least one chunk of the stream. A unique viewer is a single IP address; multiple users that share  the same IP address are counted once.
-                example: 3
-                format: int32
-        limits:
+        meta:
           type: object
-          description: The time frame represented in the response.
+          title: meta
+          description: ''
           properties:
-            from:
-              type: string
-              description: The start of the range of time represented in the response.
+            status:
+              type: integer
+              description: ''
               example: ''
-              format: date-time
-            to:
+              format: int32
+            code:
               type: string
-              description: The end of the range of time represented in the response.
+              description: ''
               example: ''
-              format: date-time
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
       example:
-        vod_streams:
-        - id: 4Jjzstdt
-          viewers: 3
-        - id: fFWxVsyj
-          viewers: 4
-        limits:
-          from: '2023-04-14T10:31:54.000Z'
-          to: '2023-07-13T10:31:54.000Z'
-    analytics_viewers_vod_stream_total:
+        Example Response 1:
+          meta:
+            status: 401
+            code: ERR-401-NoApiKey
+            title: No API Key Error
+            message: No API key sent in header.
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 401
+            code: ERR-401-NoAccessKey
+            title: No Access Key Error
+            message: No access key sent in header.
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 401
+            code: ERR-401-InvalidApiKey
+            title: Invalid Api Key Error
+            message: Invalid API key.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 401
+            code: ERR-401-InvalidAccessKey
+            title: Invalid Access Key Error
+            message: Invalid access key.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 401
+            code: ERR-401-BadAccountStatus
+            title: Bad Account Status Error
+            message: Your account's status doesn't allow this action.
+            description: ''
+            links: []
+        Example Response 6:
+          meta:
+            status: 401
+            code: ERR-401-FeatureNotEnabled
+            title: Feature Not Enabled Error
+            message: This feature isn't enabled.
+            description: ''
+            links: []
+        Example Response 7:
+          meta:
+            status: 401
+            code: ERR-401-TrialExceeded
+            title: Bad Billing Status Error
+            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
+            description: ''
+            links: []
+        Example Response 8:
+          meta:
+            status: 401
+            code: ERR-401-ExpiredToken
+            title: JWT is expired
+            message: Token has exired.
+            description: ''
+            links: []
+        Example Response 9:
+          meta:
+            status: 401
+            code: ERR-401-InvalidToken
+            title: JWT is invalid
+            message: Token is invalid.
+            description: ''
+            links: []
+    analytics_viewers_live_stream:
       type: object
       description: ''
       properties:
-        vod_stream:
+        live_stream:
           type: object
-          title: vod_stream
+          title: live_stream
           description: ''
           properties:
             id:
               type: string
-              description: The unique alphanumeric string that identifies the VOD stream.
+              description: The unique alphanumeric string that identifies the live stream.
               format: int32
             viewers:
               type: integer
@@ -1788,6 +2020,26 @@ components:
                   description: The total number of unique viewers to download at least one chunk of the stream. A unique viewer is a single IP address; multiple users that share the same IP address are counted once.
                   example: ''
                   format: int32
+            trend:
+              type: object
+              title: Array of viewer trends
+              description: 'An array of viewer trend data. The granularity of sampled data changes based on the from and to query values you use:
+
+
+                <ul><li>0 minutes to 8 hours - Samples returned per minute</li> <li>8 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 175 days - Samples returned per day</li> <li>175 days to 14 years - Samples returned per month</li> <li>14 years or greater - Samples returned per year</li></ul>
+
+
+                <strong>Defaults</strong>: from = last billing date, to = end of current day'
+              properties:
+                sampled_at:
+                  type: string
+                  description: The date and time the trend data was sampled.
+                  format: date-time
+                viewers:
+                  type: integer
+                  description: The total number of unique viewers to download at least one chunk of the stream. A unique viewer is a single IP address; multiple users that share the same IP address are counted once.
+                  example: ''
+                  format: int32
             time_zone:
               title: time_zone
               type: string
@@ -1808,7 +2060,7 @@ components:
                   example: ''
                   format: date-time
       example:
-        vod_stream:
+        live_stream:
           id: tvctq36g
           viewers: 7
           countries:
@@ -1823,9 +2075,18 @@ components:
           - name: Desktop
             viewers: 7
           time_zone: America/New_York
+          trend:
+          - sampled_at: '2024-03-14T00:00:00Z'
+            viewers: 7
+          - sampled_at: '2024-03-15T00:00:00Z'
+            viewers: 7
+          - sampled_at: '2024-03-16T00:00:00Z'
+            viewers: 7
+          - sampled_at: '2024-03-17T00:00:00Z'
+            viewers: 7
         limits:
-          from: '2024-04-01T00:00:00.000Z'
-          to: '2024-04-09T14:20:03.000Z'
+          from: '2024-03-14T10:31:54.000Z'
+          to: '2024-04-13T10:31:54.000Z'
     analytics_viewers_stream_target:
       type: object
       description: ''
@@ -1956,279 +2217,42 @@ components:
         limits:
           from: '2024-03-14T10:31:54.000Z'
           to: '2024-04-13T10:31:54.000Z'
-    analytics_viewers_account_total:
-      type: object
-      description: ''
-      properties:
-        account:
-          type: object
-          title: account
-          description: ''
-          properties:
-            viewers:
-              type: integer
-              description: The total number of unique viewers to download at least one chunk of the stream. A unique viewer is a single IP address; multiple users that share the same IP address are counted once.
-              example: ''
-              format: int32
-            countries:
-              type: object
-              title: countries
-              description: An array of viewer countries.
-              properties:
-                code:
-                  type: string
-                  description: A country code where the stream was requested.
-                  example: ''
-                viewers:
-                  type: integer
-                  description: The total number of unique viewers to download at least one chunk of the stream. A unique viewer is a single IP address; multiple users that share the same IP address are counted once.
-                  example: ''
-                  format: int32
-            renditions:
-              type: object
-              title: renditions
-              description: An array of viewer renditions.
-              properties:
-                name:
-                  type: integer
-                  description: 'The rendition of the stream played. A rendition name is the smaller number of the resolution. The resolution is [width]x[height] in which the stream was played. Renditions names have to be unique. If you''ve created two renditions that have the same height and width, Wowza Video increments the value of the height and uses that as the rendition name.
-
-
-                    Example: Two renditions of 1280x720 will result in rendition names of 720 and 721.'
-                  example: ''
-                viewers:
-                  type: integer
-                  description: The total number of unique viewers to download at least one chunk of the stream. A unique viewer is a single IP address; multiple users that share the same IP address are counted once.
-                  example: ''
-                  format: int32
-            devices:
-              type: object
-              title: devices
-              description: An array of viewer devices.
-              properties:
-                name:
-                  type: string
-                  description: A device where the stream was played.
-                  example: ''
-                viewers:
-                  type: integer
-                  description: The total number of unique viewers to download at least one chunk of the stream. A unique viewer is a single IP address; multiple users that share the same IP address are counted once.
-                  example: ''
-                  format: int32
-            time_zone:
-              title: time_zone
-              type: string
-              description: 'The time zone in which the data is returned. The default time zone in which the data is returned is **Etc/UTC**. '
-              example: ''
-            limits:
-              type: object
-              description: The time frame represented in the response.
-              properties:
-                from:
-                  type: string
-                  description: The start of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-                to:
-                  type: string
-                  description: The end of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-      example:
-        account:
-          viewers: 7
-          countries:
-          - code: US
-            viewers: 4
-          - code: DE
-            viewers: 3
-          renditions:
-          - name: 720
-            viewers: 7
-          devices:
-          - name: Desktop
-            viewers: 7
-          time_zone: America/New_York
-        limits:
-          from: '2024-04-01T00:00:00.000Z'
-          to: '2024-04-09T14:20:03.000Z'
-    analytics_viewers_account:
-      type: object
-      description: ''
-      properties:
-        account:
-          type: object
-          title: account
-          description: ''
-          properties:
-            viewers:
-              type: integer
-              description: The total number of unique viewers to download at least one chunk of the stream. A unique viewer is a single IP address; multiple users that share the same IP address are counted once.
-              example: ''
-              format: int32
-            countries:
-              type: object
-              title: countries
-              description: An array of viewer countries.
-              properties:
-                code:
-                  type: string
-                  description: A country code where the stream was requested.
-                  example: ''
-                viewers:
-                  type: integer
-                  description: The total number of unique viewers to download at least one chunk of the stream. A unique viewer is a single IP address; multiple users that share the same IP address are counted once.
-                  example: ''
-                  format: int32
-            renditions:
-              type: object
-              title: renditions
-              description: An array of viewer renditions.
-              properties:
-                name:
-                  type: integer
-                  description: 'The rendition of the stream played. A rendition name is the smaller number of the resolution. The resolution is [width]x[height] in which the stream was played. Renditions names have to be unique. If you''ve created two renditions that have the same height and width, Wowza Video increments the value of the height and uses that as the rendition name.
-
-
-                    Example: Two renditions of 1280x720 will result in rendition names of 720 and 721.'
-                  example: ''
-                viewers:
-                  type: integer
-                  description: The total number of unique viewers to download at least one chunk of the stream. A unique viewer is a single IP address; multiple users that share the same IP address are counted once.
-                  example: ''
-                  format: int32
-            devices:
-              type: object
-              title: devices
-              description: An array of viewer devices.
-              properties:
-                name:
-                  type: string
-                  description: A device where the stream was played.
-                  example: ''
-                viewers:
-                  type: integer
-                  description: The total number of unique viewers to download at least one chunk of the stream. A unique viewer is a single IP address; multiple users that share the same IP address are counted once.
-                  example: ''
-                  format: int32
-            trend:
-              type: object
-              title: Array of viewer trends
-              description: 'An array of viewer trend data. The granularity of sampled data changes based on the from and to query values you use:
-
-
-                <ul><li>0 minutes to 8 hours - Samples returned per minute</li> <li>8 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 175 days - Samples returned per day</li> <li>175 days to 14 years - Samples returned per month</li> <li>14 years or greater - Samples returned per year</li></ul>
-
-
-                <strong>Defaults</strong>: from = last billing date, to = end of current day'
-              properties:
-                sampled_at:
-                  type: string
-                  description: The date and time the trend data was sampled.
-                  format: date-time
-                viewers:
-                  type: integer
-                  description: The total number of unique viewers to download at least one chunk of the stream. A unique viewer is a single IP address; multiple users that share the same IP address are counted once.
-                  example: ''
-                  format: int32
-            time_zone:
-              title: time_zone
-              type: string
-              description: 'The time zone in which the data is returned. The default time zone in which the data is returned is **Etc/UTC**.  '
-              example: ''
-            limits:
-              type: object
-              description: The time frame represented in the response.
-              properties:
-                from:
-                  type: string
-                  description: The start of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-                to:
-                  type: string
-                  description: The end of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-      example:
-        account:
-          viewers: 7
-          countries:
-          - code: US
-            viewers: 4
-          - code: DE
-            viewers: 3
-          renditions:
-          - name: 720
-            viewers: 7
-          devices:
-          - name: Desktop
-            viewers: 7
-          time_zone: America/New_York
-          trend:
-          - sampled_at: '2024-03-14T00:00:00Z'
-            viewers: 7
-          - sampled_at: '2024-03-15T00:00:00Z'
-            viewers: 7
-          - sampled_at: '2024-03-16T00:00:00Z'
-            viewers: 7
-          - sampled_at: '2024-03-17T00:00:00Z'
-            viewers: 7
-        limits:
-          from: '2024-03-14T10:31:54.000Z'
-          to: '2024-04-13T10:31:54.000Z'
-    Error404:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 404
-            code: ERR-404-RecordNotFound
-            title: Record Not Found Error
-            message: The requested resource couldn't be found.
-            description: ''
-            links: []
   securitySchemes:
-    basicAuth:
+    WV_JWT:
       type: http
-      scheme: basic
-      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
-    digestAuth:
-      type: http
-      scheme: digest
-      description: HTTP Digest Authentication
+      scheme: bearer
+      description: Your Wowza-generated access token, also called a JSON web token (JWT). Send it as a bearer token in the Authentication header of your requests. See [Authentication](https://www.wowza.com/docs/how-to-use-the-wowza-video-rest-api#authentication).
+x-tagGroups:
+- name: Resource Management
+  tags:
+  - live_streams
+  - transcoders
+  - stream_sources
+  - stream_targets
+  - schedules
+  - real_time
+  - videos
+  - categories
+  - advanced_token_authentication
+  - clipping
+- name: Analytics
+  tags:
+  - analytics_viewers
+  - analytics_ingest
+  - analytics_engagement
+  - analytics_popularity
+  - quality_of_experience
+- name: Usage
+  tags:
+  - usage_account
+  - usage_transcoders
+  - usage
+  - usage_real_time_streams
+- name: Deprecated in 2.0
+  tags:
+  - assets
+  - players
+  - recordings
+  - vod_streams
+  - storage
+  - usage_vod_streams

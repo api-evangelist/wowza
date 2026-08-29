@@ -1,19 +1,13 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Wowza Streaming Engine REST advanced_token_authentication schedules API
-  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
-  version: 2.0.0
-  contact:
-    name: Wowza Media Systems
-    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  version: v2.0
+  title: Wowza Video REST API Reference Documentation Schedules API
   license:
-    name: Wowza Media Systems
-    url: https://www.wowza.com
+    name: Terms of Use
+    url: https://www.wowza.com/legal/terms-of-use
+  description: "API lifecycle phase: [Current](https://www.wowza.com/docs/wowza-video-rest-api-lifecycle-management#api-lifecycle0)\n\n\n<table>\n<tr style=\"background-color:lightgrey;\"><td>\n<strong>Want to take the API for a test run?</strong>\n\nAll you'll need is a [Wowza Video subscription](https://www.wowza.com/pricing), or [free trial](https://www.wowza.com/free-trial), for the API access token. Then, fork [our collection in Postman](https://www.postman.com/wowzavideo/workspace/wowza-video-rest-api) and you'll be\nmaking calls to our REST API in minutes!\n\nSee [Trial the Wowza Video REST API using Postman](https://www.wowza.com/docs/trial-the-wowza-video-rest-api-using-postman) for more information.\n</td>\n</tr>\n</table>\n\n\nThis reference documentation provides details about the operations, parameters, and request and response schemas for every resource and endpoint in the Wowza Video REST API.\nSamples appear in the right column. Sample requests are presented in cURL (Shell) and JavaScript; some samples also include just the JSON object. Response samples are all JSON. \nExamples in cURL use environment variables so you can easily copy and paste them. To learn more, see [Using cURL](https://wowza.com/docs/how-to-use-the-wowza-video-rest-api#curl).\n\n\nReference documentation is available for every version of the API. Use the **Version** menu at the top of the page to access the reference doc for a different version of the API.\n\n<blockquote><strong>Note</strong>: If you haven't moved over to the new Wowza Video UI experience, you won't be able to access v2.0 of the API. We're migrating customers iteratively. See <a href=\"https://developer.wowza.com/docs/wowza-video/upgrade-to-wowza-video/\">Upgrade to the Wowza Video 2.0 REST API</a> for more information.</blockquote>\n"
 servers:
-- url: http://localhost:8087
-  description: Wowza Streaming Engine Server
-security:
-- basicAuth: []
+- url: https://api.video.wowza.com/api/v2.0
 tags:
 - name: schedules
   description: Operations related to schedules. Schedules allow you to automatically start or stop a live stream or transcoder at a predetermined date and time. You can configure a schedule to start and/or stop a live stream or transcoder just once, or you can configure it to repeat the behavior on a regular basis. See [About schedules](https://www.wowza.com/docs/schedule-live-streams-and-transcoders#aboutSCH) to learn more.
@@ -472,6 +466,185 @@ paths:
                 $ref: '#/components/schemas/Error410'
 components:
   schemas:
+    schedule_create_input:
+      type: object
+      description: ''
+      required:
+      - schedule
+      properties:
+        schedule:
+          type: object
+          title: schedule
+          description: ''
+          required:
+          - name
+          - transcoder_id
+          - action_type
+          - recurrence_type
+          properties:
+            action_type:
+              type: string
+              description: The type of action that the schedule should trigger on the transcoder. The default is **start**.
+              example: start_stop
+              enum:
+              - start
+              - stop
+              - start_stop
+            name:
+              type: string
+              description: A descriptive name for the schedule. Maximum 255 characters.
+              example: Scheduled start for my camera
+            recurrence_type:
+              type: string
+              description: A schedule can run one time only (**once**) or repeat (**recur**) until a specified *end_repeat* date. The default is **once**.
+              example: recur
+              enum:
+              - once
+              - recur
+            time_zone:
+              type: string
+              example: America/New_York
+              description: "The time zone the schedule runs in.\n<details> <summary>Click to expand for the full list of valid values</summary>\n\n  | Locations |  Wowza Video time_zone value |\n  |---|---|\n  | International Date Line West  | Etc/GMT+12                     |\n  | Midway Island                 | Pacific/Midway                 |\n  | American Samoa                | Pacific/Pago_Pago              |\n  | Hawaii                        | Pacific/Honolulu               |\n  | Alaska                        | America/Juneau                 |\n  | Pacific Time (US & Canada)    | America/Los_Angeles            |\n  | Tijuana                       | America/Tijuana                |\n  | Mountain Time (US & Canada)   | America/Denver                 |\n  | Arizona                       | America/Phoenix                |\n  | Chihuahua                     | America/Chihuahua              |\n  | Mazatlan                      | America/Mazatlan               |\n  | Central Time (US & Canada)    | America/Chicago                |\n  | Saskatchewan                  | America/Regina                 |\n  | Guadalajara                   | America/Mexico_City            |\n  | Mexico City                   | America/Mexico_City            |\n  | Monterrey                     | America/Monterrey              |\n  | Central America               | America/Guatemala              |\n  | Eastern Time (US & Canada)    | America/New_York               |\n  | Indiana (East)                | America/Indiana/Indianapolis   |\n  | Bogota                        | America/Bogota                 |\n  | Lima                          | America/Lima                   |\n  | Quito                         | America/Lima                   |\n  | Atlantic Time (Canada)        | America/Halifax                |\n  | Caracas                       | America/Caracas                |\n  | La Paz                        | America/La_Paz                 |\n  | Santiago                      | America/Santiago               |\n  | Newfoundland                  | America/St_Johns               |\n  | Brasilia                      | America/Sao_Paulo              |\n  | Buenos Aires                  | America/Argentina/Buenos_Aires |\n  | Montevideo                    | America/Montevideo             |\n  | Georgetown                    | America/Guyana                 |\n  | Puerto Rico                   | America/Puerto_Rico            |\n  | Greenland                     | America/Godthab                |\n  | Mid-Atlantic                  | Atlantic/South_Georgia         |\n  | Azores                        | Atlantic/Azores                |\n  | Cape Verde Is.                | Atlantic/Cape_Verde            |\n  | Dublin                        | Europe/Dublin                  |\n  | Edinburgh                     | Europe/London                  |\n  | Lisbon                        | Europe/Lisbon                  |\n  | London                        | Europe/London                  |\n  | Casablanca                    | Africa/Casablanca              |\n  | Monrovia                      | Africa/Monrovia                |\n  | UTC                           | Etc/UTC                        |\n  | Belgrade                      | Europe/Belgrade                |\n  | Bratislava                    | Europe/Bratislava              |\n  | Budapest                      | Europe/Budapest                |\n  | Ljubljana                     | Europe/Ljubljana               |\n  | Prague                        | Europe/Prague                  |\n  | Sarajevo                      | Europe/Sarajevo                |\n  | Skopje                        | Europe/Skopje                  |\n  | Warsaw                        | Europe/Warsaw                  |\n  | Zagreb                        | Europe/Zagreb                  |\n  | Brussels                      | Europe/Brussels                |\n  | Copenhagen                    | Europe/Copenhagen              |\n  | Madrid                        | Europe/Madrid                  |\n  | Paris                         | Europe/Paris                   |\n  | Amsterdam                     | Europe/Amsterdam               |\n  | Berlin                        | Europe/Berlin                  |\n  | Bern                          | Europe/Zurich                  |\n  | Zurich                        | Europe/Zurich                  |\n  | Rome                          | Europe/Rome                    |\n  | Stockholm                     | Europe/Stockholm               |\n  | Vienna                        | Europe/Vienna                  |\n  | West Central Africa           | Africa/Algiers                 |\n  | Bucharest                     | Europe/Bucharest               |\n  | Cairo                         | Africa/Cairo                   |\n  | Helsinki                      | Europe/Helsinki                |\n  | Kyiv                          | Europe/Kiev                    |\n  | Riga                          | Europe/Riga                    |\n  | Sofia                         | Europe/Sofia                   |\n  | Tallinn                       | Europe/Tallinn                 |\n  | Vilnius                       | Europe/Vilnius                 |\n  | Athens                        | Europe/Athens                  |\n  | Istanbul                      | Europe/Istanbul                |\n  | Minsk                         | Europe/Minsk                   |\n  | Jerusalem                     | Asia/Jerusalem                 |\n  | Harare                        | Africa/Harare                  |\n  | Pretoria                      | Africa/Johannesburg            |\n  | Kaliningrad                   | Europe/Kaliningrad             |\n  | Moscow                        | Europe/Moscow                  |\n  | St. Petersburg                | Europe/Moscow                  |\n  | Volgograd                     | Europe/Volgograd               |\n  | Samara                        | Europe/Samara                  |\n  | Kuwait                        | Asia/Kuwait                    |\n  | Riyadh                        | Asia/Riyadh                    |\n  | Nairobi                       | Africa/Nairobi                 |\n  | Baghdad                       | Asia/Baghdad                   |\n  | Tehran                        | Asia/Tehran                    |\n  | Abu Dhabi                     | Asia/Muscat                    |\n  | Muscat                        | Asia/Muscat                    |\n  | Baku                          | Asia/Baku                      |\n  | Tbilisi                       | Asia/Tbilisi                   |\n  | Yerevan                       | Asia/Yerevan                   |\n  | Kabul                         | Asia/Kabul                     |\n  | Ekaterinburg                  | Asia/Yekaterinburg             |\n  | Islamabad                     | Asia/Karachi                   |\n  | Karachi                       | Asia/Karachi                   |\n  | Tashkent                      | Asia/Tashkent                  |\n  | Chennai                       | Asia/Kolkata                   |\n  | Kolkata                       | Asia/Kolkata                   |\n  | Mumbai                        | Asia/Kolkata                   |\n  | New Delhi                     | Asia/Kolkata                   |\n  | Kathmandu                     | Asia/Kathmandu                 |\n  | Astana                        | Asia/Dhaka                     |\n  | Dhaka                         | Asia/Dhaka                     |\n  | Sri Jayawardenepura           | Asia/Colombo                   |\n  | Almaty                        | Asia/Almaty                    |\n  | Novosibirsk                   | Asia/Novosibirsk               |\n  | Rangoon                       | Asia/Rangoon                   |\n  | Bangkok                       | Asia/Bangkok                   |\n  | Hanoi                         | Asia/Bangkok                   |\n  | Jakarta                       | Asia/Jakarta                   |\n  | Krasnoyarsk                   | Asia/Krasnoyarsk               |\n  | Beijing                       | Asia/Shanghai                  |\n  | Chongqing                     | Asia/Chongqing                 |\n  | Hong Kong                     | Asia/Hong_Kong                 |\n  | Urumqi                        | Asia/Urumqi                    |\n  | Kuala Lumpur                  | Asia/Kuala_Lumpur              |\n  | Singapore                     | Asia/Singapore                 |\n  | Taipei                        | Asia/Taipei                    |\n  | Perth                         | Australia/Perth                |\n  | Irkutsk                       | Asia/Irkutsk                   |\n  | Ulaanbaatar                   | Asia/Ulaanbaatar               |\n  | Seoul                         | Asia/Seoul                     |\n  | Osaka                         | Asia/Tokyo                     |\n  | Sapporo                       | Asia/Tokyo                     |\n  | Tokyo                         | Asia/Tokyo                     |\n  | Yakutsk                       | Asia/Yakutsk                   |\n  | Darwin                        | Australia/Darwin               |\n  | Adelaide                      | Australia/Adelaide             |\n  | Canberra                      | Australia/Melbourne            |\n  | Melbourne                     | Australia/Melbourne            |\n  | Sydney                        | Australia/Sydney               |\n  | Brisbane                      | Australia/Brisbane             |\n  | Hobart                        | Australia/Hobart               |\n  | Vladivostok                   | Asia/Vladivostok               |\n  | Guam                          | Pacific/Guam                   |\n  | Port Moresby                  | Pacific/Port_Moresby           |\n  | Magadan                       | Asia/Magadan                   |\n  | Srednekolymsk                 | Asia/Srednekolymsk             |\n  | Solomon Is.                   | Pacific/Guadalcanal            |\n  | New Caledonia                 | Pacific/Noumea                 |\n  | Fiji                          | Pacific/Fiji                   |\n  | Kamchatka                     | Asia/Kamchatka                 |\n  | Marshall Is.                  | Pacific/Majuro                 |\n  | Auckland                      | Pacific/Auckland               |\n  | Wellington                    | Pacific/Auckland               |\n  | Nuku'alofa                    | Pacific/Tongatapu              |\n  | Tokelau Is.                   | Pacific/Fakaofo                |\n  | Chatham Is.                   | Pacific/Chatham                |\n  | Samoa                         | Pacific/Apia                   |\n\n</details>\n\n**Default:** `Etc/UTC`\n\n**Example:** `America/New_York`"
+            transcoder_id:
+              type: string
+              description: The unique alphanumeric string that identifies the transcoder being scheduled.
+              example: km1FSSVL
+            end_repeat:
+              type: string
+              description: 'The month, day, and year that a recurring schedule should stop running. Specify **YYYY-MM-DD**.
+
+
+                **Example:** <code>"end_repeat": "2020-02-29T00:00:00.000Z"</code>'
+              example: '2020-02-29T00:00:00.000Z'
+              format: date
+            recurrence_data:
+              type: string
+              description: 'The day or days of the week that a recurring schedule should run.
+
+
+                **Example:** <code>"recurrence_data": "monday,tuesday,wednesday,thursday,friday"</code>'
+              example: monday,tuesday,wednesday,thursday,friday
+              enum:
+              - sunday
+              - monday
+              - tuesday
+              - wednesday
+              - thursday
+              - friday
+              - saturday
+            start_repeat:
+              type: string
+              description: 'The month, day, and year that the recurring schedule should go into effect. Specify **YYYY-MM-DD**.
+
+
+                **Example:** <code>"start_repeat": "2020-02-01T00:00:00.000Z"</code>'
+              example: '2020-02-01T00:00:00.000Z'
+              format: date
+            start_transcoder:
+              type: string
+              description: 'The month, day, year, and time of day that the *action_type* **start** should occur. Specify **YYYY-MM-DD HH:MM:SS** where **HH** is a 24-hour clock in UTC.
+
+
+                Required when **action_type** is **start** or **start_stop**.
+
+
+                **Example:** <code>"start_transcoder": "2020-02-01T00:00:00.000Z"</code>'
+              example: '2020-02-01T00:00:00.000Z'
+              format: date-time
+            stop_transcoder:
+              type: string
+              description: 'The month, day, year, and time of day that the *action_type* **stop** should occur. Specify **YYYY-MM-DD HH:MM:SS** where **HH** is a 24-hour clock in UTC.
+
+
+                Required when **action_type** is **stop** or **start_stop**.
+
+
+                **Example:** <code>"start_transcoder": "2020-02-29T23:59:59.999Z"</code>'
+              example: '2020-02-29T23:59:59.999Z'
+              format: date-time
+    schedules:
+      type: object
+      description: ''
+      required:
+      - schedules
+      properties:
+        schedules:
+          type: array
+          items:
+            $ref: '#/components/schemas/schedule'
+      example:
+        schedules:
+        - id: 28bwb5WT
+          state: disabled
+          name: Scheduled recurring start for my camera
+          transcoder_id: VGB21JFJ
+          transcoder_name: My Camera
+          recurrence_type: recur
+          recurrence_data: monday,tuesday,wednesday,thursday,friday
+          action_type: start_stop
+          start_transcoder: '2020-02-01T00:00:00.000Z'
+          stop_transcoder: '2020-02-29T23:59:59.999Z'
+          start_repeat: '2020-02-01T00:00:00.000Z'
+          end_repeat: '2020-02-29T00:00:00.000Z'
+          created_at: '2020-01-29T17:16:21.995Z'
+          updated_at: '2020-01-31T14:58:43.995Z'
+        - id: 4RCWgfS5
+          state: enabled
+          name: Scheduled stop for my live event
+          transcoder_id: Qjl5J38Z
+          transcoder_name: Awesome Live Event
+          recurrence_type: once
+          action_type: stop
+          start_transcoder: '2020-02-01T00:00:00.000Z'
+          stop_transcoder: '2020-02-29T23:59:59.999Z'
+          created_at: '2020-01-29T17:16:21.995Z'
+          updated_at: '2020-01-31T08:25:45.995Z'
+    Error404:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 404
+            code: ERR-404-RecordNotFound
+            title: Record Not Found Error
+            message: The requested resource couldn't be found.
+            description: ''
+            links: []
     Error403:
       type: object
       description: ''
@@ -516,6 +689,234 @@ components:
             code: ERR-403-RecordUnaccessible
             title: Record Unaccessible Error
             message: The requested resource isn't accessible.
+            description: ''
+            links: []
+    Error422:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. ... can't be blank
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. Provider wowza_video is not allowed
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
+            description: ''
+            links: []
+    schedule:
+      type: object
+      description: ''
+      properties:
+        action_type:
+          type: string
+          description: The type of action that the schedule should trigger on the transcoder. The default is **start**.
+          example: start_stop
+          enum:
+          - start
+          - stop
+          - start_stop
+        created_at:
+          type: string
+          description: The date and time that the schedule was created.
+          example: '2020-01-29T17:16:21.995Z'
+          format: date-time
+        end_repeat:
+          type: string
+          description: The month, day, and year that a recurring schedule should stop running. Specify **YYYY-MM-DD**.
+          example: '2020-02-29T00:00:00.000Z'
+          format: date
+        id:
+          type: string
+          description: The unique alphanumeric string that identifies the schedule.
+          example: vhB0jSlB
+        name:
+          type: string
+          description: A descriptive name for the schedule. Maximum 255 characters.
+          example: Scheduled start for my camera
+        recurrence_data:
+          type: string
+          description: The day or days of the week that a recurring schedule should run.
+          example: monday,tuesday,wednesday,thursday,friday
+          enum:
+          - sunday
+          - monday
+          - tuesday
+          - wednesday
+          - thursday
+          - friday
+          - saturday
+        recurrence_type:
+          type: string
+          description: A schedule can run one time only (**once**) or repeat (**recur**) until a specified *end_repeat* date. The default is **once**.
+          example: recur
+          enum:
+          - once
+          - recur
+        start_repeat:
+          type: string
+          description: The month, day, and year that the recurring schedule should go into effect. Specify **YYYY-MM-DD**.
+          example: '2020-02-01T00:00:00.000Z'
+          format: date
+        start_transcoder:
+          type: string
+          description: The month, day, year, and time of day that the *action_type* **start** should occur. Specify **YYYY-MM-DD HH:MM:SS** where **HH** is a 24-hour clock in UTC.
+          example: '2020-02-01T00:00:00.000Z'
+          format: date-time
+        state:
+          type: string
+          description: A schedule must be **enabled** to run. Specify **enabled** to run the schedule or **disabled** to turn off the schedule so that it doesn't run.
+          example: enabled
+          enum:
+          - enabled
+          - disabled
+          - expired
+        stop_transcoder:
+          type: string
+          description: The month, day, year, and time of day that the *action_type* **stop** should occur. Specify **YYYY-MM-DD HH:MM:SS** where **HH** is a 24-hour clock in UTC.
+          example: '2020-02-29T23:59:59.999Z'
+          format: date-time
+        time_zone:
+          type: string
+          description: The time zone the schedule runs in.
+        transcoder_id:
+          type: string
+          description: The unique alphanumeric string that identifies the transcoder being scheduled.
+          example: P0NrTP7m
+        transcoder_name:
+          type: string
+          description: The name of the transcoder being scheduled.
+          example: My Camera
+        updated_at:
+          type: string
+          description: The date and time that the schedule was updated.
+          example: '2020-01-30T16:44:37.995Z'
+          format: date-time
+      example:
+        id: 28bwb5WT
+        state: disabled
+        name: Scheduled recurring start for my camera
+        time_zone: America/New_York
+        transcoder_id: VGB21JFJ
+        transcoder_name: My Camera
+        recurrence_type: recur
+        recurrence_data: monday,tuesday,wednesday,thursday,friday
+        action_type: start_stop
+        start_transcoder: '2020-02-01T00:00:00.000Z'
+        stop_transcoder: '2020-02-29T23:59:59.999Z'
+        start_repeat: '2020-02-01T00:00:00.000Z'
+        end_repeat: '2020-02-29T00:00:00.000Z'
+        created_at: '2020-01-29T17:16:21.995Z'
+        updated_at: '2020-01-31T07:00:48.995Z'
+    Error410:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 410
+            code: ERR-410-RecordDeleted
+            title: Record Deleted Error
+            message: The requested resource has been deleted.
             description: ''
             links: []
     Error401:
@@ -628,263 +1029,6 @@ components:
             message: Token is invalid.
             description: ''
             links: []
-    schedules:
-      type: object
-      description: ''
-      required:
-      - schedules
-      properties:
-        schedules:
-          type: array
-          items:
-            $ref: '#/components/schemas/schedule'
-      example:
-        schedules:
-        - id: 28bwb5WT
-          state: disabled
-          name: Scheduled recurring start for my camera
-          transcoder_id: VGB21JFJ
-          transcoder_name: My Camera
-          recurrence_type: recur
-          recurrence_data: monday,tuesday,wednesday,thursday,friday
-          action_type: start_stop
-          start_transcoder: '2020-02-01T00:00:00.000Z'
-          stop_transcoder: '2020-02-29T23:59:59.999Z'
-          start_repeat: '2020-02-01T00:00:00.000Z'
-          end_repeat: '2020-02-29T00:00:00.000Z'
-          created_at: '2020-01-29T17:16:21.995Z'
-          updated_at: '2020-01-31T14:58:43.995Z'
-        - id: 4RCWgfS5
-          state: enabled
-          name: Scheduled stop for my live event
-          transcoder_id: Qjl5J38Z
-          transcoder_name: Awesome Live Event
-          recurrence_type: once
-          action_type: stop
-          start_transcoder: '2020-02-01T00:00:00.000Z'
-          stop_transcoder: '2020-02-29T23:59:59.999Z'
-          created_at: '2020-01-29T17:16:21.995Z'
-          updated_at: '2020-01-31T08:25:45.995Z'
-    Error422:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. ... can't be blank
-            description: ''
-            links: []
-        Example Response 2:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. Provider wowza_video is not allowed
-            description: ''
-            links: []
-        Example Response 3:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
-            description: ''
-            links: []
-        Example Response 4:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
-            description: ''
-            links: []
-        Example Response 5:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
-            description: ''
-            links: []
-    Error410:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 410
-            code: ERR-410-RecordDeleted
-            title: Record Deleted Error
-            message: The requested resource has been deleted.
-            description: ''
-            links: []
-    schedule_create_input:
-      type: object
-      description: ''
-      required:
-      - schedule
-      properties:
-        schedule:
-          type: object
-          title: schedule
-          description: ''
-          required:
-          - name
-          - transcoder_id
-          - action_type
-          - recurrence_type
-          properties:
-            action_type:
-              type: string
-              description: The type of action that the schedule should trigger on the transcoder. The default is **start**.
-              example: start_stop
-              enum:
-              - start
-              - stop
-              - start_stop
-            name:
-              type: string
-              description: A descriptive name for the schedule. Maximum 255 characters.
-              example: Scheduled start for my camera
-            recurrence_type:
-              type: string
-              description: A schedule can run one time only (**once**) or repeat (**recur**) until a specified *end_repeat* date. The default is **once**.
-              example: recur
-              enum:
-              - once
-              - recur
-            time_zone:
-              type: string
-              example: America/New_York
-              description: "The time zone the schedule runs in.\n<details> <summary>Click to expand for the full list of valid values</summary>\n\n  | Locations |  Wowza Video time_zone value |\n  |---|---|\n  | International Date Line West  | Etc/GMT+12                     |\n  | Midway Island                 | Pacific/Midway                 |\n  | American Samoa                | Pacific/Pago_Pago              |\n  | Hawaii                        | Pacific/Honolulu               |\n  | Alaska                        | America/Juneau                 |\n  | Pacific Time (US & Canada)    | America/Los_Angeles            |\n  | Tijuana                       | America/Tijuana                |\n  | Mountain Time (US & Canada)   | America/Denver                 |\n  | Arizona                       | America/Phoenix                |\n  | Chihuahua                     | America/Chihuahua              |\n  | Mazatlan                      | America/Mazatlan               |\n  | Central Time (US & Canada)    | America/Chicago                |\n  | Saskatchewan                  | America/Regina                 |\n  | Guadalajara                   | America/Mexico_City            |\n  | Mexico City                   | America/Mexico_City            |\n  | Monterrey                     | America/Monterrey              |\n  | Central America               | America/Guatemala              |\n  | Eastern Time (US & Canada)    | America/New_York               |\n  | Indiana (East)                | America/Indiana/Indianapolis   |\n  | Bogota                        | America/Bogota                 |\n  | Lima                          | America/Lima                   |\n  | Quito                         | America/Lima                   |\n  | Atlantic Time (Canada)        | America/Halifax                |\n  | Caracas                       | America/Caracas                |\n  | La Paz                        | America/La_Paz                 |\n  | Santiago                      | America/Santiago               |\n  | Newfoundland                  | America/St_Johns               |\n  | Brasilia                      | America/Sao_Paulo              |\n  | Buenos Aires                  | America/Argentina/Buenos_Aires |\n  | Montevideo                    | America/Montevideo             |\n  | Georgetown                    | America/Guyana                 |\n  | Puerto Rico                   | America/Puerto_Rico            |\n  | Greenland                     | America/Godthab                |\n  | Mid-Atlantic                  | Atlantic/South_Georgia         |\n  | Azores                        | Atlantic/Azores                |\n  | Cape Verde Is.                | Atlantic/Cape_Verde            |\n  | Dublin                        | Europe/Dublin                  |\n  | Edinburgh                     | Europe/London                  |\n  | Lisbon                        | Europe/Lisbon                  |\n  | London                        | Europe/London                  |\n  | Casablanca                    | Africa/Casablanca              |\n  | Monrovia                      | Africa/Monrovia                |\n  | UTC                           | Etc/UTC                        |\n  | Belgrade                      | Europe/Belgrade                |\n  | Bratislava                    | Europe/Bratislava              |\n  | Budapest                      | Europe/Budapest                |\n  | Ljubljana                     | Europe/Ljubljana               |\n  | Prague                        | Europe/Prague                  |\n  | Sarajevo                      | Europe/Sarajevo                |\n  | Skopje                        | Europe/Skopje                  |\n  | Warsaw                        | Europe/Warsaw                  |\n  | Zagreb                        | Europe/Zagreb                  |\n  | Brussels                      | Europe/Brussels                |\n  | Copenhagen                    | Europe/Copenhagen              |\n  | Madrid                        | Europe/Madrid                  |\n  | Paris                         | Europe/Paris                   |\n  | Amsterdam                     | Europe/Amsterdam               |\n  | Berlin                        | Europe/Berlin                  |\n  | Bern                          | Europe/Zurich                  |\n  | Zurich                        | Europe/Zurich                  |\n  | Rome                          | Europe/Rome                    |\n  | Stockholm                     | Europe/Stockholm               |\n  | Vienna                        | Europe/Vienna                  |\n  | West Central Africa           | Africa/Algiers                 |\n  | Bucharest                     | Europe/Bucharest               |\n  | Cairo                         | Africa/Cairo                   |\n  | Helsinki                      | Europe/Helsinki                |\n  | Kyiv                          | Europe/Kiev                    |\n  | Riga                          | Europe/Riga                    |\n  | Sofia                         | Europe/Sofia                   |\n  | Tallinn                       | Europe/Tallinn                 |\n  | Vilnius                       | Europe/Vilnius                 |\n  | Athens                        | Europe/Athens                  |\n  | Istanbul                      | Europe/Istanbul                |\n  | Minsk                         | Europe/Minsk                   |\n  | Jerusalem                     | Asia/Jerusalem                 |\n  | Harare                        | Africa/Harare                  |\n  | Pretoria                      | Africa/Johannesburg            |\n  | Kaliningrad                   | Europe/Kaliningrad             |\n  | Moscow                        | Europe/Moscow                  |\n  | St. Petersburg                | Europe/Moscow                  |\n  | Volgograd                     | Europe/Volgograd               |\n  | Samara                        | Europe/Samara                  |\n  | Kuwait                        | Asia/Kuwait                    |\n  | Riyadh                        | Asia/Riyadh                    |\n  | Nairobi                       | Africa/Nairobi                 |\n  | Baghdad                       | Asia/Baghdad                   |\n  | Tehran                        | Asia/Tehran                    |\n  | Abu Dhabi                     | Asia/Muscat                    |\n  | Muscat                        | Asia/Muscat                    |\n  | Baku                          | Asia/Baku                      |\n  | Tbilisi                       | Asia/Tbilisi                   |\n  | Yerevan                       | Asia/Yerevan                   |\n  | Kabul                         | Asia/Kabul                     |\n  | Ekaterinburg                  | Asia/Yekaterinburg             |\n  | Islamabad                     | Asia/Karachi                   |\n  | Karachi                       | Asia/Karachi                   |\n  | Tashkent                      | Asia/Tashkent                  |\n  | Chennai                       | Asia/Kolkata                   |\n  | Kolkata                       | Asia/Kolkata                   |\n  | Mumbai                        | Asia/Kolkata                   |\n  | New Delhi                     | Asia/Kolkata                   |\n  | Kathmandu                     | Asia/Kathmandu                 |\n  | Astana                        | Asia/Dhaka                     |\n  | Dhaka                         | Asia/Dhaka                     |\n  | Sri Jayawardenepura           | Asia/Colombo                   |\n  | Almaty                        | Asia/Almaty                    |\n  | Novosibirsk                   | Asia/Novosibirsk               |\n  | Rangoon                       | Asia/Rangoon                   |\n  | Bangkok                       | Asia/Bangkok                   |\n  | Hanoi                         | Asia/Bangkok                   |\n  | Jakarta                       | Asia/Jakarta                   |\n  | Krasnoyarsk                   | Asia/Krasnoyarsk               |\n  | Beijing                       | Asia/Shanghai                  |\n  | Chongqing                     | Asia/Chongqing                 |\n  | Hong Kong                     | Asia/Hong_Kong                 |\n  | Urumqi                        | Asia/Urumqi                    |\n  | Kuala Lumpur                  | Asia/Kuala_Lumpur              |\n  | Singapore                     | Asia/Singapore                 |\n  | Taipei                        | Asia/Taipei                    |\n  | Perth                         | Australia/Perth                |\n  | Irkutsk                       | Asia/Irkutsk                   |\n  | Ulaanbaatar                   | Asia/Ulaanbaatar               |\n  | Seoul                         | Asia/Seoul                     |\n  | Osaka                         | Asia/Tokyo                     |\n  | Sapporo                       | Asia/Tokyo                     |\n  | Tokyo                         | Asia/Tokyo                     |\n  | Yakutsk                       | Asia/Yakutsk                   |\n  | Darwin                        | Australia/Darwin               |\n  | Adelaide                      | Australia/Adelaide             |\n  | Canberra                      | Australia/Melbourne            |\n  | Melbourne                     | Australia/Melbourne            |\n  | Sydney                        | Australia/Sydney               |\n  | Brisbane                      | Australia/Brisbane             |\n  | Hobart                        | Australia/Hobart               |\n  | Vladivostok                   | Asia/Vladivostok               |\n  | Guam                          | Pacific/Guam                   |\n  | Port Moresby                  | Pacific/Port_Moresby           |\n  | Magadan                       | Asia/Magadan                   |\n  | Srednekolymsk                 | Asia/Srednekolymsk             |\n  | Solomon Is.                   | Pacific/Guadalcanal            |\n  | New Caledonia                 | Pacific/Noumea                 |\n  | Fiji                          | Pacific/Fiji                   |\n  | Kamchatka                     | Asia/Kamchatka                 |\n  | Marshall Is.                  | Pacific/Majuro                 |\n  | Auckland                      | Pacific/Auckland               |\n  | Wellington                    | Pacific/Auckland               |\n  | Nuku'alofa                    | Pacific/Tongatapu              |\n  | Tokelau Is.                   | Pacific/Fakaofo                |\n  | Chatham Is.                   | Pacific/Chatham                |\n  | Samoa                         | Pacific/Apia                   |\n\n</details>\n\n**Default:** `Etc/UTC`\n\n**Example:** `America/New_York`"
-            transcoder_id:
-              type: string
-              description: The unique alphanumeric string that identifies the transcoder being scheduled.
-              example: km1FSSVL
-            end_repeat:
-              type: string
-              description: 'The month, day, and year that a recurring schedule should stop running. Specify **YYYY-MM-DD**.
-
-
-                **Example:** <code>"end_repeat": "2020-02-29T00:00:00.000Z"</code>'
-              example: '2020-02-29T00:00:00.000Z'
-              format: date
-            recurrence_data:
-              type: string
-              description: 'The day or days of the week that a recurring schedule should run.
-
-
-                **Example:** <code>"recurrence_data": "monday,tuesday,wednesday,thursday,friday"</code>'
-              example: monday,tuesday,wednesday,thursday,friday
-              enum:
-              - sunday
-              - monday
-              - tuesday
-              - wednesday
-              - thursday
-              - friday
-              - saturday
-            start_repeat:
-              type: string
-              description: 'The month, day, and year that the recurring schedule should go into effect. Specify **YYYY-MM-DD**.
-
-
-                **Example:** <code>"start_repeat": "2020-02-01T00:00:00.000Z"</code>'
-              example: '2020-02-01T00:00:00.000Z'
-              format: date
-            start_transcoder:
-              type: string
-              description: 'The month, day, year, and time of day that the *action_type* **start** should occur. Specify **YYYY-MM-DD HH:MM:SS** where **HH** is a 24-hour clock in UTC.
-
-
-                Required when **action_type** is **start** or **start_stop**.
-
-
-                **Example:** <code>"start_transcoder": "2020-02-01T00:00:00.000Z"</code>'
-              example: '2020-02-01T00:00:00.000Z'
-              format: date-time
-            stop_transcoder:
-              type: string
-              description: 'The month, day, year, and time of day that the *action_type* **stop** should occur. Specify **YYYY-MM-DD HH:MM:SS** where **HH** is a 24-hour clock in UTC.
-
-
-                Required when **action_type** is **stop** or **start_stop**.
-
-
-                **Example:** <code>"start_transcoder": "2020-02-29T23:59:59.999Z"</code>'
-              example: '2020-02-29T23:59:59.999Z'
-              format: date-time
     schedule_update_input:
       type: object
       description: ''
@@ -965,157 +1109,13 @@ components:
               type: string
               description: "The time zone the schedule runs in.\n<details> <summary>Click to expand for the full list of valid values</summary>\n\n  | Locations |  Wowza Video time_zone value |\n  |---|---|\n  | International Date Line West  | Etc/GMT+12                     |\n  | Midway Island                 | Pacific/Midway                 |\n  | American Samoa                | Pacific/Pago_Pago              |\n  | Hawaii                        | Pacific/Honolulu               |\n  | Alaska                        | America/Juneau                 |\n  | Pacific Time (US & Canada)    | America/Los_Angeles            |\n  | Tijuana                       | America/Tijuana                |\n  | Mountain Time (US & Canada)   | America/Denver                 |\n  | Arizona                       | America/Phoenix                |\n  | Chihuahua                     | America/Chihuahua              |\n  | Mazatlan                      | America/Mazatlan               |\n  | Central Time (US & Canada)    | America/Chicago                |\n  | Saskatchewan                  | America/Regina                 |\n  | Guadalajara                   | America/Mexico_City            |\n  | Mexico City                   | America/Mexico_City            |\n  | Monterrey                     | America/Monterrey              |\n  | Central America               | America/Guatemala              |\n  | Eastern Time (US & Canada)    | America/New_York               |\n  | Indiana (East)                | America/Indiana/Indianapolis   |\n  | Bogota                        | America/Bogota                 |\n  | Lima                          | America/Lima                   |\n  | Quito                         | America/Lima                   |\n  | Atlantic Time (Canada)        | America/Halifax                |\n  | Caracas                       | America/Caracas                |\n  | La Paz                        | America/La_Paz                 |\n  | Santiago                      | America/Santiago               |\n  | Newfoundland                  | America/St_Johns               |\n  | Brasilia                      | America/Sao_Paulo              |\n  | Buenos Aires                  | America/Argentina/Buenos_Aires |\n  | Montevideo                    | America/Montevideo             |\n  | Georgetown                    | America/Guyana                 |\n  | Puerto Rico                   | America/Puerto_Rico            |\n  | Greenland                     | America/Godthab                |\n  | Mid-Atlantic                  | Atlantic/South_Georgia         |\n  | Azores                        | Atlantic/Azores                |\n  | Cape Verde Is.                | Atlantic/Cape_Verde            |\n  | Dublin                        | Europe/Dublin                  |\n  | Edinburgh                     | Europe/London                  |\n  | Lisbon                        | Europe/Lisbon                  |\n  | London                        | Europe/London                  |\n  | Casablanca                    | Africa/Casablanca              |\n  | Monrovia                      | Africa/Monrovia                |\n  | UTC                           | Etc/UTC                        |\n  | Belgrade                      | Europe/Belgrade                |\n  | Bratislava                    | Europe/Bratislava              |\n  | Budapest                      | Europe/Budapest                |\n  | Ljubljana                     | Europe/Ljubljana               |\n  | Prague                        | Europe/Prague                  |\n  | Sarajevo                      | Europe/Sarajevo                |\n  | Skopje                        | Europe/Skopje                  |\n  | Warsaw                        | Europe/Warsaw                  |\n  | Zagreb                        | Europe/Zagreb                  |\n  | Brussels                      | Europe/Brussels                |\n  | Copenhagen                    | Europe/Copenhagen              |\n  | Madrid                        | Europe/Madrid                  |\n  | Paris                         | Europe/Paris                   |\n  | Amsterdam                     | Europe/Amsterdam               |\n  | Berlin                        | Europe/Berlin                  |\n  | Bern                          | Europe/Zurich                  |\n  | Zurich                        | Europe/Zurich                  |\n  | Rome                          | Europe/Rome                    |\n  | Stockholm                     | Europe/Stockholm               |\n  | Vienna                        | Europe/Vienna                  |\n  | West Central Africa           | Africa/Algiers                 |\n  | Bucharest                     | Europe/Bucharest               |\n  | Cairo                         | Africa/Cairo                   |\n  | Helsinki                      | Europe/Helsinki                |\n  | Kyiv                          | Europe/Kiev                    |\n  | Riga                          | Europe/Riga                    |\n  | Sofia                         | Europe/Sofia                   |\n  | Tallinn                       | Europe/Tallinn                 |\n  | Vilnius                       | Europe/Vilnius                 |\n  | Athens                        | Europe/Athens                  |\n  | Istanbul                      | Europe/Istanbul                |\n  | Minsk                         | Europe/Minsk                   |\n  | Jerusalem                     | Asia/Jerusalem                 |\n  | Harare                        | Africa/Harare                  |\n  | Pretoria                      | Africa/Johannesburg            |\n  | Kaliningrad                   | Europe/Kaliningrad             |\n  | Moscow                        | Europe/Moscow                  |\n  | St. Petersburg                | Europe/Moscow                  |\n  | Volgograd                     | Europe/Volgograd               |\n  | Samara                        | Europe/Samara                  |\n  | Kuwait                        | Asia/Kuwait                    |\n  | Riyadh                        | Asia/Riyadh                    |\n  | Nairobi                       | Africa/Nairobi                 |\n  | Baghdad                       | Asia/Baghdad                   |\n  | Tehran                        | Asia/Tehran                    |\n  | Abu Dhabi                     | Asia/Muscat                    |\n  | Muscat                        | Asia/Muscat                    |\n  | Baku                          | Asia/Baku                      |\n  | Tbilisi                       | Asia/Tbilisi                   |\n  | Yerevan                       | Asia/Yerevan                   |\n  | Kabul                         | Asia/Kabul                     |\n  | Ekaterinburg                  | Asia/Yekaterinburg             |\n  | Islamabad                     | Asia/Karachi                   |\n  | Karachi                       | Asia/Karachi                   |\n  | Tashkent                      | Asia/Tashkent                  |\n  | Chennai                       | Asia/Kolkata                   |\n  | Kolkata                       | Asia/Kolkata                   |\n  | Mumbai                        | Asia/Kolkata                   |\n  | New Delhi                     | Asia/Kolkata                   |\n  | Kathmandu                     | Asia/Kathmandu                 |\n  | Astana                        | Asia/Dhaka                     |\n  | Dhaka                         | Asia/Dhaka                     |\n  | Sri Jayawardenepura           | Asia/Colombo                   |\n  | Almaty                        | Asia/Almaty                    |\n  | Novosibirsk                   | Asia/Novosibirsk               |\n  | Rangoon                       | Asia/Rangoon                   |\n  | Bangkok                       | Asia/Bangkok                   |\n  | Hanoi                         | Asia/Bangkok                   |\n  | Jakarta                       | Asia/Jakarta                   |\n  | Krasnoyarsk                   | Asia/Krasnoyarsk               |\n  | Beijing                       | Asia/Shanghai                  |\n  | Chongqing                     | Asia/Chongqing                 |\n  | Hong Kong                     | Asia/Hong_Kong                 |\n  | Urumqi                        | Asia/Urumqi                    |\n  | Kuala Lumpur                  | Asia/Kuala_Lumpur              |\n  | Singapore                     | Asia/Singapore                 |\n  | Taipei                        | Asia/Taipei                    |\n  | Perth                         | Australia/Perth                |\n  | Irkutsk                       | Asia/Irkutsk                   |\n  | Ulaanbaatar                   | Asia/Ulaanbaatar               |\n  | Seoul                         | Asia/Seoul                     |\n  | Osaka                         | Asia/Tokyo                     |\n  | Sapporo                       | Asia/Tokyo                     |\n  | Tokyo                         | Asia/Tokyo                     |\n  | Yakutsk                       | Asia/Yakutsk                   |\n  | Darwin                        | Australia/Darwin               |\n  | Adelaide                      | Australia/Adelaide             |\n  | Canberra                      | Australia/Melbourne            |\n  | Melbourne                     | Australia/Melbourne            |\n  | Sydney                        | Australia/Sydney               |\n  | Brisbane                      | Australia/Brisbane             |\n  | Hobart                        | Australia/Hobart               |\n  | Vladivostok                   | Asia/Vladivostok               |\n  | Guam                          | Pacific/Guam                   |\n  | Port Moresby                  | Pacific/Port_Moresby           |\n  | Magadan                       | Asia/Magadan                   |\n  | Srednekolymsk                 | Asia/Srednekolymsk             |\n  | Solomon Is.                   | Pacific/Guadalcanal            |\n  | New Caledonia                 | Pacific/Noumea                 |\n  | Fiji                          | Pacific/Fiji                   |\n  | Kamchatka                     | Asia/Kamchatka                 |\n  | Marshall Is.                  | Pacific/Majuro                 |\n  | Auckland                      | Pacific/Auckland               |\n  | Wellington                    | Pacific/Auckland               |\n  | Nuku'alofa                    | Pacific/Tongatapu              |\n  | Tokelau Is.                   | Pacific/Fakaofo                |\n  | Chatham Is.                   | Pacific/Chatham                |\n  | Samoa                         | Pacific/Apia                   |\n\n</details>\n\n**Default:** `Etc/UTC`\n\n**Example:** `America/New_York`"
               example: America/New_York
-    Error404:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 404
-            code: ERR-404-RecordNotFound
-            title: Record Not Found Error
-            message: The requested resource couldn't be found.
-            description: ''
-            links: []
-    schedule:
-      type: object
-      description: ''
-      properties:
-        action_type:
-          type: string
-          description: The type of action that the schedule should trigger on the transcoder. The default is **start**.
-          example: start_stop
-          enum:
-          - start
-          - stop
-          - start_stop
-        created_at:
-          type: string
-          description: The date and time that the schedule was created.
-          example: '2020-01-29T17:16:21.995Z'
-          format: date-time
-        end_repeat:
-          type: string
-          description: The month, day, and year that a recurring schedule should stop running. Specify **YYYY-MM-DD**.
-          example: '2020-02-29T00:00:00.000Z'
-          format: date
-        id:
-          type: string
-          description: The unique alphanumeric string that identifies the schedule.
-          example: vhB0jSlB
-        name:
-          type: string
-          description: A descriptive name for the schedule. Maximum 255 characters.
-          example: Scheduled start for my camera
-        recurrence_data:
-          type: string
-          description: The day or days of the week that a recurring schedule should run.
-          example: monday,tuesday,wednesday,thursday,friday
-          enum:
-          - sunday
-          - monday
-          - tuesday
-          - wednesday
-          - thursday
-          - friday
-          - saturday
-        recurrence_type:
-          type: string
-          description: A schedule can run one time only (**once**) or repeat (**recur**) until a specified *end_repeat* date. The default is **once**.
-          example: recur
-          enum:
-          - once
-          - recur
-        start_repeat:
-          type: string
-          description: The month, day, and year that the recurring schedule should go into effect. Specify **YYYY-MM-DD**.
-          example: '2020-02-01T00:00:00.000Z'
-          format: date
-        start_transcoder:
-          type: string
-          description: The month, day, year, and time of day that the *action_type* **start** should occur. Specify **YYYY-MM-DD HH:MM:SS** where **HH** is a 24-hour clock in UTC.
-          example: '2020-02-01T00:00:00.000Z'
-          format: date-time
-        state:
-          type: string
-          description: A schedule must be **enabled** to run. Specify **enabled** to run the schedule or **disabled** to turn off the schedule so that it doesn't run.
-          example: enabled
-          enum:
-          - enabled
-          - disabled
-          - expired
-        stop_transcoder:
-          type: string
-          description: The month, day, year, and time of day that the *action_type* **stop** should occur. Specify **YYYY-MM-DD HH:MM:SS** where **HH** is a 24-hour clock in UTC.
-          example: '2020-02-29T23:59:59.999Z'
-          format: date-time
-        time_zone:
-          type: string
-          description: The time zone the schedule runs in.
-        transcoder_id:
-          type: string
-          description: The unique alphanumeric string that identifies the transcoder being scheduled.
-          example: P0NrTP7m
-        transcoder_name:
-          type: string
-          description: The name of the transcoder being scheduled.
-          example: My Camera
-        updated_at:
-          type: string
-          description: The date and time that the schedule was updated.
-          example: '2020-01-30T16:44:37.995Z'
-          format: date-time
-      example:
-        id: 28bwb5WT
-        state: disabled
-        name: Scheduled recurring start for my camera
-        time_zone: America/New_York
-        transcoder_id: VGB21JFJ
-        transcoder_name: My Camera
-        recurrence_type: recur
-        recurrence_data: monday,tuesday,wednesday,thursday,friday
-        action_type: start_stop
-        start_transcoder: '2020-02-01T00:00:00.000Z'
-        stop_transcoder: '2020-02-29T23:59:59.999Z'
-        start_repeat: '2020-02-01T00:00:00.000Z'
-        end_repeat: '2020-02-29T00:00:00.000Z'
-        created_at: '2020-01-29T17:16:21.995Z'
-        updated_at: '2020-01-31T07:00:48.995Z'
   parameters:
+    per_page:
+      name: per_page
+      in: query
+      description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
+      schema:
+        type: integer
     filter:
       name: filter
       in: query
@@ -1136,18 +1136,42 @@ components:
       description: "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
       schema:
         type: integer
-    per_page:
-      name: per_page
-      in: query
-      description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
-      schema:
-        type: integer
   securitySchemes:
-    basicAuth:
+    WV_JWT:
       type: http
-      scheme: basic
-      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
-    digestAuth:
-      type: http
-      scheme: digest
-      description: HTTP Digest Authentication
+      scheme: bearer
+      description: Your Wowza-generated access token, also called a JSON web token (JWT). Send it as a bearer token in the Authentication header of your requests. See [Authentication](https://www.wowza.com/docs/how-to-use-the-wowza-video-rest-api#authentication).
+x-tagGroups:
+- name: Resource Management
+  tags:
+  - live_streams
+  - transcoders
+  - stream_sources
+  - stream_targets
+  - schedules
+  - real_time
+  - videos
+  - categories
+  - advanced_token_authentication
+  - clipping
+- name: Analytics
+  tags:
+  - analytics_viewers
+  - analytics_ingest
+  - analytics_engagement
+  - analytics_popularity
+  - quality_of_experience
+- name: Usage
+  tags:
+  - usage_account
+  - usage_transcoders
+  - usage
+  - usage_real_time_streams
+- name: Deprecated in 2.0
+  tags:
+  - assets
+  - players
+  - recordings
+  - vod_streams
+  - storage
+  - usage_vod_streams

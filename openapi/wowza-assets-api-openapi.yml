@@ -1,19 +1,13 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Wowza Streaming Engine REST advanced_token_authentication assets API
-  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
-  version: 2.0.0
-  contact:
-    name: Wowza Media Systems
-    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  version: v2.0
+  title: Wowza Video REST API Reference Documentation Assets API
   license:
-    name: Wowza Media Systems
-    url: https://www.wowza.com
+    name: Terms of Use
+    url: https://www.wowza.com/legal/terms-of-use
+  description: "API lifecycle phase: [Current](https://www.wowza.com/docs/wowza-video-rest-api-lifecycle-management#api-lifecycle0)\n\n\n<table>\n<tr style=\"background-color:lightgrey;\"><td>\n<strong>Want to take the API for a test run?</strong>\n\nAll you'll need is a [Wowza Video subscription](https://www.wowza.com/pricing), or [free trial](https://www.wowza.com/free-trial), for the API access token. Then, fork [our collection in Postman](https://www.postman.com/wowzavideo/workspace/wowza-video-rest-api) and you'll be\nmaking calls to our REST API in minutes!\n\nSee [Trial the Wowza Video REST API using Postman](https://www.wowza.com/docs/trial-the-wowza-video-rest-api-using-postman) for more information.\n</td>\n</tr>\n</table>\n\n\nThis reference documentation provides details about the operations, parameters, and request and response schemas for every resource and endpoint in the Wowza Video REST API.\nSamples appear in the right column. Sample requests are presented in cURL (Shell) and JavaScript; some samples also include just the JSON object. Response samples are all JSON. \nExamples in cURL use environment variables so you can easily copy and paste them. To learn more, see [Using cURL](https://wowza.com/docs/how-to-use-the-wowza-video-rest-api#curl).\n\n\nReference documentation is available for every version of the API. Use the **Version** menu at the top of the page to access the reference doc for a different version of the API.\n\n<blockquote><strong>Note</strong>: If you haven't moved over to the new Wowza Video UI experience, you won't be able to access v2.0 of the API. We're migrating customers iteratively. See <a href=\"https://developer.wowza.com/docs/wowza-video/upgrade-to-wowza-video/\">Upgrade to the Wowza Video 2.0 REST API</a> for more information.</blockquote>\n"
 servers:
-- url: http://localhost:8087
-  description: Wowza Streaming Engine Server
-security:
-- basicAuth: []
+- url: https://api.video.wowza.com/api/v2.0
 tags:
 - name: assets
   description: '<blockquote>The <strong>assets</strong> operations are deprecated in 2.0. Use the <strong>/videos</strong> endpoints instead.</blockquote>
@@ -531,6 +525,199 @@ paths:
                 $ref: '#/components/schemas/Error422'
 components:
   schemas:
+    asset_tags:
+      type: object
+      description: ''
+      properties:
+        asset_tags:
+          type: array
+          description: An array of asset tags the organization has created.
+      example:
+        asset_tags:
+        - tag1
+        - tag2
+        - tag3
+    Error403:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 403
+            code: ERR-403-RecordUnaccessible
+            title: Record Unaccessible Error
+            message: The requested resource isn't accessible.
+            description: ''
+            links: []
+    asset_report_uploaded_input:
+      description: ''
+      required:
+      - asset
+      properties:
+        asset:
+          type: object
+          title: asset
+          description: ''
+          required:
+          - duration
+          properties:
+            duration:
+              type: integer
+              description: The length of an asset in seconds. In this example, 9241 would represent 9,241 seconds or roughly 2.5 hours.
+              example: 9241
+    renditions:
+      type: object
+      description: ''
+      properties:
+        height:
+          type: integer
+          description: The height, in pixels, of the output rendition. Should correspond to a widescreen or standard aspect ratio and be divisible by 8. The default is **1080**.
+          example: ''
+          format: int32
+        width:
+          type: integer
+          description: The width, in pixels, of the output rendition. Should correspond to a widescreen or standard aspect ratio and be divisible by 8. The default is **1920**.
+          example: ''
+          format: int32
+        bitrate_kbps:
+          type: integer
+          description: The video bitrate, in kilobits per second (Kbps). Must be between **1** and **10240**. The default is **4000**.
+          example: ''
+          format: int32
+      example:
+        height: 480
+        width: 848
+        bitrate_kbps: 1600
+    asset_create_output:
+      type: object
+      description: ''
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the asset. Use this ID to perform other operations on the stream, like getting the details of the asset or deleting it.
+          example: wdjfqvsv
+        created_at:
+          type: string
+          description: The date and time that the asset was created in Coordinated Universal Time (UTC) format. Dates are formatted as follows: YYYY-DD-MMT HH:MM:SSZ using 24-hour clock ("military") time and including the T and Z. The T marks the end of the date portion and the Z represents zero UTC time offset.
+          example: '2021-06-30T18:02:20.000Z'
+          format: date-time
+        file_name:
+          type: string
+          description: 'The name of the mp4 file you are uploading.
+
+
+            <blockquote><strong>Note:</strong> To avoid file management issues in storage, Wowza Video removes or replaces special characters in file names.</blockquote>'
+          example: MyAsset.mp4
+        upload_url:
+          type: string
+          description: The upload location for the asset. Use this URL to upload the .mp4 assets to the Wowza Video Asset Manager.
+          example: https://objectstorage.us-ashburn-1.oraclecloud.com/p/k9bGRcyPFPtdeQeTRgAVTByIVVS0Z_EKrLBu3TusTrRfBuIpoDyio_ZY3qJM55tp/n/a1b2c3d4e5f6/b/recordings-qa-S7I69eYn/o/uploads/recording_bry7vv0s/MyAsset.mp4
+      example:
+        id: 2adffc17
+        created_at: '2021-06-30T18:02:20.000Z'
+        file_name: MyAsset.mp4
+        upload_url: https://objectstorage.us-ashburn-1.oraclecloud.com/p/k9bGRcyPFPtdeQeTRgAVTByIVVS0Z_EKrLBu3TusTrRfBuIpoDyio_ZY3qJM55tp/n/a1b2c3d4e5f6/b/recordings-qa-S7I69eYn/o/uploads/recording_bry7vv0s/MyAsset.mp4
+    index_asset:
+      type: object
+      title: assets
+      description: ''
+      properties:
+        id:
+          type: string
+          description: The unique alphanumeric string that identifies the asset
+          example: i4qsbwvi
+        name:
+          type: string
+          description: A descriptive name for the asset. Maximum 200 characters.
+          example: MyAsset
+        created_at:
+          type: string
+          description: The date and time that the asset was created in Coordinated Universal Time (UTC) format. Dates are formatted as follows: YYYY-DD-MMT HH:MM:SSZ using 24-hour clock ("military") time and including the T and Z. The T marks the end of the date portion and the Z represents zero UTC time offset. .
+          example: ''
+          format: date-time
+        updated_at:
+          type: string
+          description: The date and time that the asset was updated in Coordinated Universal Time (UTC) format. Dates are formatted as follows: YYYY-DD-MMT HH:MM:SSZ using 24-hour clock ("military") time and including the T and Z. The T marks the end of the date portion and the Z represents zero UTC time offset. .
+          example: '2022-02-26T01:38:40.310Z'
+          format: date-time
+        published:
+          type: boolean
+          description: Specifies whether an asset is published, which enables playback.
+        thumbnail_url:
+          type: string
+          description: The URL to receive the preview thumbnail.
+          example: https://objectstorage.us-ashburn-1.oraclecloud.com/n/idcrz33q3xdo/b/recordings-qa-S7I69eYn/o/abcd1234/recording_0pfxrlw2/0pfxrlw2_thumbnail.jpg
+        state:
+          type: string
+          description: The state of the asset.
+          example: completed
+          enum:
+          - uploading
+          - processing
+          - completed
+          - failed
+        reason:
+          type: string
+          description: The reason that an asset has the state **failed**. Only returned when state is **failed** after processing is attempted.
+          example: ''
+        processing_percentage:
+          type: integer
+          description: A percentage that describes how soon transcoding will complete.
+          example: '100.0'
+        file_size:
+          type: integer
+          description: The file size of the asset in bytes. For example, 2372820 bytes equals 2.4 megabytes.
+          example: ''
+          format: int64
+        playback_url:
+          type: string
+          description: The address that can be used to configure playback of the stream.
+          example: ''
+        download_url:
+          type: string
+          description: The URL that can be used to download the asset as a .MP4 file.
+          example: https://objectstorage.us-ashburn-1.oraclecloud.com/n/idcrz33q3xdo/b/recordings-qa-S7I69eYn/o/abcd1234/recording_0pfxrlw2/MyAsset.mp4
+        file_name:
+          type: string
+          description: 'The name of the mp4 file you uploaded.
+
+
+            <blockquote><strong>Note:</strong> To avoid file management issues in storage, Wowza Video removes or replaces special characters in file names.</blockquote>'
+          example: MyAsset.mp4
     asset_report_upload_failed_output:
       type: object
       description: ''
@@ -602,333 +789,6 @@ components:
           type: string
           description: A name for the live stream assosicated with the asset. This is generated by Wowza Video.
           example: CMS Restreamed (ucknggax)
-    index_asset:
-      type: object
-      title: assets
-      description: ''
-      properties:
-        id:
-          type: string
-          description: The unique alphanumeric string that identifies the asset
-          example: i4qsbwvi
-        name:
-          type: string
-          description: A descriptive name for the asset. Maximum 200 characters.
-          example: MyAsset
-        created_at:
-          type: string
-          description: The date and time that the asset was created in Coordinated Universal Time (UTC) format. Dates are formatted as follows: YYYY-DD-MMT HH:MM:SSZ using 24-hour clock ("military") time and including the T and Z. The T marks the end of the date portion and the Z represents zero UTC time offset. .
-          example: ''
-          format: date-time
-        updated_at:
-          type: string
-          description: The date and time that the asset was updated in Coordinated Universal Time (UTC) format. Dates are formatted as follows: YYYY-DD-MMT HH:MM:SSZ using 24-hour clock ("military") time and including the T and Z. The T marks the end of the date portion and the Z represents zero UTC time offset. .
-          example: '2022-02-26T01:38:40.310Z'
-          format: date-time
-        published:
-          type: boolean
-          description: Specifies whether an asset is published, which enables playback.
-        thumbnail_url:
-          type: string
-          description: The URL to receive the preview thumbnail.
-          example: https://objectstorage.us-ashburn-1.oraclecloud.com/n/idcrz33q3xdo/b/recordings-qa-S7I69eYn/o/abcd1234/recording_0pfxrlw2/0pfxrlw2_thumbnail.jpg
-        state:
-          type: string
-          description: The state of the asset.
-          example: completed
-          enum:
-          - uploading
-          - processing
-          - completed
-          - failed
-        reason:
-          type: string
-          description: The reason that an asset has the state **failed**. Only returned when state is **failed** after processing is attempted.
-          example: ''
-        processing_percentage:
-          type: integer
-          description: A percentage that describes how soon transcoding will complete.
-          example: '100.0'
-        file_size:
-          type: integer
-          description: The file size of the asset in bytes. For example, 2372820 bytes equals 2.4 megabytes.
-          example: ''
-          format: int64
-        playback_url:
-          type: string
-          description: The address that can be used to configure playback of the stream.
-          example: ''
-        download_url:
-          type: string
-          description: The URL that can be used to download the asset as a .MP4 file.
-          example: https://objectstorage.us-ashburn-1.oraclecloud.com/n/idcrz33q3xdo/b/recordings-qa-S7I69eYn/o/abcd1234/recording_0pfxrlw2/MyAsset.mp4
-        file_name:
-          type: string
-          description: 'The name of the mp4 file you uploaded.
-
-
-            <blockquote><strong>Note:</strong> To avoid file management issues in storage, Wowza Video removes or replaces special characters in file names.</blockquote>'
-          example: MyAsset.mp4
-    asset_tags:
-      type: object
-      description: ''
-      properties:
-        asset_tags:
-          type: array
-          description: An array of asset tags the organization has created.
-      example:
-        asset_tags:
-        - tag1
-        - tag2
-        - tag3
-    asset_report_upload_failed_input:
-      type: object
-      description: ''
-      required:
-      - asset
-      properties:
-        asset:
-          type: object
-          title: asset
-          description: ''
-          required:
-          - reason
-          - status
-          properties:
-            reason:
-              type: string
-              description: A description of why the upload failed.
-              example: Token expired
-            status:
-              type: string
-              description: The status code returned by the server.
-              example: 404
-    asset_create_output:
-      type: object
-      description: ''
-      properties:
-        id:
-          type: string
-          description: The unique identifier of the asset. Use this ID to perform other operations on the stream, like getting the details of the asset or deleting it.
-          example: wdjfqvsv
-        created_at:
-          type: string
-          description: The date and time that the asset was created in Coordinated Universal Time (UTC) format. Dates are formatted as follows: YYYY-DD-MMT HH:MM:SSZ using 24-hour clock ("military") time and including the T and Z. The T marks the end of the date portion and the Z represents zero UTC time offset.
-          example: '2021-06-30T18:02:20.000Z'
-          format: date-time
-        file_name:
-          type: string
-          description: 'The name of the mp4 file you are uploading.
-
-
-            <blockquote><strong>Note:</strong> To avoid file management issues in storage, Wowza Video removes or replaces special characters in file names.</blockquote>'
-          example: MyAsset.mp4
-        upload_url:
-          type: string
-          description: The upload location for the asset. Use this URL to upload the .mp4 assets to the Wowza Video Asset Manager.
-          example: https://objectstorage.us-ashburn-1.oraclecloud.com/p/k9bGRcyPFPtdeQeTRgAVTByIVVS0Z_EKrLBu3TusTrRfBuIpoDyio_ZY3qJM55tp/n/a1b2c3d4e5f6/b/recordings-qa-S7I69eYn/o/uploads/recording_bry7vv0s/MyAsset.mp4
-      example:
-        id: 2adffc17
-        created_at: '2021-06-30T18:02:20.000Z'
-        file_name: MyAsset.mp4
-        upload_url: https://objectstorage.us-ashburn-1.oraclecloud.com/p/k9bGRcyPFPtdeQeTRgAVTByIVVS0Z_EKrLBu3TusTrRfBuIpoDyio_ZY3qJM55tp/n/a1b2c3d4e5f6/b/recordings-qa-S7I69eYn/o/uploads/recording_bry7vv0s/MyAsset.mp4
-    asset_report_uploaded_input:
-      description: ''
-      required:
-      - asset
-      properties:
-        asset:
-          type: object
-          title: asset
-          description: ''
-          required:
-          - duration
-          properties:
-            duration:
-              type: integer
-              description: The length of an asset in seconds. In this example, 9241 would represent 9,241 seconds or roughly 2.5 hours.
-              example: 9241
-    renditions:
-      type: object
-      description: ''
-      properties:
-        height:
-          type: integer
-          description: The height, in pixels, of the output rendition. Should correspond to a widescreen or standard aspect ratio and be divisible by 8. The default is **1080**.
-          example: ''
-          format: int32
-        width:
-          type: integer
-          description: The width, in pixels, of the output rendition. Should correspond to a widescreen or standard aspect ratio and be divisible by 8. The default is **1920**.
-          example: ''
-          format: int32
-        bitrate_kbps:
-          type: integer
-          description: The video bitrate, in kilobits per second (Kbps). Must be between **1** and **10240**. The default is **4000**.
-          example: ''
-          format: int32
-      example:
-        height: 480
-        width: 848
-        bitrate_kbps: 1600
-    Error401:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 401
-            code: ERR-401-NoApiKey
-            title: No API Key Error
-            message: No API key sent in header.
-            description: ''
-            links: []
-        Example Response 2:
-          meta:
-            status: 401
-            code: ERR-401-NoAccessKey
-            title: No Access Key Error
-            message: No access key sent in header.
-            description: ''
-            links: []
-        Example Response 3:
-          meta:
-            status: 401
-            code: ERR-401-InvalidApiKey
-            title: Invalid Api Key Error
-            message: Invalid API key.
-            description: ''
-            links: []
-        Example Response 4:
-          meta:
-            status: 401
-            code: ERR-401-InvalidAccessKey
-            title: Invalid Access Key Error
-            message: Invalid access key.
-            description: ''
-            links: []
-        Example Response 5:
-          meta:
-            status: 401
-            code: ERR-401-BadAccountStatus
-            title: Bad Account Status Error
-            message: Your account's status doesn't allow this action.
-            description: ''
-            links: []
-        Example Response 6:
-          meta:
-            status: 401
-            code: ERR-401-FeatureNotEnabled
-            title: Feature Not Enabled Error
-            message: This feature isn't enabled.
-            description: ''
-            links: []
-        Example Response 7:
-          meta:
-            status: 401
-            code: ERR-401-TrialExceeded
-            title: Bad Billing Status Error
-            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
-            description: ''
-            links: []
-        Example Response 8:
-          meta:
-            status: 401
-            code: ERR-401-ExpiredToken
-            title: JWT is expired
-            message: Token has exired.
-            description: ''
-            links: []
-        Example Response 9:
-          meta:
-            status: 401
-            code: ERR-401-InvalidToken
-            title: JWT is invalid
-            message: Token is invalid.
-            description: ''
-            links: []
-    assets:
-      type: object
-      description: ''
-      required:
-      - assets
-      properties:
-        assets:
-          type: array
-          items:
-            $ref: '#/components/schemas/index_asset'
-      example:
-        assets:
-        - id: wdjfqvsv
-          name: MyAsset
-          created_at: '2020-01-29T17:16:21.849Z'
-          updated_at: '2020-01-31T16:06:47.849Z'
-          published: true
-          thumbnail_url: https://objectstorage.us-ashburn-1.oraclecloud.com/n/idcrz33q3xdo/b/recordings-qa-S7I69eYn/o/abcd1234/recording_0pfxrlw2/0pfxrlw2_thumbnail.jpg.jpg
-          state: completed
-          processing_percentage: 0.1
-          file_size: 1570024
-          playback_url: https://wowzasubdomain/1/RmlPcnpsM0Z1Nzd2/SFhkUXlv/hls/live/playlist.m3u8
-          download_url: https://objectstorage.us-ashburn-1.oraclecloud.com/n/idcrz33q3xdo/b/recordings-qa-S7I69eYn/o/abcd1234/recording_0pfxrlw2/MyAsset.mp4
-          file_name: MyFile.mp4
-        - id: KyxWKtHQ
-          name: MyAsset2
-          created_at: '2020-01-29T17:16:21.849Z'
-          updated_at: '2020-01-31T02:26:05.849Z'
-          published: true
-          thumbnail_url: https://objectstorage.us-ashburn-1.oraclecloud.com/n/idcrz33q3xdo/b/recordings-qa-S7I69eYn/o/abcd1234/recording_0pfxrlw2/0pfxrlw2_thumbnail.jpg.jpg
-          state: completed
-          processing_percentage: 0.3
-          file_size: 70284
-          playback_url: https://wowzasubdomain/1/U0VmOU90TmtvSzJP/Y2ltUkl2/hls/live/playlist.m3u8
-          download_url: https://objectstorage.us-ashburn-1.oraclecloud.com/n/idcrz33q3xdo/b/recordings-qa-S7I69eYn/o/abcd1234/recording_0pfxrlw2/MyAsset2.mp4
-          file_name: MyFile2.mp4
-        - id: Ly40ZDSg
-          name: MyAsset3
-          created_at: '2020-01-29T17:16:21.849Z'
-          updated_at: '2020-01-30T18:13:18.849Z'
-          published: true
-          thumbnail_url: https://objectstorage.us-ashburn-1.oraclecloud.com/n/idcrz33q3xdo/b/recordings-qa-S7I69eYn/o/abcd1234/recording_0pfxrlw2/0pfxrlw2_thumbnail.jpg.jpg
-          state: completed
-          processing_percentage: 0
-          file_size: 882391
-          playback_url: https://wowzasubdomain/1/PmlPcnpsM0Z1Nzd2/SFhkUXlv/hls/live/playlist.m3u8
-          download_url: https://objectstorage.us-ashburn-1.oraclecloud.com/n/idcrz33q3xdo/b/recordings-qa-S7I69eYn/o/abcd1234/recording_0pfxrlw2/MyAsset3.mp4
-          file_name: MyFile3.mp4
     asset_update_input:
       type: object
       description: ''
@@ -1009,6 +869,27 @@ components:
 
                     **Example:** <code>"sharing_icons": false</code>'
                   example: false
+    asset_create_input:
+      type: object
+      description: ''
+      properties:
+        asset:
+          type: object
+          title: asset
+          description: ''
+          required:
+          - file_name
+          properties:
+            file_name:
+              type: string
+              description: 'The name of the mp4 file you are uploading.
+
+
+                <blockquote><strong>Note:</strong> To avoid file management issues in storage, Wowza Video removes or replaces special characters in file names.</blockquote>'
+              example: MyAsset.mp4
+      example:
+        asset:
+          file_name: MyAsset.mp4
     Error422_asset_not_available:
       type: object
       description: ''
@@ -1201,126 +1082,6 @@ components:
               type: string
               description: The URL of the Wowza Video-hosted webpage that viewers can visit to watch the stream.
               example: https://embed.flowplayer.com/hosted/default/e8dk5bf6
-    Error403:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 403
-            code: ERR-403-RecordUnaccessible
-            title: Record Unaccessible Error
-            message: The requested resource isn't accessible.
-            description: ''
-            links: []
-    asset_report_uploaded_output:
-      type: object
-      description: ''
-      properties:
-        id:
-          type: string
-          description: The unique alphanumeric string that identifies the asset
-          example: i4qsbwvi
-        name:
-          type: string
-          description: A descriptive name for the live stream. Maximum 200 characters.
-          example: My Asset
-        tags:
-          type: array
-          description: A list of tags associated with the asset.
-          example:
-          - Tag1
-          - Tag2
-          - Tag3
-        vod_stream_id:
-          type: string
-          description: An ID for the VOD. You can use this to fetch additional information about the VOD stream associated with the asset, such as the size of only the VOD stream.
-          example: l9qsbwvf
-        recording_id:
-          type: string
-          description: An ID for the recording. You can use this to fetch additional information about the recording associated with the asset.
-          example: l8qsbwvu
-        state:
-          type: string
-          description: The state of the asset.
-          example: processing
-          enum:
-          - uploading
-          - processing
-          - completed
-          - failed
-        created_at:
-          type: string
-          description: The date and time that the asset was created in Coordinated Universal Time (UTC) format. Dates are formatted as follows: YYYY-DD-MMTHH:MM:SSZ using 24-hour clock ("military") time and including the T and Z. The T marks the end of the date portion and the Z represents zero UTC time offset.
-          example: '2021-06-30T18:02:20.000Z'
-          format: date-time
-        updated_at:
-          type: string
-          description: The date and time that the asset was updated in Coordinated Universal Time (UTC) format. Dates are formatted as follows: YYYY-DD-MMTHH:MM:SSZ using 24-hour clock ("military") time and including the T and Z. The T marks the end of the date portion and the Z represents zero UTC time offset. 
-          example: '2021-06-30T18:02:20.000Z'
-          format: date-time
-        download_url:
-          type: string
-          description: The URL that can be used to download the asset as a .MP4 file.
-          example: https://objectstorage.us-ashburn-1.oraclecloud.com/n/idcrz33q3xdo/b/recordings-qa-S7I69eYn/o/abcd1234/recording_0pfxrlw2/MyAsset.mp4
-        file_size:
-          type: integer
-          description: The file size of the asset in bytes. For example, 2372820 bytes equals 2.4 megabytes.
-          example: 2372820
-        duration:
-          type: integer
-          description: The length of an asset in seconds. For example, 9241 would represent 9,241 seconds or roughly 2.5 hours.
-          example: 9241
-        average_view_time:
-          type: integer
-          description: The average time that the asset has been viewed in seconds. For example, 12580 seconds would be 3.5 hours.
-          example: 12580
-          format: time
-        file_name:
-          type: string
-          description: 'The name of the mp4 file you uploaded.
-
-
-            <blockquote><strong>Note:</strong> To avoid file management issues in storage, Wowza Video removes or replaces special characters in file names.</blockquote>'
-          example: MyAsset.mp4
-        processing_percentage:
-          type: integer
-          description: A percentage that describes how soon transcoding will complete.
-          example: 100
     asset:
       type: object
       description: ''
@@ -1478,6 +1239,128 @@ components:
 
                 **Example:** <code>"sharing_icons": false</code>'
               example: false
+    asset_report_uploaded_output:
+      type: object
+      description: ''
+      properties:
+        id:
+          type: string
+          description: The unique alphanumeric string that identifies the asset
+          example: i4qsbwvi
+        name:
+          type: string
+          description: A descriptive name for the live stream. Maximum 200 characters.
+          example: My Asset
+        tags:
+          type: array
+          description: A list of tags associated with the asset.
+          example:
+          - Tag1
+          - Tag2
+          - Tag3
+        vod_stream_id:
+          type: string
+          description: An ID for the VOD. You can use this to fetch additional information about the VOD stream associated with the asset, such as the size of only the VOD stream.
+          example: l9qsbwvf
+        recording_id:
+          type: string
+          description: An ID for the recording. You can use this to fetch additional information about the recording associated with the asset.
+          example: l8qsbwvu
+        state:
+          type: string
+          description: The state of the asset.
+          example: processing
+          enum:
+          - uploading
+          - processing
+          - completed
+          - failed
+        created_at:
+          type: string
+          description: The date and time that the asset was created in Coordinated Universal Time (UTC) format. Dates are formatted as follows: YYYY-DD-MMTHH:MM:SSZ using 24-hour clock ("military") time and including the T and Z. The T marks the end of the date portion and the Z represents zero UTC time offset.
+          example: '2021-06-30T18:02:20.000Z'
+          format: date-time
+        updated_at:
+          type: string
+          description: The date and time that the asset was updated in Coordinated Universal Time (UTC) format. Dates are formatted as follows: YYYY-DD-MMTHH:MM:SSZ using 24-hour clock ("military") time and including the T and Z. The T marks the end of the date portion and the Z represents zero UTC time offset. 
+          example: '2021-06-30T18:02:20.000Z'
+          format: date-time
+        download_url:
+          type: string
+          description: The URL that can be used to download the asset as a .MP4 file.
+          example: https://objectstorage.us-ashburn-1.oraclecloud.com/n/idcrz33q3xdo/b/recordings-qa-S7I69eYn/o/abcd1234/recording_0pfxrlw2/MyAsset.mp4
+        file_size:
+          type: integer
+          description: The file size of the asset in bytes. For example, 2372820 bytes equals 2.4 megabytes.
+          example: 2372820
+        duration:
+          type: integer
+          description: The length of an asset in seconds. For example, 9241 would represent 9,241 seconds or roughly 2.5 hours.
+          example: 9241
+        average_view_time:
+          type: integer
+          description: The average time that the asset has been viewed in seconds. For example, 12580 seconds would be 3.5 hours.
+          example: 12580
+          format: time
+        file_name:
+          type: string
+          description: 'The name of the mp4 file you uploaded.
+
+
+            <blockquote><strong>Note:</strong> To avoid file management issues in storage, Wowza Video removes or replaces special characters in file names.</blockquote>'
+          example: MyAsset.mp4
+        processing_percentage:
+          type: integer
+          description: A percentage that describes how soon transcoding will complete.
+          example: 100
+    assets:
+      type: object
+      description: ''
+      required:
+      - assets
+      properties:
+        assets:
+          type: array
+          items:
+            $ref: '#/components/schemas/index_asset'
+      example:
+        assets:
+        - id: wdjfqvsv
+          name: MyAsset
+          created_at: '2020-01-29T17:16:21.849Z'
+          updated_at: '2020-01-31T16:06:47.849Z'
+          published: true
+          thumbnail_url: https://objectstorage.us-ashburn-1.oraclecloud.com/n/idcrz33q3xdo/b/recordings-qa-S7I69eYn/o/abcd1234/recording_0pfxrlw2/0pfxrlw2_thumbnail.jpg.jpg
+          state: completed
+          processing_percentage: 0.1
+          file_size: 1570024
+          playback_url: https://wowzasubdomain/1/RmlPcnpsM0Z1Nzd2/SFhkUXlv/hls/live/playlist.m3u8
+          download_url: https://objectstorage.us-ashburn-1.oraclecloud.com/n/idcrz33q3xdo/b/recordings-qa-S7I69eYn/o/abcd1234/recording_0pfxrlw2/MyAsset.mp4
+          file_name: MyFile.mp4
+        - id: KyxWKtHQ
+          name: MyAsset2
+          created_at: '2020-01-29T17:16:21.849Z'
+          updated_at: '2020-01-31T02:26:05.849Z'
+          published: true
+          thumbnail_url: https://objectstorage.us-ashburn-1.oraclecloud.com/n/idcrz33q3xdo/b/recordings-qa-S7I69eYn/o/abcd1234/recording_0pfxrlw2/0pfxrlw2_thumbnail.jpg.jpg
+          state: completed
+          processing_percentage: 0.3
+          file_size: 70284
+          playback_url: https://wowzasubdomain/1/U0VmOU90TmtvSzJP/Y2ltUkl2/hls/live/playlist.m3u8
+          download_url: https://objectstorage.us-ashburn-1.oraclecloud.com/n/idcrz33q3xdo/b/recordings-qa-S7I69eYn/o/abcd1234/recording_0pfxrlw2/MyAsset2.mp4
+          file_name: MyFile2.mp4
+        - id: Ly40ZDSg
+          name: MyAsset3
+          created_at: '2020-01-29T17:16:21.849Z'
+          updated_at: '2020-01-30T18:13:18.849Z'
+          published: true
+          thumbnail_url: https://objectstorage.us-ashburn-1.oraclecloud.com/n/idcrz33q3xdo/b/recordings-qa-S7I69eYn/o/abcd1234/recording_0pfxrlw2/0pfxrlw2_thumbnail.jpg.jpg
+          state: completed
+          processing_percentage: 0
+          file_size: 882391
+          playback_url: https://wowzasubdomain/1/PmlPcnpsM0Z1Nzd2/SFhkUXlv/hls/live/playlist.m3u8
+          download_url: https://objectstorage.us-ashburn-1.oraclecloud.com/n/idcrz33q3xdo/b/recordings-qa-S7I69eYn/o/abcd1234/recording_0pfxrlw2/MyAsset3.mp4
+          file_name: MyFile3.mp4
     Error422:
       type: object
       description: ''
@@ -1556,73 +1439,28 @@ components:
             message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
             description: ''
             links: []
-    Error410:
+    asset_report_upload_failed_input:
       type: object
       description: ''
       required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 410
-            code: ERR-410-RecordDeleted
-            title: Record Deleted Error
-            message: The requested resource has been deleted.
-            description: ''
-            links: []
-    asset_create_input:
-      type: object
-      description: ''
+      - asset
       properties:
         asset:
           type: object
           title: asset
           description: ''
           required:
-          - file_name
+          - reason
+          - status
           properties:
-            file_name:
+            reason:
               type: string
-              description: 'The name of the mp4 file you are uploading.
-
-
-                <blockquote><strong>Note:</strong> To avoid file management issues in storage, Wowza Video removes or replaces special characters in file names.</blockquote>'
-              example: MyAsset.mp4
-      example:
-        asset:
-          file_name: MyAsset.mp4
+              description: A description of why the upload failed.
+              example: Token expired
+            status:
+              type: string
+              description: The status code returned by the server.
+              example: 404
     Error404:
       type: object
       description: ''
@@ -1669,25 +1507,211 @@ components:
             message: The requested resource couldn't be found.
             description: ''
             links: []
+    Error410:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 410
+            code: ERR-410-RecordDeleted
+            title: Record Deleted Error
+            message: The requested resource has been deleted.
+            description: ''
+            links: []
+    Error401:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 401
+            code: ERR-401-NoApiKey
+            title: No API Key Error
+            message: No API key sent in header.
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 401
+            code: ERR-401-NoAccessKey
+            title: No Access Key Error
+            message: No access key sent in header.
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 401
+            code: ERR-401-InvalidApiKey
+            title: Invalid Api Key Error
+            message: Invalid API key.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 401
+            code: ERR-401-InvalidAccessKey
+            title: Invalid Access Key Error
+            message: Invalid access key.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 401
+            code: ERR-401-BadAccountStatus
+            title: Bad Account Status Error
+            message: Your account's status doesn't allow this action.
+            description: ''
+            links: []
+        Example Response 6:
+          meta:
+            status: 401
+            code: ERR-401-FeatureNotEnabled
+            title: Feature Not Enabled Error
+            message: This feature isn't enabled.
+            description: ''
+            links: []
+        Example Response 7:
+          meta:
+            status: 401
+            code: ERR-401-TrialExceeded
+            title: Bad Billing Status Error
+            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
+            description: ''
+            links: []
+        Example Response 8:
+          meta:
+            status: 401
+            code: ERR-401-ExpiredToken
+            title: JWT is expired
+            message: Token has exired.
+            description: ''
+            links: []
+        Example Response 9:
+          meta:
+            status: 401
+            code: ERR-401-InvalidToken
+            title: JWT is invalid
+            message: Token is invalid.
+            description: ''
+            links: []
   parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
-      schema:
-        type: integer
     page:
       name: page
       in: query
       description: "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
       schema:
         type: integer
+    per_page:
+      name: per_page
+      in: query
+      description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
+      schema:
+        type: integer
   securitySchemes:
-    basicAuth:
+    WV_JWT:
       type: http
-      scheme: basic
-      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
-    digestAuth:
-      type: http
-      scheme: digest
-      description: HTTP Digest Authentication
+      scheme: bearer
+      description: Your Wowza-generated access token, also called a JSON web token (JWT). Send it as a bearer token in the Authentication header of your requests. See [Authentication](https://www.wowza.com/docs/how-to-use-the-wowza-video-rest-api#authentication).
+x-tagGroups:
+- name: Resource Management
+  tags:
+  - live_streams
+  - transcoders
+  - stream_sources
+  - stream_targets
+  - schedules
+  - real_time
+  - videos
+  - categories
+  - advanced_token_authentication
+  - clipping
+- name: Analytics
+  tags:
+  - analytics_viewers
+  - analytics_ingest
+  - analytics_engagement
+  - analytics_popularity
+  - quality_of_experience
+- name: Usage
+  tags:
+  - usage_account
+  - usage_transcoders
+  - usage
+  - usage_real_time_streams
+- name: Deprecated in 2.0
+  tags:
+  - assets
+  - players
+  - recordings
+  - vod_streams
+  - storage
+  - usage_vod_streams

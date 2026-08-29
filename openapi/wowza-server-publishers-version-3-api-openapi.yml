@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Wowza Streaming Engine REST advanced_token_authentication Server Publishers Version 3 API
+  title: Wowza Streaming Engine REST Server Publishers Version 3 API
   description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
   version: 2.0.0
   contact:
@@ -218,6 +218,29 @@ paths:
           description: Internal server error
 components:
   schemas:
+    PublisherConfig:
+      type: object
+      properties:
+        password:
+          type: string
+        name:
+          type: string
+        serverName:
+          type: string
+        description:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - name
+      - description
+      - password
     PublishersConfig3:
       type: object
       properties:
@@ -258,29 +281,6 @@ components:
       - version
       - serverName
       - publisher
-      - description
-      - password
-    PublisherConfig:
-      type: object
-      properties:
-        password:
-          type: string
-        name:
-          type: string
-        serverName:
-          type: string
-        description:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - name
       - description
       - password
   securitySchemes:

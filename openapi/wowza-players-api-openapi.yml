@@ -1,19 +1,13 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Wowza Streaming Engine REST advanced_token_authentication players API
-  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
-  version: 2.0.0
-  contact:
-    name: Wowza Media Systems
-    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  version: v2.0
+  title: Wowza Video REST API Reference Documentation Players API
   license:
-    name: Wowza Media Systems
-    url: https://www.wowza.com
+    name: Terms of Use
+    url: https://www.wowza.com/legal/terms-of-use
+  description: "API lifecycle phase: [Current](https://www.wowza.com/docs/wowza-video-rest-api-lifecycle-management#api-lifecycle0)\n\n\n<table>\n<tr style=\"background-color:lightgrey;\"><td>\n<strong>Want to take the API for a test run?</strong>\n\nAll you'll need is a [Wowza Video subscription](https://www.wowza.com/pricing), or [free trial](https://www.wowza.com/free-trial), for the API access token. Then, fork [our collection in Postman](https://www.postman.com/wowzavideo/workspace/wowza-video-rest-api) and you'll be\nmaking calls to our REST API in minutes!\n\nSee [Trial the Wowza Video REST API using Postman](https://www.wowza.com/docs/trial-the-wowza-video-rest-api-using-postman) for more information.\n</td>\n</tr>\n</table>\n\n\nThis reference documentation provides details about the operations, parameters, and request and response schemas for every resource and endpoint in the Wowza Video REST API.\nSamples appear in the right column. Sample requests are presented in cURL (Shell) and JavaScript; some samples also include just the JSON object. Response samples are all JSON. \nExamples in cURL use environment variables so you can easily copy and paste them. To learn more, see [Using cURL](https://wowza.com/docs/how-to-use-the-wowza-video-rest-api#curl).\n\n\nReference documentation is available for every version of the API. Use the **Version** menu at the top of the page to access the reference doc for a different version of the API.\n\n<blockquote><strong>Note</strong>: If you haven't moved over to the new Wowza Video UI experience, you won't be able to access v2.0 of the API. We're migrating customers iteratively. See <a href=\"https://developer.wowza.com/docs/wowza-video/upgrade-to-wowza-video/\">Upgrade to the Wowza Video 2.0 REST API</a> for more information.</blockquote>\n"
 servers:
-- url: http://localhost:8087
-  description: Wowza Streaming Engine Server
-security:
-- basicAuth: []
+- url: https://api.video.wowza.com/api/v2.0
 tags:
 - name: players
   description: '<blockquote>The <strong>player</strong> operations are deprecated in 2.0. Create and update player configurations in the user interface. Any values you send using the <strong>player</strong> operations will be ignored.</blockquote>
@@ -614,52 +608,6 @@ paths:
                 $ref: '#/components/schemas/Error422'
 components:
   schemas:
-    Error403:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 403
-            code: ERR-403-RecordUnaccessible
-            title: Record Unaccessible Error
-            message: The requested resource isn't accessible.
-            description: ''
-            links: []
     player:
       type: object
       description: ''
@@ -824,11 +772,146 @@ components:
         updated_at: '2020-01-31T16:08:26.990Z'
         video_poster_image_url: https://prod.s3.amazonaws.com/uploads/player/video_poster_image/23424/5bad28.jpg
         width: 640
+    index_player:
+      type: object
+      title: players
+      description: ''
+      properties:
+        created_at:
+          type: string
+          description: The date and time that the player was created.
+          example: ''
+          format: date-time
+        id:
+          type: string
+          description: The unique alphanumeric string that identifies the player.
+          example: ''
+        transcoder_id:
+          type: string
+          description: The unique alphanumeric string that identifies the transcoder.
+          example: ''
+        type:
+          type: string
+          description: "The player you want to use.\n\n\n **Wowza Video subscribers**</br>\nWowza Flowplayer (wowza_flowplayer) is the only valid option. You're a subscriber if you have access to Asset Management and Historic and Live Analytics in the user interface.\n\nThe Wowza Flowplayer is an easy-to-use, commercial grade player designed for builders and developers. It provides HTML5, HLS, and MPEG-DASH playback and plays streams on any browser and device. It can be [customized](https://www.wowza.com/docs/embed-and-customize-wowza-flowplayer-in-your-site) if you embed it in your site.\n\n**Other subscribers**</br> original _html5 and wowza_player are the only valid options and original_html5 is the default. **original_html5** provides HTML5 playback and falls back to Flash on older browsers. **wowza_player** requires that *target_delivery_protocol* be **hls-https** and *closed_caption_type* be **none**."
+          example: ''
+        updated_at:
+          type: string
+          description: The date and time that the player was updated.
+          example: ''
+          format: date-time
+    url_update_input:
+      description: ''
+      allOf:
+      - $ref: '#/components/schemas/url_input'
     url_create_input:
       description: ''
       allOf:
       - $ref: '#/components/schemas/url_input'
-    Error401:
+    players:
+      type: object
+      description: ''
+      required:
+      - players
+      properties:
+        players:
+          type: array
+          description: ''
+          example: ''
+          items:
+            $ref: '#/components/schemas/index_player'
+      example:
+        players:
+        - created_at: '2020-01-29T17:16:21.968Z'
+          id: e8dk5bf6
+          transcoder_id: 6Qbymbbq
+          type: wowza_flowplayer
+          updated_at: '2020-01-31T07:42:03.968Z'
+        - created_at: '2020-01-29T17:16:21.968Z'
+          id: s3jmdnbl
+          transcoder_id: 3kbb0hvf
+          type: wowza_flowplayer
+          updated_at: '2020-01-31T02:22:29.968Z'
+    url_input:
+      type: object
+      description: ''
+      required:
+      - url
+      properties:
+        url:
+          type: object
+          title: url
+          description: ''
+          properties:
+            bitrate:
+              type: integer
+              description: The video bitrate, in kilobits per second (Kbps), of the output rendition that will be played at the URL. May correspond to the bitrate of an output rendition being used by the live stream or transcoder. Must be greater than **0**.
+              example: 4128
+              format: int32
+            height:
+              type: integer
+              description: The height, in pixels, of the output rendition that will be played at the URL. May correspond to the height of an output rendition being used by the live stream or transcoder. Must be greater than **0**.
+              example: 1080
+              format: int32
+            label:
+              type: string
+              description: A descriptive name for the player URL. Maximum 255 characters.
+              example: '1920'
+            url:
+              type: string
+              description: The URL of the player. If using a Wowza CDN target, the URL format is `http://wowzasubdomain-f.akamaihd.net/i/stream_name_angle@stream_id/master.m3u8` for HLS playback.
+              example: http://somedomain.com/path/to/stream.m3u8
+            width:
+              type: integer
+              description: The width, in pixels, of the output rendition that will be played at the URL. May correspond to the width of an output rendition being used by the live stream or transcoder. Must be greater than **0**.
+              example: 1920
+              format: int32
+    hosted_page_request_object:
+      type: object
+      description: Configuration of the hosted page.
+      properties:
+        enabled:
+          type: boolean
+          description: 'A web page hosted by Wowza Video that includes a player for the live stream. The default, **true**, creates a hosted page. Specify **false** to not create a hosted web page.
+
+
+            **Example:** <code>"enabled": true</code>'
+          example: ''
+        description:
+          type: string
+          description: 'A description that appears on the hosted page below the player. Can''t include custom HTML, JavaScript, or other tags.
+
+
+            **Example:** <code>"description": "My Hosted Page Description"</code>'
+          example: ''
+        logo_image:
+          type: string
+          description: 'A Base64-encoded string representation of a GIF, JPEG, or PNG logo file that that appears in the upper-left corner of the hosted page. Logo file must be 2.5 MB or smaller.
+
+
+            **Example:** <code>"logo_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>'
+          example: '[Base64-encoded string representation of GIF, JPEG, or PNG file]'
+        remove_logo_image:
+          type: boolean
+          description: 'If **true**, removes the logo file from the hosted page. The default is **false**.
+
+
+            **Example:** <code>"remove_logo_image": true</code>'
+          example: true
+        sharing_icons:
+          type: boolean
+          description: 'Icons that let viewers share the stream on Facebook, Google+, Twitter, and by email. The default, **true**, includes sharing icons on the hosted page. Specify **false** to omit sharing icons.
+
+
+            **Example:** <code>"sharing_icons": false</code>'
+          example: ''
+        title:
+          type: string
+          description: 'A title for the page that appears above the player. Can''t include custom HTML, JavaScript, or other tags.
+
+
+            **Example:** <code>"title": "My Hosted Page"</code>'
+          example: ''
+    Error403:
       type: object
       description: ''
       required:
@@ -868,100 +951,12 @@ components:
       example:
         Example Response 1:
           meta:
-            status: 401
-            code: ERR-401-NoApiKey
-            title: No API Key Error
-            message: No API key sent in header.
+            status: 403
+            code: ERR-403-RecordUnaccessible
+            title: Record Unaccessible Error
+            message: The requested resource isn't accessible.
             description: ''
             links: []
-        Example Response 2:
-          meta:
-            status: 401
-            code: ERR-401-NoAccessKey
-            title: No Access Key Error
-            message: No access key sent in header.
-            description: ''
-            links: []
-        Example Response 3:
-          meta:
-            status: 401
-            code: ERR-401-InvalidApiKey
-            title: Invalid Api Key Error
-            message: Invalid API key.
-            description: ''
-            links: []
-        Example Response 4:
-          meta:
-            status: 401
-            code: ERR-401-InvalidAccessKey
-            title: Invalid Access Key Error
-            message: Invalid access key.
-            description: ''
-            links: []
-        Example Response 5:
-          meta:
-            status: 401
-            code: ERR-401-BadAccountStatus
-            title: Bad Account Status Error
-            message: Your account's status doesn't allow this action.
-            description: ''
-            links: []
-        Example Response 6:
-          meta:
-            status: 401
-            code: ERR-401-FeatureNotEnabled
-            title: Feature Not Enabled Error
-            message: This feature isn't enabled.
-            description: ''
-            links: []
-        Example Response 7:
-          meta:
-            status: 401
-            code: ERR-401-TrialExceeded
-            title: Bad Billing Status Error
-            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
-            description: ''
-            links: []
-        Example Response 8:
-          meta:
-            status: 401
-            code: ERR-401-ExpiredToken
-            title: JWT is expired
-            message: Token has exired.
-            description: ''
-            links: []
-        Example Response 9:
-          meta:
-            status: 401
-            code: ERR-401-InvalidToken
-            title: JWT is invalid
-            message: Token is invalid.
-            description: ''
-            links: []
-    players:
-      type: object
-      description: ''
-      required:
-      - players
-      properties:
-        players:
-          type: array
-          description: ''
-          example: ''
-          items:
-            $ref: '#/components/schemas/index_player'
-      example:
-        players:
-        - created_at: '2020-01-29T17:16:21.968Z'
-          id: e8dk5bf6
-          transcoder_id: 6Qbymbbq
-          type: wowza_flowplayer
-          updated_at: '2020-01-31T07:42:03.968Z'
-        - created_at: '2020-01-29T17:16:21.968Z'
-          id: s3jmdnbl
-          transcoder_id: 3kbb0hvf
-          type: wowza_flowplayer
-          updated_at: '2020-01-31T02:22:29.968Z'
     url:
       type: object
       description: ''
@@ -1015,6 +1010,33 @@ components:
         player_id: Jm1tPblTJm1t
         url: http://someurl.com/some/path/to/a/stream.m3u8
         width: 1920
+    hosted_page_response_object:
+      type: object
+      description: Configuration of the hosted page.
+      properties:
+        enabled:
+          type: boolean
+          description: A web page hosted by Wowza Video that includes a player for the live stream. The default, **true**, creates a hosted page. Specify **false** to not create a hosted web page.
+          example: ''
+        description:
+          type: string
+          description: A description that appears on the hosted page below the player. Can't include custom HTML, JavaScript, or other tags.
+          example: ''
+        logo_image_url:
+          type: string
+          description: The path to a GIF, JPEG, or PNG logo file that appears in the upper-left corner of the hosted page. Logo file must be 2.5 MB or smaller.
+        sharing_icons:
+          type: boolean
+          description: Icons that let viewers share the stream on Facebook, Google+, Twitter, and by email. The default, **true**, includes sharing icons on the hosted page. Specify **false** to omit sharing icons.
+          example: ''
+        title:
+          type: string
+          description: A title for the page that appears above the player. Can't include custom HTML, JavaScript, or other tags.
+          example: ''
+        url:
+          type: string
+          description: The URL of the Wowza Video-hosted webpage that viewers can visit to watch the stream.
+          example: ''
     Error422:
       type: object
       description: ''
@@ -1093,79 +1115,6 @@ components:
             message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
             description: ''
             links: []
-    Error410:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 410
-            code: ERR-410-RecordDeleted
-            title: Record Deleted Error
-            message: The requested resource has been deleted.
-            description: ''
-            links: []
-    hosted_page_response_object:
-      type: object
-      description: Configuration of the hosted page.
-      properties:
-        enabled:
-          type: boolean
-          description: A web page hosted by Wowza Video that includes a player for the live stream. The default, **true**, creates a hosted page. Specify **false** to not create a hosted web page.
-          example: ''
-        description:
-          type: string
-          description: A description that appears on the hosted page below the player. Can't include custom HTML, JavaScript, or other tags.
-          example: ''
-        logo_image_url:
-          type: string
-          description: The path to a GIF, JPEG, or PNG logo file that appears in the upper-left corner of the hosted page. Logo file must be 2.5 MB or smaller.
-        sharing_icons:
-          type: boolean
-          description: Icons that let viewers share the stream on Facebook, Google+, Twitter, and by email. The default, **true**, includes sharing icons on the hosted page. Specify **false** to omit sharing icons.
-          example: ''
-        title:
-          type: string
-          description: A title for the page that appears above the player. Can't include custom HTML, JavaScript, or other tags.
-          example: ''
-        url:
-          type: string
-          description: The URL of the Wowza Video-hosted webpage that viewers can visit to watch the stream.
-          example: ''
     urls:
       type: object
       description: ''
@@ -1379,71 +1328,6 @@ components:
           hosted_page:
             title: My Updated Hosted Page
           responsive: true
-    url_input:
-      type: object
-      description: ''
-      required:
-      - url
-      properties:
-        url:
-          type: object
-          title: url
-          description: ''
-          properties:
-            bitrate:
-              type: integer
-              description: The video bitrate, in kilobits per second (Kbps), of the output rendition that will be played at the URL. May correspond to the bitrate of an output rendition being used by the live stream or transcoder. Must be greater than **0**.
-              example: 4128
-              format: int32
-            height:
-              type: integer
-              description: The height, in pixels, of the output rendition that will be played at the URL. May correspond to the height of an output rendition being used by the live stream or transcoder. Must be greater than **0**.
-              example: 1080
-              format: int32
-            label:
-              type: string
-              description: A descriptive name for the player URL. Maximum 255 characters.
-              example: '1920'
-            url:
-              type: string
-              description: The URL of the player. If using a Wowza CDN target, the URL format is `http://wowzasubdomain-f.akamaihd.net/i/stream_name_angle@stream_id/master.m3u8` for HLS playback.
-              example: http://somedomain.com/path/to/stream.m3u8
-            width:
-              type: integer
-              description: The width, in pixels, of the output rendition that will be played at the URL. May correspond to the width of an output rendition being used by the live stream or transcoder. Must be greater than **0**.
-              example: 1920
-              format: int32
-    index_player:
-      type: object
-      title: players
-      description: ''
-      properties:
-        created_at:
-          type: string
-          description: The date and time that the player was created.
-          example: ''
-          format: date-time
-        id:
-          type: string
-          description: The unique alphanumeric string that identifies the player.
-          example: ''
-        transcoder_id:
-          type: string
-          description: The unique alphanumeric string that identifies the transcoder.
-          example: ''
-        type:
-          type: string
-          description: "The player you want to use.\n\n\n **Wowza Video subscribers**</br>\nWowza Flowplayer (wowza_flowplayer) is the only valid option. You're a subscriber if you have access to Asset Management and Historic and Live Analytics in the user interface.\n\nThe Wowza Flowplayer is an easy-to-use, commercial grade player designed for builders and developers. It provides HTML5, HLS, and MPEG-DASH playback and plays streams on any browser and device. It can be [customized](https://www.wowza.com/docs/embed-and-customize-wowza-flowplayer-in-your-site) if you embed it in your site.\n\n**Other subscribers**</br> original _html5 and wowza_player are the only valid options and original_html5 is the default. **original_html5** provides HTML5 playback and falls back to Flash on older browsers. **wowza_player** requires that *target_delivery_protocol* be **hls-https** and *closed_caption_type* be **none**."
-          example: ''
-        updated_at:
-          type: string
-          description: The date and time that the player was updated.
-          example: ''
-          format: date-time
-    url_update_input:
-      description: ''
-      allOf:
-      - $ref: '#/components/schemas/url_input'
     Error404:
       type: object
       description: ''
@@ -1490,71 +1374,211 @@ components:
             message: The requested resource couldn't be found.
             description: ''
             links: []
-    hosted_page_request_object:
+    Error410:
       type: object
-      description: Configuration of the hosted page.
+      description: ''
+      required:
+      - meta
       properties:
-        enabled:
-          type: boolean
-          description: 'A web page hosted by Wowza Video that includes a player for the live stream. The default, **true**, creates a hosted page. Specify **false** to not create a hosted web page.
-
-
-            **Example:** <code>"enabled": true</code>'
-          example: ''
-        description:
-          type: string
-          description: 'A description that appears on the hosted page below the player. Can''t include custom HTML, JavaScript, or other tags.
-
-
-            **Example:** <code>"description": "My Hosted Page Description"</code>'
-          example: ''
-        logo_image:
-          type: string
-          description: 'A Base64-encoded string representation of a GIF, JPEG, or PNG logo file that that appears in the upper-left corner of the hosted page. Logo file must be 2.5 MB or smaller.
-
-
-            **Example:** <code>"logo_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>'
-          example: '[Base64-encoded string representation of GIF, JPEG, or PNG file]'
-        remove_logo_image:
-          type: boolean
-          description: 'If **true**, removes the logo file from the hosted page. The default is **false**.
-
-
-            **Example:** <code>"remove_logo_image": true</code>'
-          example: true
-        sharing_icons:
-          type: boolean
-          description: 'Icons that let viewers share the stream on Facebook, Google+, Twitter, and by email. The default, **true**, includes sharing icons on the hosted page. Specify **false** to omit sharing icons.
-
-
-            **Example:** <code>"sharing_icons": false</code>'
-          example: ''
-        title:
-          type: string
-          description: 'A title for the page that appears above the player. Can''t include custom HTML, JavaScript, or other tags.
-
-
-            **Example:** <code>"title": "My Hosted Page"</code>'
-          example: ''
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 410
+            code: ERR-410-RecordDeleted
+            title: Record Deleted Error
+            message: The requested resource has been deleted.
+            description: ''
+            links: []
+    Error401:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 401
+            code: ERR-401-NoApiKey
+            title: No API Key Error
+            message: No API key sent in header.
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 401
+            code: ERR-401-NoAccessKey
+            title: No Access Key Error
+            message: No access key sent in header.
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 401
+            code: ERR-401-InvalidApiKey
+            title: Invalid Api Key Error
+            message: Invalid API key.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 401
+            code: ERR-401-InvalidAccessKey
+            title: Invalid Access Key Error
+            message: Invalid access key.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 401
+            code: ERR-401-BadAccountStatus
+            title: Bad Account Status Error
+            message: Your account's status doesn't allow this action.
+            description: ''
+            links: []
+        Example Response 6:
+          meta:
+            status: 401
+            code: ERR-401-FeatureNotEnabled
+            title: Feature Not Enabled Error
+            message: This feature isn't enabled.
+            description: ''
+            links: []
+        Example Response 7:
+          meta:
+            status: 401
+            code: ERR-401-TrialExceeded
+            title: Bad Billing Status Error
+            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
+            description: ''
+            links: []
+        Example Response 8:
+          meta:
+            status: 401
+            code: ERR-401-ExpiredToken
+            title: JWT is expired
+            message: Token has exired.
+            description: ''
+            links: []
+        Example Response 9:
+          meta:
+            status: 401
+            code: ERR-401-InvalidToken
+            title: JWT is invalid
+            message: Token is invalid.
+            description: ''
+            links: []
   parameters:
-    page:
-      name: page
-      in: query
-      description: "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
-      schema:
-        type: integer
     per_page:
       name: per_page
       in: query
       description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
       schema:
         type: integer
+    page:
+      name: page
+      in: query
+      description: "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
+      schema:
+        type: integer
   securitySchemes:
-    basicAuth:
+    WV_JWT:
       type: http
-      scheme: basic
-      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
-    digestAuth:
-      type: http
-      scheme: digest
-      description: HTTP Digest Authentication
+      scheme: bearer
+      description: Your Wowza-generated access token, also called a JSON web token (JWT). Send it as a bearer token in the Authentication header of your requests. See [Authentication](https://www.wowza.com/docs/how-to-use-the-wowza-video-rest-api#authentication).
+x-tagGroups:
+- name: Resource Management
+  tags:
+  - live_streams
+  - transcoders
+  - stream_sources
+  - stream_targets
+  - schedules
+  - real_time
+  - videos
+  - categories
+  - advanced_token_authentication
+  - clipping
+- name: Analytics
+  tags:
+  - analytics_viewers
+  - analytics_ingest
+  - analytics_engagement
+  - analytics_popularity
+  - quality_of_experience
+- name: Usage
+  tags:
+  - usage_account
+  - usage_transcoders
+  - usage
+  - usage_real_time_streams
+- name: Deprecated in 2.0
+  tags:
+  - assets
+  - players
+  - recordings
+  - vod_streams
+  - storage
+  - usage_vod_streams

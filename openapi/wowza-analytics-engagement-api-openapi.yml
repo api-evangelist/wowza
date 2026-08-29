@@ -1,19 +1,13 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Wowza Streaming Engine REST advanced_token_authentication analytics_engagement API
-  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
-  version: 2.0.0
-  contact:
-    name: Wowza Media Systems
-    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  version: v2.0
+  title: Wowza Video REST API Reference Documentation Analytics Engagement API
   license:
-    name: Wowza Media Systems
-    url: https://www.wowza.com
+    name: Terms of Use
+    url: https://www.wowza.com/legal/terms-of-use
+  description: "API lifecycle phase: [Current](https://www.wowza.com/docs/wowza-video-rest-api-lifecycle-management#api-lifecycle0)\n\n\n<table>\n<tr style=\"background-color:lightgrey;\"><td>\n<strong>Want to take the API for a test run?</strong>\n\nAll you'll need is a [Wowza Video subscription](https://www.wowza.com/pricing), or [free trial](https://www.wowza.com/free-trial), for the API access token. Then, fork [our collection in Postman](https://www.postman.com/wowzavideo/workspace/wowza-video-rest-api) and you'll be\nmaking calls to our REST API in minutes!\n\nSee [Trial the Wowza Video REST API using Postman](https://www.wowza.com/docs/trial-the-wowza-video-rest-api-using-postman) for more information.\n</td>\n</tr>\n</table>\n\n\nThis reference documentation provides details about the operations, parameters, and request and response schemas for every resource and endpoint in the Wowza Video REST API.\nSamples appear in the right column. Sample requests are presented in cURL (Shell) and JavaScript; some samples also include just the JSON object. Response samples are all JSON. \nExamples in cURL use environment variables so you can easily copy and paste them. To learn more, see [Using cURL](https://wowza.com/docs/how-to-use-the-wowza-video-rest-api#curl).\n\n\nReference documentation is available for every version of the API. Use the **Version** menu at the top of the page to access the reference doc for a different version of the API.\n\n<blockquote><strong>Note</strong>: If you haven't moved over to the new Wowza Video UI experience, you won't be able to access v2.0 of the API. We're migrating customers iteratively. See <a href=\"https://developer.wowza.com/docs/wowza-video/upgrade-to-wowza-video/\">Upgrade to the Wowza Video 2.0 REST API</a> for more information.</blockquote>\n"
 servers:
-- url: http://localhost:8087
-  description: Wowza Streaming Engine Server
-security:
-- basicAuth: []
+- url: https://api.video.wowza.com/api/v2.0
 tags:
 - name: analytics_engagement
   description: Operations related to engagement analytics for a VOD stream.
@@ -105,6 +99,117 @@ paths:
                 $ref: '#/components/schemas/Error422'
 components:
   schemas:
+    analytics_engagement_vod_stream:
+      type: object
+      description: ''
+      properties:
+        vod_stream:
+          type: object
+          title: vod_stream
+          description: ''
+          properties:
+            id:
+              type: string
+              description: The unique alphanumeric string that identifies the VOD stream.
+              format: int32
+            play_rate:
+              type: integer
+              description: The ratio between displays and plays. For example, 100 displays and 20 plays will result in 0.20 which means that 20% of the displays resulted in a play.
+              example: ''
+              format: int32
+            completion_rate:
+              type: integer
+              description: The ratio of viewers that watched the last segment of the asset. It is represented in a decimal value.
+              example: ''
+            duration_ms:
+              type: integer
+              description: The length of the stream in milliseconds.
+              example: ''
+            avg_seconds_watched:
+              type: integer
+              description: The average number of seconds the viewers viewed the stream.
+              example: ''
+            avg_percentage_watched:
+              type: integer
+              description: The average time watched represented as a percentage.
+              example: ''
+            total_seconds_watched:
+              type: integer
+              description: The total number of seconds the stream was viewed.
+              example: ''
+            trend:
+              type: object
+              title: Array of viewer trends
+              description: "An array of viewer trend data for an asset in the given time period.\n\n\n <blockquote>Note: Data from the most recent hour data might not be included in the result of a time range that extends beyond the most recent 3 days. </blockquote>\n\n\n<strong>Default</strong>: Last hour"
+              properties:
+                percent:
+                  type: integer
+                  description: 'A specific segment of the VOD asset. A VOD asset has 100 segments and each segment represents a completion percentage of the asset. For example, 1 is the data for 0 to 1% of the asset, 2 is the data for 1 to 2% and so on.
+
+
+                    Trend data is aggregated for each segment.
+
+
+                    Use _**duration_ms** / 1000 x **percent**_ to calculate a timestamp, in seconds, for the trend data.'
+                  format: int32
+                viewers:
+                  type: integer
+                  description: The total number of unique viewers who watched this specific segment of the VOD asset. A unique viewer is a single IP address; multiple users that share the same IP address are counted once.
+                  example: ''
+                  format: int32
+            limits:
+              type: object
+              description: The time frame represented in the response.
+              properties:
+                from:
+                  type: string
+                  description: The start of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+                to:
+                  type: string
+                  description: The end of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+      example:
+        vod_stream:
+          id: tvctq36g
+          play_rate: 0.2
+          completion_rate: 0.42
+          duration_ms: 9761000
+          avg_seconds_watched: 302
+          avg_percentage_watched: 67
+          total_seconds_watched: 77699
+          trend:
+          - percent: 1
+            viewers: 7
+          - percent: 2
+            viewers: 7
+          - percent: 3
+            viewers: 7
+          - percent: 4
+            viewers: 7
+          - percent: 5
+            viewers: 10
+          - percent: 6
+            viewers: 7
+          - percent: 7
+            viewers: 7
+          - percent: 8
+            viewers: 25
+          - percent: 9
+            viewers: 25
+          - percent: 10
+            viewers: 25
+          - percent: 11
+            viewers: 7
+          - spercent: 12
+            viewers: 7
+          - percent: 13
+            viewers: 7
+        limits:
+          from: '2024-03-14T10:31:54.000Z'
+          to: '2024-04-13T10:31:54.000Z'
     Error403:
       type: object
       description: ''
@@ -149,6 +254,176 @@ components:
             code: ERR-403-RecordUnaccessible
             title: Record Unaccessible Error
             message: The requested resource isn't accessible.
+            description: ''
+            links: []
+    Error422:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. ... can't be blank
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. Provider wowza_video is not allowed
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
+            description: ''
+            links: []
+    Error404:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 404
+            code: ERR-404-RecordNotFound
+            title: Record Not Found Error
+            message: The requested resource couldn't be found.
+            description: ''
+            links: []
+    Error410:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 410
+            code: ERR-410-RecordDeleted
+            title: Record Deleted Error
+            message: The requested resource has been deleted.
             description: ''
             links: []
     Error401:
@@ -261,293 +536,42 @@ components:
             message: Token is invalid.
             description: ''
             links: []
-    analytics_engagement_vod_stream:
-      type: object
-      description: ''
-      properties:
-        vod_stream:
-          type: object
-          title: vod_stream
-          description: ''
-          properties:
-            id:
-              type: string
-              description: The unique alphanumeric string that identifies the VOD stream.
-              format: int32
-            play_rate:
-              type: integer
-              description: The ratio between displays and plays. For example, 100 displays and 20 plays will result in 0.20 which means that 20% of the displays resulted in a play.
-              example: ''
-              format: int32
-            completion_rate:
-              type: integer
-              description: The ratio of viewers that watched the last segment of the asset. It is represented in a decimal value.
-              example: ''
-            duration_ms:
-              type: integer
-              description: The length of the stream in milliseconds.
-              example: ''
-            avg_seconds_watched:
-              type: integer
-              description: The average number of seconds the viewers viewed the stream.
-              example: ''
-            avg_percentage_watched:
-              type: integer
-              description: The average time watched represented as a percentage.
-              example: ''
-            total_seconds_watched:
-              type: integer
-              description: The total number of seconds the stream was viewed.
-              example: ''
-            trend:
-              type: object
-              title: Array of viewer trends
-              description: "An array of viewer trend data for an asset in the given time period.\n\n\n <blockquote>Note: Data from the most recent hour data might not be included in the result of a time range that extends beyond the most recent 3 days. </blockquote>\n\n\n<strong>Default</strong>: Last hour"
-              properties:
-                percent:
-                  type: integer
-                  description: 'A specific segment of the VOD asset. A VOD asset has 100 segments and each segment represents a completion percentage of the asset. For example, 1 is the data for 0 to 1% of the asset, 2 is the data for 1 to 2% and so on.
-
-
-                    Trend data is aggregated for each segment.
-
-
-                    Use _**duration_ms** / 1000 x **percent**_ to calculate a timestamp, in seconds, for the trend data.'
-                  format: int32
-                viewers:
-                  type: integer
-                  description: The total number of unique viewers who watched this specific segment of the VOD asset. A unique viewer is a single IP address; multiple users that share the same IP address are counted once.
-                  example: ''
-                  format: int32
-            limits:
-              type: object
-              description: The time frame represented in the response.
-              properties:
-                from:
-                  type: string
-                  description: The start of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-                to:
-                  type: string
-                  description: The end of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-      example:
-        vod_stream:
-          id: tvctq36g
-          play_rate: 0.2
-          completion_rate: 0.42
-          duration_ms: 9761000
-          avg_seconds_watched: 302
-          avg_percentage_watched: 67
-          total_seconds_watched: 77699
-          trend:
-          - percent: 1
-            viewers: 7
-          - percent: 2
-            viewers: 7
-          - percent: 3
-            viewers: 7
-          - percent: 4
-            viewers: 7
-          - percent: 5
-            viewers: 10
-          - percent: 6
-            viewers: 7
-          - percent: 7
-            viewers: 7
-          - percent: 8
-            viewers: 25
-          - percent: 9
-            viewers: 25
-          - percent: 10
-            viewers: 25
-          - percent: 11
-            viewers: 7
-          - spercent: 12
-            viewers: 7
-          - percent: 13
-            viewers: 7
-        limits:
-          from: '2024-03-14T10:31:54.000Z'
-          to: '2024-04-13T10:31:54.000Z'
-    Error422:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. ... can't be blank
-            description: ''
-            links: []
-        Example Response 2:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. Provider wowza_video is not allowed
-            description: ''
-            links: []
-        Example Response 3:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
-            description: ''
-            links: []
-        Example Response 4:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
-            description: ''
-            links: []
-        Example Response 5:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
-            description: ''
-            links: []
-    Error410:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 410
-            code: ERR-410-RecordDeleted
-            title: Record Deleted Error
-            message: The requested resource has been deleted.
-            description: ''
-            links: []
-    Error404:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 404
-            code: ERR-404-RecordNotFound
-            title: Record Not Found Error
-            message: The requested resource couldn't be found.
-            description: ''
-            links: []
   securitySchemes:
-    basicAuth:
+    WV_JWT:
       type: http
-      scheme: basic
-      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
-    digestAuth:
-      type: http
-      scheme: digest
-      description: HTTP Digest Authentication
+      scheme: bearer
+      description: Your Wowza-generated access token, also called a JSON web token (JWT). Send it as a bearer token in the Authentication header of your requests. See [Authentication](https://www.wowza.com/docs/how-to-use-the-wowza-video-rest-api#authentication).
+x-tagGroups:
+- name: Resource Management
+  tags:
+  - live_streams
+  - transcoders
+  - stream_sources
+  - stream_targets
+  - schedules
+  - real_time
+  - videos
+  - categories
+  - advanced_token_authentication
+  - clipping
+- name: Analytics
+  tags:
+  - analytics_viewers
+  - analytics_ingest
+  - analytics_engagement
+  - analytics_popularity
+  - quality_of_experience
+- name: Usage
+  tags:
+  - usage_account
+  - usage_transcoders
+  - usage
+  - usage_real_time_streams
+- name: Deprecated in 2.0
+  tags:
+  - assets
+  - players
+  - recordings
+  - vod_streams
+  - storage
+  - usage_vod_streams

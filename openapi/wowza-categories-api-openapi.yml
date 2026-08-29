@@ -1,19 +1,13 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Wowza Streaming Engine REST advanced_token_authentication categories API
-  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
-  version: 2.0.0
-  contact:
-    name: Wowza Media Systems
-    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  version: v2.0
+  title: Wowza Video REST API Reference Documentation Categories API
   license:
-    name: Wowza Media Systems
-    url: https://www.wowza.com
+    name: Terms of Use
+    url: https://www.wowza.com/legal/terms-of-use
+  description: "API lifecycle phase: [Current](https://www.wowza.com/docs/wowza-video-rest-api-lifecycle-management#api-lifecycle0)\n\n\n<table>\n<tr style=\"background-color:lightgrey;\"><td>\n<strong>Want to take the API for a test run?</strong>\n\nAll you'll need is a [Wowza Video subscription](https://www.wowza.com/pricing), or [free trial](https://www.wowza.com/free-trial), for the API access token. Then, fork [our collection in Postman](https://www.postman.com/wowzavideo/workspace/wowza-video-rest-api) and you'll be\nmaking calls to our REST API in minutes!\n\nSee [Trial the Wowza Video REST API using Postman](https://www.wowza.com/docs/trial-the-wowza-video-rest-api-using-postman) for more information.\n</td>\n</tr>\n</table>\n\n\nThis reference documentation provides details about the operations, parameters, and request and response schemas for every resource and endpoint in the Wowza Video REST API.\nSamples appear in the right column. Sample requests are presented in cURL (Shell) and JavaScript; some samples also include just the JSON object. Response samples are all JSON. \nExamples in cURL use environment variables so you can easily copy and paste them. To learn more, see [Using cURL](https://wowza.com/docs/how-to-use-the-wowza-video-rest-api#curl).\n\n\nReference documentation is available for every version of the API. Use the **Version** menu at the top of the page to access the reference doc for a different version of the API.\n\n<blockquote><strong>Note</strong>: If you haven't moved over to the new Wowza Video UI experience, you won't be able to access v2.0 of the API. We're migrating customers iteratively. See <a href=\"https://developer.wowza.com/docs/wowza-video/upgrade-to-wowza-video/\">Upgrade to the Wowza Video 2.0 REST API</a> for more information.</blockquote>\n"
 servers:
-- url: http://localhost:8087
-  description: Wowza Streaming Engine Server
-security:
-- basicAuth: []
+- url: https://api.video.wowza.com/api/v2.0
 tags:
 - name: categories
   description: Operations related to categorizing videos.
@@ -276,6 +270,49 @@ paths:
                 $ref: '#/components/schemas/Error422'
 components:
   schemas:
+    CategoryRequest:
+      type: object
+      properties:
+        category:
+          type: object
+          title: category
+          description: ''
+          properties:
+            name:
+              type: string
+              description: Name of the category.
+              example: My first category
+            description:
+              type: string
+              description: A description for the category.
+              example: This is a category description
+            parent_id:
+              type: string
+              description: 'Identifier to the parent category if one exists.
+
+
+
+                If the category is on top level and no parent exists, the value is an empty string.
+
+
+
+                **Example**: <code>"parent_id": ""</code>
+
+
+
+                If the category is under an existing parent category, the value is the id of the parent category.
+
+
+
+                **Example**: <code>"parent_id": "cb65a918-ad7d-406a-80d8-09c9c8d0dbb"</code>
+
+
+
+
+                **Note**: When updating a category the parent can be removed by setting `parent_id`
+
+                to an empty string.'
+              example: cb65a918-ad7d-406a-80d8-09c9c8d0dbb
     Error403:
       type: object
       description: ''
@@ -320,6 +357,272 @@ components:
             code: ERR-403-RecordUnaccessible
             title: Record Unaccessible Error
             message: The requested resource isn't accessible.
+            description: ''
+            links: []
+    CategoryResponse:
+      type: object
+      properties:
+        category:
+          type: object
+          title: category
+          description: ''
+          properties:
+            id:
+              type: string
+              description: Unique identifier for the category.
+              example: cb65a918-ad7d-406a-80d8-09c9c8d0dbbd
+            name:
+              type: string
+              description: Name of the category.
+              example: My first category
+            description:
+              type: string
+              description: A description for the category.
+              example: This is a category description.
+            parent_id:
+              type: string
+              description: 'Identifier to the parent category if one exists.
+
+
+
+                If the category is on top level and no parent exists, the value is an empty string.
+
+
+
+                **Example**: <code>"parent_id": ""</code>
+
+
+
+                If the category is under an existing parent category, the value is the id of the parent category.
+
+
+
+                **Example**: <code>"parent_id": "cb65a918-ad7d-406a-80d8-09c9c8d0dbb"</code>
+
+
+
+
+                **Note**: When updating a category the parent can be removed by setting `parent_id`
+
+                to an empty string.'
+              example: cb65a918-ad7d-406a-80d8-09c9c8d0dbb
+    CategoryListModel:
+      type: object
+      properties:
+        categories:
+          type: array
+          description: The list of categories.
+          items:
+            $ref: '#/components/schemas/CategoryResponse'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    Error422:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. ... can't be blank
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. Provider wowza_video is not allowed
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
+            description: ''
+            links: []
+    Pagination:
+      type: object
+      properties:
+        payload_version:
+          type: number
+          description: The pagination object version.
+          format: double
+        total_records:
+          type: integer
+          description: The total number of records.
+          format: int32
+          example: 100
+        page:
+          type: integer
+          description: The page number, starting at 1.
+          format: int32
+          example: 1
+          default: 1
+        per_page:
+          type: integer
+          description: The number of records per page.
+          format: int32
+          example: 10
+          default: 20
+        total_pages:
+          type: integer
+          description: The total number of pages.
+          format: int32
+          example: 2
+        page_first_index:
+          type: integer
+          description: The index of the first record in the response.
+          format: int32
+          example: 10
+        page_last_index:
+          type: integer
+          description: The index of the last record in the response.
+          format: int32
+          example: 10
+    Error404:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 404
+            code: ERR-404-RecordNotFound
+            title: Record Not Found Error
+            message: The requested resource couldn't be found.
+            description: ''
+            links: []
+    Error410:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 410
+            code: ERR-410-RecordDeleted
+            title: Record Deleted Error
+            message: The requested resource has been deleted.
             description: ''
             links: []
     Error401:
@@ -432,321 +735,42 @@ components:
             message: Token is invalid.
             description: ''
             links: []
-    CategoryResponse:
-      type: object
-      properties:
-        category:
-          type: object
-          title: category
-          description: ''
-          properties:
-            id:
-              type: string
-              description: Unique identifier for the category.
-              example: cb65a918-ad7d-406a-80d8-09c9c8d0dbbd
-            name:
-              type: string
-              description: Name of the category.
-              example: My first category
-            description:
-              type: string
-              description: A description for the category.
-              example: This is a category description.
-            parent_id:
-              type: string
-              description: 'Identifier to the parent category if one exists.
-
-
-
-                If the category is on top level and no parent exists, the value is an empty string.
-
-
-
-                **Example**: <code>"parent_id": ""</code>
-
-
-
-                If the category is under an existing parent category, the value is the id of the parent category.
-
-
-
-                **Example**: <code>"parent_id": "cb65a918-ad7d-406a-80d8-09c9c8d0dbb"</code>
-
-
-
-
-                **Note**: When updating a category the parent can be removed by setting `parent_id`
-
-                to an empty string.'
-              example: cb65a918-ad7d-406a-80d8-09c9c8d0dbb
-    Error422:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. ... can't be blank
-            description: ''
-            links: []
-        Example Response 2:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. Provider wowza_video is not allowed
-            description: ''
-            links: []
-        Example Response 3:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
-            description: ''
-            links: []
-        Example Response 4:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
-            description: ''
-            links: []
-        Example Response 5:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
-            description: ''
-            links: []
-    Error410:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 410
-            code: ERR-410-RecordDeleted
-            title: Record Deleted Error
-            message: The requested resource has been deleted.
-            description: ''
-            links: []
-    CategoryListModel:
-      type: object
-      properties:
-        categories:
-          type: array
-          description: The list of categories.
-          items:
-            $ref: '#/components/schemas/CategoryResponse'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-    CategoryRequest:
-      type: object
-      properties:
-        category:
-          type: object
-          title: category
-          description: ''
-          properties:
-            name:
-              type: string
-              description: Name of the category.
-              example: My first category
-            description:
-              type: string
-              description: A description for the category.
-              example: This is a category description
-            parent_id:
-              type: string
-              description: 'Identifier to the parent category if one exists.
-
-
-
-                If the category is on top level and no parent exists, the value is an empty string.
-
-
-
-                **Example**: <code>"parent_id": ""</code>
-
-
-
-                If the category is under an existing parent category, the value is the id of the parent category.
-
-
-
-                **Example**: <code>"parent_id": "cb65a918-ad7d-406a-80d8-09c9c8d0dbb"</code>
-
-
-
-
-                **Note**: When updating a category the parent can be removed by setting `parent_id`
-
-                to an empty string.'
-              example: cb65a918-ad7d-406a-80d8-09c9c8d0dbb
-    Pagination:
-      type: object
-      properties:
-        payload_version:
-          type: number
-          description: The pagination object version.
-          format: double
-        total_records:
-          type: integer
-          description: The total number of records.
-          format: int32
-          example: 100
-        page:
-          type: integer
-          description: The page number, starting at 1.
-          format: int32
-          example: 1
-          default: 1
-        per_page:
-          type: integer
-          description: The number of records per page.
-          format: int32
-          example: 10
-          default: 20
-        total_pages:
-          type: integer
-          description: The total number of pages.
-          format: int32
-          example: 2
-        page_first_index:
-          type: integer
-          description: The index of the first record in the response.
-          format: int32
-          example: 10
-        page_last_index:
-          type: integer
-          description: The index of the last record in the response.
-          format: int32
-          example: 10
-    Error404:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 404
-            code: ERR-404-RecordNotFound
-            title: Record Not Found Error
-            message: The requested resource couldn't be found.
-            description: ''
-            links: []
   securitySchemes:
-    basicAuth:
+    WV_JWT:
       type: http
-      scheme: basic
-      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
-    digestAuth:
-      type: http
-      scheme: digest
-      description: HTTP Digest Authentication
+      scheme: bearer
+      description: Your Wowza-generated access token, also called a JSON web token (JWT). Send it as a bearer token in the Authentication header of your requests. See [Authentication](https://www.wowza.com/docs/how-to-use-the-wowza-video-rest-api#authentication).
+x-tagGroups:
+- name: Resource Management
+  tags:
+  - live_streams
+  - transcoders
+  - stream_sources
+  - stream_targets
+  - schedules
+  - real_time
+  - videos
+  - categories
+  - advanced_token_authentication
+  - clipping
+- name: Analytics
+  tags:
+  - analytics_viewers
+  - analytics_ingest
+  - analytics_engagement
+  - analytics_popularity
+  - quality_of_experience
+- name: Usage
+  tags:
+  - usage_account
+  - usage_transcoders
+  - usage
+  - usage_real_time_streams
+- name: Deprecated in 2.0
+  tags:
+  - assets
+  - players
+  - recordings
+  - vod_streams
+  - storage
+  - usage_vod_streams

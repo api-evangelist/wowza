@@ -1,19 +1,13 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Wowza Streaming Engine REST advanced_token_authentication vod_streams API
-  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
-  version: 2.0.0
-  contact:
-    name: Wowza Media Systems
-    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  version: v2.0
+  title: Wowza Video REST API Reference Documentation Vod Streams API
   license:
-    name: Wowza Media Systems
-    url: https://www.wowza.com
+    name: Terms of Use
+    url: https://www.wowza.com/legal/terms-of-use
+  description: "API lifecycle phase: [Current](https://www.wowza.com/docs/wowza-video-rest-api-lifecycle-management#api-lifecycle0)\n\n\n<table>\n<tr style=\"background-color:lightgrey;\"><td>\n<strong>Want to take the API for a test run?</strong>\n\nAll you'll need is a [Wowza Video subscription](https://www.wowza.com/pricing), or [free trial](https://www.wowza.com/free-trial), for the API access token. Then, fork [our collection in Postman](https://www.postman.com/wowzavideo/workspace/wowza-video-rest-api) and you'll be\nmaking calls to our REST API in minutes!\n\nSee [Trial the Wowza Video REST API using Postman](https://www.wowza.com/docs/trial-the-wowza-video-rest-api-using-postman) for more information.\n</td>\n</tr>\n</table>\n\n\nThis reference documentation provides details about the operations, parameters, and request and response schemas for every resource and endpoint in the Wowza Video REST API.\nSamples appear in the right column. Sample requests are presented in cURL (Shell) and JavaScript; some samples also include just the JSON object. Response samples are all JSON. \nExamples in cURL use environment variables so you can easily copy and paste them. To learn more, see [Using cURL](https://wowza.com/docs/how-to-use-the-wowza-video-rest-api#curl).\n\n\nReference documentation is available for every version of the API. Use the **Version** menu at the top of the page to access the reference doc for a different version of the API.\n\n<blockquote><strong>Note</strong>: If you haven't moved over to the new Wowza Video UI experience, you won't be able to access v2.0 of the API. We're migrating customers iteratively. See <a href=\"https://developer.wowza.com/docs/wowza-video/upgrade-to-wowza-video/\">Upgrade to the Wowza Video 2.0 REST API</a> for more information.</blockquote>\n"
 servers:
-- url: http://localhost:8087
-  description: Wowza Streaming Engine Server
-security:
-- basicAuth: []
+- url: https://api.video.wowza.com/api/v2.0
 tags:
 - name: vod_streams
   description: "<blockquote>The <strong>VOD stream</strong> operations are deprecated in 2.0. Use the <strong>/videos</strong> endpoints instead.</blockquote> \n\nOperations related to video on demand (VOD) streams, which are created through the ``/live_streams`` or ``/transcoders`` resources. A VOD stream is a recording of a live stream that viewers can replay at a later date. After the broadcast is over and the live stream or transcoder is stopped, Wowza Video creates the VOD stream and generates a playback URL. See [About VOD Streams](https://www.wowza.com/docs/create-a-vod-stream#about-vod-streams) to learn more."
@@ -234,6 +228,104 @@ paths:
                 $ref: '#/components/schemas/Error422'
 components:
   schemas:
+    vod_stream_update_input:
+      type: object
+      description: ''
+      required:
+      - vod_stream
+      properties:
+        vod_stream:
+          type: object
+          title: vod_stream
+          description: ''
+          required:
+          - name
+          properties:
+            name:
+              type: string
+              description: 'A descriptive name for the VOD stream. Maximum 200 characters.
+
+
+                **Example:** <code>"name": "My updated VOD stream"</code>'
+              example: My VOD Stream 1
+            playback_enabled:
+              type: boolean
+              description: 'Specifies whether playback is enabled for the VOD stream.
+
+
+                **Example:** <code>"playback_enabled": true</code>'
+              example: true
+              enum:
+              - true
+              - false
+    vod_streams:
+      type: object
+      description: ''
+      required:
+      - vod_streams
+      properties:
+        vod_streams:
+          type: array
+          items:
+            type: object
+            title: vod_streams
+            description: ''
+            properties:
+              id:
+                type: string
+                description: The unique alphanumeric string that identifies the VOD stream.
+                example: ''
+              name:
+                type: string
+                description: A descriptive name for the VOD stream. Maximum 200 characters.
+                example: ''
+              state:
+                type: string
+                description: The state of the VOD stream.
+                example: ''
+                enum:
+                - processing
+                - completed
+                - failed
+              playback_enabled:
+                type: boolean
+                description: Specifies whether playback is enabled for the VOD stream.
+                example: ''
+                enum:
+                - true
+                - false
+              reason:
+                type: string
+                description: The reason that a VOD stream has the state of **failed**. Only returned when the state is **failed**.
+                example: ''
+              created_at:
+                type: string
+                description: The date and time that the VOD stream was created.
+                example: ''
+              updated_at:
+                type: string
+                description: The date and time that the VOD stream was updated.
+                example: ''
+      example:
+        vod_streams:
+        - id: wdjfqvsv
+          name: My VOD Stream 1
+          state: failed
+          playback_enabled: false
+          created_at: '2020-02-25T17:16:25.849Z'
+          updated_at: '2020-01-28T16:06:47.849Z'
+        - id: XyxZKqHO
+          name: My VOD Stream 2
+          state: completed
+          playback_enabled: true
+          created_at: '2020-01-29T17:16:21.849Z'
+          updated_at: '2020-01-31T02:26:05.849Z'
+        - id: Pz21DRSt
+          name: My VOD Stream 3
+          state: completed
+          playback_enabled: true
+          created_at: '2020-01-29T17:16:21.849Z'
+          updated_at: '2020-01-30T18:13:18.849Z'
     Error403:
       type: object
       description: ''
@@ -278,6 +370,176 @@ components:
             code: ERR-403-RecordUnaccessible
             title: Record Unaccessible Error
             message: The requested resource isn't accessible.
+            description: ''
+            links: []
+    Error422:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. ... can't be blank
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. Provider wowza_video is not allowed
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
+            description: ''
+            links: []
+    Error404:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 404
+            code: ERR-404-RecordNotFound
+            title: Record Not Found Error
+            message: The requested resource couldn't be found.
+            description: ''
+            links: []
+    Error410:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 410
+            code: ERR-410-RecordDeleted
+            title: Record Deleted Error
+            message: The requested resource has been deleted.
             description: ''
             links: []
     Error401:
@@ -390,274 +652,6 @@ components:
             message: Token is invalid.
             description: ''
             links: []
-    Error422:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. ... can't be blank
-            description: ''
-            links: []
-        Example Response 2:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. Provider wowza_video is not allowed
-            description: ''
-            links: []
-        Example Response 3:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
-            description: ''
-            links: []
-        Example Response 4:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
-            description: ''
-            links: []
-        Example Response 5:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
-            description: ''
-            links: []
-    Error410:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 410
-            code: ERR-410-RecordDeleted
-            title: Record Deleted Error
-            message: The requested resource has been deleted.
-            description: ''
-            links: []
-    vod_streams:
-      type: object
-      description: ''
-      required:
-      - vod_streams
-      properties:
-        vod_streams:
-          type: array
-          items:
-            type: object
-            title: vod_streams
-            description: ''
-            properties:
-              id:
-                type: string
-                description: The unique alphanumeric string that identifies the VOD stream.
-                example: ''
-              name:
-                type: string
-                description: A descriptive name for the VOD stream. Maximum 200 characters.
-                example: ''
-              state:
-                type: string
-                description: The state of the VOD stream.
-                example: ''
-                enum:
-                - processing
-                - completed
-                - failed
-              playback_enabled:
-                type: boolean
-                description: Specifies whether playback is enabled for the VOD stream.
-                example: ''
-                enum:
-                - true
-                - false
-              reason:
-                type: string
-                description: The reason that a VOD stream has the state of **failed**. Only returned when the state is **failed**.
-                example: ''
-              created_at:
-                type: string
-                description: The date and time that the VOD stream was created.
-                example: ''
-              updated_at:
-                type: string
-                description: The date and time that the VOD stream was updated.
-                example: ''
-      example:
-        vod_streams:
-        - id: wdjfqvsv
-          name: My VOD Stream 1
-          state: failed
-          playback_enabled: false
-          created_at: '2020-02-25T17:16:25.849Z'
-          updated_at: '2020-01-28T16:06:47.849Z'
-        - id: XyxZKqHO
-          name: My VOD Stream 2
-          state: completed
-          playback_enabled: true
-          created_at: '2020-01-29T17:16:21.849Z'
-          updated_at: '2020-01-31T02:26:05.849Z'
-        - id: Pz21DRSt
-          name: My VOD Stream 3
-          state: completed
-          playback_enabled: true
-          created_at: '2020-01-29T17:16:21.849Z'
-          updated_at: '2020-01-30T18:13:18.849Z'
-    vod_stream_update_input:
-      type: object
-      description: ''
-      required:
-      - vod_stream
-      properties:
-        vod_stream:
-          type: object
-          title: vod_stream
-          description: ''
-          required:
-          - name
-          properties:
-            name:
-              type: string
-              description: 'A descriptive name for the VOD stream. Maximum 200 characters.
-
-
-                **Example:** <code>"name": "My updated VOD stream"</code>'
-              example: My VOD Stream 1
-            playback_enabled:
-              type: boolean
-              description: 'Specifies whether playback is enabled for the VOD stream.
-
-
-                **Example:** <code>"playback_enabled": true</code>'
-              example: true
-              enum:
-              - true
-              - false
-    Error404:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 404
-            code: ERR-404-RecordNotFound
-            title: Record Not Found Error
-            message: The requested resource couldn't be found.
-            description: ''
-            links: []
     vod_stream:
       type: object
       description: ''
@@ -765,6 +759,12 @@ components:
         updated_at: '2020-02-20T06:12:39.956Z'
         uptime_id: abcd1234
   parameters:
+    per_page:
+      name: per_page
+      in: query
+      description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
+      schema:
+        type: integer
     filter:
       name: filter
       in: query
@@ -785,18 +785,42 @@ components:
       description: "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
       schema:
         type: integer
-    per_page:
-      name: per_page
-      in: query
-      description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
-      schema:
-        type: integer
   securitySchemes:
-    basicAuth:
+    WV_JWT:
       type: http
-      scheme: basic
-      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
-    digestAuth:
-      type: http
-      scheme: digest
-      description: HTTP Digest Authentication
+      scheme: bearer
+      description: Your Wowza-generated access token, also called a JSON web token (JWT). Send it as a bearer token in the Authentication header of your requests. See [Authentication](https://www.wowza.com/docs/how-to-use-the-wowza-video-rest-api#authentication).
+x-tagGroups:
+- name: Resource Management
+  tags:
+  - live_streams
+  - transcoders
+  - stream_sources
+  - stream_targets
+  - schedules
+  - real_time
+  - videos
+  - categories
+  - advanced_token_authentication
+  - clipping
+- name: Analytics
+  tags:
+  - analytics_viewers
+  - analytics_ingest
+  - analytics_engagement
+  - analytics_popularity
+  - quality_of_experience
+- name: Usage
+  tags:
+  - usage_account
+  - usage_transcoders
+  - usage
+  - usage_real_time_streams
+- name: Deprecated in 2.0
+  tags:
+  - assets
+  - players
+  - recordings
+  - vod_streams
+  - storage
+  - usage_vod_streams

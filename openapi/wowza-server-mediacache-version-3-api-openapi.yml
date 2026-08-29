@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Wowza Streaming Engine REST advanced_token_authentication Server MediaCache Version 3 API
+  title: Wowza Streaming Engine REST Server MediaCache Version 3 API
   description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
   version: 2.0.0
   contact:
@@ -584,6 +584,125 @@ paths:
           description: Internal server error
 components:
   schemas:
+    AdvancedSetting:
+      type: object
+      properties:
+        sectionName:
+          type: string
+        canRemove:
+          type: boolean
+        defaultValue:
+          type: string
+        documented:
+          type: boolean
+        name:
+          type: string
+        section:
+          type: string
+        type:
+          type: string
+        value:
+          type: string
+        initialValue:
+          type: string
+        enabled:
+          type: boolean
+      required:
+      - enabled
+      - canRemove
+      - name
+      - value
+      - defaultValue
+      - type
+      - sectionName
+      - section
+      - documented
+      - initialValue
+    MediaCacheSourceConfig3:
+      type: object
+      properties:
+        readerClass:
+          type: string
+        isPassThru:
+          type: boolean
+        minTimeToLive:
+          type: integer
+          format: int64
+        prefix:
+          type: string
+        serverName:
+          type: string
+        description:
+          type: string
+        baseClass:
+          type: string
+        type:
+          type: string
+        isAmazonS3:
+          type: boolean
+        s3BucketNameInDomain:
+          type: boolean
+        googleServicePrivateKeyFile:
+          type: string
+        googleServiceID:
+          type: string
+        googleServicePrivateKeyPassword:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        azureAccountKey:
+          type: string
+        awsSecretAccessKey:
+          type: string
+        azureAccountName:
+          type: string
+        awsAccessKeyId:
+          type: string
+        httpReaderFactoryClass:
+          type: string
+        googleServiceKey:
+          type: string
+        azureContainerName:
+          type: string
+        version:
+          type: string
+        basePath:
+          type: string
+        googleEncMethod:
+          type: string
+        sourceName:
+          type: string
+        maxTimeToLive:
+          type: integer
+          format: int64
+      required:
+      - version
+      - serverName
+      - sourceName
+      - type
+      - description
+      - basePath
+      - prefix
+      - minTimeToLive
+      - maxTimeToLive
+      - isAmazonS3
+      - s3BucketNameInDomain
+      - awsAccessKeyId
+      - awsSecretAccessKey
+      - isPassThru
+      - baseClass
+      - readerClass
+      - httpReaderFactoryClass
+      - azureAccountName
+      - azureContainerName
+      - azureAccountKey
+      - googleServiceID
+      - googleServiceKey
+      - googleServicePrivateKeyFile
+      - googleServicePrivateKeyPassword
+      - googleEncMethod
     MediaCacheStoreConfig3:
       type: object
       properties:
@@ -616,14 +735,22 @@ components:
       - maxSize
       - writeRate
       - writeRateMaxBucketSize
-    MediaCacheStoresConfig3:
+    MediaCacheStoreConfig:
       type: object
       properties:
-        stores:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShortObject'
+        path:
+          type: string
+        writeRate:
+          type: string
+        name:
+          type: string
         serverName:
+          type: string
+        description:
+          type: string
+        maxSize:
+          type: string
+        writeRateMaxBucketSize:
           type: string
         saveFieldList:
           type: array
@@ -634,7 +761,12 @@ components:
       required:
       - version
       - serverName
-      - stores
+      - name
+      - description
+      - path
+      - maxSize
+      - writeRate
+      - writeRateMaxBucketSize
     MediaCacheConfig3:
       type: object
       properties:
@@ -683,6 +815,63 @@ components:
       - maxPendingReadAheadRequestSizeAutoValue
       - stores
       - sources
+    MediaCacheSourceConfigAdv3:
+      type: object
+      properties:
+        advancedSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedSetting'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - advancedSettings
+    MediaCacheSourcesConfig3:
+      type: object
+      properties:
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShortObject'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - sources
+    MediaCacheStoresConfig3:
+      type: object
+      properties:
+        stores:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShortObject'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - stores
     MediaCacheSourceConfig:
       type: object
       properties:
@@ -778,195 +967,6 @@ components:
       required:
       - id
       - href
-    MediaCacheSourceConfig3:
-      type: object
-      properties:
-        readerClass:
-          type: string
-        isPassThru:
-          type: boolean
-        minTimeToLive:
-          type: integer
-          format: int64
-        prefix:
-          type: string
-        serverName:
-          type: string
-        description:
-          type: string
-        baseClass:
-          type: string
-        type:
-          type: string
-        isAmazonS3:
-          type: boolean
-        s3BucketNameInDomain:
-          type: boolean
-        googleServicePrivateKeyFile:
-          type: string
-        googleServiceID:
-          type: string
-        googleServicePrivateKeyPassword:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        azureAccountKey:
-          type: string
-        awsSecretAccessKey:
-          type: string
-        azureAccountName:
-          type: string
-        awsAccessKeyId:
-          type: string
-        httpReaderFactoryClass:
-          type: string
-        googleServiceKey:
-          type: string
-        azureContainerName:
-          type: string
-        version:
-          type: string
-        basePath:
-          type: string
-        googleEncMethod:
-          type: string
-        sourceName:
-          type: string
-        maxTimeToLive:
-          type: integer
-          format: int64
-      required:
-      - version
-      - serverName
-      - sourceName
-      - type
-      - description
-      - basePath
-      - prefix
-      - minTimeToLive
-      - maxTimeToLive
-      - isAmazonS3
-      - s3BucketNameInDomain
-      - awsAccessKeyId
-      - awsSecretAccessKey
-      - isPassThru
-      - baseClass
-      - readerClass
-      - httpReaderFactoryClass
-      - azureAccountName
-      - azureContainerName
-      - azureAccountKey
-      - googleServiceID
-      - googleServiceKey
-      - googleServicePrivateKeyFile
-      - googleServicePrivateKeyPassword
-      - googleEncMethod
-    MediaCacheStoreConfig:
-      type: object
-      properties:
-        path:
-          type: string
-        writeRate:
-          type: string
-        name:
-          type: string
-        serverName:
-          type: string
-        description:
-          type: string
-        maxSize:
-          type: string
-        writeRateMaxBucketSize:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - name
-      - description
-      - path
-      - maxSize
-      - writeRate
-      - writeRateMaxBucketSize
-    MediaCacheSourcesConfig3:
-      type: object
-      properties:
-        sources:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShortObject'
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - sources
-    MediaCacheSourceConfigAdv3:
-      type: object
-      properties:
-        advancedSettings:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdvancedSetting'
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - advancedSettings
-    AdvancedSetting:
-      type: object
-      properties:
-        sectionName:
-          type: string
-        canRemove:
-          type: boolean
-        defaultValue:
-          type: string
-        documented:
-          type: boolean
-        name:
-          type: string
-        section:
-          type: string
-        type:
-          type: string
-        value:
-          type: string
-        initialValue:
-          type: string
-        enabled:
-          type: boolean
-      required:
-      - enabled
-      - canRemove
-      - name
-      - value
-      - defaultValue
-      - type
-      - sectionName
-      - section
-      - documented
-      - initialValue
   securitySchemes:
     basicAuth:
       type: http

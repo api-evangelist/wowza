@@ -1,19 +1,13 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Wowza Streaming Engine REST advanced_token_authentication transcoders API
-  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
-  version: 2.0.0
-  contact:
-    name: Wowza Media Systems
-    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  version: v2.0
+  title: Wowza Video REST API Reference Documentation Transcoders API
   license:
-    name: Wowza Media Systems
-    url: https://www.wowza.com
+    name: Terms of Use
+    url: https://www.wowza.com/legal/terms-of-use
+  description: "API lifecycle phase: [Current](https://www.wowza.com/docs/wowza-video-rest-api-lifecycle-management#api-lifecycle0)\n\n\n<table>\n<tr style=\"background-color:lightgrey;\"><td>\n<strong>Want to take the API for a test run?</strong>\n\nAll you'll need is a [Wowza Video subscription](https://www.wowza.com/pricing), or [free trial](https://www.wowza.com/free-trial), for the API access token. Then, fork [our collection in Postman](https://www.postman.com/wowzavideo/workspace/wowza-video-rest-api) and you'll be\nmaking calls to our REST API in minutes!\n\nSee [Trial the Wowza Video REST API using Postman](https://www.wowza.com/docs/trial-the-wowza-video-rest-api-using-postman) for more information.\n</td>\n</tr>\n</table>\n\n\nThis reference documentation provides details about the operations, parameters, and request and response schemas for every resource and endpoint in the Wowza Video REST API.\nSamples appear in the right column. Sample requests are presented in cURL (Shell) and JavaScript; some samples also include just the JSON object. Response samples are all JSON. \nExamples in cURL use environment variables so you can easily copy and paste them. To learn more, see [Using cURL](https://wowza.com/docs/how-to-use-the-wowza-video-rest-api#curl).\n\n\nReference documentation is available for every version of the API. Use the **Version** menu at the top of the page to access the reference doc for a different version of the API.\n\n<blockquote><strong>Note</strong>: If you haven't moved over to the new Wowza Video UI experience, you won't be able to access v2.0 of the API. We're migrating customers iteratively. See <a href=\"https://developer.wowza.com/docs/wowza-video/upgrade-to-wowza-video/\">Upgrade to the Wowza Video 2.0 REST API</a> for more information.</blockquote>\n"
 servers:
-- url: http://localhost:8087
-  description: Wowza Streaming Engine Server
-security:
-- basicAuth: []
+- url: https://api.video.wowza.com/api/v2.0
 tags:
 - name: transcoders
   description: "Operations related to transcoders, output renditions, and output stream targets.\n ### Transcoders\n Wowza Video transcoders allow you to customize transcoding processes by creating transcoders that are optimized for various network or streaming conditions. When you create a transcoder through the ``/transcoders`` endpoint, you must manually configure output renditions and associated output stream targets.\n\n Transcoders, like live streams, can be adaptive bitrate or passthrough. An adaptive bitrate transcoder generates multiple output renditions of your live stream, at different bitrates. A passthrough transcoder, in contrast, sends the source video to a stream target without performing transcoding. Passthrough transcoders, which can only be created if you have a subscription plan that supports them, accrue processing time, bandwidth, and egress usage, but much less than their adaptive bitrate counterparts.\n ### Output Renditions\n Before you can start an adaptive bitrate transcoder, you must use the ``/transcoders/{transcoder_id}/outputs`` operations to define the adaptive bitrate output renditions that you want the transcoder to create. Passthrough transcoders require only one output rendition because they send source video to a stream target without transcoding.\n ### Output Stream Targets\n Transcoders require output stream targets before you can start them. Although you create and configure stream targets using the different ``/stream_targets`` operations, you must associate a stream target to a transcoder's output rendition using the /transcoders/{transcoder_id}/outputs/{output_id}/output_stream_targets operations. For an adaptive bitrate transcoder with multiple output renditions defined, you must create output stream targets to associate a stream target to each output rendition. For a passthrough transcoder, you only need one output stream target."
@@ -2302,96 +2296,278 @@ paths:
                 $ref: '#/components/schemas/Error422'
 components:
   schemas:
-    vod_streams:
+    output_stream_target_update_input:
+      description: ''
+      allOf:
+      - $ref: '#/components/schemas/output_stream_target_input'
+    output_input:
       type: object
       description: ''
       required:
-      - vod_streams
+      - output
       properties:
-        vod_streams:
-          type: array
-          items:
-            type: object
-            title: vod_streams
-            description: ''
-            properties:
-              id:
-                type: string
-                description: The unique alphanumeric string that identifies the VOD stream.
-                example: ''
-              name:
-                type: string
-                description: A descriptive name for the VOD stream. Maximum 200 characters.
-                example: ''
-              state:
-                type: string
-                description: The state of the VOD stream.
-                example: ''
-                enum:
-                - processing
-                - completed
-                - failed
-              playback_enabled:
-                type: boolean
-                description: Specifies whether playback is enabled for the VOD stream.
-                example: ''
-                enum:
-                - true
-                - false
-              reason:
-                type: string
-                description: The reason that a VOD stream has the state of **failed**. Only returned when the state is **failed**.
-                example: ''
-              created_at:
-                type: string
-                description: The date and time that the VOD stream was created.
-                example: ''
-              updated_at:
-                type: string
-                description: The date and time that the VOD stream was updated.
-                example: ''
+        output:
+          type: object
+          title: output
+          description: ''
+          required:
+          - video_codec
+          - audio_codec
+          properties:
+            video_codec:
+              type: string
+              description: The codec used to encode the video stream. **disabled** sends the stream without a video track and **passthrough** sends the stream without transcoding the video track. Available from version 1.6.
+              example: h264
+              enum:
+              - h264
+              - passthrough
+              - disabled
+            audio_codec:
+              type: string
+              description: The codec used to encode the audio stream. **disabled** sends the stream without an audio track and **passthrough** sends the stream without transcoding the audio track. **aac** is the most commonly compatible audio codec for protocols, while **opus** is for WebRTC streams. Available from version 1.6.
+              example: aac
+              enum:
+              - aac
+              - opus
+              - passthrough
+              - disabled
+            aspect_ratio_height:
+              type: integer
+              description: 'The height, in pixels, of the output rendition. Should correspond to a widescreen or standard aspect ratio and be divisible by 8. The default is **1080**. Combined with **aspect_ratio_width**, makes up the input resolution.
+
+
+                **Example:** <code>"aspect_ratio_height": 1080</code>'
+              example: 480
+              format: int32
+            aspect_ratio_width:
+              type: integer
+              description: 'The width, in pixels, of the output rendition. Should correspond to a widescreen or standard aspect ratio and be divisible by 8. The default is **1920**. Combined with **aspect_ratio_height**, makes up the input resolution.
+
+
+                **Example:** <code>"aspect_ratio_width": 1920</code>'
+              example: 848
+              format: int32
+            bitrate_audio:
+              type: integer
+              description: 'The audio bitrate, in kilobits per second (Kbps). Must be between **1** and **9999**. If the **audio_codec** is **opus**, the default is **510**, otherwise the default is **128**.
+
+
+                **Example:** <code>"bitrate_audio": 128</code>'
+              example: 128
+              format: int32
+            bitrate_video:
+              type: integer
+              description: 'The video bitrate, in kilobits per second (Kbps). Must be between **1** and **10240**. The default is **4000**.
+
+
+                **Example:** <code>"bitrate_audio": 1600</code>'
+              example: 1600
+              format: int32
+            framerate_reduction:
+              type: string
+              description: 'Reduce the frame rate of the transcoded output rendition. The default, **0**, uses the encoded stream''s frame rate without reduction.
+
+
+                **Example:** <code>"frame_reduction": "1/2"</code>'
+              example: 1/2
+              enum:
+              - '0'
+              - 1/2
+              - 1/4
+              - 1/25
+              - 1/30
+              - 1/50
+              - 1/60
+            h264_profile:
+              type: string
+              description: 'The encoding method. Specify **main** for desktop streaming, **baseline** for playback on mobile devices, or **high** for HD playback. The default is **high**.
+
+
+                **Example:** <code>"h264_profile": "main"</code>'
+              example: main
+              enum:
+              - main
+              - baseline
+              - high
+            keyframes:
+              type: string
+              description: 'The interval used to define the compression applied to a group of frames. The default, **follow_source**, uses the keyframe interval of the source video.
+
+
+                **Example:** <code>"keyframes": "follow_source"</code>'
+              example: follow_source
+              enum:
+              - follow_source
+              - '25'
+              - '30'
+              - '50'
+              - '60'
+              - '100'
+              - '120'
       example:
-        vod_streams:
-        - id: wdjfqvsv
-          name: My VOD Stream 1
-          state: failed
-          playback_enabled: false
-          created_at: '2020-02-25T17:16:25.849Z'
-          updated_at: '2020-01-28T16:06:47.849Z'
-        - id: XyxZKqHO
-          name: My VOD Stream 2
-          state: completed
-          playback_enabled: true
-          created_at: '2020-01-29T17:16:21.849Z'
-          updated_at: '2020-01-31T02:26:05.849Z'
-        - id: Pz21DRSt
-          name: My VOD Stream 3
-          state: completed
-          playback_enabled: true
-          created_at: '2020-01-29T17:16:21.849Z'
-          updated_at: '2020-01-30T18:13:18.849Z'
-    transcoder_configure_properties_post_response:
+        output:
+          video_codec: h264
+          audio_codec: aac
+          aspect_ratio_height: 480
+          aspect_ratio_width: 848
+          bitrate_audio: 128
+          bitrate_video: 1600
+          framerate_reduction: 1/2
+          h264_profile: main
+          keyframes: follow_source
+    Error403:
       type: object
-      title: properties
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 403
+            code: ERR-403-RecordUnaccessible
+            title: Record Unaccessible Error
+            message: The requested resource isn't accessible.
+            description: ''
+            links: []
+    transcoder_property_create_input:
+      type: object
+      title: property
       description: ''
       properties:
-        properties:
-          type: array
-          description: An array of properties.
-          items:
-            $ref: '#/components/schemas/transcoder_property'
-      example:
-        properties:
-        - key: fitMode
-          section: output
-          value: letterbox
-        - key: rtpIgnoreProfileLevelId
-          section: rtsp
-          value: true
-    output_update_input:
-      description: ''
-      allOf:
-      - $ref: '#/components/schemas/output_input'
+        property:
+          type: object
+          title: property
+          description: '
+
+            The single property to configure. The property configuration consists of a key/value pair and the section of the transcoder configuration table the key/value pair is stored in.'
+          required:
+          - section
+          - key
+          - value
+          properties:
+            key:
+              type: string
+              description: 'The key of the property.
+
+
+                The following table lists the available property keys and what transcoder table section they''re stored in.
+
+
+                Section | Valid keys for the section
+
+                ----------------|-------------
+
+                **asset_management** | <ul><li>**enabled**</li></ul> <br/>**Note:** You need a Wowza Video subscription to access Asset Management.
+
+                **cupertino** | <ul><li>**aes128Host**</li><li>**aes128Secret**</li></ul>
+
+                **ezdrm** | <ul><li>**username**</li><li>**password**</li><li>**fairPlayAssetId**</li><li>**wideVineContentId**</li></ul>
+
+                **file** | <ul><li>**repeat**</li><li>**start_streaming_at**</li></ul>
+
+                **output** | <ul><li>**fitMode**</li><li>**record**</li></ul>
+
+                **recording** | <ul><li>**mp4**</li></ul>
+
+                **rtmp** | <ul><li>**allowDirectPlayback**</li></ul>
+
+                **rtsp** | <ul><li>**avSyncMethod**</li><li>**debugRtspSession**</li><li>**maxRtcpWaitTime**</li><li> **rtpDePacketizerPacketSorterBufferTime**</li><li>**rtpDePacketizerPacketSorterFlushTime**</li><li>**rtpDePacketizerWrapper**</li><li>**rtpIgnoreSpropParameterSets**</li><li>**rtpIgnoreProfileLevelId**</li><li>**rtpTransportMode**</li><li>**rtspValidationFrequency**</li><li>**rtspFilterUnknownTracks**</li></ul>
+
+                **srt** | <ul><li>**passPhrase**</li></ul>
+
+                **vod_stream** | <ul><li>**hls**</li><li>**live2vod**</li></li></ul><br/>**Note:** VOD streams require a Fastly stream target with HLS as a delivery protocol.'
+              example: rtpIgnoreProfileLevelId
+            section:
+              type: string
+              description: The section of the transcoder configuration table that contains the property.
+              example: rtsp
+              enum:
+              - asset_management
+              - cupertino
+              - ezdrm
+              - file
+              - output
+              - recording
+              - rtmp
+              - rtsp
+              - srt
+              - vod_stream
+            value:
+              type: string
+              description: 'The value of the property.
+
+
+                The following table provides information about valid values for each property key.
+
+
+                Key(s) | Values for the key
+
+                ----------------|-------------
+
+                **aes128Host** | Specify the URL that devices will use to fetch the key to decrypt the stream.
+
+                **aes128Secret** | Specify the 16-byte key that will be used to decrypt the stream. The key must be 32 characters in length and can only contain hex characters (a-f, A-F, 0-9). The key must match the key returned by the **aes128Host**.
+
+                **enabled** | Specify **true** or **false**. Used in the **asset_mangement** section.
+
+                **fitMode** | Use **letterbox**, **fit-width**, **fit-height**, **crop**, **stretch**, or **match-source**. The default is **fit-height**.
+
+                **maxRtcpWaitTime** | Use a whole number, expressed as a string or an integer. The default is **2000** (ms).
+
+                **passPhrase** | Use a string between 10-79 characters in length. It adds security to a live stream for an incoming SRT stream from your device or encoder to Wowza Video. The password protection secures the data payload of SRT live streams, ensuring that the transmitted content is encrypted and safeguarded against unauthorized interception during its journey across the network.
+
+                **record** | Use an output ID associated with the transcoder.
+
+                **rtpDePacketizerPacketSorterBufferTime** | Use an integer, expressed as a string or an integer. The default is **500** (ms).
+
+                **rtpDePacketizerPacketSorterFlushTime** | Use an integer, expressed as a string or an integer. The default is **10** (ms).
+
+                **rtpDePacketizerWrapper** | Use the string **RTPDePacketizerWrapperPacketSorter**.
+
+                **rtpTransportMode** | Use the string **udp** or **interleave** (the default).
+
+                **rtspValidationFrequency** | Use a whole number, expressed as a string or an integer. The default is **15000** (ms).
+
+                **start_streaming_at** | Specify the month, day, year, and time of day that the file should start streaming, expressed as a string. Express the value by using the ISO 8601 standard of <strong>YYYY-MM-DDTHH:MM:SSZ</strong> where <strong>HH</strong> is a 24-hour clock in UTC.
+
+                <ul><li>**username**</li><li>**password**</li><li>**fairplayAssetId**</li><li>**wideVineContentId**</li></ul> | Use account information and asset IDs from EZDRM. All strings.
+
+                <ul><li>**avSyncMethod**</li><li>**debugRtspSession**</li><li>**mp4**</li><li>**repeat**</li><li>**rtspFilterUnknownTracks**</li><li>**rtpIgnoreSpropParameterSets**</li><li>**rtpIgnoreProfileLevelId**</li></ul> | Use **true** or **false**, expressed as a string or a Boolean.
+
+                <ul><li>**hls**</li><li>**live2vod**</li></ul> | Use **true** or **false**, expressed as a string or a Boolean. When **true**, **hls** generates a VOD stream and **live2vod** replaces the live playlist with the VOD playlist after the stream ends so viewers can access the VOD stream on the live playback URL. **hls** must be **true** to enable **live2VOD**.'
+              example: 'true'
     transcoder_configure_property_post_response:
       type: object
       title: property
@@ -2405,7 +2581,298 @@ components:
         - key: rtpIgnoreProfileLevelId
           section: rtsp
           value: true
-    transcoder_update_input:
+    schedule:
+      type: object
+      description: ''
+      properties:
+        action_type:
+          type: string
+          description: The type of action that the schedule should trigger on the transcoder. The default is **start**.
+          example: start_stop
+          enum:
+          - start
+          - stop
+          - start_stop
+        created_at:
+          type: string
+          description: The date and time that the schedule was created.
+          example: '2020-01-29T17:16:21.995Z'
+          format: date-time
+        end_repeat:
+          type: string
+          description: The month, day, and year that a recurring schedule should stop running. Specify **YYYY-MM-DD**.
+          example: '2020-02-29T00:00:00.000Z'
+          format: date
+        id:
+          type: string
+          description: The unique alphanumeric string that identifies the schedule.
+          example: vhB0jSlB
+        name:
+          type: string
+          description: A descriptive name for the schedule. Maximum 255 characters.
+          example: Scheduled start for my camera
+        recurrence_data:
+          type: string
+          description: The day or days of the week that a recurring schedule should run.
+          example: monday,tuesday,wednesday,thursday,friday
+          enum:
+          - sunday
+          - monday
+          - tuesday
+          - wednesday
+          - thursday
+          - friday
+          - saturday
+        recurrence_type:
+          type: string
+          description: A schedule can run one time only (**once**) or repeat (**recur**) until a specified *end_repeat* date. The default is **once**.
+          example: recur
+          enum:
+          - once
+          - recur
+        start_repeat:
+          type: string
+          description: The month, day, and year that the recurring schedule should go into effect. Specify **YYYY-MM-DD**.
+          example: '2020-02-01T00:00:00.000Z'
+          format: date
+        start_transcoder:
+          type: string
+          description: The month, day, year, and time of day that the *action_type* **start** should occur. Specify **YYYY-MM-DD HH:MM:SS** where **HH** is a 24-hour clock in UTC.
+          example: '2020-02-01T00:00:00.000Z'
+          format: date-time
+        state:
+          type: string
+          description: A schedule must be **enabled** to run. Specify **enabled** to run the schedule or **disabled** to turn off the schedule so that it doesn't run.
+          example: enabled
+          enum:
+          - enabled
+          - disabled
+          - expired
+        stop_transcoder:
+          type: string
+          description: The month, day, year, and time of day that the *action_type* **stop** should occur. Specify **YYYY-MM-DD HH:MM:SS** where **HH** is a 24-hour clock in UTC.
+          example: '2020-02-29T23:59:59.999Z'
+          format: date-time
+        time_zone:
+          type: string
+          description: The time zone the schedule runs in.
+        transcoder_id:
+          type: string
+          description: The unique alphanumeric string that identifies the transcoder being scheduled.
+          example: P0NrTP7m
+        transcoder_name:
+          type: string
+          description: The name of the transcoder being scheduled.
+          example: My Camera
+        updated_at:
+          type: string
+          description: The date and time that the schedule was updated.
+          example: '2020-01-30T16:44:37.995Z'
+          format: date-time
+      example:
+        id: 28bwb5WT
+        state: disabled
+        name: Scheduled recurring start for my camera
+        time_zone: America/New_York
+        transcoder_id: VGB21JFJ
+        transcoder_name: My Camera
+        recurrence_type: recur
+        recurrence_data: monday,tuesday,wednesday,thursday,friday
+        action_type: start_stop
+        start_transcoder: '2020-02-01T00:00:00.000Z'
+        stop_transcoder: '2020-02-29T23:59:59.999Z'
+        start_repeat: '2020-02-01T00:00:00.000Z'
+        end_repeat: '2020-02-29T00:00:00.000Z'
+        created_at: '2020-01-29T17:16:21.995Z'
+        updated_at: '2020-01-31T07:00:48.995Z'
+    uptime:
+      type: object
+      description: ''
+      properties:
+        billed:
+          type: boolean
+          description: A Boolean value that indicates if the usage generated by this uptime has been sent for billing processing.
+          example: ''
+        created_at:
+          type: string
+          description: The date and time that the uptime record was created.
+          example: ''
+          format: date-time
+        ended_at:
+          type: string
+          description: The date and time that the transcoder was stopped for this uptime. If this value is not present, it indicates that the transcoder is currently running.
+          example: ''
+          format: date-time
+        id:
+          type: string
+          description: The unique alphanumeric string that identifies the uptime record.
+          example: ''
+        running:
+          type: boolean
+          description: A Boolean value that indicates if the transcoder is still running for this uptime.
+          example: ''
+        started_at:
+          type: string
+          description: The date and time that the transcoder started for this uptime.
+          example: ''
+          format: date-time
+        transcoder_id:
+          type: string
+          description: The unique alphanumeric string that identifies the transcoder.
+          example: ''
+        updated_at:
+          type: string
+          description: The date and time that the uptime record was updated.
+          example: ''
+      example:
+        billed: false
+        created_at: '2017-07-06T14:22:00.000Z'
+        id: 1234abcd
+        running: true
+        started_at: '2017-07-06T14:22:00.000Z'
+        transcoder_id: 2adffc17
+        updated_at: '2017-07-06T14:22:00.000Z'
+    output_stream_target_create_input:
+      description: ''
+      allOf:
+      - $ref: '#/components/schemas/output_stream_target_input'
+    output:
+      type: object
+      description: ''
+      properties:
+        aspect_ratio_height:
+          type: integer
+          description: The height, in pixels, of the output rendition. Should correspond to a widescreen or standard aspect ratio and be divisible by 8. The default is **1080**. Combined with **aspect_ratio_width**, makes up the input resolution.
+          example: ''
+          format: int32
+        aspect_ratio_width:
+          type: integer
+          description: The width, in pixels, of the output rendition. Should correspond to a widescreen or standard aspect ratio and be divisible by 8. The default is **1920**. Combined with **aspect_ratio_height**, makes up the input resolution.
+          example: ''
+          format: int32
+        bitrate_audio:
+          type: integer
+          description: The audio bitrate, in kilobits per second (Kbps). Must be between **1** and **9999**. If the **audio_codec** is **opus**, the default is **510**, otherwise the default is **128**.
+          example: ''
+          format: int32
+        bitrate_video:
+          type: integer
+          description: The video bitrate, in kilobits per second (Kbps). Must be between **1** and **10240**. The default is **4000**.
+          example: ''
+          format: int32
+        created_at:
+          type: string
+          description: The date and time that the output rendition was created.
+          example: ''
+          format: date-time
+        framerate_reduction:
+          type: string
+          description: Reduce the frame rate of the transcoded output rendition. The default, **0**, uses the encoded stream's frame rate without reduction.
+          example: ''
+          enum:
+          - '0'
+          - 1/2
+          - 1/4
+          - 1/25
+          - 1/30
+          - 1/50
+          - 1/60
+        h264_profile:
+          type: string
+          description: The encoding method. Specify **main** for desktop streaming, **baseline** for playback on mobile devices, or **high** for HD playback. The default is **high**.
+          example: ''
+          enum:
+          - main
+          - baseline
+          - high
+        id:
+          type: string
+          description: The unique alphanumeric string that identifies the output rendition.
+          example: ''
+        type:
+          type: string
+          description: The type of output rendition, be it WebRTC to use with a transcoder that uses WebRTC as the protocol or a normal output rendition.
+          example: ''
+          enum:
+          - WebRtcOutput
+          - Output
+        keyframes:
+          type: string
+          description: The interval used to define the compression applied to a group of frames. The default, **follow_source**, uses the keyframe interval of the source video.
+          example: ''
+          enum:
+          - follow_source
+          - '25'
+          - '30'
+          - '50'
+          - '60'
+          - '100'
+          - '120'
+        name:
+          type: string
+          description: A descriptive name for the output (generated, not writable).
+          example: ''
+        delete_restrictions:
+          type: array
+          description: The reasons why the output cannot be deleted.
+          example: ''
+          items:
+            type: string
+        output_stream_targets:
+          type: array
+          items:
+            $ref: '#/components/schemas/output_stream_target'
+        video_codec:
+          type: string
+          description: The codec used to encode the video stream. **disabled** sends the stream without a video track and **passthrough** sends the stream without transcoding the video track. Available from version 1.6.
+          example: ''
+          enum:
+          - h264
+          - passthrough
+          - disabled
+        audio_codec:
+          type: string
+          description: The codec used to encode the audio stream. **disabled** sends the stream without an audio track and **passthrough** sends the stream without transcoding the audio track. **aac** is the most commonly compatible audio codec for protocols, while **opus** is for WebRTC streams. Available from version 1.6.
+          example: ''
+          enum:
+          - aac
+          - opus
+          - passthrough
+          - disabled
+        transcoder_id:
+          type: string
+          description: The unique alphanumeric string that identifies the transcoder.
+          example: ''
+        updated_at:
+          type: string
+          description: The date and time that the output rendition was updated.
+          example: ''
+          format: date-time
+        target_state:
+          type: string
+          description: Specifies whether the stream target is **enabled** or **disabled**. This parameter displays in the response when the transcoder or live stream associated with the stream target is running and receiving a stream. **Enabled** means the stream target is enabled and streaming video to its destination. **Disabled** means the stream target is disabled and is not streaming video to its destination.
+          example: ''
+          enum:
+          - enabled
+          - disabled
+      example:
+        aspect_ratio_height: 480
+        aspect_ratio_width: 848
+        bitrate_audio: 128
+        bitrate_video: 1600
+        created_at: '2020-01-29T17:16:21.964Z'
+        framerate_reduction: 1/2
+        h264_profile: main
+        id: w9vJm3BJ
+        keyframes: follow_source
+        name: 'Standard Output: Video (848 x 480) + Audio'
+        output_stream_targets:
+        - {}
+        video_codec: h264
+        audio_codec: aac
+        transcoder_id: PblTJm1t
+        updated_at: '2020-01-31T13:47:33.964Z'
+    transcoder_create_input:
       type: object
       description: ''
       required:
@@ -2415,48 +2882,30 @@ components:
           type: object
           title: transcoder
           description: ''
+          required:
+          - name
+          - transcoder_type
+          - billing_mode
+          - broadcast_location
+          - protocol
+          - delivery_method
           properties:
-            delivery_method:
+            billing_mode:
               type: string
-              description: 'The type of connection between the source encoder and the transcoder. The default, **pull**, instructs the transcoder to pull the video from the source. **push** instructs the source to push the stream to the transcoder. **cdn** uses a stream source to deliver the stream to the transcoder.
+              description: 'The billing mode for the transcoder. The default is **pay_as_you_go**.
 
 
-                **Example:** <code>"delivery_method": "pull"</code>'
+                **pay_as_you_go** — Billed as a single event. A single event is use-based and you incur charges for the time spent streaming.
+
+
+                **twentyfour_seven** — Billed as a 24x7 channel. A 24x7 channel is unlimited stream time for one channel. This billing mode doesn''t incur overages, since it''s unlimited.'
               example: ''
               enum:
-              - pull
-              - cdn
-              - push
-            name:
-              type: string
-              description: 'A descriptive name for the transcoder. Maximum 200 characters.
-
-
-                **Example:** <code>"name": "My Updated Transcoder"</code>'
-              example: ''
-            protocol:
-              type: string
-              description: 'The transport protocol for the source video. The default is **rtmp**.
-
-
-                **Example:** <code>"protocol": "webrtc"</code>'
-              example: ''
-              enum:
-              - file
-              - rtmp
-              - rtsp
-              - srt
-              - udp
-              - webrtc
+              - pay_as_you_go
+              - twentyfour_seven
             broadcast_location:
               type: string
-              description: 'The location where Wowza Video transcodes your stream. Choose a location as close as possible to your video source.
-
-
-                You cannot change the broadcast location after initial creation if you are using autostart functionality on your transcoder.
-
-
-                **Example:** <code>"broadcast_location": "us_central_iowa"</code>'
+              description: The location where Wowza Video transcodes your stream. Choose a location as close as possible to your video source.
               example: ''
               enum:
               - asia_pacific_australia
@@ -2474,6 +2923,46 @@ components:
               - us_east_virginia
               - us_west_california
               - us_west_oregon
+            delivery_method:
+              type: string
+              description: The type of connection between the source encoder and the transcoder. The default, **pull**, instructs the transcoder to pull the video from the source. **push** instructs the source to push the stream to the transcoder. **cdn** uses a stream source to deliver the stream to the transcoder.
+              example: ''
+              enum:
+              - pull
+              - cdn
+              - push
+            name:
+              type: string
+              description: A descriptive name for the transcoder. Maximum 200 characters.
+              example: ''
+            protocol:
+              type: string
+              description: The transport protocol for the source video. The default is **rtmp**.
+              example: ''
+              enum:
+              - file
+              - rtmp
+              - rtsp
+              - srt
+              - udp
+              - webrtc
+            transcoder_type:
+              type: string
+              description: 'The type of transcoder, either **transcoded** for streams that are transcoded into adaptive bitrate renditions or **passthrough** for streams that aren''t processed by the transcoder.
+
+
+
+
+                > **Note**: **passthrough** isn''t supported in the **asia_pacific_singapore** region.
+
+
+
+
+                Default: **transcoded**'
+              example: ''
+              enum:
+              - transcoded
+              - passthrough
             buffer_size:
               type: integer
               description: 'The size, in milliseconds, of the incoming buffer. **0** means no buffer. The default is **4000** (4 seconds).
@@ -2506,7 +2995,7 @@ components:
               - both
             delivery_protocols:
               type: array
-              description: 'An array of playback protocols enabled for this transcoder. By default, **rtmp**, **rtsp**, **webrtc**, and **wowz** are returned.
+              description: 'An array of playback protocols enabled for this transcoder. By default, **rtmp**, **rtsp**, and **wowz** are returned.
 
 
                 **Example:** See response body sample </code>'
@@ -2583,13 +3072,6 @@ components:
 
                 **Example:** <code>"reference_id": "mySystemID_01"</code>'
               example: ''
-            remove_watermark_image:
-              type: boolean
-              description: 'If **true**, removes the watermark from the output. The default is **false**.
-
-
-                **Example:** <code>"remove_watermark_image": true</code>'
-              example: ''
             source_url:
               type: string
               description: 'For the *delivery_method* **pull** or *protocol* **file**.
@@ -2630,12 +3112,12 @@ components:
               description: 'A username for authenticating an RTMP or RTSP push connection. Can contain only uppercase and lowercase letters; numbers; and the period (.), underscore (_), and hyphen (-) characters. No other special characters can be used.
 
 
-
                 **Example:** <code>"username": "client2"</code>'
               example: ''
             watermark:
               type: boolean
               description: 'Embeds an image into the transcoded stream for copyright protection. Specify **true** to embed a watermark image.
+
 
 
                 **Example:** <code>"watermark": true</code>'
@@ -2787,65 +3269,17 @@ components:
               format: int32
       example:
         transcoder:
-          name: My Updated Transcoder
+          billing_mode: pay_as_you_go
+          broadcast_location: us_central_iowa
+          delivery_method: pull
           description: My Transcoder Description
-          watermark_position: bottom-left
-    output_stream_targets:
-      type: object
+          name: My PAYG Transcoder
+          protocol: rtmp
+          transcoder_type: transcoded
+    output_update_input:
       description: ''
-      required:
-      - output_stream_targets
-      properties:
-        output_stream_targets:
-          type: array
-          items:
-            $ref: '#/components/schemas/output_stream_target'
-      example:
-        output_stream_targets:
-        - id: 4Gp5rF23
-          stream_target_id: QvvJYJjk
-          use_stream_target_backup_url: false
-          stream_target:
-            id: QvvJYJjk
-            name: My provisioned RTMP Stream Target
-            type: wowza
-            created_at: '2020-01-29T17:16:21.965Z'
-            updated_at: '2020-01-31T05:45:33.965Z'
-        - id: 345Gd9Hs
-          stream_target_id: R32u8HDk
-          use_stream_target_backup_url: false
-          stream_target:
-            id: R32u8HDk
-            name: My other provisioned RTMP Stream Target
-            type: wowza
-            created_at: '2020-01-29T17:16:21.965Z'
-            updated_at: '2020-01-31T12:19:50.965Z'
-    transcoder_properties_create_input:
-      type: object
-      title: properties
-      description: ''
-      properties:
-        properties:
-          type: array
-          title: properties
-          description: 'An array of properties to configure. The property configuration consists of a key/value pair and the section of the transcoder configuration table the key/value pair is stored in.
-
-
-            Available from version 1.7.'
-          required:
-          - section
-          - key
-          - value
-          items:
-            $ref: '#/components/schemas/transcoder_property'
-      example:
-        properties:
-        - key: fitMode
-          section: output
-          value: letterbox
-        - key: rtpIgnoreProfileLevelId
-          section: rtsp
-          value: true
+      allOf:
+      - $ref: '#/components/schemas/output_input'
     index_transcoder:
       type: object
       title: transcoders
@@ -2886,53 +3320,137 @@ components:
           description: The date and time that the transcoder was updated.
           example: ''
           format: date-time
-    uptime:
+    transcoders:
       type: object
       description: ''
+      required:
+      - transcoders
       properties:
-        billed:
-          type: boolean
-          description: A Boolean value that indicates if the usage generated by this uptime has been sent for billing processing.
-          example: ''
-        created_at:
-          type: string
-          description: The date and time that the uptime record was created.
-          example: ''
-          format: date-time
-        ended_at:
-          type: string
-          description: The date and time that the transcoder was stopped for this uptime. If this value is not present, it indicates that the transcoder is currently running.
-          example: ''
-          format: date-time
-        id:
-          type: string
-          description: The unique alphanumeric string that identifies the uptime record.
-          example: ''
-        running:
-          type: boolean
-          description: A Boolean value that indicates if the transcoder is still running for this uptime.
-          example: ''
-        started_at:
-          type: string
-          description: The date and time that the transcoder started for this uptime.
-          example: ''
-          format: date-time
-        transcoder_id:
-          type: string
-          description: The unique alphanumeric string that identifies the transcoder.
-          example: ''
-        updated_at:
-          type: string
-          description: The date and time that the uptime record was updated.
-          example: ''
+        transcoders:
+          type: array
+          items:
+            $ref: '#/components/schemas/index_transcoder'
       example:
-        billed: false
-        created_at: '2017-07-06T14:22:00.000Z'
-        id: 1234abcd
-        running: true
-        started_at: '2017-07-06T14:22:00.000Z'
-        transcoder_id: 2adffc17
-        updated_at: '2017-07-06T14:22:00.000Z'
+        transcoders:
+        - id: 2lsWj3F9
+          name: My transcoder
+          workflow: live_stream
+          state: stopped
+          created_at: '2020-01-28T17:16:22.097Z'
+          updated_at: '2020-01-31T01:17:48.097Z'
+        - id: VJbkhjzl
+          name: My other transcoder
+          workflow: transcoder
+          state: started
+          created_at: '2020-01-28T17:16:22.097Z'
+          updated_at: '2020-01-30T16:03:28.097Z'
+    transcoder_properties_create_input:
+      type: object
+      title: properties
+      description: ''
+      properties:
+        properties:
+          type: array
+          title: properties
+          description: 'An array of properties to configure. The property configuration consists of a key/value pair and the section of the transcoder configuration table the key/value pair is stored in.
+
+
+            Available from version 1.7.'
+          required:
+          - section
+          - key
+          - value
+          items:
+            $ref: '#/components/schemas/transcoder_property'
+      example:
+        properties:
+        - key: fitMode
+          section: output
+          value: letterbox
+        - key: rtpIgnoreProfileLevelId
+          section: rtsp
+          value: true
+    transcoder_configure_properties_post_response:
+      type: object
+      title: properties
+      description: ''
+      properties:
+        properties:
+          type: array
+          description: An array of properties.
+          items:
+            $ref: '#/components/schemas/transcoder_property'
+      example:
+        properties:
+        - key: fitMode
+          section: output
+          value: letterbox
+        - key: rtpIgnoreProfileLevelId
+          section: rtsp
+          value: true
+    output_create_input:
+      description: ''
+      allOf:
+      - $ref: '#/components/schemas/output_input'
+    output_stream_targets:
+      type: object
+      description: ''
+      required:
+      - output_stream_targets
+      properties:
+        output_stream_targets:
+          type: array
+          items:
+            $ref: '#/components/schemas/output_stream_target'
+      example:
+        output_stream_targets:
+        - id: 4Gp5rF23
+          stream_target_id: QvvJYJjk
+          use_stream_target_backup_url: false
+          stream_target:
+            id: QvvJYJjk
+            name: My provisioned RTMP Stream Target
+            type: wowza
+            created_at: '2020-01-29T17:16:21.965Z'
+            updated_at: '2020-01-31T05:45:33.965Z'
+        - id: 345Gd9Hs
+          stream_target_id: R32u8HDk
+          use_stream_target_backup_url: false
+          stream_target:
+            id: R32u8HDk
+            name: My other provisioned RTMP Stream Target
+            type: wowza
+            created_at: '2020-01-29T17:16:21.965Z'
+            updated_at: '2020-01-31T12:19:50.965Z'
+    output_stream_target_input:
+      type: object
+      description: ''
+      required:
+      - output_stream_target
+      properties:
+        output_stream_target:
+          type: object
+          title: output_stream_target
+          description: ''
+          required:
+          - stream_target_id
+          properties:
+            stream_target_id:
+              type: string
+              description: The unique alphanumeric string that identifies the stream target.
+              example: 1234abcd
+            use_stream_target_backup_url:
+              type: boolean
+              description: '
+
+                Specifies whether the output stream target uses the stream target''s primary or backup URL.
+
+
+                When both the primary and backup URLs are used, Wowza Video sends the stream to both URLs, allowing a provider or 3rd party CDN to improve reliability and prevent playback disruption. If you want to use both URLs, make sure you add the stream target to the output rendition twice, once with *use_stream_target_backup_url* as **false** (the default) and once with *use_stream_target_backup_url* as **true**.
+
+
+                **Example:** <code>"use_stream_target_backup_url": true</code>'
+              example: true
     index_recordings:
       type: object
       description: ''
@@ -3012,237 +3530,6 @@ components:
           started_at: '2017-07-08T14:22:00.000Z'
           transcoder_id: ff9l4838
           updated_at: '2017-07-08T16:40:00.000Z'
-    transcoders:
-      type: object
-      description: ''
-      required:
-      - transcoders
-      properties:
-        transcoders:
-          type: array
-          items:
-            $ref: '#/components/schemas/index_transcoder'
-      example:
-        transcoders:
-        - id: 2lsWj3F9
-          name: My transcoder
-          workflow: live_stream
-          state: stopped
-          created_at: '2020-01-28T17:16:22.097Z'
-          updated_at: '2020-01-31T01:17:48.097Z'
-        - id: VJbkhjzl
-          name: My other transcoder
-          workflow: transcoder
-          state: started
-          created_at: '2020-01-28T17:16:22.097Z'
-          updated_at: '2020-01-30T16:03:28.097Z'
-    transcoder_property_create_input:
-      type: object
-      title: property
-      description: ''
-      properties:
-        property:
-          type: object
-          title: property
-          description: '
-
-            The single property to configure. The property configuration consists of a key/value pair and the section of the transcoder configuration table the key/value pair is stored in.'
-          required:
-          - section
-          - key
-          - value
-          properties:
-            key:
-              type: string
-              description: 'The key of the property.
-
-
-                The following table lists the available property keys and what transcoder table section they''re stored in.
-
-
-                Section | Valid keys for the section
-
-                ----------------|-------------
-
-                **asset_management** | <ul><li>**enabled**</li></ul> <br/>**Note:** You need a Wowza Video subscription to access Asset Management.
-
-                **cupertino** | <ul><li>**aes128Host**</li><li>**aes128Secret**</li></ul>
-
-                **ezdrm** | <ul><li>**username**</li><li>**password**</li><li>**fairPlayAssetId**</li><li>**wideVineContentId**</li></ul>
-
-                **file** | <ul><li>**repeat**</li><li>**start_streaming_at**</li></ul>
-
-                **output** | <ul><li>**fitMode**</li><li>**record**</li></ul>
-
-                **recording** | <ul><li>**mp4**</li></ul>
-
-                **rtmp** | <ul><li>**allowDirectPlayback**</li></ul>
-
-                **rtsp** | <ul><li>**avSyncMethod**</li><li>**debugRtspSession**</li><li>**maxRtcpWaitTime**</li><li> **rtpDePacketizerPacketSorterBufferTime**</li><li>**rtpDePacketizerPacketSorterFlushTime**</li><li>**rtpDePacketizerWrapper**</li><li>**rtpIgnoreSpropParameterSets**</li><li>**rtpIgnoreProfileLevelId**</li><li>**rtpTransportMode**</li><li>**rtspValidationFrequency**</li><li>**rtspFilterUnknownTracks**</li></ul>
-
-                **srt** | <ul><li>**passPhrase**</li></ul>
-
-                **vod_stream** | <ul><li>**hls**</li><li>**live2vod**</li></li></ul><br/>**Note:** VOD streams require a Fastly stream target with HLS as a delivery protocol.'
-              example: rtpIgnoreProfileLevelId
-            section:
-              type: string
-              description: The section of the transcoder configuration table that contains the property.
-              example: rtsp
-              enum:
-              - asset_management
-              - cupertino
-              - ezdrm
-              - file
-              - output
-              - recording
-              - rtmp
-              - rtsp
-              - srt
-              - vod_stream
-            value:
-              type: string
-              description: 'The value of the property.
-
-
-                The following table provides information about valid values for each property key.
-
-
-                Key(s) | Values for the key
-
-                ----------------|-------------
-
-                **aes128Host** | Specify the URL that devices will use to fetch the key to decrypt the stream.
-
-                **aes128Secret** | Specify the 16-byte key that will be used to decrypt the stream. The key must be 32 characters in length and can only contain hex characters (a-f, A-F, 0-9). The key must match the key returned by the **aes128Host**.
-
-                **enabled** | Specify **true** or **false**. Used in the **asset_mangement** section.
-
-                **fitMode** | Use **letterbox**, **fit-width**, **fit-height**, **crop**, **stretch**, or **match-source**. The default is **fit-height**.
-
-                **maxRtcpWaitTime** | Use a whole number, expressed as a string or an integer. The default is **2000** (ms).
-
-                **passPhrase** | Use a string between 10-79 characters in length. It adds security to a live stream for an incoming SRT stream from your device or encoder to Wowza Video. The password protection secures the data payload of SRT live streams, ensuring that the transmitted content is encrypted and safeguarded against unauthorized interception during its journey across the network.
-
-                **record** | Use an output ID associated with the transcoder.
-
-                **rtpDePacketizerPacketSorterBufferTime** | Use an integer, expressed as a string or an integer. The default is **500** (ms).
-
-                **rtpDePacketizerPacketSorterFlushTime** | Use an integer, expressed as a string or an integer. The default is **10** (ms).
-
-                **rtpDePacketizerWrapper** | Use the string **RTPDePacketizerWrapperPacketSorter**.
-
-                **rtpTransportMode** | Use the string **udp** or **interleave** (the default).
-
-                **rtspValidationFrequency** | Use a whole number, expressed as a string or an integer. The default is **15000** (ms).
-
-                **start_streaming_at** | Specify the month, day, year, and time of day that the file should start streaming, expressed as a string. Express the value by using the ISO 8601 standard of <strong>YYYY-MM-DDTHH:MM:SSZ</strong> where <strong>HH</strong> is a 24-hour clock in UTC.
-
-                <ul><li>**username**</li><li>**password**</li><li>**fairplayAssetId**</li><li>**wideVineContentId**</li></ul> | Use account information and asset IDs from EZDRM. All strings.
-
-                <ul><li>**avSyncMethod**</li><li>**debugRtspSession**</li><li>**mp4**</li><li>**repeat**</li><li>**rtspFilterUnknownTracks**</li><li>**rtpIgnoreSpropParameterSets**</li><li>**rtpIgnoreProfileLevelId**</li></ul> | Use **true** or **false**, expressed as a string or a Boolean.
-
-                <ul><li>**hls**</li><li>**live2vod**</li></ul> | Use **true** or **false**, expressed as a string or a Boolean. When **true**, **hls** generates a VOD stream and **live2vod** replaces the live playlist with the VOD playlist after the stream ends so viewers can access the VOD stream on the live playback URL. **hls** must be **true** to enable **live2VOD**.'
-              example: 'true'
-    transcoder_property:
-      type: object
-      description: A single property. The property configuration consists of a key/value pair and the section of the transcoder configuration table the key/value pair is stored in.
-      title: property
-      required:
-      - section
-      - key
-      - value
-      properties:
-        key:
-          type: string
-          description: 'The key of the property.
-
-
-            The following table lists the available property keys and what transcoder table section they''re stored in.
-
-
-            Section | Valid keys for the section
-
-            ----------------|-------------
-
-            **asset_management** | <ul><li>**enabled**</li></ul> <br/>**Note:** You need a Wowza Video subscription to access Asset Management.
-
-            **cupertino** | <ul><li>**aes128Host**</li><li>**aes128Secret**</li></ul>
-
-            **ezdrm** | <ul><li>**username**</li><li>**password**</li><li>**fairPlayAssetId**</li><li>**wideVineContentId**</li></ul>
-
-            **file** | <ul><li>**repeat**</li><li>**start_streaming_at**</li></ul>
-
-            **output** | <ul><li>**fitMode**</li><li>**record**</li></ul>
-
-            **recording** | <ul><li>**mp4**</li></ul>
-
-            **rtmp** | <ul><li>**allowDirectPlayback**</li></ul>
-
-            **rtsp** | <ul><li>**avSyncMethod**</li><li>**debugRtspSession**</li><li>**maxRtcpWaitTime**</li><li> **rtpDePacketizerPacketSorterBufferTime**</li><li>**rtpDePacketizerPacketSorterFlushTime**</li><li>**rtpDePacketizerWrapper**</li><li>**rtpIgnoreSpropParameterSets**</li><li>**rtpIgnoreProfileLevelId**</li><li>**rtpTransportMode**</li><li>**rtspValidationFrequency**</li><li>**rtspFilterUnknownTracks**</li></ul>
-
-            **srt** | <ul><li>**passPhrase**</li></ul>
-
-            **vod_stream** | <ul><li>**hls**</li><li>**live2vod**</li></li></ul><br/>**Note:** VOD streams require a Fastly stream target with HLS as a delivery protocol.'
-          example: ''
-        section:
-          type: string
-          description: The section of the transcoder configuration table that contains the property.
-          example: ''
-          enum:
-          - asset_management
-          - cupertino
-          - ezdrm
-          - file
-          - output
-          - recording
-          - rtmp
-          - rtsp
-          - srt
-          - vod_stream
-        value:
-          type: string
-          description: 'The value of the property.
-
-
-            The following table provides information about valid values for each property key.
-
-
-            Key(s) | Values for the key
-
-            ----------------|-------------
-
-            **aes128Host** | Specify the URL that devices will use to fetch the key to decrypt the stream.
-
-            **aes128Secret** | Specify the 16-byte key that will be used to decrypt the stream. The key must be 32 characters in length and can only contain hex characters (a-f, A-F, 0-9). The key must match the key returned by the **aes128Host**.
-
-            **enabled** | Specify **true** or **false**. Used in the **asset_mangement** section.
-
-            **fitMode** | Use **letterbox**, **fit-width**, **fit-height**, **crop**, **stretch**, or **match-source**. The default is **fit-height**.
-
-            **maxRtcpWaitTime** | Use a whole number, expressed as a string or an integer. The default is **2000** (ms).
-
-            **passPhrase** | Use a string between 10-79 characters in length. It adds security to a live stream for an incoming SRT stream from your device or encoder to Wowza Video. The password protection secures the data payload of SRT live streams, ensuring that the transmitted content is encrypted and safeguarded against unauthorized interception during its journey across the network.
-
-            **record** | Use an output ID associated with the transcoder.
-
-            **rtpDePacketizerPacketSorterBufferTime** | Use an integer, expressed as a string or an integer. The default is **500** (ms).
-
-            **rtpDePacketizerPacketSorterFlushTime** | Use an integer, expressed as a string or an integer. The default is **10** (ms).
-
-            **rtpDePacketizerWrapper** | Use the string **RTPDePacketizerWrapperPacketSorter**.
-
-            **rtpTransportMode** | Use the string **udp** or **interleave** (the default).
-
-            **rtspValidationFrequency** | Use a whole number, expressed as a string or an integer. The default is **15000** (ms).
-
-            **start_streaming_at** | Specify the month, day, year, and time of day that the file should start streaming, expressed as a string. Express the value by using the ISO 8601 standard of <strong>YYYY-MM-DDTHH:MM:SSZ</strong> where <strong>HH</strong> is a 24-hour clock in UTC.
-
-            <ul><li>**username**</li><li>**password**</li><li>**fairplayAssetId**</li><li>**wideVineContentId**</li></ul> | Use account information and asset IDs from EZDRM. All strings.
-
-            <ul><li>**avSyncMethod**</li><li>**debugRtspSession**</li><li>**mp4**</li><li>**repeat**</li><li>**rtspFilterUnknownTracks**</li><li>**rtpIgnoreSpropParameterSets**</li><li>**rtpIgnoreProfileLevelId**</li></ul> | Use **true** or **false**, expressed as a string or a Boolean.
-
-            <ul><li>**hls**</li><li>**live2vod**</li></ul> | Use **true** or **false**, expressed as a string or a Boolean. When **true**, **hls** generates a VOD stream and **live2vod** replaces the live playlist with the VOD playlist after the stream ends so viewers can access the VOD stream on the live playback URL. **hls** must be **true** to enable **live2VOD**.'
-          example: ''
     output_stream_target:
       type: object
       description: ''
@@ -3289,120 +3576,6 @@ components:
           created_at: '2020-01-29T17:16:21.965Z'
           updated_at: '2020-01-31T04:06:40.965Z'
         target_state: Enabled
-    Error401:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 401
-            code: ERR-401-NoApiKey
-            title: No API Key Error
-            message: No API key sent in header.
-            description: ''
-            links: []
-        Example Response 2:
-          meta:
-            status: 401
-            code: ERR-401-NoAccessKey
-            title: No Access Key Error
-            message: No access key sent in header.
-            description: ''
-            links: []
-        Example Response 3:
-          meta:
-            status: 401
-            code: ERR-401-InvalidApiKey
-            title: Invalid Api Key Error
-            message: Invalid API key.
-            description: ''
-            links: []
-        Example Response 4:
-          meta:
-            status: 401
-            code: ERR-401-InvalidAccessKey
-            title: Invalid Access Key Error
-            message: Invalid access key.
-            description: ''
-            links: []
-        Example Response 5:
-          meta:
-            status: 401
-            code: ERR-401-BadAccountStatus
-            title: Bad Account Status Error
-            message: Your account's status doesn't allow this action.
-            description: ''
-            links: []
-        Example Response 6:
-          meta:
-            status: 401
-            code: ERR-401-FeatureNotEnabled
-            title: Feature Not Enabled Error
-            message: This feature isn't enabled.
-            description: ''
-            links: []
-        Example Response 7:
-          meta:
-            status: 401
-            code: ERR-401-TrialExceeded
-            title: Bad Billing Status Error
-            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
-            description: ''
-            links: []
-        Example Response 8:
-          meta:
-            status: 401
-            code: ERR-401-ExpiredToken
-            title: JWT is expired
-            message: Token has exired.
-            description: ''
-            links: []
-        Example Response 9:
-          meta:
-            status: 401
-            code: ERR-401-InvalidToken
-            title: JWT is invalid
-            message: Token is invalid.
-            description: ''
-            links: []
-    output_create_input:
-      description: ''
-      allOf:
-      - $ref: '#/components/schemas/output_input'
     transcoder:
       type: object
       description: ''
@@ -3922,222 +4095,6 @@ components:
         watermark_opacity: 75
         watermark_position: top-right
         watermark_width: 100
-    output_stream_target_input:
-      type: object
-      description: ''
-      required:
-      - output_stream_target
-      properties:
-        output_stream_target:
-          type: object
-          title: output_stream_target
-          description: ''
-          required:
-          - stream_target_id
-          properties:
-            stream_target_id:
-              type: string
-              description: The unique alphanumeric string that identifies the stream target.
-              example: 1234abcd
-            use_stream_target_backup_url:
-              type: boolean
-              description: '
-
-                Specifies whether the output stream target uses the stream target''s primary or backup URL.
-
-
-                When both the primary and backup URLs are used, Wowza Video sends the stream to both URLs, allowing a provider or 3rd party CDN to improve reliability and prevent playback disruption. If you want to use both URLs, make sure you add the stream target to the output rendition twice, once with *use_stream_target_backup_url* as **false** (the default) and once with *use_stream_target_backup_url* as **true**.
-
-
-                **Example:** <code>"use_stream_target_backup_url": true</code>'
-              example: true
-    index_stream_target:
-      type: object
-      description: ''
-      title: stream_targets
-      properties:
-        created_at:
-          type: string
-          description: The date and time that the stream target was created.
-          example: ''
-          format: date-time
-        id:
-          type: string
-          description: The unique alphanumeric string that identifies the stream target.
-          example: ''
-        name:
-          type: string
-          description: A descriptive name for the stream target. Maximum 255 characters.
-          example: ''
-        state:
-          type: string
-          description: The state of the stream target.
-          example: activated
-          enum:
-          - activated
-          - archived
-        type:
-          type: string
-          description: '**custom** is an external, third-party destination and **wowza_cdn** is a Wowza CDN target. '
-          example: ''
-          enum:
-          - custom
-          - wowza_cdn
-        updated_at:
-          type: string
-          description: The date and time that the stream target was updated.
-          example: ''
-          format: date-time
-    schedule:
-      type: object
-      description: ''
-      properties:
-        action_type:
-          type: string
-          description: The type of action that the schedule should trigger on the transcoder. The default is **start**.
-          example: start_stop
-          enum:
-          - start
-          - stop
-          - start_stop
-        created_at:
-          type: string
-          description: The date and time that the schedule was created.
-          example: '2020-01-29T17:16:21.995Z'
-          format: date-time
-        end_repeat:
-          type: string
-          description: The month, day, and year that a recurring schedule should stop running. Specify **YYYY-MM-DD**.
-          example: '2020-02-29T00:00:00.000Z'
-          format: date
-        id:
-          type: string
-          description: The unique alphanumeric string that identifies the schedule.
-          example: vhB0jSlB
-        name:
-          type: string
-          description: A descriptive name for the schedule. Maximum 255 characters.
-          example: Scheduled start for my camera
-        recurrence_data:
-          type: string
-          description: The day or days of the week that a recurring schedule should run.
-          example: monday,tuesday,wednesday,thursday,friday
-          enum:
-          - sunday
-          - monday
-          - tuesday
-          - wednesday
-          - thursday
-          - friday
-          - saturday
-        recurrence_type:
-          type: string
-          description: A schedule can run one time only (**once**) or repeat (**recur**) until a specified *end_repeat* date. The default is **once**.
-          example: recur
-          enum:
-          - once
-          - recur
-        start_repeat:
-          type: string
-          description: The month, day, and year that the recurring schedule should go into effect. Specify **YYYY-MM-DD**.
-          example: '2020-02-01T00:00:00.000Z'
-          format: date
-        start_transcoder:
-          type: string
-          description: The month, day, year, and time of day that the *action_type* **start** should occur. Specify **YYYY-MM-DD HH:MM:SS** where **HH** is a 24-hour clock in UTC.
-          example: '2020-02-01T00:00:00.000Z'
-          format: date-time
-        state:
-          type: string
-          description: A schedule must be **enabled** to run. Specify **enabled** to run the schedule or **disabled** to turn off the schedule so that it doesn't run.
-          example: enabled
-          enum:
-          - enabled
-          - disabled
-          - expired
-        stop_transcoder:
-          type: string
-          description: The month, day, year, and time of day that the *action_type* **stop** should occur. Specify **YYYY-MM-DD HH:MM:SS** where **HH** is a 24-hour clock in UTC.
-          example: '2020-02-29T23:59:59.999Z'
-          format: date-time
-        time_zone:
-          type: string
-          description: The time zone the schedule runs in.
-        transcoder_id:
-          type: string
-          description: The unique alphanumeric string that identifies the transcoder being scheduled.
-          example: P0NrTP7m
-        transcoder_name:
-          type: string
-          description: The name of the transcoder being scheduled.
-          example: My Camera
-        updated_at:
-          type: string
-          description: The date and time that the schedule was updated.
-          example: '2020-01-30T16:44:37.995Z'
-          format: date-time
-      example:
-        id: 28bwb5WT
-        state: disabled
-        name: Scheduled recurring start for my camera
-        time_zone: America/New_York
-        transcoder_id: VGB21JFJ
-        transcoder_name: My Camera
-        recurrence_type: recur
-        recurrence_data: monday,tuesday,wednesday,thursday,friday
-        action_type: start_stop
-        start_transcoder: '2020-02-01T00:00:00.000Z'
-        stop_transcoder: '2020-02-29T23:59:59.999Z'
-        start_repeat: '2020-02-01T00:00:00.000Z'
-        end_repeat: '2020-02-29T00:00:00.000Z'
-        created_at: '2020-01-29T17:16:21.995Z'
-        updated_at: '2020-01-31T07:00:48.995Z'
-    Error403:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 403
-            code: ERR-403-RecordUnaccessible
-            title: Record Unaccessible Error
-            message: The requested resource isn't accessible.
-            description: ''
-            links: []
     outputs:
       type: object
       description: ''
@@ -4175,436 +4132,7 @@ components:
           audio_codec: passthrough
           transcoder_id: Yf5lyjCV
           updated_at: '2020-01-31T03:55:05.958Z'
-    Error422:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. ... can't be blank
-            description: ''
-            links: []
-        Example Response 2:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. Provider wowza_video is not allowed
-            description: ''
-            links: []
-        Example Response 3:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
-            description: ''
-            links: []
-        Example Response 4:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
-            description: ''
-            links: []
-        Example Response 5:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
-            description: ''
-            links: []
-    Error410:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 410
-            code: ERR-410-RecordDeleted
-            title: Record Deleted Error
-            message: The requested resource has been deleted.
-            description: ''
-            links: []
-    output_input:
-      type: object
-      description: ''
-      required:
-      - output
-      properties:
-        output:
-          type: object
-          title: output
-          description: ''
-          required:
-          - video_codec
-          - audio_codec
-          properties:
-            video_codec:
-              type: string
-              description: The codec used to encode the video stream. **disabled** sends the stream without a video track and **passthrough** sends the stream without transcoding the video track. Available from version 1.6.
-              example: h264
-              enum:
-              - h264
-              - passthrough
-              - disabled
-            audio_codec:
-              type: string
-              description: The codec used to encode the audio stream. **disabled** sends the stream without an audio track and **passthrough** sends the stream without transcoding the audio track. **aac** is the most commonly compatible audio codec for protocols, while **opus** is for WebRTC streams. Available from version 1.6.
-              example: aac
-              enum:
-              - aac
-              - opus
-              - passthrough
-              - disabled
-            aspect_ratio_height:
-              type: integer
-              description: 'The height, in pixels, of the output rendition. Should correspond to a widescreen or standard aspect ratio and be divisible by 8. The default is **1080**. Combined with **aspect_ratio_width**, makes up the input resolution.
-
-
-                **Example:** <code>"aspect_ratio_height": 1080</code>'
-              example: 480
-              format: int32
-            aspect_ratio_width:
-              type: integer
-              description: 'The width, in pixels, of the output rendition. Should correspond to a widescreen or standard aspect ratio and be divisible by 8. The default is **1920**. Combined with **aspect_ratio_height**, makes up the input resolution.
-
-
-                **Example:** <code>"aspect_ratio_width": 1920</code>'
-              example: 848
-              format: int32
-            bitrate_audio:
-              type: integer
-              description: 'The audio bitrate, in kilobits per second (Kbps). Must be between **1** and **9999**. If the **audio_codec** is **opus**, the default is **510**, otherwise the default is **128**.
-
-
-                **Example:** <code>"bitrate_audio": 128</code>'
-              example: 128
-              format: int32
-            bitrate_video:
-              type: integer
-              description: 'The video bitrate, in kilobits per second (Kbps). Must be between **1** and **10240**. The default is **4000**.
-
-
-                **Example:** <code>"bitrate_audio": 1600</code>'
-              example: 1600
-              format: int32
-            framerate_reduction:
-              type: string
-              description: 'Reduce the frame rate of the transcoded output rendition. The default, **0**, uses the encoded stream''s frame rate without reduction.
-
-
-                **Example:** <code>"frame_reduction": "1/2"</code>'
-              example: 1/2
-              enum:
-              - '0'
-              - 1/2
-              - 1/4
-              - 1/25
-              - 1/30
-              - 1/50
-              - 1/60
-            h264_profile:
-              type: string
-              description: 'The encoding method. Specify **main** for desktop streaming, **baseline** for playback on mobile devices, or **high** for HD playback. The default is **high**.
-
-
-                **Example:** <code>"h264_profile": "main"</code>'
-              example: main
-              enum:
-              - main
-              - baseline
-              - high
-            keyframes:
-              type: string
-              description: 'The interval used to define the compression applied to a group of frames. The default, **follow_source**, uses the keyframe interval of the source video.
-
-
-                **Example:** <code>"keyframes": "follow_source"</code>'
-              example: follow_source
-              enum:
-              - follow_source
-              - '25'
-              - '30'
-              - '50'
-              - '60'
-              - '100'
-              - '120'
-      example:
-        output:
-          video_codec: h264
-          audio_codec: aac
-          aspect_ratio_height: 480
-          aspect_ratio_width: 848
-          bitrate_audio: 128
-          bitrate_video: 1600
-          framerate_reduction: 1/2
-          h264_profile: main
-          keyframes: follow_source
-    output_stream_target_create_input:
-      description: ''
-      allOf:
-      - $ref: '#/components/schemas/output_stream_target_input'
-    output_stream_target_update_input:
-      description: ''
-      allOf:
-      - $ref: '#/components/schemas/output_stream_target_input'
-    output:
-      type: object
-      description: ''
-      properties:
-        aspect_ratio_height:
-          type: integer
-          description: The height, in pixels, of the output rendition. Should correspond to a widescreen or standard aspect ratio and be divisible by 8. The default is **1080**. Combined with **aspect_ratio_width**, makes up the input resolution.
-          example: ''
-          format: int32
-        aspect_ratio_width:
-          type: integer
-          description: The width, in pixels, of the output rendition. Should correspond to a widescreen or standard aspect ratio and be divisible by 8. The default is **1920**. Combined with **aspect_ratio_height**, makes up the input resolution.
-          example: ''
-          format: int32
-        bitrate_audio:
-          type: integer
-          description: The audio bitrate, in kilobits per second (Kbps). Must be between **1** and **9999**. If the **audio_codec** is **opus**, the default is **510**, otherwise the default is **128**.
-          example: ''
-          format: int32
-        bitrate_video:
-          type: integer
-          description: The video bitrate, in kilobits per second (Kbps). Must be between **1** and **10240**. The default is **4000**.
-          example: ''
-          format: int32
-        created_at:
-          type: string
-          description: The date and time that the output rendition was created.
-          example: ''
-          format: date-time
-        framerate_reduction:
-          type: string
-          description: Reduce the frame rate of the transcoded output rendition. The default, **0**, uses the encoded stream's frame rate without reduction.
-          example: ''
-          enum:
-          - '0'
-          - 1/2
-          - 1/4
-          - 1/25
-          - 1/30
-          - 1/50
-          - 1/60
-        h264_profile:
-          type: string
-          description: The encoding method. Specify **main** for desktop streaming, **baseline** for playback on mobile devices, or **high** for HD playback. The default is **high**.
-          example: ''
-          enum:
-          - main
-          - baseline
-          - high
-        id:
-          type: string
-          description: The unique alphanumeric string that identifies the output rendition.
-          example: ''
-        type:
-          type: string
-          description: The type of output rendition, be it WebRTC to use with a transcoder that uses WebRTC as the protocol or a normal output rendition.
-          example: ''
-          enum:
-          - WebRtcOutput
-          - Output
-        keyframes:
-          type: string
-          description: The interval used to define the compression applied to a group of frames. The default, **follow_source**, uses the keyframe interval of the source video.
-          example: ''
-          enum:
-          - follow_source
-          - '25'
-          - '30'
-          - '50'
-          - '60'
-          - '100'
-          - '120'
-        name:
-          type: string
-          description: A descriptive name for the output (generated, not writable).
-          example: ''
-        delete_restrictions:
-          type: array
-          description: The reasons why the output cannot be deleted.
-          example: ''
-          items:
-            type: string
-        output_stream_targets:
-          type: array
-          items:
-            $ref: '#/components/schemas/output_stream_target'
-        video_codec:
-          type: string
-          description: The codec used to encode the video stream. **disabled** sends the stream without a video track and **passthrough** sends the stream without transcoding the video track. Available from version 1.6.
-          example: ''
-          enum:
-          - h264
-          - passthrough
-          - disabled
-        audio_codec:
-          type: string
-          description: The codec used to encode the audio stream. **disabled** sends the stream without an audio track and **passthrough** sends the stream without transcoding the audio track. **aac** is the most commonly compatible audio codec for protocols, while **opus** is for WebRTC streams. Available from version 1.6.
-          example: ''
-          enum:
-          - aac
-          - opus
-          - passthrough
-          - disabled
-        transcoder_id:
-          type: string
-          description: The unique alphanumeric string that identifies the transcoder.
-          example: ''
-        updated_at:
-          type: string
-          description: The date and time that the output rendition was updated.
-          example: ''
-          format: date-time
-        target_state:
-          type: string
-          description: Specifies whether the stream target is **enabled** or **disabled**. This parameter displays in the response when the transcoder or live stream associated with the stream target is running and receiving a stream. **Enabled** means the stream target is enabled and streaming video to its destination. **Disabled** means the stream target is disabled and is not streaming video to its destination.
-          example: ''
-          enum:
-          - enabled
-          - disabled
-      example:
-        aspect_ratio_height: 480
-        aspect_ratio_width: 848
-        bitrate_audio: 128
-        bitrate_video: 1600
-        created_at: '2020-01-29T17:16:21.964Z'
-        framerate_reduction: 1/2
-        h264_profile: main
-        id: w9vJm3BJ
-        keyframes: follow_source
-        name: 'Standard Output: Video (848 x 480) + Audio'
-        output_stream_targets:
-        - {}
-        video_codec: h264
-        audio_codec: aac
-        transcoder_id: PblTJm1t
-        updated_at: '2020-01-31T13:47:33.964Z'
-    Error404:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 404
-            code: ERR-404-RecordNotFound
-            title: Record Not Found Error
-            message: The requested resource couldn't be found.
-            description: ''
-            links: []
-    transcoder_create_input:
+    transcoder_update_input:
       type: object
       description: ''
       required:
@@ -4614,30 +4142,48 @@ components:
           type: object
           title: transcoder
           description: ''
-          required:
-          - name
-          - transcoder_type
-          - billing_mode
-          - broadcast_location
-          - protocol
-          - delivery_method
           properties:
-            billing_mode:
+            delivery_method:
               type: string
-              description: 'The billing mode for the transcoder. The default is **pay_as_you_go**.
+              description: 'The type of connection between the source encoder and the transcoder. The default, **pull**, instructs the transcoder to pull the video from the source. **push** instructs the source to push the stream to the transcoder. **cdn** uses a stream source to deliver the stream to the transcoder.
 
 
-                **pay_as_you_go** — Billed as a single event. A single event is use-based and you incur charges for the time spent streaming.
-
-
-                **twentyfour_seven** — Billed as a 24x7 channel. A 24x7 channel is unlimited stream time for one channel. This billing mode doesn''t incur overages, since it''s unlimited.'
+                **Example:** <code>"delivery_method": "pull"</code>'
               example: ''
               enum:
-              - pay_as_you_go
-              - twentyfour_seven
+              - pull
+              - cdn
+              - push
+            name:
+              type: string
+              description: 'A descriptive name for the transcoder. Maximum 200 characters.
+
+
+                **Example:** <code>"name": "My Updated Transcoder"</code>'
+              example: ''
+            protocol:
+              type: string
+              description: 'The transport protocol for the source video. The default is **rtmp**.
+
+
+                **Example:** <code>"protocol": "webrtc"</code>'
+              example: ''
+              enum:
+              - file
+              - rtmp
+              - rtsp
+              - srt
+              - udp
+              - webrtc
             broadcast_location:
               type: string
-              description: The location where Wowza Video transcodes your stream. Choose a location as close as possible to your video source.
+              description: 'The location where Wowza Video transcodes your stream. Choose a location as close as possible to your video source.
+
+
+                You cannot change the broadcast location after initial creation if you are using autostart functionality on your transcoder.
+
+
+                **Example:** <code>"broadcast_location": "us_central_iowa"</code>'
               example: ''
               enum:
               - asia_pacific_australia
@@ -4655,46 +4201,6 @@ components:
               - us_east_virginia
               - us_west_california
               - us_west_oregon
-            delivery_method:
-              type: string
-              description: The type of connection between the source encoder and the transcoder. The default, **pull**, instructs the transcoder to pull the video from the source. **push** instructs the source to push the stream to the transcoder. **cdn** uses a stream source to deliver the stream to the transcoder.
-              example: ''
-              enum:
-              - pull
-              - cdn
-              - push
-            name:
-              type: string
-              description: A descriptive name for the transcoder. Maximum 200 characters.
-              example: ''
-            protocol:
-              type: string
-              description: The transport protocol for the source video. The default is **rtmp**.
-              example: ''
-              enum:
-              - file
-              - rtmp
-              - rtsp
-              - srt
-              - udp
-              - webrtc
-            transcoder_type:
-              type: string
-              description: 'The type of transcoder, either **transcoded** for streams that are transcoded into adaptive bitrate renditions or **passthrough** for streams that aren''t processed by the transcoder.
-
-
-
-
-                > **Note**: **passthrough** isn''t supported in the **asia_pacific_singapore** region.
-
-
-
-
-                Default: **transcoded**'
-              example: ''
-              enum:
-              - transcoded
-              - passthrough
             buffer_size:
               type: integer
               description: 'The size, in milliseconds, of the incoming buffer. **0** means no buffer. The default is **4000** (4 seconds).
@@ -4727,7 +4233,7 @@ components:
               - both
             delivery_protocols:
               type: array
-              description: 'An array of playback protocols enabled for this transcoder. By default, **rtmp**, **rtsp**, and **wowz** are returned.
+              description: 'An array of playback protocols enabled for this transcoder. By default, **rtmp**, **rtsp**, **webrtc**, and **wowz** are returned.
 
 
                 **Example:** See response body sample </code>'
@@ -4804,6 +4310,13 @@ components:
 
                 **Example:** <code>"reference_id": "mySystemID_01"</code>'
               example: ''
+            remove_watermark_image:
+              type: boolean
+              description: 'If **true**, removes the watermark from the output. The default is **false**.
+
+
+                **Example:** <code>"remove_watermark_image": true</code>'
+              example: ''
             source_url:
               type: string
               description: 'For the *delivery_method* **pull** or *protocol* **file**.
@@ -4844,12 +4357,12 @@ components:
               description: 'A username for authenticating an RTMP or RTSP push connection. Can contain only uppercase and lowercase letters; numbers; and the period (.), underscore (_), and hyphen (-) characters. No other special characters can be used.
 
 
+
                 **Example:** <code>"username": "client2"</code>'
               example: ''
             watermark:
               type: boolean
               description: 'Embeds an image into the transcoded stream for copyright protection. Specify **true** to embed a watermark image.
-
 
 
                 **Example:** <code>"watermark": true</code>'
@@ -5001,14 +4514,507 @@ components:
               format: int32
       example:
         transcoder:
-          billing_mode: pay_as_you_go
-          broadcast_location: us_central_iowa
-          delivery_method: pull
+          name: My Updated Transcoder
           description: My Transcoder Description
-          name: My PAYG Transcoder
-          protocol: rtmp
-          transcoder_type: transcoded
+          watermark_position: bottom-left
+    vod_streams:
+      type: object
+      description: ''
+      required:
+      - vod_streams
+      properties:
+        vod_streams:
+          type: array
+          items:
+            type: object
+            title: vod_streams
+            description: ''
+            properties:
+              id:
+                type: string
+                description: The unique alphanumeric string that identifies the VOD stream.
+                example: ''
+              name:
+                type: string
+                description: A descriptive name for the VOD stream. Maximum 200 characters.
+                example: ''
+              state:
+                type: string
+                description: The state of the VOD stream.
+                example: ''
+                enum:
+                - processing
+                - completed
+                - failed
+              playback_enabled:
+                type: boolean
+                description: Specifies whether playback is enabled for the VOD stream.
+                example: ''
+                enum:
+                - true
+                - false
+              reason:
+                type: string
+                description: The reason that a VOD stream has the state of **failed**. Only returned when the state is **failed**.
+                example: ''
+              created_at:
+                type: string
+                description: The date and time that the VOD stream was created.
+                example: ''
+              updated_at:
+                type: string
+                description: The date and time that the VOD stream was updated.
+                example: ''
+      example:
+        vod_streams:
+        - id: wdjfqvsv
+          name: My VOD Stream 1
+          state: failed
+          playback_enabled: false
+          created_at: '2020-02-25T17:16:25.849Z'
+          updated_at: '2020-01-28T16:06:47.849Z'
+        - id: XyxZKqHO
+          name: My VOD Stream 2
+          state: completed
+          playback_enabled: true
+          created_at: '2020-01-29T17:16:21.849Z'
+          updated_at: '2020-01-31T02:26:05.849Z'
+        - id: Pz21DRSt
+          name: My VOD Stream 3
+          state: completed
+          playback_enabled: true
+          created_at: '2020-01-29T17:16:21.849Z'
+          updated_at: '2020-01-30T18:13:18.849Z'
+    Error422:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. ... can't be blank
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. Provider wowza_video is not allowed
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
+            description: ''
+            links: []
+    transcoder_property:
+      type: object
+      description: A single property. The property configuration consists of a key/value pair and the section of the transcoder configuration table the key/value pair is stored in.
+      title: property
+      required:
+      - section
+      - key
+      - value
+      properties:
+        key:
+          type: string
+          description: 'The key of the property.
+
+
+            The following table lists the available property keys and what transcoder table section they''re stored in.
+
+
+            Section | Valid keys for the section
+
+            ----------------|-------------
+
+            **asset_management** | <ul><li>**enabled**</li></ul> <br/>**Note:** You need a Wowza Video subscription to access Asset Management.
+
+            **cupertino** | <ul><li>**aes128Host**</li><li>**aes128Secret**</li></ul>
+
+            **ezdrm** | <ul><li>**username**</li><li>**password**</li><li>**fairPlayAssetId**</li><li>**wideVineContentId**</li></ul>
+
+            **file** | <ul><li>**repeat**</li><li>**start_streaming_at**</li></ul>
+
+            **output** | <ul><li>**fitMode**</li><li>**record**</li></ul>
+
+            **recording** | <ul><li>**mp4**</li></ul>
+
+            **rtmp** | <ul><li>**allowDirectPlayback**</li></ul>
+
+            **rtsp** | <ul><li>**avSyncMethod**</li><li>**debugRtspSession**</li><li>**maxRtcpWaitTime**</li><li> **rtpDePacketizerPacketSorterBufferTime**</li><li>**rtpDePacketizerPacketSorterFlushTime**</li><li>**rtpDePacketizerWrapper**</li><li>**rtpIgnoreSpropParameterSets**</li><li>**rtpIgnoreProfileLevelId**</li><li>**rtpTransportMode**</li><li>**rtspValidationFrequency**</li><li>**rtspFilterUnknownTracks**</li></ul>
+
+            **srt** | <ul><li>**passPhrase**</li></ul>
+
+            **vod_stream** | <ul><li>**hls**</li><li>**live2vod**</li></li></ul><br/>**Note:** VOD streams require a Fastly stream target with HLS as a delivery protocol.'
+          example: ''
+        section:
+          type: string
+          description: The section of the transcoder configuration table that contains the property.
+          example: ''
+          enum:
+          - asset_management
+          - cupertino
+          - ezdrm
+          - file
+          - output
+          - recording
+          - rtmp
+          - rtsp
+          - srt
+          - vod_stream
+        value:
+          type: string
+          description: 'The value of the property.
+
+
+            The following table provides information about valid values for each property key.
+
+
+            Key(s) | Values for the key
+
+            ----------------|-------------
+
+            **aes128Host** | Specify the URL that devices will use to fetch the key to decrypt the stream.
+
+            **aes128Secret** | Specify the 16-byte key that will be used to decrypt the stream. The key must be 32 characters in length and can only contain hex characters (a-f, A-F, 0-9). The key must match the key returned by the **aes128Host**.
+
+            **enabled** | Specify **true** or **false**. Used in the **asset_mangement** section.
+
+            **fitMode** | Use **letterbox**, **fit-width**, **fit-height**, **crop**, **stretch**, or **match-source**. The default is **fit-height**.
+
+            **maxRtcpWaitTime** | Use a whole number, expressed as a string or an integer. The default is **2000** (ms).
+
+            **passPhrase** | Use a string between 10-79 characters in length. It adds security to a live stream for an incoming SRT stream from your device or encoder to Wowza Video. The password protection secures the data payload of SRT live streams, ensuring that the transmitted content is encrypted and safeguarded against unauthorized interception during its journey across the network.
+
+            **record** | Use an output ID associated with the transcoder.
+
+            **rtpDePacketizerPacketSorterBufferTime** | Use an integer, expressed as a string or an integer. The default is **500** (ms).
+
+            **rtpDePacketizerPacketSorterFlushTime** | Use an integer, expressed as a string or an integer. The default is **10** (ms).
+
+            **rtpDePacketizerWrapper** | Use the string **RTPDePacketizerWrapperPacketSorter**.
+
+            **rtpTransportMode** | Use the string **udp** or **interleave** (the default).
+
+            **rtspValidationFrequency** | Use a whole number, expressed as a string or an integer. The default is **15000** (ms).
+
+            **start_streaming_at** | Specify the month, day, year, and time of day that the file should start streaming, expressed as a string. Express the value by using the ISO 8601 standard of <strong>YYYY-MM-DDTHH:MM:SSZ</strong> where <strong>HH</strong> is a 24-hour clock in UTC.
+
+            <ul><li>**username**</li><li>**password**</li><li>**fairplayAssetId**</li><li>**wideVineContentId**</li></ul> | Use account information and asset IDs from EZDRM. All strings.
+
+            <ul><li>**avSyncMethod**</li><li>**debugRtspSession**</li><li>**mp4**</li><li>**repeat**</li><li>**rtspFilterUnknownTracks**</li><li>**rtpIgnoreSpropParameterSets**</li><li>**rtpIgnoreProfileLevelId**</li></ul> | Use **true** or **false**, expressed as a string or a Boolean.
+
+            <ul><li>**hls**</li><li>**live2vod**</li></ul> | Use **true** or **false**, expressed as a string or a Boolean. When **true**, **hls** generates a VOD stream and **live2vod** replaces the live playlist with the VOD playlist after the stream ends so viewers can access the VOD stream on the live playback URL. **hls** must be **true** to enable **live2VOD**.'
+          example: ''
+    Error404:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 404
+            code: ERR-404-RecordNotFound
+            title: Record Not Found Error
+            message: The requested resource couldn't be found.
+            description: ''
+            links: []
+    Error410:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 410
+            code: ERR-410-RecordDeleted
+            title: Record Deleted Error
+            message: The requested resource has been deleted.
+            description: ''
+            links: []
+    Error401:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 401
+            code: ERR-401-NoApiKey
+            title: No API Key Error
+            message: No API key sent in header.
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 401
+            code: ERR-401-NoAccessKey
+            title: No Access Key Error
+            message: No access key sent in header.
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 401
+            code: ERR-401-InvalidApiKey
+            title: Invalid Api Key Error
+            message: Invalid API key.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 401
+            code: ERR-401-InvalidAccessKey
+            title: Invalid Access Key Error
+            message: Invalid access key.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 401
+            code: ERR-401-BadAccountStatus
+            title: Bad Account Status Error
+            message: Your account's status doesn't allow this action.
+            description: ''
+            links: []
+        Example Response 6:
+          meta:
+            status: 401
+            code: ERR-401-FeatureNotEnabled
+            title: Feature Not Enabled Error
+            message: This feature isn't enabled.
+            description: ''
+            links: []
+        Example Response 7:
+          meta:
+            status: 401
+            code: ERR-401-TrialExceeded
+            title: Bad Billing Status Error
+            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
+            description: ''
+            links: []
+        Example Response 8:
+          meta:
+            status: 401
+            code: ERR-401-ExpiredToken
+            title: JWT is expired
+            message: Token has exired.
+            description: ''
+            links: []
+        Example Response 9:
+          meta:
+            status: 401
+            code: ERR-401-InvalidToken
+            title: JWT is invalid
+            message: Token is invalid.
+            description: ''
+            links: []
+    index_stream_target:
+      type: object
+      description: ''
+      title: stream_targets
+      properties:
+        created_at:
+          type: string
+          description: The date and time that the stream target was created.
+          example: ''
+          format: date-time
+        id:
+          type: string
+          description: The unique alphanumeric string that identifies the stream target.
+          example: ''
+        name:
+          type: string
+          description: A descriptive name for the stream target. Maximum 255 characters.
+          example: ''
+        state:
+          type: string
+          description: The state of the stream target.
+          example: activated
+          enum:
+          - activated
+          - archived
+        type:
+          type: string
+          description: '**custom** is an external, third-party destination and **wowza_cdn** is a Wowza CDN target. '
+          example: ''
+          enum:
+          - custom
+          - wowza_cdn
+        updated_at:
+          type: string
+          description: The date and time that the stream target was updated.
+          example: ''
+          format: date-time
   parameters:
+    page:
+      name: page
+      in: query
+      description: "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
+      schema:
+        type: integer
+    per_page:
+      name: per_page
+      in: query
+      description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
+      schema:
+        type: integer
     filter:
       name: filter
       in: query
@@ -5023,24 +5029,42 @@ components:
         **filter[0][field]=state&filter[0][eq]=stopped**'
       schema:
         type: string
-    per_page:
-      name: per_page
-      in: query
-      description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
-      schema:
-        type: integer
-    page:
-      name: page
-      in: query
-      description: "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
-      schema:
-        type: integer
   securitySchemes:
-    basicAuth:
+    WV_JWT:
       type: http
-      scheme: basic
-      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
-    digestAuth:
-      type: http
-      scheme: digest
-      description: HTTP Digest Authentication
+      scheme: bearer
+      description: Your Wowza-generated access token, also called a JSON web token (JWT). Send it as a bearer token in the Authentication header of your requests. See [Authentication](https://www.wowza.com/docs/how-to-use-the-wowza-video-rest-api#authentication).
+x-tagGroups:
+- name: Resource Management
+  tags:
+  - live_streams
+  - transcoders
+  - stream_sources
+  - stream_targets
+  - schedules
+  - real_time
+  - videos
+  - categories
+  - advanced_token_authentication
+  - clipping
+- name: Analytics
+  tags:
+  - analytics_viewers
+  - analytics_ingest
+  - analytics_engagement
+  - analytics_popularity
+  - quality_of_experience
+- name: Usage
+  tags:
+  - usage_account
+  - usage_transcoders
+  - usage
+  - usage_real_time_streams
+- name: Deprecated in 2.0
+  tags:
+  - assets
+  - players
+  - recordings
+  - vod_streams
+  - storage
+  - usage_vod_streams

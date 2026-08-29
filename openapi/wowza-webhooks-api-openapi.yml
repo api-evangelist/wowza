@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Wowza Streaming Engine REST advanced_token_authentication Webhooks API
+  title: Wowza Streaming Engine REST Webhooks API
   description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
   version: 2.0.0
   contact:
@@ -472,6 +472,47 @@ paths:
           description: Internal server error
 components:
   schemas:
+    TargetConfig:
+      type: object
+      properties:
+        headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/TargetHeader'
+        auth:
+          $ref: '#/components/schemas/TargetAuth'
+        id:
+          type: string
+        url:
+          type: string
+      required:
+      - id
+      - url
+      - headers
+      - auth
+    Boolean:
+      type: object
+      properties: {}
+    Webhooks:
+      type: object
+      properties:
+        debugLog:
+          $ref: '#/components/schemas/Boolean'
+        source:
+          type: string
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/FilterConfig'
+        targets:
+          type: array
+          items:
+            $ref: '#/components/schemas/TargetConfig'
+      required:
+      - debugLog
+      - source
+      - filters
+      - targets
     TargetsList:
       type: object
       properties:
@@ -491,6 +532,48 @@ components:
       - version
       - serverName
       - targets
+    FilterConfig:
+      type: object
+      properties:
+        retryDelay:
+          $ref: '#/components/schemas/Long'
+        retryDelayUnit:
+          type: string
+        targetRef:
+          type: string
+        criteria:
+          type: string
+        id:
+          type: string
+        enabled:
+          $ref: '#/components/schemas/Boolean'
+        maxRetryAttempts:
+          $ref: '#/components/schemas/Integer'
+      required:
+      - id
+      - enabled
+      - criteria
+      - targetRef
+      - maxRetryAttempts
+      - retryDelay
+      - retryDelayUnit
+    WebhooksConfig:
+      type: object
+      properties:
+        webhooks:
+          $ref: '#/components/schemas/Webhooks'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - webhooks
     FiltersList:
       type: object
       properties:
@@ -538,33 +621,16 @@ components:
       - url
       - headers
       - auth
-    Integer:
-      type: object
-      properties: {}
-    Boolean:
-      type: object
-      properties: {}
-    Long:
-      type: object
-      properties: {}
-    TargetConfig:
+    TargetHeader:
       type: object
       properties:
-        headers:
-          type: array
-          items:
-            $ref: '#/components/schemas/TargetHeader'
-        auth:
-          $ref: '#/components/schemas/TargetAuth'
-        id:
+        name:
           type: string
-        url:
+        value:
           type: string
       required:
-      - id
-      - url
-      - headers
-      - auth
+      - name
+      - value
     SourceItem:
       type: object
       properties:
@@ -582,61 +648,16 @@ components:
       - version
       - serverName
       - source
-    FilterConfig:
+    TargetAuth:
       type: object
       properties:
-        retryDelay:
-          $ref: '#/components/schemas/Long'
-        retryDelayUnit:
+        secret:
           type: string
-        targetRef:
-          type: string
-        criteria:
-          type: string
-        id:
-          type: string
-        enabled:
-          $ref: '#/components/schemas/Boolean'
-        maxRetryAttempts:
-          $ref: '#/components/schemas/Integer'
-      required:
-      - id
-      - enabled
-      - criteria
-      - targetRef
-      - maxRetryAttempts
-      - retryDelay
-      - retryDelayUnit
-    TargetHeader:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
+        type:
           type: string
       required:
-      - name
-      - value
-    Webhooks:
-      type: object
-      properties:
-        debugLog:
-          $ref: '#/components/schemas/Boolean'
-        source:
-          type: string
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/FilterConfig'
-        targets:
-          type: array
-          items:
-            $ref: '#/components/schemas/TargetConfig'
-      required:
-      - debugLog
-      - source
-      - filters
-      - targets
+      - type
+      - secret
     FilterItem:
       type: object
       properties:
@@ -672,33 +693,12 @@ components:
       - maxRetryAttempts
       - retryDelay
       - retryDelayUnit
-    WebhooksConfig:
+    Long:
       type: object
-      properties:
-        webhooks:
-          $ref: '#/components/schemas/Webhooks'
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - webhooks
-    TargetAuth:
+      properties: {}
+    Integer:
       type: object
-      properties:
-        secret:
-          type: string
-        type:
-          type: string
-      required:
-      - type
-      - secret
+      properties: {}
   securitySchemes:
     basicAuth:
       type: http

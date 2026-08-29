@@ -1,19 +1,13 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Wowza Streaming Engine REST advanced_token_authentication analytics_popularity API
-  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
-  version: 2.0.0
-  contact:
-    name: Wowza Media Systems
-    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  version: v2.0
+  title: Wowza Video REST API Reference Documentation Analytics Popularity API
   license:
-    name: Wowza Media Systems
-    url: https://www.wowza.com
+    name: Terms of Use
+    url: https://www.wowza.com/legal/terms-of-use
+  description: "API lifecycle phase: [Current](https://www.wowza.com/docs/wowza-video-rest-api-lifecycle-management#api-lifecycle0)\n\n\n<table>\n<tr style=\"background-color:lightgrey;\"><td>\n<strong>Want to take the API for a test run?</strong>\n\nAll you'll need is a [Wowza Video subscription](https://www.wowza.com/pricing), or [free trial](https://www.wowza.com/free-trial), for the API access token. Then, fork [our collection in Postman](https://www.postman.com/wowzavideo/workspace/wowza-video-rest-api) and you'll be\nmaking calls to our REST API in minutes!\n\nSee [Trial the Wowza Video REST API using Postman](https://www.wowza.com/docs/trial-the-wowza-video-rest-api-using-postman) for more information.\n</td>\n</tr>\n</table>\n\n\nThis reference documentation provides details about the operations, parameters, and request and response schemas for every resource and endpoint in the Wowza Video REST API.\nSamples appear in the right column. Sample requests are presented in cURL (Shell) and JavaScript; some samples also include just the JSON object. Response samples are all JSON. \nExamples in cURL use environment variables so you can easily copy and paste them. To learn more, see [Using cURL](https://wowza.com/docs/how-to-use-the-wowza-video-rest-api#curl).\n\n\nReference documentation is available for every version of the API. Use the **Version** menu at the top of the page to access the reference doc for a different version of the API.\n\n<blockquote><strong>Note</strong>: If you haven't moved over to the new Wowza Video UI experience, you won't be able to access v2.0 of the API. We're migrating customers iteratively. See <a href=\"https://developer.wowza.com/docs/wowza-video/upgrade-to-wowza-video/\">Upgrade to the Wowza Video 2.0 REST API</a> for more information.</blockquote>\n"
 servers:
-- url: http://localhost:8087
-  description: Wowza Streaming Engine Server
-security:
-- basicAuth: []
+- url: https://api.video.wowza.com/api/v2.0
 tags:
 - name: analytics_popularity
   description: Operations related to popularity analytics.
@@ -235,6 +229,318 @@ components:
             message: The requested resource isn't accessible.
             description: ''
             links: []
+    analytics_popularity_vod_stream:
+      type: object
+      description: ''
+      properties:
+        vod_stream:
+          type: object
+          title: vod_stream
+          description: ''
+          properties:
+            id:
+              type: string
+              description: The unique alphanumeric string that identifies the VOD stream.
+              format: int32
+            plays:
+              type: integer
+              description: The total number of plays for a VOD stream. A play is registered when the stream begins to play.
+              example: ''
+              format: int32
+            displays:
+              type: integer
+              description: The total number of displays for a VOD stream. A display is registered when the player is completely loaded and ready to play the VOD stream.
+              example: ''
+              format: int32
+            trend:
+              type: object
+              title: Array of popularity trends
+              description: "An array of popularity trend data. The granularity of sampled data changes based on the from and to query values you use:\n\n1. Requests made for data _within_ the most recent 3 days returns sample intervals by the hour. You can return sample intervals by the minute by specifying a specific hour range.\n\n2. Requests made for data _beyond_ the most recent 3 days can only return sample intervals by the hour or day. The minute data is not retained beyond the 3rd day. \n\n\n <blockquote>Note: Data from the most recent hour data might not be included in the result of a time range that extends beyond the most recent 3 days. </blockquote>\n\n\n\n<strong>Default</strong>: Last hour"
+              properties:
+                plays:
+                  type: integer
+                  description: The total number of plays for a VOD stream at the time the trend data was sampled. A play is registered when the stream begins to play.
+                  example: ''
+                  format: int32
+                displays:
+                  type: integer
+                  description: 'The total number of displays for a VOD stream at the time the trend data was sampled. A display is registered when the player is completely loaded and ready to play the VOD stream. '
+                  example: ''
+                  format: int32
+                sampled_at:
+                  type: string
+                  description: The date and time the trend data was sampled.
+                  format: date-time
+            limits:
+              type: object
+              description: The time frame represented in the response.
+              properties:
+                from:
+                  type: string
+                  description: The start of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+                to:
+                  type: string
+                  description: The end of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+      example:
+        vod_stream:
+          id: tvctq36g
+          plays: 2
+          displays: 2
+          trend:
+          - plays: 1
+            displays: 1
+            sampled_at: '2024-03-14T11:31:54.000Z'
+          - plays: 1
+            displays: 1
+            sampled_at: '2024-03-14T12:31:54.000Z'
+        limits:
+          from: '2024-03-14T10:31:54.000Z'
+          to: '2024-03-14T10:31:54.000Z'
+    analytics_popularity_live_stream:
+      type: object
+      description: ''
+      properties:
+        live_stream:
+          type: object
+          title: live_stream
+          description: ''
+          properties:
+            id:
+              type: string
+              description: The unique alphanumeric string that identifies the live stream or real-time stream.
+              format: int32
+            plays:
+              type: integer
+              description: The total number of plays for a live stream or real-time stream. A play is registered when the stream begins to play.
+              example: ''
+              format: int32
+            displays:
+              type: integer
+              description: The total number of displays for a live stream or real-time stream. A display is registered when the player is completely loaded and ready to play the stream.
+              example: ''
+              format: int32
+            trend:
+              type: object
+              title: Array of popularity trends
+              description: "An array of popularity trend data. The granularity of sampled data changes based on the from and to query values you use:\n\n1. Requests made for data _within_ the most recent 3 days returns sample intervals by the hour. You can return sample intervals by the minute by specifying a specific hour range.\n\n2. Requests made for data _beyond_ the most recent 3 days can only return sample intervals by the hour or day. The minute data is not retained beyond the 3rd day. \n\n\n <blockquote>Note: Data from the most recent hour data might not be included in the result of a time range that extends beyond the most recent 3 days. </blockquote>\n\n\n<strong>Default</strong>: Last hour"
+              properties:
+                plays:
+                  type: integer
+                  description: The total number of plays for a stream at the time the trend data was sampled. A play is registered when the stream begins to play.
+                  example: ''
+                  format: int32
+                displays:
+                  type: integer
+                  description: The total number of displays for a stream at the time the trend data was sampled. A display is registered when the player is completely loaded and ready to play the stream.
+                  example: ''
+                  format: int32
+                sampled_at:
+                  type: string
+                  description: The date and time the trend data was sampled.
+                  format: date-time
+            limits:
+              type: object
+              description: The time frame represented in the response.
+              properties:
+                from:
+                  type: string
+                  description: The start of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+                to:
+                  type: string
+                  description: The end of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+      example:
+        live_stream:
+          id: tvctq36g
+          plays: 2
+          displays: 2
+          trend:
+          - plays: 1
+            displays: 1
+            sampled_at: '2024-03-14T11:31:54.000Z'
+          - plays: 1
+            displays: 1
+            sampled_at: '2024-03-14T12:31:54.000Z'
+        limits:
+          from: '2024-03-14T10:31:54.000Z'
+          to: '2024-04-13T10:31:54.000Z'
+    Error422:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. ... can't be blank
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. Provider wowza_video is not allowed
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
+            description: ''
+            links: []
+    Error404:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 404
+            code: ERR-404-RecordNotFound
+            title: Record Not Found Error
+            message: The requested resource couldn't be found.
+            description: ''
+            links: []
+    Error410:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 410
+            code: ERR-410-RecordDeleted
+            title: Record Deleted Error
+            message: The requested resource has been deleted.
+            description: ''
+            links: []
     Error401:
       type: object
       description: ''
@@ -345,324 +651,42 @@ components:
             message: Token is invalid.
             description: ''
             links: []
-    analytics_popularity_vod_stream:
-      type: object
-      description: ''
-      properties:
-        vod_stream:
-          type: object
-          title: vod_stream
-          description: ''
-          properties:
-            id:
-              type: string
-              description: The unique alphanumeric string that identifies the VOD stream.
-              format: int32
-            plays:
-              type: integer
-              description: The total number of plays for a VOD stream. A play is registered when the stream begins to play.
-              example: ''
-              format: int32
-            displays:
-              type: integer
-              description: The total number of displays for a VOD stream. A display is registered when the player is completely loaded and ready to play the VOD stream.
-              example: ''
-              format: int32
-            trend:
-              type: object
-              title: Array of popularity trends
-              description: "An array of popularity trend data. The granularity of sampled data changes based on the from and to query values you use:\n\n1. Requests made for data _within_ the most recent 3 days returns sample intervals by the hour. You can return sample intervals by the minute by specifying a specific hour range.\n\n2. Requests made for data _beyond_ the most recent 3 days can only return sample intervals by the hour or day. The minute data is not retained beyond the 3rd day. \n\n\n <blockquote>Note: Data from the most recent hour data might not be included in the result of a time range that extends beyond the most recent 3 days. </blockquote>\n\n\n\n<strong>Default</strong>: Last hour"
-              properties:
-                plays:
-                  type: integer
-                  description: The total number of plays for a VOD stream at the time the trend data was sampled. A play is registered when the stream begins to play.
-                  example: ''
-                  format: int32
-                displays:
-                  type: integer
-                  description: 'The total number of displays for a VOD stream at the time the trend data was sampled. A display is registered when the player is completely loaded and ready to play the VOD stream. '
-                  example: ''
-                  format: int32
-                sampled_at:
-                  type: string
-                  description: The date and time the trend data was sampled.
-                  format: date-time
-            limits:
-              type: object
-              description: The time frame represented in the response.
-              properties:
-                from:
-                  type: string
-                  description: The start of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-                to:
-                  type: string
-                  description: The end of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-      example:
-        vod_stream:
-          id: tvctq36g
-          plays: 2
-          displays: 2
-          trend:
-          - plays: 1
-            displays: 1
-            sampled_at: '2024-03-14T11:31:54.000Z'
-          - plays: 1
-            displays: 1
-            sampled_at: '2024-03-14T12:31:54.000Z'
-        limits:
-          from: '2024-03-14T10:31:54.000Z'
-          to: '2024-03-14T10:31:54.000Z'
-    Error422:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. ... can't be blank
-            description: ''
-            links: []
-        Example Response 2:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. Provider wowza_video is not allowed
-            description: ''
-            links: []
-        Example Response 3:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
-            description: ''
-            links: []
-        Example Response 4:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
-            description: ''
-            links: []
-        Example Response 5:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
-            description: ''
-            links: []
-    Error410:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 410
-            code: ERR-410-RecordDeleted
-            title: Record Deleted Error
-            message: The requested resource has been deleted.
-            description: ''
-            links: []
-    analytics_popularity_live_stream:
-      type: object
-      description: ''
-      properties:
-        live_stream:
-          type: object
-          title: live_stream
-          description: ''
-          properties:
-            id:
-              type: string
-              description: The unique alphanumeric string that identifies the live stream or real-time stream.
-              format: int32
-            plays:
-              type: integer
-              description: The total number of plays for a live stream or real-time stream. A play is registered when the stream begins to play.
-              example: ''
-              format: int32
-            displays:
-              type: integer
-              description: The total number of displays for a live stream or real-time stream. A display is registered when the player is completely loaded and ready to play the stream.
-              example: ''
-              format: int32
-            trend:
-              type: object
-              title: Array of popularity trends
-              description: "An array of popularity trend data. The granularity of sampled data changes based on the from and to query values you use:\n\n1. Requests made for data _within_ the most recent 3 days returns sample intervals by the hour. You can return sample intervals by the minute by specifying a specific hour range.\n\n2. Requests made for data _beyond_ the most recent 3 days can only return sample intervals by the hour or day. The minute data is not retained beyond the 3rd day. \n\n\n <blockquote>Note: Data from the most recent hour data might not be included in the result of a time range that extends beyond the most recent 3 days. </blockquote>\n\n\n<strong>Default</strong>: Last hour"
-              properties:
-                plays:
-                  type: integer
-                  description: The total number of plays for a stream at the time the trend data was sampled. A play is registered when the stream begins to play.
-                  example: ''
-                  format: int32
-                displays:
-                  type: integer
-                  description: The total number of displays for a stream at the time the trend data was sampled. A display is registered when the player is completely loaded and ready to play the stream.
-                  example: ''
-                  format: int32
-                sampled_at:
-                  type: string
-                  description: The date and time the trend data was sampled.
-                  format: date-time
-            limits:
-              type: object
-              description: The time frame represented in the response.
-              properties:
-                from:
-                  type: string
-                  description: The start of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-                to:
-                  type: string
-                  description: The end of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-      example:
-        live_stream:
-          id: tvctq36g
-          plays: 2
-          displays: 2
-          trend:
-          - plays: 1
-            displays: 1
-            sampled_at: '2024-03-14T11:31:54.000Z'
-          - plays: 1
-            displays: 1
-            sampled_at: '2024-03-14T12:31:54.000Z'
-        limits:
-          from: '2024-03-14T10:31:54.000Z'
-          to: '2024-04-13T10:31:54.000Z'
-    Error404:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 404
-            code: ERR-404-RecordNotFound
-            title: Record Not Found Error
-            message: The requested resource couldn't be found.
-            description: ''
-            links: []
   securitySchemes:
-    basicAuth:
+    WV_JWT:
       type: http
-      scheme: basic
-      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
-    digestAuth:
-      type: http
-      scheme: digest
-      description: HTTP Digest Authentication
+      scheme: bearer
+      description: Your Wowza-generated access token, also called a JSON web token (JWT). Send it as a bearer token in the Authentication header of your requests. See [Authentication](https://www.wowza.com/docs/how-to-use-the-wowza-video-rest-api#authentication).
+x-tagGroups:
+- name: Resource Management
+  tags:
+  - live_streams
+  - transcoders
+  - stream_sources
+  - stream_targets
+  - schedules
+  - real_time
+  - videos
+  - categories
+  - advanced_token_authentication
+  - clipping
+- name: Analytics
+  tags:
+  - analytics_viewers
+  - analytics_ingest
+  - analytics_engagement
+  - analytics_popularity
+  - quality_of_experience
+- name: Usage
+  tags:
+  - usage_account
+  - usage_transcoders
+  - usage
+  - usage_real_time_streams
+- name: Deprecated in 2.0
+  tags:
+  - assets
+  - players
+  - recordings
+  - vod_streams
+  - storage
+  - usage_vod_streams

@@ -1,19 +1,13 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Wowza Streaming Engine REST advanced_token_authentication clipping API
-  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
-  version: 2.0.0
-  contact:
-    name: Wowza Media Systems
-    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  version: v2.0
+  title: Wowza Video REST API Reference Documentation Clipping API
   license:
-    name: Wowza Media Systems
-    url: https://www.wowza.com
+    name: Terms of Use
+    url: https://www.wowza.com/legal/terms-of-use
+  description: "API lifecycle phase: [Current](https://www.wowza.com/docs/wowza-video-rest-api-lifecycle-management#api-lifecycle0)\n\n\n<table>\n<tr style=\"background-color:lightgrey;\"><td>\n<strong>Want to take the API for a test run?</strong>\n\nAll you'll need is a [Wowza Video subscription](https://www.wowza.com/pricing), or [free trial](https://www.wowza.com/free-trial), for the API access token. Then, fork [our collection in Postman](https://www.postman.com/wowzavideo/workspace/wowza-video-rest-api) and you'll be\nmaking calls to our REST API in minutes!\n\nSee [Trial the Wowza Video REST API using Postman](https://www.wowza.com/docs/trial-the-wowza-video-rest-api-using-postman) for more information.\n</td>\n</tr>\n</table>\n\n\nThis reference documentation provides details about the operations, parameters, and request and response schemas for every resource and endpoint in the Wowza Video REST API.\nSamples appear in the right column. Sample requests are presented in cURL (Shell) and JavaScript; some samples also include just the JSON object. Response samples are all JSON. \nExamples in cURL use environment variables so you can easily copy and paste them. To learn more, see [Using cURL](https://wowza.com/docs/how-to-use-the-wowza-video-rest-api#curl).\n\n\nReference documentation is available for every version of the API. Use the **Version** menu at the top of the page to access the reference doc for a different version of the API.\n\n<blockquote><strong>Note</strong>: If you haven't moved over to the new Wowza Video UI experience, you won't be able to access v2.0 of the API. We're migrating customers iteratively. See <a href=\"https://developer.wowza.com/docs/wowza-video/upgrade-to-wowza-video/\">Upgrade to the Wowza Video 2.0 REST API</a> for more information.</blockquote>\n"
 servers:
-- url: http://localhost:8087
-  description: Wowza Streaming Engine Server
-security:
-- basicAuth: []
+- url: https://api.video.wowza.com/api/v2.0
 tags:
 - name: clipping
   description: Operations related to clipping and stitching videos and live streams.
@@ -101,482 +95,6 @@ paths:
                 $ref: '#/components/schemas/Error422'
 components:
   schemas:
-    Error403:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 403
-            code: ERR-403-RecordUnaccessible
-            title: Record Unaccessible Error
-            message: The requested resource isn't accessible.
-            description: ''
-            links: []
-    Error401:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 401
-            code: ERR-401-NoApiKey
-            title: No API Key Error
-            message: No API key sent in header.
-            description: ''
-            links: []
-        Example Response 2:
-          meta:
-            status: 401
-            code: ERR-401-NoAccessKey
-            title: No Access Key Error
-            message: No access key sent in header.
-            description: ''
-            links: []
-        Example Response 3:
-          meta:
-            status: 401
-            code: ERR-401-InvalidApiKey
-            title: Invalid Api Key Error
-            message: Invalid API key.
-            description: ''
-            links: []
-        Example Response 4:
-          meta:
-            status: 401
-            code: ERR-401-InvalidAccessKey
-            title: Invalid Access Key Error
-            message: Invalid access key.
-            description: ''
-            links: []
-        Example Response 5:
-          meta:
-            status: 401
-            code: ERR-401-BadAccountStatus
-            title: Bad Account Status Error
-            message: Your account's status doesn't allow this action.
-            description: ''
-            links: []
-        Example Response 6:
-          meta:
-            status: 401
-            code: ERR-401-FeatureNotEnabled
-            title: Feature Not Enabled Error
-            message: This feature isn't enabled.
-            description: ''
-            links: []
-        Example Response 7:
-          meta:
-            status: 401
-            code: ERR-401-TrialExceeded
-            title: Bad Billing Status Error
-            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
-            description: ''
-            links: []
-        Example Response 8:
-          meta:
-            status: 401
-            code: ERR-401-ExpiredToken
-            title: JWT is expired
-            message: Token has exired.
-            description: ''
-            links: []
-        Example Response 9:
-          meta:
-            status: 401
-            code: ERR-401-InvalidToken
-            title: JWT is invalid
-            message: Token is invalid.
-            description: ''
-            links: []
-    CreateClipStitch:
-      required:
-      - mode
-      - clips
-      type: object
-      properties:
-        clips:
-          type: array
-          description: Represents an array of videos or live streams to be included in the clip/stitch operation. If you include only one video or live stream, it is clipped based on `start` and `stop`. If you include more than one video or live stream, they are clipped based on `start` and `stop`, and stitched as one clip.
-          items:
-            required:
-            - id
-            - asset_type
-            type: object
-            title: clips
-            properties:
-              id:
-                type: string
-                description: Specifies the id of the video or live stream to be clipped and/or stitched.
-                example: 73a0c613-8972-14cd-9d0c-3c993bddb388
-              asset_type:
-                type: string
-                description: Specifies the asset type.
-                example: VOD
-                enum:
-                - VOD
-                - LIVE_STREAM
-              start:
-                type: string
-                description: 'Starting time of the video segment in 24-hour format with frame precision (HH:MM:SS:FF). If omitted, video starts from the beginning.
-
-
-                  If you are clipping a live stream, the start time of the stream must be in ISO-8601 format, which is YYYY-MM-DDThh:mm:ssZ.'
-                example: 00:01:20:00
-              stop:
-                type: string
-                description: 'Ending time of the video segment in 24-hour format with frame precision (HH:MM:SS:FF). If omitted, video continues until its natural end.
-
-
-                  If you are clipping a live stream, the end time of the stream must be in ISO-8601 format, which is YYYY-MM-DDThh:mm:ssZ.'
-                example: 00:05:25:00
-        mode:
-          type: string
-          description: 'Specifies the mode for clipping/stitching operations. In `QUICK` mode, clipping can only be performed on segment breakpoints, optimizing for speed. For example, for a video or live stream that has 8-second interval breakpoint, if you specify a breakpoint outside the 8-second interval, the breakpoint is defaulted to the closest 8-second breakpoint. If you set your `start` as 00:00:10:00 (HH:MM:SS:FF), it will set your `start` to 00:00:08:00 ((HH:MM:SS:FF). In `PRECISE` mode, clipping can be performed on the frame level, ensuring higher accuracy but requiring more processing time. `PRECISE` mode incurs additional encoding time and cost.
-
-
-            **Note**: If you are clipping or stitching live streams, the `start` and `stop` times must be in ISO-8601 format, which is YYYY-MM-DDThh:mm:ssZ.'
-          example: PRECISE
-          enum:
-          - QUICK
-          - PRECISE
-        name:
-          type: string
-          description: A descriptive name of the video that's displayed in the player. If not specified, it will default to the input file's name.
-          example: My video
-        description:
-          type: string
-          description: A description of the video that's displayed in the player.
-          example: A new video for my business.
-        category_id:
-          type: string
-          description: The unique identifier for the category that the video belongs to.
-          default: <The account's default category>
-        tags:
-          type: array
-          description: A list of tags.
-          example:
-          - foo
-          - bar
-          items:
-            type: string
-            description: A list of tags.
-            example:
-            - foo
-            - bar
-        published_at:
-          type: string
-          description: Date and time, in ISO-8601 format, when video is available for publishing. Before this date the video is not visible in the player if using [ovp-plugin](https://developer.wowza.com/docs/wowza-flowplayer/plugins/wowza-video-platform-integration/) to request the video.
-          format: date-time
-          example: '2024-05-01T12:33:22Z'
-        published:
-          type: boolean
-          description: Determines, together with `published_at` and `unpublished_at`, if this video will be visible in public listings such as MRSS-feeds, endscreens, and playlists. If `true`, and if `published_at` and `unpublished_at` allow, the video will be visible.
-        unpublish:
-          type: boolean
-          description: If `true`, the `unpublished_at` is respected and the video will not be available after `unpublished_at`. If `false`, the video will not be unpublished.
-          default: false
-        unpublished_at:
-          type: string
-          description: Date and time, in ISO-8601, format when video no longer is available for publishing. After this date, the video is not visible in the player if using [ovp-plugin](https://developer.wowza.com/docs/wowza-flowplayer/plugins/wowza-video-platform-integration/) to request the video.
-          format: date-time
-          example: '2025-01-01T12:33:22Z'
-        no_ads:
-          type: boolean
-          description: "When set to `true`, no ads will be displayed during this video. \n\n**Note**: This feature only works for Iframe embeds."
-        ad_keywords:
-          type: string
-          description: 'Used for replacing the `ad_keywords` macro in the VAST-tag in any player that plays the video. '
-          example: special_ads
-        replace_video_id:
-          type: string
-          description: 'Specifies the video id of the video to be replaced by the clip/stitch operation. If the video id is not provided, a new video will be created.
-
-
-            **Caution!** Once you replace the original video with the clip, you will no longer be able to retrieve the original video.'
-    EncodingModel:
-      type: object
-      properties:
-        audio_bitrate_in_kbps:
-          type: integer
-          description: Audio bitrate in kb/s.
-          format: int32
-          example: 2300
-        audio_channel:
-          type: integer
-          description: Number of audio channels.
-          format: int32
-          example: 2
-        audio_codec:
-          type: string
-          description: Audio codec used in the file.
-          example: aac
-        audio_sample_rate:
-          type: integer
-          description: Audio sample rate for this file. Refers to the number of samples of audio taken per second, measured in hertz (Hz). It determines the audio's frequency range and quality, where a higher sample rate captures more detail.
-          format: int32
-          example: 44100
-        height:
-          type: integer
-          description: Height of the video in pixels.
-          format: int32
-          example: 1080
-        width:
-          type: integer
-          description: Width of the video in pixels.
-          format: int32
-          example: 1920
-        video_file_url:
-          type: string
-          description: URL to the video file. We accept HTTP and HTTPS addresses.
-          example: https://flowplayer.com/video.mp4
-        video_container:
-          type: string
-          description: Video container type used for this video file.
-          example: mp4
-        video_codec:
-          type: string
-          description: Video codec used in this video file.
-          example: h264
-        total_bitrate_in_kbps:
-          type: integer
-          description: Total bitrate, video+audio, for the file in kb/s.
-          format: int32
-          example: 1023
-        created_at:
-          type: string
-          description: Creation timestamp of the file.
-          format: date-time
-        size_in_bytes:
-          type: integer
-          description: Total file size including both audio and video in bytes. For segmented files, such as DASH and HLS, this is the complete size covering all segments and renditions.
-          format: int64
-          example: 8325555
-      description: Array containing all available Video files and their metadata
-    Error422:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. ... can't be blank
-            description: ''
-            links: []
-        Example Response 2:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. Provider wowza_video is not allowed
-            description: ''
-            links: []
-        Example Response 3:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
-            description: ''
-            links: []
-        Example Response 4:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
-            description: ''
-            links: []
-        Example Response 5:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
-            description: ''
-            links: []
-    Error410:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 410
-            code: ERR-410-RecordDeleted
-            title: Record Deleted Error
-            message: The requested resource has been deleted.
-            description: ''
-            links: []
-    CreateClipStitchRequestModel:
-      type: object
-      description: Create clip/stitch request for the Wowza Video REST API
-      properties:
-        clipping:
-          type: object
-          $ref: '#/components/schemas/CreateClipStitch'
-    ImageModel:
-      type: object
-      properties:
-        type:
-          type: string
-          description: Image type where valid values are `thumbnail` or `image`. `thumbnail` is a smaller image and `image` is larger. Size of the images depends on the size of the uploaded image.
-          enum:
-          - thumbnail
-          - image
-          - image_0
-          - image_1
-          - image_2
-          - image_3
-          - image_4
-          - image_5
-        url:
-          type: string
-          description: The URL to the image. We accept HTTP and HTTPS addresses.
-          example: https://example.com/image.jpg
-      description: 'Images used together with the video in the platform and the player.
-
-
-        For platform video images specified in create and update requests, these are uploaded and delivered through the platform. For remote assets, the specified image URLs are just passed along to the player using the URL specified in the request.
-
-        '
     CreateClipStitchResponseModel:
       type: object
       properties:
@@ -737,6 +255,326 @@ components:
               type: integer
               description: Tracks the number of times a new source file was uploaded for this video asset. For each time a new source file is uploaded, the value increases by one.
               format: int32
+    EncodingModel:
+      type: object
+      properties:
+        audio_bitrate_in_kbps:
+          type: integer
+          description: Audio bitrate in kb/s.
+          format: int32
+          example: 2300
+        audio_channel:
+          type: integer
+          description: Number of audio channels.
+          format: int32
+          example: 2
+        audio_codec:
+          type: string
+          description: Audio codec used in the file.
+          example: aac
+        audio_sample_rate:
+          type: integer
+          description: Audio sample rate for this file. Refers to the number of samples of audio taken per second, measured in hertz (Hz). It determines the audio's frequency range and quality, where a higher sample rate captures more detail.
+          format: int32
+          example: 44100
+        height:
+          type: integer
+          description: Height of the video in pixels.
+          format: int32
+          example: 1080
+        width:
+          type: integer
+          description: Width of the video in pixels.
+          format: int32
+          example: 1920
+        video_file_url:
+          type: string
+          description: URL to the video file. We accept HTTP and HTTPS addresses.
+          example: https://flowplayer.com/video.mp4
+        video_container:
+          type: string
+          description: Video container type used for this video file.
+          example: mp4
+        video_codec:
+          type: string
+          description: Video codec used in this video file.
+          example: h264
+        total_bitrate_in_kbps:
+          type: integer
+          description: Total bitrate, video+audio, for the file in kb/s.
+          format: int32
+          example: 1023
+        created_at:
+          type: string
+          description: Creation timestamp of the file.
+          format: date-time
+        size_in_bytes:
+          type: integer
+          description: Total file size including both audio and video in bytes. For segmented files, such as DASH and HLS, this is the complete size covering all segments and renditions.
+          format: int64
+          example: 8325555
+      description: Array containing all available Video files and their metadata
+    CreateClipStitch:
+      required:
+      - mode
+      - clips
+      type: object
+      properties:
+        clips:
+          type: array
+          description: Represents an array of videos or live streams to be included in the clip/stitch operation. If you include only one video or live stream, it is clipped based on `start` and `stop`. If you include more than one video or live stream, they are clipped based on `start` and `stop`, and stitched as one clip.
+          items:
+            required:
+            - id
+            - asset_type
+            type: object
+            title: clips
+            properties:
+              id:
+                type: string
+                description: Specifies the id of the video or live stream to be clipped and/or stitched.
+                example: 73a0c613-8972-14cd-9d0c-3c993bddb388
+              asset_type:
+                type: string
+                description: Specifies the asset type.
+                example: VOD
+                enum:
+                - VOD
+                - LIVE_STREAM
+              start:
+                type: string
+                description: 'Starting time of the video segment in 24-hour format with frame precision (HH:MM:SS:FF). If omitted, video starts from the beginning.
+
+
+                  If you are clipping a live stream, the start time of the stream must be in ISO-8601 format, which is YYYY-MM-DDThh:mm:ssZ.'
+                example: 00:01:20:00
+              stop:
+                type: string
+                description: 'Ending time of the video segment in 24-hour format with frame precision (HH:MM:SS:FF). If omitted, video continues until its natural end.
+
+
+                  If you are clipping a live stream, the end time of the stream must be in ISO-8601 format, which is YYYY-MM-DDThh:mm:ssZ.'
+                example: 00:05:25:00
+        mode:
+          type: string
+          description: 'Specifies the mode for clipping/stitching operations. In `QUICK` mode, clipping can only be performed on segment breakpoints, optimizing for speed. For example, for a video or live stream that has 8-second interval breakpoint, if you specify a breakpoint outside the 8-second interval, the breakpoint is defaulted to the closest 8-second breakpoint. If you set your `start` as 00:00:10:00 (HH:MM:SS:FF), it will set your `start` to 00:00:08:00 ((HH:MM:SS:FF). In `PRECISE` mode, clipping can be performed on the frame level, ensuring higher accuracy but requiring more processing time. `PRECISE` mode incurs additional encoding time and cost.
+
+
+            **Note**: If you are clipping or stitching live streams, the `start` and `stop` times must be in ISO-8601 format, which is YYYY-MM-DDThh:mm:ssZ.'
+          example: PRECISE
+          enum:
+          - QUICK
+          - PRECISE
+        name:
+          type: string
+          description: A descriptive name of the video that's displayed in the player. If not specified, it will default to the input file's name.
+          example: My video
+        description:
+          type: string
+          description: A description of the video that's displayed in the player.
+          example: A new video for my business.
+        category_id:
+          type: string
+          description: The unique identifier for the category that the video belongs to.
+          default: <The account's default category>
+        tags:
+          type: array
+          description: A list of tags.
+          example:
+          - foo
+          - bar
+          items:
+            type: string
+            description: A list of tags.
+            example:
+            - foo
+            - bar
+        published_at:
+          type: string
+          description: Date and time, in ISO-8601 format, when video is available for publishing. Before this date the video is not visible in the player if using [ovp-plugin](https://developer.wowza.com/docs/wowza-flowplayer/plugins/wowza-video-platform-integration/) to request the video.
+          format: date-time
+          example: '2024-05-01T12:33:22Z'
+        published:
+          type: boolean
+          description: Determines, together with `published_at` and `unpublished_at`, if this video will be visible in public listings such as MRSS-feeds, endscreens, and playlists. If `true`, and if `published_at` and `unpublished_at` allow, the video will be visible.
+        unpublish:
+          type: boolean
+          description: If `true`, the `unpublished_at` is respected and the video will not be available after `unpublished_at`. If `false`, the video will not be unpublished.
+          default: false
+        unpublished_at:
+          type: string
+          description: Date and time, in ISO-8601, format when video no longer is available for publishing. After this date, the video is not visible in the player if using [ovp-plugin](https://developer.wowza.com/docs/wowza-flowplayer/plugins/wowza-video-platform-integration/) to request the video.
+          format: date-time
+          example: '2025-01-01T12:33:22Z'
+        no_ads:
+          type: boolean
+          description: "When set to `true`, no ads will be displayed during this video. \n\n**Note**: This feature only works for Iframe embeds."
+        ad_keywords:
+          type: string
+          description: 'Used for replacing the `ad_keywords` macro in the VAST-tag in any player that plays the video. '
+          example: special_ads
+        replace_video_id:
+          type: string
+          description: 'Specifies the video id of the video to be replaced by the clip/stitch operation. If the video id is not provided, a new video will be created.
+
+
+            **Caution!** Once you replace the original video with the clip, you will no longer be able to retrieve the original video.'
+    ImageModel:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Image type where valid values are `thumbnail` or `image`. `thumbnail` is a smaller image and `image` is larger. Size of the images depends on the size of the uploaded image.
+          enum:
+          - thumbnail
+          - image
+          - image_0
+          - image_1
+          - image_2
+          - image_3
+          - image_4
+          - image_5
+        url:
+          type: string
+          description: The URL to the image. We accept HTTP and HTTPS addresses.
+          example: https://example.com/image.jpg
+      description: 'Images used together with the video in the platform and the player.
+
+
+        For platform video images specified in create and update requests, these are uploaded and delivered through the platform. For remote assets, the specified image URLs are just passed along to the player using the URL specified in the request.
+
+        '
+    Error403:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 403
+            code: ERR-403-RecordUnaccessible
+            title: Record Unaccessible Error
+            message: The requested resource isn't accessible.
+            description: ''
+            links: []
+    Error422:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. ... can't be blank
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. Provider wowza_video is not allowed
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
+            description: ''
+            links: []
+    CreateClipStitchRequestModel:
+      type: object
+      description: Create clip/stitch request for the Wowza Video REST API
+      properties:
+        clipping:
+          type: object
+          $ref: '#/components/schemas/CreateClipStitch'
     Error404:
       type: object
       description: ''
@@ -783,12 +621,198 @@ components:
             message: The requested resource couldn't be found.
             description: ''
             links: []
+    Error410:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 410
+            code: ERR-410-RecordDeleted
+            title: Record Deleted Error
+            message: The requested resource has been deleted.
+            description: ''
+            links: []
+    Error401:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 401
+            code: ERR-401-NoApiKey
+            title: No API Key Error
+            message: No API key sent in header.
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 401
+            code: ERR-401-NoAccessKey
+            title: No Access Key Error
+            message: No access key sent in header.
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 401
+            code: ERR-401-InvalidApiKey
+            title: Invalid Api Key Error
+            message: Invalid API key.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 401
+            code: ERR-401-InvalidAccessKey
+            title: Invalid Access Key Error
+            message: Invalid access key.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 401
+            code: ERR-401-BadAccountStatus
+            title: Bad Account Status Error
+            message: Your account's status doesn't allow this action.
+            description: ''
+            links: []
+        Example Response 6:
+          meta:
+            status: 401
+            code: ERR-401-FeatureNotEnabled
+            title: Feature Not Enabled Error
+            message: This feature isn't enabled.
+            description: ''
+            links: []
+        Example Response 7:
+          meta:
+            status: 401
+            code: ERR-401-TrialExceeded
+            title: Bad Billing Status Error
+            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
+            description: ''
+            links: []
+        Example Response 8:
+          meta:
+            status: 401
+            code: ERR-401-ExpiredToken
+            title: JWT is expired
+            message: Token has exired.
+            description: ''
+            links: []
+        Example Response 9:
+          meta:
+            status: 401
+            code: ERR-401-InvalidToken
+            title: JWT is invalid
+            message: Token is invalid.
+            description: ''
+            links: []
   securitySchemes:
-    basicAuth:
+    WV_JWT:
       type: http
-      scheme: basic
-      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
-    digestAuth:
-      type: http
-      scheme: digest
-      description: HTTP Digest Authentication
+      scheme: bearer
+      description: Your Wowza-generated access token, also called a JSON web token (JWT). Send it as a bearer token in the Authentication header of your requests. See [Authentication](https://www.wowza.com/docs/how-to-use-the-wowza-video-rest-api#authentication).
+x-tagGroups:
+- name: Resource Management
+  tags:
+  - live_streams
+  - transcoders
+  - stream_sources
+  - stream_targets
+  - schedules
+  - real_time
+  - videos
+  - categories
+  - advanced_token_authentication
+  - clipping
+- name: Analytics
+  tags:
+  - analytics_viewers
+  - analytics_ingest
+  - analytics_engagement
+  - analytics_popularity
+  - quality_of_experience
+- name: Usage
+  tags:
+  - usage_account
+  - usage_transcoders
+  - usage
+  - usage_real_time_streams
+- name: Deprecated in 2.0
+  tags:
+  - assets
+  - players
+  - recordings
+  - vod_streams
+  - storage
+  - usage_vod_streams

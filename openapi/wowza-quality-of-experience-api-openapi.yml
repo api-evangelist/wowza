@@ -1,19 +1,13 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Wowza Streaming Engine REST advanced_token_authentication quality_of_experience API
-  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
-  version: 2.0.0
-  contact:
-    name: Wowza Media Systems
-    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  version: v2.0
+  title: Wowza Video REST API Reference Documentation Quality Of Experience API
   license:
-    name: Wowza Media Systems
-    url: https://www.wowza.com
+    name: Terms of Use
+    url: https://www.wowza.com/legal/terms-of-use
+  description: "API lifecycle phase: [Current](https://www.wowza.com/docs/wowza-video-rest-api-lifecycle-management#api-lifecycle0)\n\n\n<table>\n<tr style=\"background-color:lightgrey;\"><td>\n<strong>Want to take the API for a test run?</strong>\n\nAll you'll need is a [Wowza Video subscription](https://www.wowza.com/pricing), or [free trial](https://www.wowza.com/free-trial), for the API access token. Then, fork [our collection in Postman](https://www.postman.com/wowzavideo/workspace/wowza-video-rest-api) and you'll be\nmaking calls to our REST API in minutes!\n\nSee [Trial the Wowza Video REST API using Postman](https://www.wowza.com/docs/trial-the-wowza-video-rest-api-using-postman) for more information.\n</td>\n</tr>\n</table>\n\n\nThis reference documentation provides details about the operations, parameters, and request and response schemas for every resource and endpoint in the Wowza Video REST API.\nSamples appear in the right column. Sample requests are presented in cURL (Shell) and JavaScript; some samples also include just the JSON object. Response samples are all JSON. \nExamples in cURL use environment variables so you can easily copy and paste them. To learn more, see [Using cURL](https://wowza.com/docs/how-to-use-the-wowza-video-rest-api#curl).\n\n\nReference documentation is available for every version of the API. Use the **Version** menu at the top of the page to access the reference doc for a different version of the API.\n\n<blockquote><strong>Note</strong>: If you haven't moved over to the new Wowza Video UI experience, you won't be able to access v2.0 of the API. We're migrating customers iteratively. See <a href=\"https://developer.wowza.com/docs/wowza-video/upgrade-to-wowza-video/\">Upgrade to the Wowza Video 2.0 REST API</a> for more information.</blockquote>\n"
 servers:
-- url: http://localhost:8087
-  description: Wowza Streaming Engine Server
-security:
-- basicAuth: []
+- url: https://api.video.wowza.com/api/v2.0
 tags:
 - name: quality_of_experience
   description: Operations related to quality of experience metrics.
@@ -198,7 +192,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/analytics_qoe_error_density_media_{id}'
+                $ref: '#/components/schemas/analytics_qoe_error_density_media__id'
         '401':
           description: Unauthorized
           content:
@@ -2630,574 +2624,9 @@ paths:
                 $ref: '#/components/schemas/Error422'
 components:
   schemas:
-    analytics_qoe_rebuffer_count_drilldown_trend:
+    analytics_qoe_errors_detail_media_error_code:
       type: object
-      description: ''
-      properties:
-        media:
-          type: object
-          title: Array of media
-          description: ''
-          properties:
-            id:
-              type: string
-              description: The unique alphanumeric string that identifies the live stream or video.
-              example: ''
-            trend:
-              type: object
-              description: 'An array of rebuffer count drill down trends. The granularity of sampled data changes based on the from and to query values you use:
-
-
-                <ul><li>0 minutes to 8 hours - Samples returned per minute</li> <li>8 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 175 days - Samples returned per day</li> <li>175 days to 14 years - Samples returned per month</li> <li>14 years or greater - Samples returned per year</li></ul>'
-              properties:
-                sampled at:
-                  type: string
-                  description: The date and time the trend data was sampled.
-                  format: date-time
-                rebuffer_count:
-                  type: number
-                  description: The rebuffer count encountered during video playback.
-                  example: ''
-                  format: float
-            limits:
-              type: object
-              description: The time frame represented in the response.
-              properties:
-                from:
-                  type: string
-                  description: The start of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-                to:
-                  type: string
-                  description: The end of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-      example:
-        media:
-        - id: 62588c40-9326-4a98-8836-a347bdad6e5b
-          trend:
-          - sampled_at: '2024-10-08T14:35:00Z'
-            rebuffer_count: 1.19
-          - sampled_at: '2024-10-08T14:35:00Z'
-            rebuffer_count: 1.19
-        limits:
-          from: '2024-09-08T14:35:00Z'
-          to: '2024-10-08T14:35:00Z'
-    analytics_qoe_errors_drilldown_trend_error_code:
-      type: object
-      description: ''
-      properties:
-        error:
-          type: object
-          title: error
-          description: ''
-          properties:
-            code:
-              type: string
-              description: The error code id. For a full list of the player error codes, see this <a href= "https://try.flowplayer.com/?channel=stable#0=N4IgtglgJlA2CmIBcBWADAGhAZ3ggxgC7xTIgB0+22IW+A9rPQE5nMDmARgBQDMAHBnRCAbAEpaIQgAt4YREnABDYswhLYAWgAOG+ADsI7aYUmwlAT3oBXU4qW36k5vGwQAXvCWcEyQs2t4LBIIQm9fJH9ArEJ6Rk4lVkiAoJAAMwgEABVvGmTokFgIfQBrHM48qNTsaUT4ACFbWP0-FKwXJiUoRsJm1oKGfWxGBSqsB1iAJTx6Lv7UifppzqgAETxLZAAWNEwQRYAxenxrPLSNXHHHAAl4IxNkc9hLnHxmRlhkAG1MNABdLAZBB5L6gfRKeRkbQuABuEHgAHdJINiPo7CAQABfDBgiEKKT0EoGcgAKxodHoaIM6IRxSg9AR5AA+kyDgAZADyAHUAApsgCCAE0AKKTJlZDkAaWFADkALwAHRA8AsAClmEouQBFCAciCqrUAZRJUBlxukKCg7gAsrwtWB+BA2QBhVVoeAADX5uv1koAagBGHUu1XSTgAcXwPtVBwAqu4AJIBmX6gCc5BVqpJCZJ9HhAdpgq5MuwHudCZEKYAHvgE2BYCUyxWywbjabzZabXawKna-o0E7Xdp8LxrdHwxHU7x8OGq7IuX6LAn++Q-arrtd9F5w4bw6sufRBcwtiJDfh+at2Ch6uH+WhrvzmPxDbwPVlVQAmNLsNn0VOaGVCAALX4bRDQ-EQPTCLUSnwVN6Hqa4uWgcwIAgKt6GkfhhWYBEoGYElrQ5egPy1epJQRJUAG5JGkaAoAMeZsVxSFFFJckQBRakyA5TgSXgIgMzRNRXG4NImARbRzAseBmAzZh3mYbAxHINIWGFJR8GkbhuC+IkLAwAACBgGL+MQ5QAPkM4AFX0QzjMpbBCEM-ThQQOVDPpE55DRSgXBUeA3LkaluCVbBdH0JUxFs+zBichyGKCwyPK86wfMIPyvGIIL0tCnAIqimKHKGZywh8eBks8440upch2HgQgcupeolygPLZMUzQTNcQq7JclUgvIYgq0IZ1KVRZyPP0orusG4bRvG6lKu6oqyoQcglG0bQDDa1yECM2aEGi-RMQkLBcAIQgIEcsgUCQD9+CxHEQHBViKCoDiuLRMgAGIOpYLr6AY7BrKKqAIHC6SkEM9g1CgKiith6BNGIMApICwHYDSoZoYDNJmEMvHmCowyAHoACpDOFABHawNEM2koBkBysbAIZDPJ0nEc26GPzQbQqxJinDMNXR8AqzgGoReADBZ7GQc52zMUkC6BKum7FF4e60Celj8XIEx62RRbvsUWyAB5wZhQzoEVZUFIB7rsCVCyiot0mrYslW8DV66hjIAMkC2LEAUKYoShBUBCAsbayCcixfCwV78U4IGLEkaxmE+RQTEIbRsCQUnSf8CxVIk9GZLkhgwFJgI0QgeRNCgRISkoahaPoxj8ngZiXrxMh6BhbQM6zshc-zwvSfwKB9DLhkK9kyh6BrjovFwbBSfBK6YXgUneFJpzwl3qTrHYYoN8H7RyEgWeyUkaPY8UbA3ggbRTCwOiYC7qpe+TsfnhHtnEA48C5F2nrPcS89pKL2rrXH2Sh16bxUBAHee8D5rWPljM+QxSbSGeNfYo7F74x3xM-NQb8O5fxaN3X+-dFCQMktA1gWBM5AJAZPcBc9GGWBgcvOBCAEGuCQdvXe+9D7lQ9vAc41hYCEFJgwheckb5EJiCQuOL8KEf07tQn+z0-70PLkwtuHFWFj16BPMBM8uGKKXiveBiCt4oNEego+6CE67wUUYj6xDH44GjonYB2imJ-ExEAA">list</a>.
-              example: ''
-            trend:
-              type: object
-              title: Array of error density trends
-              description: 'An array of error density trend data. The granularity of sampled data changes based on the from and to query values you use:
-
-
-                <ul><li>0 minutes to 8 hours - Samples returned per minute</li> <li>8 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 175 days - Samples returned per day</li> <li>175 days to 14 years - Samples returned per month</li> <li>14 years or greater - Samples returned per year</li></ul>'
-              properties:
-                sampled_at:
-                  type: string
-                  description: The date and time the trend data was sampled.
-                  format: date-time
-                count:
-                  type: integer
-                  description: The total number of times this specific error occurred at the sampled time.
-                  example: ''
-            limits:
-              type: object
-              description: The time frame represented in the response.
-              properties:
-                from:
-                  type: string
-                  description: The start of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-                to:
-                  type: string
-                  description: The end of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-            name:
-              type: string
-              description: The name of the playback error.
-              example: ''
-            type:
-              type: string
-              description: The type of event related to video/audio streaming.
-              example: ''
-      example:
-        error:
-        - code: 02-01
-          trend:
-            count: 10
-            sampled_at: '2024-09-19T00:00:00Z'
-          name: PlaybackVideoBufferUnderRun
-          type: Playback
-          limits:
-            from: '2024-09-08T14:35:00.000Z'
-            to: '2024-10-08T14:35:00.000Z'
-    analytics_qoe_errors_drilldown:
-      type: object
-      description: ''
-      properties:
-        error:
-          type: object
-          title: Error
-          description: ''
-          properties:
-            code:
-              type: string
-              description: The error code ID. For a full list of the player error codes, see this <a href="https://try.flowplayer.com/?channel=stable#0=N4Igtglg...">list</a>.
-              example: 02-01
-            name:
-              type: string
-              description: The name of the playback error.
-              example: PlaybackVideoBufferUnderRun
-            type:
-              type: string
-              description: The type of event related to video/audio streaming.
-              example: Playback
-            avg_retry_count:
-              type: number
-              format: float
-              description: The average number of retry attempts for the error.
-              example: 0.92
-            total_count:
-              type: integer
-              description: The total number of times the error occurred in the timeframe.
-              example: 10
-            session_count:
-              type: integer
-              description: The number of unique sessions in which the error occurred.
-              example: 2
-            trend:
-              type: array
-              title: Array of error density trends
-              description: "An array of error density trend data. The granularity of sampled data changes based on the from and to query values you use:\n<ul>\n  <li>0 minutes to 8 hours - Samples returned per minute</li>\n  <li>8 hours, 1 second to 24 hours - Samples returned per hour</li>\n  <li>24 hours, 1 second to 175 days - Samples returned per day</li>\n  <li>175 days to 14 years - Samples returned per month</li>\n  <li>14 years or greater - Samples returned per year</li>\n</ul>"
-              items:
-                type: object
-                properties:
-                  sampled_at:
-                    type: string
-                    format: date-time
-                    description: The date and time the trend data was sampled.
-                    example: '2024-09-08T14:35:00.000Z'
-                  count:
-                    type: integer
-                    description: The number of times this specific error occurred at that time.
-                    example: 3
-        limits:
-          type: object
-          description: The time frame represented in the response.
-          properties:
-            from:
-              type: string
-              format: date-time
-              description: The start of the range of time represented in the response.
-              example: '2024-09-08T14:35:00.000Z'
-            to:
-              type: string
-              format: date-time
-              description: The end of the range of time represented in the response.
-              example: '2024-10-08T14:35:00.000Z'
-            limit:
-              type: integer
-              description: The maximum number of results returned per page.
-              example: 10
-            page:
-              type: integer
-              description: The current page number of the response.
-              example: 0
-            max_page:
-              type: integer
-              description: The maximum number of available pages.
-              example: 0
-      example:
-        error:
-        - code: 02-01
-          avg_retry_count: 0.92
-          total_count: 10
-          session_count: 2
-          name: PlaybackVideoBufferUnderRun
-          type: Playback
-        limits:
-          from: '2024-09-08T14:35:00.000Z'
-          to: '2024-10-08T14:35:00.000Z'
-          limit: 10
-          page: 0
-          max_page: 0
-    analytics_qoe_error_free_sessions_media_media_ids:
-      type: object
-      description: ''
-      properties:
-        account:
-          type: object
-          title: media
-          description: ''
-          properties:
-            error_free_sessions:
-              type: integer
-              description: 'The percentage of sessions with no fatal errors across any stream before or during playback. A session is considered error-free if no fatal errors occur at any time, either before or during playback.
-
-
-                **Note:** The value for error-free sessions will be 100% if there is no playback activity during the specified time range, as no errors would have occurred.'
-              example: ''
-              format: int32
-            time_zone:
-              title: time_zone
-              type: string
-              description: The time zone in which the data is returned. The default time zone in which the data is returned is **Etc/UTC**.
-            trend:
-              type: object
-              title: Array of error free sessions
-              description: 'An array of error free sessions trend data. The granularity of sampled data changes based on the from and to query values you use:
-
-
-                <ul><li>0 minutes to 8 hours - Samples returned per minute</li> <li>8 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 175 days - Samples returned per day</li> <li>175 days to 14 years - Samples returned per month</li> <li>14 years or greater - Samples returned per year</li></ul>'
-              properties:
-                sampled_at:
-                  type: string
-                  description: The date and time the trend data was sampled.
-                  format: date-time
-                average:
-                  type: integer
-                  description: The average percentage of error free sessions encountered during video playback.
-                  example: ''
-                  format: int32
-            limits:
-              type: object
-              description: The time frame represented in the response.
-              properties:
-                from:
-                  type: string
-                  description: The start of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-                to:
-                  type: string
-                  description: The end of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-      example:
-        media:
-          error_free_sessions: 7
-          time_zone: America/New_York
-          trend:
-          - average: 1.0,
-            sampled_at: '2024-09-08T00:00:00+00:00'
-          - average: 2.0,
-            sampled_at: '2024-09-11T00:00:00+00:00'
-        limits:
-          from: '2024-09-08T14:35:00.000Z'
-          to: '2024-10-08T14:35:00.000Z'
-    analytics_qoe_error_free_sessions_account:
-      type: object
-      description: ''
-      properties:
-        account:
-          type: object
-          title: account
-          description: ''
-          properties:
-            error_free_sessions:
-              type: integer
-              description: 'The percentage of sessions with no fatal errors across any stream before or during playback. A session is considered error-free if no fatal errors occur at any time, either before or during playback.
-
-
-                **Note:** The value for error-free sessions will be 100% if there is no playback activity during the specified time range, as no errors would have occurred.  '
-              example: ''
-              format: int32
-            time_zone:
-              title: time_zone
-              type: string
-              description: The time zone in which the data is returned. The default time zone in which the data is returned is **Etc/UTC**.
-            trend:
-              type: object
-              title: Array of error free sessions
-              description: 'An array of error free sessions trend data. The granularity of sampled data changes based on the from and to query values you use:
-
-
-                <ul><li>0 minutes to 8 hours - Samples returned per minute</li> <li>8 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 175 days - Samples returned per day</li> <li>175 days to 14 years - Samples returned per month</li> <li>14 years or greater - Samples returned per year</li></ul>'
-              properties:
-                sampled_at:
-                  type: string
-                  description: The date and time the trend data was sampled.
-                  format: date-time
-                average:
-                  type: integer
-                  description: The average percentage of error free sessions encountered during video playback.
-                  example: ''
-                  format: int32
-            limits:
-              type: object
-              description: The time frame represented in the response.
-              properties:
-                from:
-                  type: string
-                  description: The start of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-                to:
-                  type: string
-                  description: The end of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-      example:
-        account:
-          error_free_sessions: 7
-          time_zone: America/New_York
-          trend:
-          - average: 1.0,
-            sampled_at: '2024-09-08T00:00:00+00:00'
-          - average: 2.0,
-            sampled_at: '2024-09-11T00:00:00+00:00'
-        limits:
-          from: '2024-09-08T14:35:00.000Z'
-          to: '2024-10-08T14:35:00.000Z'
-    analytics_qoe_rebuffer_time_drilldown_trend:
-      type: object
-      description: ''
-      properties:
-        media:
-          type: object
-          title: Array of media
-          description: ''
-          properties:
-            id:
-              type: string
-              description: The unique alphanumeric string that identifies the live stream or video.
-              example: ''
-            trend:
-              type: object
-              description: 'An array of rebuffer time drill down trends. The granularity of sampled data changes based on the from and to query values you use:
-
-
-                <ul><li>0 minutes to 8 hours - Samples returned per minute</li> <li>8 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 175 days - Samples returned per day</li> <li>175 days to 14 years - Samples returned per month</li> <li>14 years or greater - Samples returned per year</li></ul>'
-              properties:
-                sampled at:
-                  type: string
-                  description: The date and time the trend data was sampled.
-                  format: date-time
-                rebuffer_time:
-                  type: number
-                  description: The rebuffer time encountered during video playback.
-                  example: ''
-                  format: float
-            limits:
-              type: object
-              description: The time frame represented in the response.
-              properties:
-                from:
-                  type: string
-                  description: The start of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-                to:
-                  type: string
-                  description: The end of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-      example:
-        media:
-        - id: 62588c40-9326-4a98-8836-a347bdad6e5b
-          trend:
-          - sampled_at: '2024-10-08T14:35:00Z'
-            rebuffer_time: 1.19
-          - sampled_at: '2024-10-08T14:35:00Z'
-            rebuffer_time: 1.19
-        limits:
-          from: '2024-09-08T14:35:00Z'
-          to: '2024-10-08T14:35:00Z'
-    analytics_qoe_rebuffer_time_drilldown:
-      type: object
-      description: ''
-      properties:
-        media:
-          type: object
-          title: Array of media
-          description: ''
-          properties:
-            id:
-              type: string
-              description: The unique alphanumeric string that identifies the live stream or video.
-              example: ''
-            rebuffer_time:
-              type: number
-              description: The average rebuffer time of the specific live stream or video.
-              example: ''
-              format: float
-            plays:
-              type: integer
-              description: The total number of plays for a live stream or video. A play is registered when the stream begins to play.
-              example: ''
-              format: int32
-            playback_type:
-              type: string
-              description: The playback type of the stream.
-              example: ''
-            devices:
-              type: object
-              title: Array of devices
-              description: 'An array of devices.        '
-              properties:
-                device:
-                  type: string
-                  description: The device type like **Desktop**.
-                plays:
-                  type: integer
-                  description: The number of plays for the specific device type.
-                  example: ''
-                  format: int32
-                rebuffer_time:
-                  type: number
-                  description: Represents the average rebuffer time of the specific device type.
-                  example: ''
-                  format: float
-            limits:
-              type: object
-              description: The time frame represented in the response.
-              properties:
-                from:
-                  type: string
-                  description: The start of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-                to:
-                  type: string
-                  description: The end of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-                page:
-                  type: integer
-                  description: 'Returns a paginated view of results. A positive integer indicates which page of the results are displayed. The default is **0**.
-
-
-                    - If page=0, rows 1-10 are returned.
-
-                    - If page=1, rows 11-20 are returned.'
-                  example: ''
-                  format: int32
-                limit:
-                  type: integer
-                  description: The number of results returned per page. The maximum number of results per page is 20. The default is **10**.
-                  example: ''
-                  format: int32
-                max_page:
-                  type: integer
-                  description: The maximum number of pages that will be returned.
-                  example: ''
-                  format: int32
-                sort_by:
-                  type: string
-                  description: Specifies by what order the objects are returned. The default is **plays**.
-                  example: ''
-                  enum:
-                  - metric
-                  - plays
-                sort_by_order:
-                  type: string
-                  description: Specifies the order the objects are returned. The default is **desc**.
-                  example: ''
-                  enum:
-                  - asc
-                  - des
-      example:
-        media:
-        - id: crtspppp
-          rebuffer_time: 1.19
-          plays: 233
-          playback_type: vod
-          devices:
-          - device: Desktop
-            plays: 174
-            rebuffer_time: 1.19
-          - device: Tablet
-            plays: 59
-            rebuffer_time: 1.19
-        limits:
-          from: '2024-09-08T14:35:00Z'
-          to: '2024-10-08T14:35:00Z'
-          page: 0
-          limit: 10
-          max_page: 7
-          sort_by: metric
-          sort_by_order: desc
-    analytics_qoe_rebuffer_count_media_id:
-      type: object
-      description: ''
-      properties:
-        media:
-          type: object
-          title: media
-          description: ''
-          properties:
-            rebuffer_per_view:
-              type: integer
-              description: 'The average number of rebuffer events per each play. Rebuffer events can be the pauses to load or buffer additional data experienced during playback. '
-              example: ''
-              format: int32
-            time_zone:
-              title: time_zone
-              type: string
-              description: The time zone in which the data is returned. The default time zone in which the data is returned is **Etc/UTC**.
-            trend:
-              type: object
-              title: Array of rebuffer count trends
-              description: 'An array of rebuffer count trend data. The granularity of sampled data changes based on the from and to query values you use:
-
-
-                <ul><li>0 minutes to 8 hours - Samples returned per minute</li> <li>8 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 175 days - Samples returned per day</li> <li>175 days to 14 years - Samples returned per month</li> <li>14 years or greater - Samples returned per year</li></ul>'
-              properties:
-                sampled_at:
-                  type: string
-                  description: The date and time the trend data was sampled.
-                  format: date-time
-                average:
-                  type: integer
-                  description: The average number of rebuffer events per view.
-                  example: ''
-                  format: int32
-            limits:
-              type: object
-              description: The time frame represented in the response.
-              properties:
-                from:
-                  type: string
-                  description: The start of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-                to:
-                  type: string
-                  description: The end of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-      example:
-        media:
-          rebuffer_per_view: 0
-          time_zone: America/New_York
-          trend:
-          - average: 0.0,
-            sampled_at: '2024-09-08T00:00:00+00:00'
-          - average: 0.0,
-            sampled_at: '2024-09-11T00:00:00+00:00'
-          - average: 0.0,
-            sampled_at: '2024-09-13T00:00:00+00:00'
-        limits:
-          from: '2024-09-08T14:35:00.000Z'
-          to: '2024-10-08T14:35:00.000Z'
-    analytics_qoe_errors_detail_message_error_code:
-      type: object
-      description: Error drilldown metrics by error message
+      description: Error drilldown metrics by media
       properties:
         code:
           type: string
@@ -3211,20 +2640,24 @@ components:
           type: string
           description: The type of media event associated with the error.
           example: Media
-        message:
+        media:
           type: array
-          description: An array of error messages and their associated counts.
+          description: An array of media items where the error occurred.
           items:
             type: object
             properties:
-              text:
+              id:
                 type: string
-                description: The specific error message text.
-                example: Buffer underrun occurred during playback
+                description: Unique identifier for the media.
+                example: abcd1234
+              playback_type:
+                type: string
+                description: Type of playback for the media (e.g., live, VOD).
+                example: VOD
               count:
                 type: integer
-                description: Number of times this specific error message occurred.
-                example: 7
+                description: Number of times the error occurred for this media.
+                example: 5
         limits:
           type: object
           description: The time range and pagination for the returned results.
@@ -3255,9 +2688,10 @@ components:
         code: 02-01
         name: PlaybackVideoBufferUnderRun
         type: Media
-        message:
-        - text: Buffer underrun occurred during playback
-          count: 7
+        media:
+        - id: abcd1234
+          playback_type: VOD
+          count: 5
         limits:
           from: '2024-09-08T00:00:00Z'
           to: '2024-10-08T00:00:00Z'
@@ -3357,9 +2791,9 @@ components:
         limits:
           from: '2024-09-08T14:35:00.000Z'
           to: '2024-10-08T14:35:00.000Z'
-    analytics_qoe_errors_detail_media_error_code:
+    analytics_qoe_errors_detail_message_error_code:
       type: object
-      description: Error drilldown metrics by media
+      description: Error drilldown metrics by error message
       properties:
         code:
           type: string
@@ -3373,24 +2807,20 @@ components:
           type: string
           description: The type of media event associated with the error.
           example: Media
-        media:
+        message:
           type: array
-          description: An array of media items where the error occurred.
+          description: An array of error messages and their associated counts.
           items:
             type: object
             properties:
-              id:
+              text:
                 type: string
-                description: Unique identifier for the media.
-                example: abcd1234
-              playback_type:
-                type: string
-                description: Type of playback for the media (e.g., live, VOD).
-                example: VOD
+                description: The specific error message text.
+                example: Buffer underrun occurred during playback
               count:
                 type: integer
-                description: Number of times the error occurred for this media.
-                example: 5
+                description: Number of times this specific error message occurred.
+                example: 7
         limits:
           type: object
           description: The time range and pagination for the returned results.
@@ -3421,70 +2851,61 @@ components:
         code: 02-01
         name: PlaybackVideoBufferUnderRun
         type: Media
-        media:
-        - id: abcd1234
-          playback_type: VOD
-          count: 5
+        message:
+        - text: Buffer underrun occurred during playback
+          count: 7
         limits:
           from: '2024-09-08T00:00:00Z'
           to: '2024-10-08T00:00:00Z'
           limit: 10
           page: 0
           max_page: 10
-    analytics_qoe_video_start_time_drilldown_trend:
+    Error403:
       type: object
       description: ''
+      required:
+      - meta
       properties:
-        media:
+        meta:
           type: object
-          title: Array of media
+          title: meta
           description: ''
           properties:
-            id:
-              type: string
-              description: The unique alphanumeric string that identifies the live stream, real-time stream, or video.
+            status:
+              type: integer
+              description: ''
               example: ''
-            trend:
-              type: object
-              description: 'An array of video start time drill down trends. The granularity of sampled data changes based on the from and to query values you use:
-
-
-                <ul><li>0 minutes to 8 hours - Samples returned per minute</li> <li>8 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 175 days - Samples returned per day</li> <li>175 days to 14 years - Samples returned per month</li> <li>14 years or greater - Samples returned per year</li></ul>'
-              properties:
-                sampled at:
-                  type: string
-                  description: The date and time the trend data was sampled.
-                  format: date-time
-                video_start_time:
-                  type: number
-                  description: The video start time encountered during video playback.
-                  example: ''
-                  format: float
-            limits:
-              type: object
-              description: The time frame represented in the response.
-              properties:
-                from:
-                  type: string
-                  description: The start of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-                to:
-                  type: string
-                  description: The end of the range of time represented in the response.
-                  example: ''
-                  format: date-time
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
       example:
-        media:
-        - id: 62588c40-9326-4a98-8836-a347bdad6e5b
-          trend:
-          - sampled_at: '2024-10-08T14:35:00Z'
-            video_start_time: 1.19
-          - sampled_at: '2024-10-08T14:35:00Z'
-            video_start_time: 1.19
-        limits:
-          from: '2024-09-08T14:35:00Z'
-          to: '2024-10-08T14:35:00Z'
+        Example Response 1:
+          meta:
+            status: 403
+            code: ERR-403-RecordUnaccessible
+            title: Record Unaccessible Error
+            message: The requested resource isn't accessible.
+            description: ''
+            links: []
     analytics_qoe_error_density_account:
       type: object
       description: ''
@@ -3544,452 +2965,6 @@ components:
           - average: 0.9829059829059829,
             sampled_at: '2024-09-11T00:00:00+00:00'
           - average: 0.806060606060606,
-            sampled_at: '2024-09-13T00:00:00+00:00'
-        limits:
-          from: '2024-09-08T14:35:00.000Z'
-          to: '2024-10-08T14:35:00.000Z'
-    Error401:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 401
-            code: ERR-401-NoApiKey
-            title: No API Key Error
-            message: No API key sent in header.
-            description: ''
-            links: []
-        Example Response 2:
-          meta:
-            status: 401
-            code: ERR-401-NoAccessKey
-            title: No Access Key Error
-            message: No access key sent in header.
-            description: ''
-            links: []
-        Example Response 3:
-          meta:
-            status: 401
-            code: ERR-401-InvalidApiKey
-            title: Invalid Api Key Error
-            message: Invalid API key.
-            description: ''
-            links: []
-        Example Response 4:
-          meta:
-            status: 401
-            code: ERR-401-InvalidAccessKey
-            title: Invalid Access Key Error
-            message: Invalid access key.
-            description: ''
-            links: []
-        Example Response 5:
-          meta:
-            status: 401
-            code: ERR-401-BadAccountStatus
-            title: Bad Account Status Error
-            message: Your account's status doesn't allow this action.
-            description: ''
-            links: []
-        Example Response 6:
-          meta:
-            status: 401
-            code: ERR-401-FeatureNotEnabled
-            title: Feature Not Enabled Error
-            message: This feature isn't enabled.
-            description: ''
-            links: []
-        Example Response 7:
-          meta:
-            status: 401
-            code: ERR-401-TrialExceeded
-            title: Bad Billing Status Error
-            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
-            description: ''
-            links: []
-        Example Response 8:
-          meta:
-            status: 401
-            code: ERR-401-ExpiredToken
-            title: JWT is expired
-            message: Token has exired.
-            description: ''
-            links: []
-        Example Response 9:
-          meta:
-            status: 401
-            code: ERR-401-InvalidToken
-            title: JWT is invalid
-            message: Token is invalid.
-            description: ''
-            links: []
-    analytics_qoe_errors_detail_resources_error_code:
-      type: object
-      description: ''
-      properties:
-        code:
-          type: string
-          description: The error code id. For a full list of the player error codes, see this <a href= "https://try.flowplayer.com/?channel=stable#0=N4IgtglgJlA2CmIBcBWADAGhAZ3ggxgC7xTIgB0+22IW+A9rPQE5nMDmARgBQDMAHBnRCAbAEpaIQgAt4YREnABDYswhLYAWgAOG+ADsI7aYUmwlAT3oBXU4qW36k5vGwQAXvCWcEyQs2t4LBIIQm9fJH9ArEJ6Rk4lVkiAoJAAMwgEABVvGmTokFgIfQBrHM48qNTsaUT4ACFbWP0-FKwXJiUoRsJm1oKGfWxGBSqsB1iAJTx6Lv7UifppzqgAETxLZAAWNEwQRYAxenxrPLSNXHHHAAl4IxNkc9hLnHxmRlhkAG1MNABdLAZBB5L6gfRKeRkbQuABuEHgAHdJINiPo7CAQABfDBgiEKKT0EoGcgAKxodHoaIM6IRxSg9AR5AA+kyDgAZADyAHUAApsgCCAE0AKKTJlZDkAaWFADkALwAHRA8AsAClmEouQBFCAciCqrUAZRJUBlxukKCg7gAsrwtWB+BA2QBhVVoeAADX5uv1koAagBGHUu1XSTgAcXwPtVBwAqu4AJIBmX6gCc5BVqpJCZJ9HhAdpgq5MuwHudCZEKYAHvgE2BYCUyxWywbjabzZabXawKna-o0E7Xdp8LxrdHwxHU7x8OGq7IuX6LAn++Q-arrtd9F5w4bw6sufRBcwtiJDfh+at2Ch6uH+WhrvzmPxDbwPVlVQAmNLsNn0VOaGVCAALX4bRDQ-EQPTCLUSnwVN6Hqa4uWgcwIAgKt6GkfhhWYBEoGYElrQ5egPy1epJQRJUAG5JGkaAoAMeZsVxSFFFJckQBRakyA5TgSXgIgMzRNRXG4NImARbRzAseBmAzZh3mYbAxHINIWGFJR8GkbhuC+IkLAwAACBgGL+MQ5QAPkM4AFX0QzjMpbBCEM-ThQQOVDPpE55DRSgXBUeA3LkaluCVbBdH0JUxFs+zBichyGKCwyPK86wfMIPyvGIIL0tCnAIqimKHKGZywh8eBks8440upch2HgQgcupeolygPLZMUzQTNcQq7JclUgvIYgq0IZ1KVRZyPP0orusG4bRvG6lKu6oqyoQcglG0bQDDa1yECM2aEGi-RMQkLBcAIQgIEcsgUCQD9+CxHEQHBViKCoDiuLRMgAGIOpYLr6AY7BrKKqAIHC6SkEM9g1CgKiith6BNGIMApICwHYDSoZoYDNJmEMvHmCowyAHoACpDOFABHawNEM2koBkBysbAIZDPJ0nEc26GPzQbQqxJinDMNXR8AqzgGoReADBZ7GQc52zMUkC6BKum7FF4e60Celj8XIEx62RRbvsUWyAB5wZhQzoEVZUFIB7rsCVCyiot0mrYslW8DV66hjIAMkC2LEAUKYoShBUBCAsbayCcixfCwV78U4IGLEkaxmE+RQTEIbRsCQUnSf8CxVIk9GZLkhgwFJgI0QgeRNCgRISkoahaPoxj8ngZiXrxMh6BhbQM6zshc-zwvSfwKB9DLhkK9kyh6BrjovFwbBSfBK6YXgUneFJpzwl3qTrHYYoN8H7RyEgWeyUkaPY8UbA3ggbRTCwOiYC7qpe+TsfnhHtnEA48C5F2nrPcS89pKL2rrXH2Sh16bxUBAHee8D5rWPljM+QxSbSGeNfYo7F74x3xM-NQb8O5fxaN3X+-dFCQMktA1gWBM5AJAZPcBc9GGWBgcvOBCAEGuCQdvXe+9D7lQ9vAc41hYCEFJgwheckb5EJiCQuOL8KEf07tQn+z0-70PLkwtuHFWFj16BPMBM8uGKKXiveBiCt4oNEego+6CE67wUUYj6xDH44GjonYB2imJ-ExEAA">list</a>.
-        resource:
-          type: object
-          title: resource
-          description: ''
-          properties:
-            url:
-              type: string
-              description: The URL associated with a specific error code.
-              example: ''
-            count:
-              type: integer
-              description: Total number of times this specific error occurred for the media.
-            limits:
-              type: object
-              description: The time frame represented in the response.
-              properties:
-                from:
-                  type: string
-                  description: The start of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-                to:
-                  type: string
-                  description: The end of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-                page:
-                  type: integer
-                  description: 'Returns a paginated view of results. A positive integer indicates which page of the results are displayed. The default is **0**.
-
-
-                    - If page=0, rows 1-10 are returned.
-
-                    - If page=1, rows 11-20 are returned.'
-                  example: ''
-                  format: int32
-                limit:
-                  type: integer
-                  description: The number of results returned per page. The maximum number of results per page is 20. The default is **10**.
-                  example: ''
-                  format: int32
-                max_page:
-                  type: integer
-                  description: The maximum number of pages that will be returned.
-                  example: ''
-                  format: int32
-            name:
-              type: string
-              description: The name of the playback error.
-              example: ''
-            type:
-              type: string
-              description: The type of event related to video/audio streaming.
-              example: ''
-      example:
-        code: 02-01
-        resource:
-          url: https://www.w3schools.com/html/mov_bbb.mp4
-          count: 10
-        name: PlaybackVideoBufferUnderRun
-        type: Playback
-        limits:
-          from: '2024-09-08T14:35:00.000Z'
-          to: '2024-10-08T14:35:00.000Z'
-    analytics_qoe_video_start_time_account:
-      type: object
-      description: ''
-      properties:
-        account:
-          type: object
-          title: account
-          description: ''
-          properties:
-            average:
-              type: integer
-              description: The average time, in seconds, from when a user requests a video stream until playback begins.
-              example: ''
-              format: int32
-            time_zone:
-              title: time_zone
-              type: string
-              description: The time zone in which the data is returned. The default time zone in which the data is returned is **Etc/UTC**.
-            quantile_25:
-              type: integer
-              description: The video start time of 25th percentile of video streams. This means that 25% of the users have a video start time equal to or less than this value.
-              example: ''
-              format: int32
-            quantile_50:
-              type: integer
-              description: The video start time of 50th percentile of video streams. This means that 50% of the users have a video start time equal to or less than this value.
-              example: ''
-              format: int32
-            quantile_75:
-              type: integer
-              description: The video start time of 75th percentile of video streams. This means that 75% of the users have a video start time equal to or less than this value.
-              example: ''
-              format: int32
-            quantile_95:
-              type: integer
-              description: The video start time of 95th percentile of video streams. This means that 95% of the users have a video start time equal to or less than this value.
-              example: ''
-              format: int32
-            quantile_99:
-              type: integer
-              description: The video start time of 99th percentile of video streams. This means that 99% of the users have a video start time equal to or less than this value.
-              example: ''
-              format: int32
-            trend:
-              type: object
-              title: Array of video start time trends
-              description: 'An array of video start time trend data. The granularity of sampled data changes based on the from and to query values you use:
-
-
-                <ul><li>0 minutes to 8 hours - Samples returned per minute</li> <li>8 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 175 days - Samples returned per day</li> <li>175 days to 14 years - Samples returned per month</li> <li>14 years or greater - Samples returned per year</li></ul>'
-              properties:
-                average:
-                  type: integer
-                  description: The average time, in seconds, from when a user requests a video stream until playback begins.
-                  example: ''
-                  format: int32
-                sampled_at:
-                  type: string
-                  description: The date and time the trend data was sampled.
-                  format: date-time
-            limits:
-              type: object
-              description: The time frame represented in the response.
-              properties:
-                from:
-                  type: string
-                  description: The start of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-                to:
-                  type: string
-                  description: The end of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-      example:
-        account:
-          average: 400.64516129032256
-          time_zone: Etc/UTC
-          quantile_25: 300
-          quantile_50: 300
-          quantile_75: 300
-          quantile_95: 1206
-          quantile_99: 3390
-          trend:
-          - average: 0.0,
-            sampled_at: '2024-09-08T00:00:00+00:00'
-          - average: 525.0,
-            sampled_at: '2024-09-11T00:00:00+00:00'
-          - average: 382.0,
-            sampled_at: '2024-09-13T00:00:00+00:00'
-        limits:
-          from: '2024-09-08T14:35:00.000Z'
-          to: '2024-10-08T14:35:00.000Z'
-    analytics_qoe_rebuffer_time_account:
-      type: object
-      description: ''
-      properties:
-        account:
-          type: object
-          title: account
-          description: ''
-          properties:
-            rebuffer_time:
-              type: integer
-              description: The average time, in seconds, that the video pauses to rebuffer during one hour of playback.
-              example: ''
-              format: int32
-            time_zone:
-              title: time_zone
-              type: string
-              description: The time zone in which the data is returned. The default time zone in which the data is returned is **Etc/UTC**.
-            trend:
-              type: object
-              title: Array of rebuffer time trends
-              description: 'An array of rebuffer time trend data. The granularity of sampled data changes based on the from and to query values you use:
-
-
-                <ul><li>0 minutes to 8 hours - Samples returned per minute</li> <li>8 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 175 days - Samples returned per day</li> <li>175 days to 14 years - Samples returned per month</li> <li>14 years or greater - Samples returned per year</li></ul>'
-              properties:
-                average:
-                  type: integer
-                  description: The average time, in seconds, that the video pauses to rebuffer during one hour of playback.
-                  example: ''
-                  format: int32
-                sampled_at:
-                  type: string
-                  description: The date and time the trend data was sampled.
-                  format: date-time
-            limits:
-              type: object
-              description: The time frame represented in the response.
-              properties:
-                from:
-                  type: string
-                  description: The start of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-                to:
-                  type: string
-                  description: The end of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-      example:
-        account:
-          rebuffer_time: 165.99156363636365
-          time_zone: Etc/UTC
-          trend:
-          - average: 0.0,
-            sampled_at: '2024-09-08T00:00:00+00:00'
-          - average: 165.99156363636365,
-            sampled_at: '2024-09-11T00:00:00+00:00'
-          - average: 0.0,
-            sampled_at: '2024-09-13T00:00:00+00:00'
-        limits:
-          from: '2024-09-08T14:35:00.000Z'
-          to: '2024-10-08T14:35:00.000Z'
-    Error403:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 403
-            code: ERR-403-RecordUnaccessible
-            title: Record Unaccessible Error
-            message: The requested resource isn't accessible.
-            description: ''
-            links: []
-    analytics_qoe_rebuffer_time_media_id:
-      type: object
-      description: ''
-      properties:
-        media:
-          type: object
-          title: media
-          description: ''
-          properties:
-            rebuffer_time:
-              type: integer
-              description: The average time, in seconds, that the video pauses to rebuffer during one hour of playback.
-              example: ''
-              format: int32
-            time_zone:
-              title: time_zone
-              type: string
-              description: The time zone in which the data is returned. The default time zone in which the data is returned is **Etc/UTC**.
-            trend:
-              type: object
-              title: Array of rebuffer time trends
-              description: 'An array of rebuffer time trend data. The granularity of sampled data changes based on the from and to query values you use:
-
-
-                <ul><li>0 minutes to 8 hours - Samples returned per minute</li> <li>8 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 175 days - Samples returned per day</li> <li>175 days to 14 years - Samples returned per month</li> <li>14 years or greater - Samples returned per year</li></ul>'
-              properties:
-                average:
-                  type: integer
-                  description: The average time, in seconds, that the video pauses to rebuffer during one hour of playback.
-                  example: ''
-                  format: int32
-                sampled_at:
-                  type: string
-                  description: The date and time the trend data was sampled.
-                  format: date-time
-            limits:
-              type: object
-              description: The time frame represented in the response.
-              properties:
-                from:
-                  type: string
-                  description: The start of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-                to:
-                  type: string
-                  description: The end of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-      example:
-        media:
-          rebuffer_time: 1.71232543562145
-          time_zone: America/New_York
-          trend:
-          - average: 1.0,
-            sampled_at: '2024-09-08T00:00:00+00:00'
-          - average: 1.9829059829059829,
-            sampled_at: '2024-09-11T00:00:00+00:00'
-          - average: 1.806060606060606,
             sampled_at: '2024-09-13T00:00:00+00:00'
         limits:
           from: '2024-09-08T14:35:00.000Z'
@@ -4108,6 +3083,469 @@ components:
           max_page: 7
           sort_by: metric
           sort_by_order: desc
+    analytics_qoe_rebuffer_time_drilldown:
+      type: object
+      description: ''
+      properties:
+        media:
+          type: object
+          title: Array of media
+          description: ''
+          properties:
+            id:
+              type: string
+              description: The unique alphanumeric string that identifies the live stream or video.
+              example: ''
+            rebuffer_time:
+              type: number
+              description: The average rebuffer time of the specific live stream or video.
+              example: ''
+              format: float
+            plays:
+              type: integer
+              description: The total number of plays for a live stream or video. A play is registered when the stream begins to play.
+              example: ''
+              format: int32
+            playback_type:
+              type: string
+              description: The playback type of the stream.
+              example: ''
+            devices:
+              type: object
+              title: Array of devices
+              description: 'An array of devices.        '
+              properties:
+                device:
+                  type: string
+                  description: The device type like **Desktop**.
+                plays:
+                  type: integer
+                  description: The number of plays for the specific device type.
+                  example: ''
+                  format: int32
+                rebuffer_time:
+                  type: number
+                  description: Represents the average rebuffer time of the specific device type.
+                  example: ''
+                  format: float
+            limits:
+              type: object
+              description: The time frame represented in the response.
+              properties:
+                from:
+                  type: string
+                  description: The start of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+                to:
+                  type: string
+                  description: The end of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+                page:
+                  type: integer
+                  description: 'Returns a paginated view of results. A positive integer indicates which page of the results are displayed. The default is **0**.
+
+
+                    - If page=0, rows 1-10 are returned.
+
+                    - If page=1, rows 11-20 are returned.'
+                  example: ''
+                  format: int32
+                limit:
+                  type: integer
+                  description: The number of results returned per page. The maximum number of results per page is 20. The default is **10**.
+                  example: ''
+                  format: int32
+                max_page:
+                  type: integer
+                  description: The maximum number of pages that will be returned.
+                  example: ''
+                  format: int32
+                sort_by:
+                  type: string
+                  description: Specifies by what order the objects are returned. The default is **plays**.
+                  example: ''
+                  enum:
+                  - metric
+                  - plays
+                sort_by_order:
+                  type: string
+                  description: Specifies the order the objects are returned. The default is **desc**.
+                  example: ''
+                  enum:
+                  - asc
+                  - des
+      example:
+        media:
+        - id: crtspppp
+          rebuffer_time: 1.19
+          plays: 233
+          playback_type: vod
+          devices:
+          - device: Desktop
+            plays: 174
+            rebuffer_time: 1.19
+          - device: Tablet
+            plays: 59
+            rebuffer_time: 1.19
+        limits:
+          from: '2024-09-08T14:35:00Z'
+          to: '2024-10-08T14:35:00Z'
+          page: 0
+          limit: 10
+          max_page: 7
+          sort_by: metric
+          sort_by_order: desc
+    analytics_qoe_rebuffer_count_account:
+      type: object
+      description: ''
+      properties:
+        account:
+          type: object
+          title: account
+          description: ''
+          properties:
+            rebuffer_per_view:
+              type: integer
+              description: The average number of rebuffer events per view. Rebuffer events can be the pauses to load or buffer additional data experienced during playback.
+              example: ''
+              format: int32
+            time_zone:
+              title: time_zone
+              type: string
+              description: The time zone in which the data is returned. The default time zone in which the data is returned is **Etc/UTC**.
+            trend:
+              type: object
+              title: Array of rebuffer count trends
+              description: 'An array of rebuffer count trend data. The granularity of sampled data changes based on the from and to query values you use:
+
+
+                <ul><li>0 minutes to 8 hours - Samples returned per minute</li> <li>8 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 175 days - Samples returned per day</li> <li>175 days to 14 years - Samples returned per month</li> <li>14 years or greater - Samples returned per year</li></ul>'
+              properties:
+                sampled_at:
+                  type: string
+                  description: The date and time the trend data was sampled.
+                  format: date-time
+                average:
+                  type: integer
+                  description: The average number of rebuffer events per view.
+                  example: ''
+                  format: int32
+            limits:
+              type: object
+              description: The time frame represented in the response.
+              properties:
+                from:
+                  type: string
+                  description: The start of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+                to:
+                  type: string
+                  description: The end of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+      example:
+        account:
+          rebuffer_per_view: 0.009584664536741214
+          time_zone: Etc/UTC
+          trend:
+          - average: 0.0,
+            sampled_at: '2024-09-08T00:00:00+00:00'
+          - average: 0.01171875,
+            sampled_at: '2024-09-11T00:00:00+00:00'
+          - average: 0.0,
+            sampled_at: '2024-09-13T00:00:00+00:00'
+        limits:
+          from: '2024-09-08T14:35:00.000Z'
+          to: '2024-10-08T14:35:00.000Z'
+    analytics_qoe_error_density_media__id:
+      type: object
+      description: ''
+      properties:
+        media:
+          type: object
+          title: media
+          description: ''
+          properties:
+            error_density:
+              type: integer
+              description: The average number of playback errors per playback start. A playback start includes the initial start of a stream as well as any resume events after rebuffering or user-initiated pauses. For example, if there are 1000 total playback errors across 500 play sessions, the error density would be 2.
+              format: int32
+            time_zone:
+              title: time_zone
+              type: string
+              description: The time zone in which the data is returned. The default time zone in which the data is returned is **Etc/UTC**.
+            trend:
+              type: object
+              title: Array of error density trends
+              description: 'An array of error density trend data. The granularity of sampled data changes based on the from and to query values you use:
+
+
+                <ul><li>0 minutes to 8 hours - Samples returned per minute</li> <li>8 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 175 days - Samples returned per day</li> <li>175 days to 14 years - Samples returned per month</li> <li>14 years or greater - Samples returned per year</li></ul>'
+              properties:
+                error_density:
+                  type: integer
+                  description: The percentage of plays that encountered issues during playback.
+                  example: ''
+                  format: int32
+                sampled_at:
+                  type: string
+                  description: The date and time the trend data was sampled.
+                  format: date-time
+            limits:
+              type: object
+              description: The time frame represented in the response.
+              properties:
+                from:
+                  type: string
+                  description: The start of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+                to:
+                  type: string
+                  description: The end of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+      example:
+        media:
+          error_density: 7
+          time_zone: America/New_York
+          trend:
+          - average: 1.0,
+            sampled_at: '2024-09-08T00:00:00+00:00'
+          - average: 0.9829059829059829,
+            sampled_at: '2024-09-11T00:00:00+00:00'
+          - average: 0.806060606060606,
+            sampled_at: '2024-09-13T00:00:00+00:00'
+        limits:
+          from: '2024-09-08T14:35:00.000Z'
+          to: '2024-10-08T14:35:00.000Z'
+    analytics_qoe_errors_detail_resources_error_code:
+      type: object
+      description: ''
+      properties:
+        code:
+          type: string
+          description: The error code id. For a full list of the player error codes, see this <a href= "https://try.flowplayer.com/?channel=stable#0=N4IgtglgJlA2CmIBcBWADAGhAZ3ggxgC7xTIgB0+22IW+A9rPQE5nMDmARgBQDMAHBnRCAbAEpaIQgAt4YREnABDYswhLYAWgAOG+ADsI7aYUmwlAT3oBXU4qW36k5vGwQAXvCWcEyQs2t4LBIIQm9fJH9ArEJ6Rk4lVkiAoJAAMwgEABVvGmTokFgIfQBrHM48qNTsaUT4ACFbWP0-FKwXJiUoRsJm1oKGfWxGBSqsB1iAJTx6Lv7UifppzqgAETxLZAAWNEwQRYAxenxrPLSNXHHHAAl4IxNkc9hLnHxmRlhkAG1MNABdLAZBB5L6gfRKeRkbQuABuEHgAHdJINiPo7CAQABfDBgiEKKT0EoGcgAKxodHoaIM6IRxSg9AR5AA+kyDgAZADyAHUAApsgCCAE0AKKTJlZDkAaWFADkALwAHRA8AsAClmEouQBFCAciCqrUAZRJUBlxukKCg7gAsrwtWB+BA2QBhVVoeAADX5uv1koAagBGHUu1XSTgAcXwPtVBwAqu4AJIBmX6gCc5BVqpJCZJ9HhAdpgq5MuwHudCZEKYAHvgE2BYCUyxWywbjabzZabXawKna-o0E7Xdp8LxrdHwxHU7x8OGq7IuX6LAn++Q-arrtd9F5w4bw6sufRBcwtiJDfh+at2Ch6uH+WhrvzmPxDbwPVlVQAmNLsNn0VOaGVCAALX4bRDQ-EQPTCLUSnwVN6Hqa4uWgcwIAgKt6GkfhhWYBEoGYElrQ5egPy1epJQRJUAG5JGkaAoAMeZsVxSFFFJckQBRakyA5TgSXgIgMzRNRXG4NImARbRzAseBmAzZh3mYbAxHINIWGFJR8GkbhuC+IkLAwAACBgGL+MQ5QAPkM4AFX0QzjMpbBCEM-ThQQOVDPpE55DRSgXBUeA3LkaluCVbBdH0JUxFs+zBichyGKCwyPK86wfMIPyvGIIL0tCnAIqimKHKGZywh8eBks8440upch2HgQgcupeolygPLZMUzQTNcQq7JclUgvIYgq0IZ1KVRZyPP0orusG4bRvG6lKu6oqyoQcglG0bQDDa1yECM2aEGi-RMQkLBcAIQgIEcsgUCQD9+CxHEQHBViKCoDiuLRMgAGIOpYLr6AY7BrKKqAIHC6SkEM9g1CgKiith6BNGIMApICwHYDSoZoYDNJmEMvHmCowyAHoACpDOFABHawNEM2koBkBysbAIZDPJ0nEc26GPzQbQqxJinDMNXR8AqzgGoReADBZ7GQc52zMUkC6BKum7FF4e60Celj8XIEx62RRbvsUWyAB5wZhQzoEVZUFIB7rsCVCyiot0mrYslW8DV66hjIAMkC2LEAUKYoShBUBCAsbayCcixfCwV78U4IGLEkaxmE+RQTEIbRsCQUnSf8CxVIk9GZLkhgwFJgI0QgeRNCgRISkoahaPoxj8ngZiXrxMh6BhbQM6zshc-zwvSfwKB9DLhkK9kyh6BrjovFwbBSfBK6YXgUneFJpzwl3qTrHYYoN8H7RyEgWeyUkaPY8UbA3ggbRTCwOiYC7qpe+TsfnhHtnEA48C5F2nrPcS89pKL2rrXH2Sh16bxUBAHee8D5rWPljM+QxSbSGeNfYo7F74x3xM-NQb8O5fxaN3X+-dFCQMktA1gWBM5AJAZPcBc9GGWBgcvOBCAEGuCQdvXe+9D7lQ9vAc41hYCEFJgwheckb5EJiCQuOL8KEf07tQn+z0-70PLkwtuHFWFj16BPMBM8uGKKXiveBiCt4oNEego+6CE67wUUYj6xDH44GjonYB2imJ-ExEAA">list</a>.
+        resource:
+          type: object
+          title: resource
+          description: ''
+          properties:
+            url:
+              type: string
+              description: The URL associated with a specific error code.
+              example: ''
+            count:
+              type: integer
+              description: Total number of times this specific error occurred for the media.
+            limits:
+              type: object
+              description: The time frame represented in the response.
+              properties:
+                from:
+                  type: string
+                  description: The start of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+                to:
+                  type: string
+                  description: The end of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+                page:
+                  type: integer
+                  description: 'Returns a paginated view of results. A positive integer indicates which page of the results are displayed. The default is **0**.
+
+
+                    - If page=0, rows 1-10 are returned.
+
+                    - If page=1, rows 11-20 are returned.'
+                  example: ''
+                  format: int32
+                limit:
+                  type: integer
+                  description: The number of results returned per page. The maximum number of results per page is 20. The default is **10**.
+                  example: ''
+                  format: int32
+                max_page:
+                  type: integer
+                  description: The maximum number of pages that will be returned.
+                  example: ''
+                  format: int32
+            name:
+              type: string
+              description: The name of the playback error.
+              example: ''
+            type:
+              type: string
+              description: The type of event related to video/audio streaming.
+              example: ''
+      example:
+        code: 02-01
+        resource:
+          url: https://www.w3schools.com/html/mov_bbb.mp4
+          count: 10
+        name: PlaybackVideoBufferUnderRun
+        type: Playback
+        limits:
+          from: '2024-09-08T14:35:00.000Z'
+          to: '2024-10-08T14:35:00.000Z'
+    analytics_qoe_rebuffer_time_account:
+      type: object
+      description: ''
+      properties:
+        account:
+          type: object
+          title: account
+          description: ''
+          properties:
+            rebuffer_time:
+              type: integer
+              description: The average time, in seconds, that the video pauses to rebuffer during one hour of playback.
+              example: ''
+              format: int32
+            time_zone:
+              title: time_zone
+              type: string
+              description: The time zone in which the data is returned. The default time zone in which the data is returned is **Etc/UTC**.
+            trend:
+              type: object
+              title: Array of rebuffer time trends
+              description: 'An array of rebuffer time trend data. The granularity of sampled data changes based on the from and to query values you use:
+
+
+                <ul><li>0 minutes to 8 hours - Samples returned per minute</li> <li>8 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 175 days - Samples returned per day</li> <li>175 days to 14 years - Samples returned per month</li> <li>14 years or greater - Samples returned per year</li></ul>'
+              properties:
+                average:
+                  type: integer
+                  description: The average time, in seconds, that the video pauses to rebuffer during one hour of playback.
+                  example: ''
+                  format: int32
+                sampled_at:
+                  type: string
+                  description: The date and time the trend data was sampled.
+                  format: date-time
+            limits:
+              type: object
+              description: The time frame represented in the response.
+              properties:
+                from:
+                  type: string
+                  description: The start of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+                to:
+                  type: string
+                  description: The end of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+      example:
+        account:
+          rebuffer_time: 165.99156363636365
+          time_zone: Etc/UTC
+          trend:
+          - average: 0.0,
+            sampled_at: '2024-09-08T00:00:00+00:00'
+          - average: 165.99156363636365,
+            sampled_at: '2024-09-11T00:00:00+00:00'
+          - average: 0.0,
+            sampled_at: '2024-09-13T00:00:00+00:00'
+        limits:
+          from: '2024-09-08T14:35:00.000Z'
+          to: '2024-10-08T14:35:00.000Z'
+    analytics_qoe_errors_drilldown:
+      type: object
+      description: ''
+      properties:
+        error:
+          type: object
+          title: Error
+          description: ''
+          properties:
+            code:
+              type: string
+              description: The error code ID. For a full list of the player error codes, see this <a href="https://try.flowplayer.com/?channel=stable#0=N4Igtglg...">list</a>.
+              example: 02-01
+            name:
+              type: string
+              description: The name of the playback error.
+              example: PlaybackVideoBufferUnderRun
+            type:
+              type: string
+              description: The type of event related to video/audio streaming.
+              example: Playback
+            avg_retry_count:
+              type: number
+              format: float
+              description: The average number of retry attempts for the error.
+              example: 0.92
+            total_count:
+              type: integer
+              description: The total number of times the error occurred in the timeframe.
+              example: 10
+            session_count:
+              type: integer
+              description: The number of unique sessions in which the error occurred.
+              example: 2
+            trend:
+              type: array
+              title: Array of error density trends
+              description: "An array of error density trend data. The granularity of sampled data changes based on the from and to query values you use:\n<ul>\n  <li>0 minutes to 8 hours - Samples returned per minute</li>\n  <li>8 hours, 1 second to 24 hours - Samples returned per hour</li>\n  <li>24 hours, 1 second to 175 days - Samples returned per day</li>\n  <li>175 days to 14 years - Samples returned per month</li>\n  <li>14 years or greater - Samples returned per year</li>\n</ul>"
+              items:
+                type: object
+                properties:
+                  sampled_at:
+                    type: string
+                    format: date-time
+                    description: The date and time the trend data was sampled.
+                    example: '2024-09-08T14:35:00.000Z'
+                  count:
+                    type: integer
+                    description: The number of times this specific error occurred at that time.
+                    example: 3
+        limits:
+          type: object
+          description: The time frame represented in the response.
+          properties:
+            from:
+              type: string
+              format: date-time
+              description: The start of the range of time represented in the response.
+              example: '2024-09-08T14:35:00.000Z'
+            to:
+              type: string
+              format: date-time
+              description: The end of the range of time represented in the response.
+              example: '2024-10-08T14:35:00.000Z'
+            limit:
+              type: integer
+              description: The maximum number of results returned per page.
+              example: 10
+            page:
+              type: integer
+              description: The current page number of the response.
+              example: 0
+            max_page:
+              type: integer
+              description: The maximum number of available pages.
+              example: 0
+      example:
+        error:
+        - code: 02-01
+          avg_retry_count: 0.92
+          total_count: 10
+          session_count: 2
+          name: PlaybackVideoBufferUnderRun
+          type: Playback
+        limits:
+          from: '2024-09-08T14:35:00.000Z'
+          to: '2024-10-08T14:35:00.000Z'
+          limit: 10
+          page: 0
+          max_page: 0
     analytics_qoe_video_start_time_drilldown:
       type: object
       description: ''
@@ -4222,52 +3660,430 @@ components:
           max_page: 7
           sort_by: metric
           sort_by_order: desc
-    Error410:
+    analytics_qoe_video_start_time_drilldown_trend:
       type: object
       description: ''
-      required:
-      - meta
       properties:
-        meta:
+        media:
           type: object
-          title: meta
+          title: Array of media
           description: ''
           properties:
-            status:
+            id:
+              type: string
+              description: The unique alphanumeric string that identifies the live stream, real-time stream, or video.
+              example: ''
+            trend:
+              type: object
+              description: 'An array of video start time drill down trends. The granularity of sampled data changes based on the from and to query values you use:
+
+
+                <ul><li>0 minutes to 8 hours - Samples returned per minute</li> <li>8 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 175 days - Samples returned per day</li> <li>175 days to 14 years - Samples returned per month</li> <li>14 years or greater - Samples returned per year</li></ul>'
+              properties:
+                sampled at:
+                  type: string
+                  description: The date and time the trend data was sampled.
+                  format: date-time
+                video_start_time:
+                  type: number
+                  description: The video start time encountered during video playback.
+                  example: ''
+                  format: float
+            limits:
+              type: object
+              description: The time frame represented in the response.
+              properties:
+                from:
+                  type: string
+                  description: The start of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+                to:
+                  type: string
+                  description: The end of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+      example:
+        media:
+        - id: 62588c40-9326-4a98-8836-a347bdad6e5b
+          trend:
+          - sampled_at: '2024-10-08T14:35:00Z'
+            video_start_time: 1.19
+          - sampled_at: '2024-10-08T14:35:00Z'
+            video_start_time: 1.19
+        limits:
+          from: '2024-09-08T14:35:00Z'
+          to: '2024-10-08T14:35:00Z'
+    analytics_qoe_rebuffer_time_media_id:
+      type: object
+      description: ''
+      properties:
+        media:
+          type: object
+          title: media
+          description: ''
+          properties:
+            rebuffer_time:
               type: integer
-              description: ''
+              description: The average time, in seconds, that the video pauses to rebuffer during one hour of playback.
               example: ''
               format: int32
+            time_zone:
+              title: time_zone
+              type: string
+              description: The time zone in which the data is returned. The default time zone in which the data is returned is **Etc/UTC**.
+            trend:
+              type: object
+              title: Array of rebuffer time trends
+              description: 'An array of rebuffer time trend data. The granularity of sampled data changes based on the from and to query values you use:
+
+
+                <ul><li>0 minutes to 8 hours - Samples returned per minute</li> <li>8 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 175 days - Samples returned per day</li> <li>175 days to 14 years - Samples returned per month</li> <li>14 years or greater - Samples returned per year</li></ul>'
+              properties:
+                average:
+                  type: integer
+                  description: The average time, in seconds, that the video pauses to rebuffer during one hour of playback.
+                  example: ''
+                  format: int32
+                sampled_at:
+                  type: string
+                  description: The date and time the trend data was sampled.
+                  format: date-time
+            limits:
+              type: object
+              description: The time frame represented in the response.
+              properties:
+                from:
+                  type: string
+                  description: The start of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+                to:
+                  type: string
+                  description: The end of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+      example:
+        media:
+          rebuffer_time: 1.71232543562145
+          time_zone: America/New_York
+          trend:
+          - average: 1.0,
+            sampled_at: '2024-09-08T00:00:00+00:00'
+          - average: 1.9829059829059829,
+            sampled_at: '2024-09-11T00:00:00+00:00'
+          - average: 1.806060606060606,
+            sampled_at: '2024-09-13T00:00:00+00:00'
+        limits:
+          from: '2024-09-08T14:35:00.000Z'
+          to: '2024-10-08T14:35:00.000Z'
+    analytics_qoe_error_free_sessions_account:
+      type: object
+      description: ''
+      properties:
+        account:
+          type: object
+          title: account
+          description: ''
+          properties:
+            error_free_sessions:
+              type: integer
+              description: 'The percentage of sessions with no fatal errors across any stream before or during playback. A session is considered error-free if no fatal errors occur at any time, either before or during playback.
+
+
+                **Note:** The value for error-free sessions will be 100% if there is no playback activity during the specified time range, as no errors would have occurred.  '
+              example: ''
+              format: int32
+            time_zone:
+              title: time_zone
+              type: string
+              description: The time zone in which the data is returned. The default time zone in which the data is returned is **Etc/UTC**.
+            trend:
+              type: object
+              title: Array of error free sessions
+              description: 'An array of error free sessions trend data. The granularity of sampled data changes based on the from and to query values you use:
+
+
+                <ul><li>0 minutes to 8 hours - Samples returned per minute</li> <li>8 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 175 days - Samples returned per day</li> <li>175 days to 14 years - Samples returned per month</li> <li>14 years or greater - Samples returned per year</li></ul>'
+              properties:
+                sampled_at:
+                  type: string
+                  description: The date and time the trend data was sampled.
+                  format: date-time
+                average:
+                  type: integer
+                  description: The average percentage of error free sessions encountered during video playback.
+                  example: ''
+                  format: int32
+            limits:
+              type: object
+              description: The time frame represented in the response.
+              properties:
+                from:
+                  type: string
+                  description: The start of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+                to:
+                  type: string
+                  description: The end of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+      example:
+        account:
+          error_free_sessions: 7
+          time_zone: America/New_York
+          trend:
+          - average: 1.0,
+            sampled_at: '2024-09-08T00:00:00+00:00'
+          - average: 2.0,
+            sampled_at: '2024-09-11T00:00:00+00:00'
+        limits:
+          from: '2024-09-08T14:35:00.000Z'
+          to: '2024-10-08T14:35:00.000Z'
+    analytics_qoe_errors_drilldown_trend_error_code:
+      type: object
+      description: ''
+      properties:
+        error:
+          type: object
+          title: error
+          description: ''
+          properties:
             code:
               type: string
-              description: ''
+              description: The error code id. For a full list of the player error codes, see this <a href= "https://try.flowplayer.com/?channel=stable#0=N4IgtglgJlA2CmIBcBWADAGhAZ3ggxgC7xTIgB0+22IW+A9rPQE5nMDmARgBQDMAHBnRCAbAEpaIQgAt4YREnABDYswhLYAWgAOG+ADsI7aYUmwlAT3oBXU4qW36k5vGwQAXvCWcEyQs2t4LBIIQm9fJH9ArEJ6Rk4lVkiAoJAAMwgEABVvGmTokFgIfQBrHM48qNTsaUT4ACFbWP0-FKwXJiUoRsJm1oKGfWxGBSqsB1iAJTx6Lv7UifppzqgAETxLZAAWNEwQRYAxenxrPLSNXHHHAAl4IxNkc9hLnHxmRlhkAG1MNABdLAZBB5L6gfRKeRkbQuABuEHgAHdJINiPo7CAQABfDBgiEKKT0EoGcgAKxodHoaIM6IRxSg9AR5AA+kyDgAZADyAHUAApsgCCAE0AKKTJlZDkAaWFADkALwAHRA8AsAClmEouQBFCAciCqrUAZRJUBlxukKCg7gAsrwtWB+BA2QBhVVoeAADX5uv1koAagBGHUu1XSTgAcXwPtVBwAqu4AJIBmX6gCc5BVqpJCZJ9HhAdpgq5MuwHudCZEKYAHvgE2BYCUyxWywbjabzZabXawKna-o0E7Xdp8LxrdHwxHU7x8OGq7IuX6LAn++Q-arrtd9F5w4bw6sufRBcwtiJDfh+at2Ch6uH+WhrvzmPxDbwPVlVQAmNLsNn0VOaGVCAALX4bRDQ-EQPTCLUSnwVN6Hqa4uWgcwIAgKt6GkfhhWYBEoGYElrQ5egPy1epJQRJUAG5JGkaAoAMeZsVxSFFFJckQBRakyA5TgSXgIgMzRNRXG4NImARbRzAseBmAzZh3mYbAxHINIWGFJR8GkbhuC+IkLAwAACBgGL+MQ5QAPkM4AFX0QzjMpbBCEM-ThQQOVDPpE55DRSgXBUeA3LkaluCVbBdH0JUxFs+zBichyGKCwyPK86wfMIPyvGIIL0tCnAIqimKHKGZywh8eBks8440upch2HgQgcupeolygPLZMUzQTNcQq7JclUgvIYgq0IZ1KVRZyPP0orusG4bRvG6lKu6oqyoQcglG0bQDDa1yECM2aEGi-RMQkLBcAIQgIEcsgUCQD9+CxHEQHBViKCoDiuLRMgAGIOpYLr6AY7BrKKqAIHC6SkEM9g1CgKiith6BNGIMApICwHYDSoZoYDNJmEMvHmCowyAHoACpDOFABHawNEM2koBkBysbAIZDPJ0nEc26GPzQbQqxJinDMNXR8AqzgGoReADBZ7GQc52zMUkC6BKum7FF4e60Celj8XIEx62RRbvsUWyAB5wZhQzoEVZUFIB7rsCVCyiot0mrYslW8DV66hjIAMkC2LEAUKYoShBUBCAsbayCcixfCwV78U4IGLEkaxmE+RQTEIbRsCQUnSf8CxVIk9GZLkhgwFJgI0QgeRNCgRISkoahaPoxj8ngZiXrxMh6BhbQM6zshc-zwvSfwKB9DLhkK9kyh6BrjovFwbBSfBK6YXgUneFJpzwl3qTrHYYoN8H7RyEgWeyUkaPY8UbA3ggbRTCwOiYC7qpe+TsfnhHtnEA48C5F2nrPcS89pKL2rrXH2Sh16bxUBAHee8D5rWPljM+QxSbSGeNfYo7F74x3xM-NQb8O5fxaN3X+-dFCQMktA1gWBM5AJAZPcBc9GGWBgcvOBCAEGuCQdvXe+9D7lQ9vAc41hYCEFJgwheckb5EJiCQuOL8KEf07tQn+z0-70PLkwtuHFWFj16BPMBM8uGKKXiveBiCt4oNEego+6CE67wUUYj6xDH44GjonYB2imJ-ExEAA">list</a>.
               example: ''
-            title:
+            trend:
+              type: object
+              title: Array of error density trends
+              description: 'An array of error density trend data. The granularity of sampled data changes based on the from and to query values you use:
+
+
+                <ul><li>0 minutes to 8 hours - Samples returned per minute</li> <li>8 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 175 days - Samples returned per day</li> <li>175 days to 14 years - Samples returned per month</li> <li>14 years or greater - Samples returned per year</li></ul>'
+              properties:
+                sampled_at:
+                  type: string
+                  description: The date and time the trend data was sampled.
+                  format: date-time
+                count:
+                  type: integer
+                  description: The total number of times this specific error occurred at the sampled time.
+                  example: ''
+            limits:
+              type: object
+              description: The time frame represented in the response.
+              properties:
+                from:
+                  type: string
+                  description: The start of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+                to:
+                  type: string
+                  description: The end of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+            name:
               type: string
-              description: ''
+              description: The name of the playback error.
               example: ''
-            message:
+            type:
               type: string
-              description: ''
+              description: The type of event related to video/audio streaming.
               example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
       example:
-        Example Response 1:
-          meta:
-            status: 410
-            code: ERR-410-RecordDeleted
-            title: Record Deleted Error
-            message: The requested resource has been deleted.
-            description: ''
-            links: []
+        error:
+        - code: 02-01
+          trend:
+            count: 10
+            sampled_at: '2024-09-19T00:00:00Z'
+          name: PlaybackVideoBufferUnderRun
+          type: Playback
+          limits:
+            from: '2024-09-08T14:35:00.000Z'
+            to: '2024-10-08T14:35:00.000Z'
+    analytics_qoe_error_free_sessions_media_media_ids:
+      type: object
+      description: ''
+      properties:
+        account:
+          type: object
+          title: media
+          description: ''
+          properties:
+            error_free_sessions:
+              type: integer
+              description: 'The percentage of sessions with no fatal errors across any stream before or during playback. A session is considered error-free if no fatal errors occur at any time, either before or during playback.
+
+
+                **Note:** The value for error-free sessions will be 100% if there is no playback activity during the specified time range, as no errors would have occurred.'
+              example: ''
+              format: int32
+            time_zone:
+              title: time_zone
+              type: string
+              description: The time zone in which the data is returned. The default time zone in which the data is returned is **Etc/UTC**.
+            trend:
+              type: object
+              title: Array of error free sessions
+              description: 'An array of error free sessions trend data. The granularity of sampled data changes based on the from and to query values you use:
+
+
+                <ul><li>0 minutes to 8 hours - Samples returned per minute</li> <li>8 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 175 days - Samples returned per day</li> <li>175 days to 14 years - Samples returned per month</li> <li>14 years or greater - Samples returned per year</li></ul>'
+              properties:
+                sampled_at:
+                  type: string
+                  description: The date and time the trend data was sampled.
+                  format: date-time
+                average:
+                  type: integer
+                  description: The average percentage of error free sessions encountered during video playback.
+                  example: ''
+                  format: int32
+            limits:
+              type: object
+              description: The time frame represented in the response.
+              properties:
+                from:
+                  type: string
+                  description: The start of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+                to:
+                  type: string
+                  description: The end of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+      example:
+        media:
+          error_free_sessions: 7
+          time_zone: America/New_York
+          trend:
+          - average: 1.0,
+            sampled_at: '2024-09-08T00:00:00+00:00'
+          - average: 2.0,
+            sampled_at: '2024-09-11T00:00:00+00:00'
+        limits:
+          from: '2024-09-08T14:35:00.000Z'
+          to: '2024-10-08T14:35:00.000Z'
+    analytics_qoe_rebuffer_count_media_id:
+      type: object
+      description: ''
+      properties:
+        media:
+          type: object
+          title: media
+          description: ''
+          properties:
+            rebuffer_per_view:
+              type: integer
+              description: 'The average number of rebuffer events per each play. Rebuffer events can be the pauses to load or buffer additional data experienced during playback. '
+              example: ''
+              format: int32
+            time_zone:
+              title: time_zone
+              type: string
+              description: The time zone in which the data is returned. The default time zone in which the data is returned is **Etc/UTC**.
+            trend:
+              type: object
+              title: Array of rebuffer count trends
+              description: 'An array of rebuffer count trend data. The granularity of sampled data changes based on the from and to query values you use:
+
+
+                <ul><li>0 minutes to 8 hours - Samples returned per minute</li> <li>8 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 175 days - Samples returned per day</li> <li>175 days to 14 years - Samples returned per month</li> <li>14 years or greater - Samples returned per year</li></ul>'
+              properties:
+                sampled_at:
+                  type: string
+                  description: The date and time the trend data was sampled.
+                  format: date-time
+                average:
+                  type: integer
+                  description: The average number of rebuffer events per view.
+                  example: ''
+                  format: int32
+            limits:
+              type: object
+              description: The time frame represented in the response.
+              properties:
+                from:
+                  type: string
+                  description: The start of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+                to:
+                  type: string
+                  description: The end of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+      example:
+        media:
+          rebuffer_per_view: 0
+          time_zone: America/New_York
+          trend:
+          - average: 0.0,
+            sampled_at: '2024-09-08T00:00:00+00:00'
+          - average: 0.0,
+            sampled_at: '2024-09-11T00:00:00+00:00'
+          - average: 0.0,
+            sampled_at: '2024-09-13T00:00:00+00:00'
+        limits:
+          from: '2024-09-08T14:35:00.000Z'
+          to: '2024-10-08T14:35:00.000Z'
+    analytics_qoe_rebuffer_time_drilldown_trend:
+      type: object
+      description: ''
+      properties:
+        media:
+          type: object
+          title: Array of media
+          description: ''
+          properties:
+            id:
+              type: string
+              description: The unique alphanumeric string that identifies the live stream or video.
+              example: ''
+            trend:
+              type: object
+              description: 'An array of rebuffer time drill down trends. The granularity of sampled data changes based on the from and to query values you use:
+
+
+                <ul><li>0 minutes to 8 hours - Samples returned per minute</li> <li>8 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 175 days - Samples returned per day</li> <li>175 days to 14 years - Samples returned per month</li> <li>14 years or greater - Samples returned per year</li></ul>'
+              properties:
+                sampled at:
+                  type: string
+                  description: The date and time the trend data was sampled.
+                  format: date-time
+                rebuffer_time:
+                  type: number
+                  description: The rebuffer time encountered during video playback.
+                  example: ''
+                  format: float
+            limits:
+              type: object
+              description: The time frame represented in the response.
+              properties:
+                from:
+                  type: string
+                  description: The start of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+                to:
+                  type: string
+                  description: The end of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+      example:
+        media:
+        - id: 62588c40-9326-4a98-8836-a347bdad6e5b
+          trend:
+          - sampled_at: '2024-10-08T14:35:00Z'
+            rebuffer_time: 1.19
+          - sampled_at: '2024-10-08T14:35:00Z'
+            rebuffer_time: 1.19
+        limits:
+          from: '2024-09-08T14:35:00Z'
+          to: '2024-10-08T14:35:00Z'
     Error422:
       type: object
       description: ''
@@ -4346,69 +4162,7 @@ components:
             message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
             description: ''
             links: []
-    analytics_qoe_error_density_media_{id}:
-      type: object
-      description: ''
-      properties:
-        media:
-          type: object
-          title: media
-          description: ''
-          properties:
-            error_density:
-              type: integer
-              description: The average number of playback errors per playback start. A playback start includes the initial start of a stream as well as any resume events after rebuffering or user-initiated pauses. For example, if there are 1000 total playback errors across 500 play sessions, the error density would be 2.
-              format: int32
-            time_zone:
-              title: time_zone
-              type: string
-              description: The time zone in which the data is returned. The default time zone in which the data is returned is **Etc/UTC**.
-            trend:
-              type: object
-              title: Array of error density trends
-              description: 'An array of error density trend data. The granularity of sampled data changes based on the from and to query values you use:
-
-
-                <ul><li>0 minutes to 8 hours - Samples returned per minute</li> <li>8 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 175 days - Samples returned per day</li> <li>175 days to 14 years - Samples returned per month</li> <li>14 years or greater - Samples returned per year</li></ul>'
-              properties:
-                error_density:
-                  type: integer
-                  description: The percentage of plays that encountered issues during playback.
-                  example: ''
-                  format: int32
-                sampled_at:
-                  type: string
-                  description: The date and time the trend data was sampled.
-                  format: date-time
-            limits:
-              type: object
-              description: The time frame represented in the response.
-              properties:
-                from:
-                  type: string
-                  description: The start of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-                to:
-                  type: string
-                  description: The end of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-      example:
-        media:
-          error_density: 7
-          time_zone: America/New_York
-          trend:
-          - average: 1.0,
-            sampled_at: '2024-09-08T00:00:00+00:00'
-          - average: 0.9829059829059829,
-            sampled_at: '2024-09-11T00:00:00+00:00'
-          - average: 0.806060606060606,
-            sampled_at: '2024-09-13T00:00:00+00:00'
-        limits:
-          from: '2024-09-08T14:35:00.000Z'
-          to: '2024-10-08T14:35:00.000Z'
-    analytics_qoe_rebuffer_count_account:
+    analytics_qoe_video_start_time_account:
       type: object
       description: ''
       properties:
@@ -4417,32 +4171,57 @@ components:
           title: account
           description: ''
           properties:
-            rebuffer_per_view:
+            average:
               type: integer
-              description: The average number of rebuffer events per view. Rebuffer events can be the pauses to load or buffer additional data experienced during playback.
+              description: The average time, in seconds, from when a user requests a video stream until playback begins.
               example: ''
               format: int32
             time_zone:
               title: time_zone
               type: string
               description: The time zone in which the data is returned. The default time zone in which the data is returned is **Etc/UTC**.
+            quantile_25:
+              type: integer
+              description: The video start time of 25th percentile of video streams. This means that 25% of the users have a video start time equal to or less than this value.
+              example: ''
+              format: int32
+            quantile_50:
+              type: integer
+              description: The video start time of 50th percentile of video streams. This means that 50% of the users have a video start time equal to or less than this value.
+              example: ''
+              format: int32
+            quantile_75:
+              type: integer
+              description: The video start time of 75th percentile of video streams. This means that 75% of the users have a video start time equal to or less than this value.
+              example: ''
+              format: int32
+            quantile_95:
+              type: integer
+              description: The video start time of 95th percentile of video streams. This means that 95% of the users have a video start time equal to or less than this value.
+              example: ''
+              format: int32
+            quantile_99:
+              type: integer
+              description: The video start time of 99th percentile of video streams. This means that 99% of the users have a video start time equal to or less than this value.
+              example: ''
+              format: int32
             trend:
               type: object
-              title: Array of rebuffer count trends
-              description: 'An array of rebuffer count trend data. The granularity of sampled data changes based on the from and to query values you use:
+              title: Array of video start time trends
+              description: 'An array of video start time trend data. The granularity of sampled data changes based on the from and to query values you use:
 
 
                 <ul><li>0 minutes to 8 hours - Samples returned per minute</li> <li>8 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 175 days - Samples returned per day</li> <li>175 days to 14 years - Samples returned per month</li> <li>14 years or greater - Samples returned per year</li></ul>'
               properties:
+                average:
+                  type: integer
+                  description: The average time, in seconds, from when a user requests a video stream until playback begins.
+                  example: ''
+                  format: int32
                 sampled_at:
                   type: string
                   description: The date and time the trend data was sampled.
                   format: date-time
-                average:
-                  type: integer
-                  description: The average number of rebuffer events per view.
-                  example: ''
-                  format: int32
             limits:
               type: object
               description: The time frame represented in the response.
@@ -4459,14 +4238,19 @@ components:
                   format: date-time
       example:
         account:
-          rebuffer_per_view: 0.009584664536741214
+          average: 400.64516129032256
           time_zone: Etc/UTC
+          quantile_25: 300
+          quantile_50: 300
+          quantile_75: 300
+          quantile_95: 1206
+          quantile_99: 3390
           trend:
           - average: 0.0,
             sampled_at: '2024-09-08T00:00:00+00:00'
-          - average: 0.01171875,
+          - average: 525.0,
             sampled_at: '2024-09-11T00:00:00+00:00'
-          - average: 0.0,
+          - average: 382.0,
             sampled_at: '2024-09-13T00:00:00+00:00'
         limits:
           from: '2024-09-08T14:35:00.000Z'
@@ -4517,12 +4301,252 @@ components:
             message: The requested resource couldn't be found.
             description: ''
             links: []
+    analytics_qoe_rebuffer_count_drilldown_trend:
+      type: object
+      description: ''
+      properties:
+        media:
+          type: object
+          title: Array of media
+          description: ''
+          properties:
+            id:
+              type: string
+              description: The unique alphanumeric string that identifies the live stream or video.
+              example: ''
+            trend:
+              type: object
+              description: 'An array of rebuffer count drill down trends. The granularity of sampled data changes based on the from and to query values you use:
+
+
+                <ul><li>0 minutes to 8 hours - Samples returned per minute</li> <li>8 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 175 days - Samples returned per day</li> <li>175 days to 14 years - Samples returned per month</li> <li>14 years or greater - Samples returned per year</li></ul>'
+              properties:
+                sampled at:
+                  type: string
+                  description: The date and time the trend data was sampled.
+                  format: date-time
+                rebuffer_count:
+                  type: number
+                  description: The rebuffer count encountered during video playback.
+                  example: ''
+                  format: float
+            limits:
+              type: object
+              description: The time frame represented in the response.
+              properties:
+                from:
+                  type: string
+                  description: The start of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+                to:
+                  type: string
+                  description: The end of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+      example:
+        media:
+        - id: 62588c40-9326-4a98-8836-a347bdad6e5b
+          trend:
+          - sampled_at: '2024-10-08T14:35:00Z'
+            rebuffer_count: 1.19
+          - sampled_at: '2024-10-08T14:35:00Z'
+            rebuffer_count: 1.19
+        limits:
+          from: '2024-09-08T14:35:00Z'
+          to: '2024-10-08T14:35:00Z'
+    Error410:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 410
+            code: ERR-410-RecordDeleted
+            title: Record Deleted Error
+            message: The requested resource has been deleted.
+            description: ''
+            links: []
+    Error401:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 401
+            code: ERR-401-NoApiKey
+            title: No API Key Error
+            message: No API key sent in header.
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 401
+            code: ERR-401-NoAccessKey
+            title: No Access Key Error
+            message: No access key sent in header.
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 401
+            code: ERR-401-InvalidApiKey
+            title: Invalid Api Key Error
+            message: Invalid API key.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 401
+            code: ERR-401-InvalidAccessKey
+            title: Invalid Access Key Error
+            message: Invalid access key.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 401
+            code: ERR-401-BadAccountStatus
+            title: Bad Account Status Error
+            message: Your account's status doesn't allow this action.
+            description: ''
+            links: []
+        Example Response 6:
+          meta:
+            status: 401
+            code: ERR-401-FeatureNotEnabled
+            title: Feature Not Enabled Error
+            message: This feature isn't enabled.
+            description: ''
+            links: []
+        Example Response 7:
+          meta:
+            status: 401
+            code: ERR-401-TrialExceeded
+            title: Bad Billing Status Error
+            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
+            description: ''
+            links: []
+        Example Response 8:
+          meta:
+            status: 401
+            code: ERR-401-ExpiredToken
+            title: JWT is expired
+            message: Token has exired.
+            description: ''
+            links: []
+        Example Response 9:
+          meta:
+            status: 401
+            code: ERR-401-InvalidToken
+            title: JWT is invalid
+            message: Token is invalid.
+            description: ''
+            links: []
   securitySchemes:
-    basicAuth:
+    WV_JWT:
       type: http
-      scheme: basic
-      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
-    digestAuth:
-      type: http
-      scheme: digest
-      description: HTTP Digest Authentication
+      scheme: bearer
+      description: Your Wowza-generated access token, also called a JSON web token (JWT). Send it as a bearer token in the Authentication header of your requests. See [Authentication](https://www.wowza.com/docs/how-to-use-the-wowza-video-rest-api#authentication).
+x-tagGroups:
+- name: Resource Management
+  tags:
+  - live_streams
+  - transcoders
+  - stream_sources
+  - stream_targets
+  - schedules
+  - real_time
+  - videos
+  - categories
+  - advanced_token_authentication
+  - clipping
+- name: Analytics
+  tags:
+  - analytics_viewers
+  - analytics_ingest
+  - analytics_engagement
+  - analytics_popularity
+  - quality_of_experience
+- name: Usage
+  tags:
+  - usage_account
+  - usage_transcoders
+  - usage
+  - usage_real_time_streams
+- name: Deprecated in 2.0
+  tags:
+  - assets
+  - players
+  - recordings
+  - vod_streams
+  - storage
+  - usage_vod_streams

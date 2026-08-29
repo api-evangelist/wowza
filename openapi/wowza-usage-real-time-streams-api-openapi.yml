@@ -1,19 +1,13 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Wowza Streaming Engine REST advanced_token_authentication usage_real_time_streams API
-  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
-  version: 2.0.0
-  contact:
-    name: Wowza Media Systems
-    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  version: v2.0
+  title: Wowza Video REST API Reference Documentation Usage Real Time Streams API
   license:
-    name: Wowza Media Systems
-    url: https://www.wowza.com
+    name: Terms of Use
+    url: https://www.wowza.com/legal/terms-of-use
+  description: "API lifecycle phase: [Current](https://www.wowza.com/docs/wowza-video-rest-api-lifecycle-management#api-lifecycle0)\n\n\n<table>\n<tr style=\"background-color:lightgrey;\"><td>\n<strong>Want to take the API for a test run?</strong>\n\nAll you'll need is a [Wowza Video subscription](https://www.wowza.com/pricing), or [free trial](https://www.wowza.com/free-trial), for the API access token. Then, fork [our collection in Postman](https://www.postman.com/wowzavideo/workspace/wowza-video-rest-api) and you'll be\nmaking calls to our REST API in minutes!\n\nSee [Trial the Wowza Video REST API using Postman](https://www.wowza.com/docs/trial-the-wowza-video-rest-api-using-postman) for more information.\n</td>\n</tr>\n</table>\n\n\nThis reference documentation provides details about the operations, parameters, and request and response schemas for every resource and endpoint in the Wowza Video REST API.\nSamples appear in the right column. Sample requests are presented in cURL (Shell) and JavaScript; some samples also include just the JSON object. Response samples are all JSON. \nExamples in cURL use environment variables so you can easily copy and paste them. To learn more, see [Using cURL](https://wowza.com/docs/how-to-use-the-wowza-video-rest-api#curl).\n\n\nReference documentation is available for every version of the API. Use the **Version** menu at the top of the page to access the reference doc for a different version of the API.\n\n<blockquote><strong>Note</strong>: If you haven't moved over to the new Wowza Video UI experience, you won't be able to access v2.0 of the API. We're migrating customers iteratively. See <a href=\"https://developer.wowza.com/docs/wowza-video/upgrade-to-wowza-video/\">Upgrade to the Wowza Video 2.0 REST API</a> for more information.</blockquote>\n"
 servers:
-- url: http://localhost:8087
-  description: Wowza Streaming Engine Server
-security:
-- basicAuth: []
+- url: https://api.video.wowza.com/api/v2.0
 tags:
 - name: usage_real_time_streams
   description: Operations related to real-time streams analytics.
@@ -257,52 +251,128 @@ paths:
                 $ref: '#/components/schemas/Error422'
 components:
   schemas:
-    Error403:
+    usage_real_time_stream_summary:
       type: object
       description: ''
-      required:
-      - meta
       properties:
-        meta:
+        summary:
           type: object
-          title: meta
+          title: summary
           description: ''
           properties:
-            status:
+            bytes_in:
               type: integer
-              description: ''
+              description: The amount of content, in bytes, that came from a video source in to Wowza Video during the selected time frame.
               example: ''
               format: int32
-            code:
+            bytes_out:
+              type: integer
+              description: The amount of content, in bytes, that went to a viewer during the selected time frame.
+              example: ''
+              format: int32
+        limits:
+          type: object
+          description: The time frame represented in the response.
+          properties:
+            from:
               type: string
-              description: ''
+              description: The start of the range of time represented in the response.
               example: ''
-            title:
+              format: date-time
+            to:
               type: string
-              description: ''
+              description: The end of the range of time represented in the response.
               example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
+              format: date-time
       example:
-        Example Response 1:
-          meta:
-            status: 403
-            code: ERR-403-RecordUnaccessible
-            title: Record Unaccessible Error
-            message: The requested resource isn't accessible.
-            description: ''
-            links: []
+        summary:
+          bytes_in: 987467984710
+          bytes_out: 1583413248468
+        limits:
+          from: '2023-05-07T00:00:00.000Z'
+          to: '2023-05-26T00:00:00.000Z'
+    usage_real_time_streams:
+      type: object
+      description: ''
+      properties:
+        real_time_streams:
+          type: object
+          title: Array of real-time streams
+          description: An array of real-time streams and the details of their CDN usage.
+          properties:
+            id:
+              type: string
+              description: The unique alphanumeric string that identifies the real-time stream.
+              format: int32
+            name:
+              type: string
+              description: A descriptive name for the real-time stream. Maximum 255 characters.
+              example: ''
+            bytes_in:
+              type: integer
+              description: The amount of content, in bytes, that came from a video source in to Wowza Video during the selected time frame.
+              format: int32
+            bytes_out:
+              type: integer
+              description: The amount of content, in bytes, that went to a viewer during the selected time frame.
+              format: int32
+              example: ''
+        pagination:
+          type: object
+          description: Page information for the results generated by the query.
+          properties:
+            payload_version:
+              type: integer
+              description: The pagination object version.
+            total_records:
+              type: integer
+              description: The total number of records in the database that match the query.
+              example: ''
+            next_page_key:
+              type: string
+              description: The key ID of the next page of results.
+              example: ''
+            per_page:
+              type: integer
+              description: The number of records included on each page of results.
+              example: ''
+            total_pages:
+              type: integer
+              description: The total number of pages generated by the query.
+              example: ''
+        limits:
+          type: object
+          description: The time frame represented in the response.
+          properties:
+            from:
+              type: string
+              description: The start of the range of time represented in the response.
+              example: ''
+              format: date-time
+            to:
+              type: string
+              description: The end of the range of time represented in the response.
+              example: ''
+              format: date-time
+      example:
+        real_time_streams:
+        - id: tvctq36g
+          name: My Real Time Stream
+          bytes_in: 0
+          bytes_out: 222
+        - id: bac1256
+          name: My Other Real Time Stream
+          bytes_in: 888
+          bytes_out: 1111
+        pagination:
+          payload_version: '2.0'
+          total_records: 269
+          next_page_key: 2jj8syfl
+          per_page: 10
+          total_pages: 27
+        limits:
+          from: '2019-11-07T00:00:00.000Z'
+          to: '2019-12-05T00:00:00.000Z'
     usage_real_time_stream:
       type: object
       description: ''
@@ -352,6 +422,222 @@ components:
         limits:
           from: '2019-11-07T00:00:00.000Z'
           to: '2019-12-05T00:00:00.000Z'
+    Error403:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 403
+            code: ERR-403-RecordUnaccessible
+            title: Record Unaccessible Error
+            message: The requested resource isn't accessible.
+            description: ''
+            links: []
+    Error422:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. ... can't be blank
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. Provider wowza_video is not allowed
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
+            description: ''
+            links: []
+    Error404:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 404
+            code: ERR-404-RecordNotFound
+            title: Record Not Found Error
+            message: The requested resource couldn't be found.
+            description: ''
+            links: []
+    Error410:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 410
+            code: ERR-410-RecordDeleted
+            title: Record Deleted Error
+            message: The requested resource has been deleted.
+            description: ''
+            links: []
     Error401:
       type: object
       description: ''
@@ -462,317 +748,55 @@ components:
             message: Token is invalid.
             description: ''
             links: []
-    Error422:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. ... can't be blank
-            description: ''
-            links: []
-        Example Response 2:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. Provider wowza_video is not allowed
-            description: ''
-            links: []
-        Example Response 3:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
-            description: ''
-            links: []
-        Example Response 4:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
-            description: ''
-            links: []
-        Example Response 5:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
-            description: ''
-            links: []
-    Error410:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 410
-            code: ERR-410-RecordDeleted
-            title: Record Deleted Error
-            message: The requested resource has been deleted.
-            description: ''
-            links: []
-    usage_real_time_streams:
-      type: object
-      description: ''
-      properties:
-        real_time_streams:
-          type: object
-          title: Array of real-time streams
-          description: An array of real-time streams and the details of their CDN usage.
-          properties:
-            id:
-              type: string
-              description: The unique alphanumeric string that identifies the real-time stream.
-              format: int32
-            name:
-              type: string
-              description: A descriptive name for the real-time stream. Maximum 255 characters.
-              example: ''
-            bytes_in:
-              type: integer
-              description: The amount of content, in bytes, that came from a video source in to Wowza Video during the selected time frame.
-              format: int32
-            bytes_out:
-              type: integer
-              description: The amount of content, in bytes, that went to a viewer during the selected time frame.
-              format: int32
-              example: ''
-        pagination:
-          type: object
-          description: Page information for the results generated by the query.
-          properties:
-            payload_version:
-              type: integer
-              description: The pagination object version.
-            total_records:
-              type: integer
-              description: The total number of records in the database that match the query.
-              example: ''
-            next_page_key:
-              type: string
-              description: The key ID of the next page of results.
-              example: ''
-            per_page:
-              type: integer
-              description: The number of records included on each page of results.
-              example: ''
-            total_pages:
-              type: integer
-              description: The total number of pages generated by the query.
-              example: ''
-        limits:
-          type: object
-          description: The time frame represented in the response.
-          properties:
-            from:
-              type: string
-              description: The start of the range of time represented in the response.
-              example: ''
-              format: date-time
-            to:
-              type: string
-              description: The end of the range of time represented in the response.
-              example: ''
-              format: date-time
-      example:
-        real_time_streams:
-        - id: tvctq36g
-          name: My Real Time Stream
-          bytes_in: 0
-          bytes_out: 222
-        - id: bac1256
-          name: My Other Real Time Stream
-          bytes_in: 888
-          bytes_out: 1111
-        pagination:
-          payload_version: '2.0'
-          total_records: 269
-          next_page_key: 2jj8syfl
-          per_page: 10
-          total_pages: 27
-        limits:
-          from: '2019-11-07T00:00:00.000Z'
-          to: '2019-12-05T00:00:00.000Z'
-    usage_real_time_stream_summary:
-      type: object
-      description: ''
-      properties:
-        summary:
-          type: object
-          title: summary
-          description: ''
-          properties:
-            bytes_in:
-              type: integer
-              description: The amount of content, in bytes, that came from a video source in to Wowza Video during the selected time frame.
-              example: ''
-              format: int32
-            bytes_out:
-              type: integer
-              description: The amount of content, in bytes, that went to a viewer during the selected time frame.
-              example: ''
-              format: int32
-        limits:
-          type: object
-          description: The time frame represented in the response.
-          properties:
-            from:
-              type: string
-              description: The start of the range of time represented in the response.
-              example: ''
-              format: date-time
-            to:
-              type: string
-              description: The end of the range of time represented in the response.
-              example: ''
-              format: date-time
-      example:
-        summary:
-          bytes_in: 987467984710
-          bytes_out: 1583413248468
-        limits:
-          from: '2023-05-07T00:00:00.000Z'
-          to: '2023-05-26T00:00:00.000Z'
-    Error404:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 404
-            code: ERR-404-RecordNotFound
-            title: Record Not Found Error
-            message: The requested resource couldn't be found.
-            description: ''
-            links: []
   parameters:
-    per_page_2.0:
-      name: per_page
-      in: query
-      description: For use with the *next_page_key* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
-      schema:
-        type: integer
     next_page_key:
       name: next_page_key
       in: query
       description: (Available from version 1.5) Returns a paginated view of results from the HTTP request. Specify a page key ID to indicate which page of the results should be displayed.
       schema:
         type: string
+    per_page_2.0:
+      name: per_page
+      in: query
+      description: For use with the *next_page_key* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
+      schema:
+        type: integer
   securitySchemes:
-    basicAuth:
+    WV_JWT:
       type: http
-      scheme: basic
-      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
-    digestAuth:
-      type: http
-      scheme: digest
-      description: HTTP Digest Authentication
+      scheme: bearer
+      description: Your Wowza-generated access token, also called a JSON web token (JWT). Send it as a bearer token in the Authentication header of your requests. See [Authentication](https://www.wowza.com/docs/how-to-use-the-wowza-video-rest-api#authentication).
+x-tagGroups:
+- name: Resource Management
+  tags:
+  - live_streams
+  - transcoders
+  - stream_sources
+  - stream_targets
+  - schedules
+  - real_time
+  - videos
+  - categories
+  - advanced_token_authentication
+  - clipping
+- name: Analytics
+  tags:
+  - analytics_viewers
+  - analytics_ingest
+  - analytics_engagement
+  - analytics_popularity
+  - quality_of_experience
+- name: Usage
+  tags:
+  - usage_account
+  - usage_transcoders
+  - usage
+  - usage_real_time_streams
+- name: Deprecated in 2.0
+  tags:
+  - assets
+  - players
+  - recordings
+  - vod_streams
+  - storage
+  - usage_vod_streams

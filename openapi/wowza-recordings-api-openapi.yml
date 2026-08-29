@@ -1,19 +1,13 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Wowza Streaming Engine REST advanced_token_authentication recordings API
-  description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
-  version: 2.0.0
-  contact:
-    name: Wowza Media Systems
-    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  version: v2.0
+  title: Wowza Video REST API Reference Documentation Recordings API
   license:
-    name: Wowza Media Systems
-    url: https://www.wowza.com
+    name: Terms of Use
+    url: https://www.wowza.com/legal/terms-of-use
+  description: "API lifecycle phase: [Current](https://www.wowza.com/docs/wowza-video-rest-api-lifecycle-management#api-lifecycle0)\n\n\n<table>\n<tr style=\"background-color:lightgrey;\"><td>\n<strong>Want to take the API for a test run?</strong>\n\nAll you'll need is a [Wowza Video subscription](https://www.wowza.com/pricing), or [free trial](https://www.wowza.com/free-trial), for the API access token. Then, fork [our collection in Postman](https://www.postman.com/wowzavideo/workspace/wowza-video-rest-api) and you'll be\nmaking calls to our REST API in minutes!\n\nSee [Trial the Wowza Video REST API using Postman](https://www.wowza.com/docs/trial-the-wowza-video-rest-api-using-postman) for more information.\n</td>\n</tr>\n</table>\n\n\nThis reference documentation provides details about the operations, parameters, and request and response schemas for every resource and endpoint in the Wowza Video REST API.\nSamples appear in the right column. Sample requests are presented in cURL (Shell) and JavaScript; some samples also include just the JSON object. Response samples are all JSON. \nExamples in cURL use environment variables so you can easily copy and paste them. To learn more, see [Using cURL](https://wowza.com/docs/how-to-use-the-wowza-video-rest-api#curl).\n\n\nReference documentation is available for every version of the API. Use the **Version** menu at the top of the page to access the reference doc for a different version of the API.\n\n<blockquote><strong>Note</strong>: If you haven't moved over to the new Wowza Video UI experience, you won't be able to access v2.0 of the API. We're migrating customers iteratively. See <a href=\"https://developer.wowza.com/docs/wowza-video/upgrade-to-wowza-video/\">Upgrade to the Wowza Video 2.0 REST API</a> for more information.</blockquote>\n"
 servers:
-- url: http://localhost:8087
-  description: Wowza Streaming Engine Server
-security:
-- basicAuth: []
+- url: https://api.video.wowza.com/api/v2.0
 tags:
 - name: recordings
   description: "<blockquote>The <strong>recordings</strong> operations are deprecated in 2.0. Use the <strong>/videos</strong> endpoints instead.</blockquote> \n\nOperations related to recordings, which are created through the ``/live_streams`` or ``/transcoders`` resources. The Wowza Video service can create MP4 recordings of your live streams and transcoded output. Recordings can be downloaded and saved locally. They're based on the highest-bitrate output rendition that Wowza Video generates from your video source. See [About recordings](https://www.wowza.com/docs/record-live-streams-and-transcoders#aboutREC) to learn more."
@@ -233,6 +227,52 @@ paths:
                 $ref: '#/components/schemas/Error410'
 components:
   schemas:
+    Error404:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 404
+            code: ERR-404-RecordNotFound
+            title: Record Not Found Error
+            message: The requested resource couldn't be found.
+            description: ''
+            links: []
     Error403:
       type: object
       description: ''
@@ -277,6 +317,300 @@ components:
             code: ERR-403-RecordUnaccessible
             title: Record Unaccessible Error
             message: The requested resource isn't accessible.
+            description: ''
+            links: []
+    recording:
+      type: object
+      description: ''
+      properties:
+        asset_id:
+          type: string
+          description: Only applies to recordings created for Asset Management. The id for the asset associated with your recording. You can manage your asset in Asset Management.
+        created_at:
+          type: string
+          description: The date and time that the recording was created.
+          example: ''
+          format: date-time
+        download_url:
+          type: string
+          description: The URL that can be used to download the recording.
+          example: ''
+        duration:
+          type: integer
+          description: The length of the recording, in hours, minutes, and seconds.
+          example: ''
+          format: int64
+        file_name:
+          type: string
+          description: 'The file name of the recording.
+
+
+            <blockquote><strong>Note:</strong> To avoid file management issues in storage, Wowza Video removes or replaces special characters in file names.</blockquote>'
+          example: ''
+        file_size:
+          type: integer
+          description: The file size of the recording.
+          example: ''
+          format: int64
+        id:
+          type: string
+          description: The unique alphanumeric string that identifies the recording.
+          example: ''
+        real_time_stream_id:
+          type: string
+          description: Only applies to Real-Time Streaming at Scale. The unique alphanumeric string that identifies the real-time stream that was recorded.
+          example: cj39nmrt
+        reason:
+          type: string
+          description: The reason that a recording has the state **failed**.
+          example: ''
+        starts_at:
+          type: string
+          description: The date and time that the recording started.
+          example: ''
+        state:
+          type: string
+          description: The state of the recording.
+          example: ''
+          enum:
+          - uploading
+          - converting
+          - removing
+          - completed
+          - failed
+        transcoder_id:
+          type: string
+          description: The unique alphanumeric string that identifies the transcoder that was recorded.
+          example: ''
+        transcoder_name:
+          type: string
+          description: The descriptive name of the transcoder that was recorded.
+          example: ''
+        transcoding_uptime_id:
+          type: string
+          description: The unique identifier associated with the transcoding uptime for this recording.
+          example: ''
+          format: date-time
+        updated_at:
+          type: string
+          description: The date and time that the recording was updated.
+          example: ''
+          format: date-time
+      example:
+        created_at: '2020-01-29T17:16:21.993Z'
+        download_url: https://s3.amazonaws.com/prod-wse-recordings/transcoder_035163/64886_00a613bf@367500.stream.0.mp4
+        duration: 362905
+        file_name: 00a613bf@367500.stream.0.mp4
+        file_size: 53113429
+        id: 4Jjzstdt
+        reason: ''
+        starts_at: '2020-02-01T00:00:00.000Z'
+        transcoding_uptime_id: vxyz9876
+        state: completed
+        transcoder_id: bjQplmRw
+        transcoder_name: My Camera
+        updated_at: '2020-01-30T17:22:20.993Z'
+    Error422:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. ... can't be blank
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. Provider wowza_video is not allowed
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
+            description: ''
+            links: []
+    index_recordings:
+      type: object
+      description: ''
+      title: recordings
+      properties:
+        created_at:
+          type: string
+          description: The date and time that the recording was created.
+          example: '2020-01-29T17:16:21.993Z'
+          format: date-time
+        id:
+          type: string
+          description: The unique alphanumeric string that identifies the recording.
+          example: 4Jjzstdt
+        asset_id:
+          type: string
+          description: Only applies to recordings created for Asset Management. The id for the asset associated with your recording. You can manage your asset in Asset Management.
+          example: tk1plmzr
+        file_name:
+          type: string
+          description: 'The file name of the recording.
+
+
+            <blockquote><strong>Note:</strong> To avoid file management issues in storage, Wowza Video removes or replaces special characters in file names.</blockquote>'
+          example: ''
+        real_time_stream_id:
+          type: string
+          description: Only applies to Real-Time Streaming at Scale. The unique alphanumeric string that identifies the real-time stream that was recorded.
+          example: cj39nmrt
+        reason:
+          type: string
+          description: The reason that a recording has the state **failed**.
+          example: ''
+        state:
+          type: string
+          description: The state of the recording.
+          example: completed
+          enum:
+          - uploading
+          - converting
+          - removing
+          - completed
+          - failed
+        transcoder_id:
+          type: string
+          description: The unique alphanumeric string that identifies the transcoder that was recorded.
+          example: bjaplmrw
+        updated_at:
+          type: string
+          description: The date and time that the recording was updated.
+          example: '2020-01-31T14:14:01.993Z'
+          format: date-time
+    recordings:
+      type: object
+      description: ''
+      required:
+      - recordings
+      properties:
+        recordings:
+          type: array
+          items:
+            $ref: '#/components/schemas/index_recordings'
+      example:
+        recordings:
+        - id: 4Jjzstdt
+          transcoder_id: bjaplmrw
+          state: converting
+          reason: ''
+          file_name: 31a4f9f4.stream.0.mp4
+          created_at: '2023-01-29T17:16:21.993Z'
+          updated_at: '2023-01-31T10:37:57.993Z'
+        - id: fFWxVsyj
+          state: completed
+          reason: ''
+          file_name: my_rts_recording.mp4
+          asset_id: thfsm6c2
+          real_time_asset_id: xbzk91ts
+          created_at: '2023-01-28T17:16:21.993Z'
+          updated_at: '2023-01-30T21:34:45.993Z'
+    Error410:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 410
+            code: ERR-410-RecordDeleted
+            title: Record Deleted Error
+            message: The requested resource has been deleted.
             description: ''
             links: []
     Error401:
@@ -389,347 +723,13 @@ components:
             message: Token is invalid.
             description: ''
             links: []
-    index_recordings:
-      type: object
-      description: ''
-      title: recordings
-      properties:
-        created_at:
-          type: string
-          description: The date and time that the recording was created.
-          example: '2020-01-29T17:16:21.993Z'
-          format: date-time
-        id:
-          type: string
-          description: The unique alphanumeric string that identifies the recording.
-          example: 4Jjzstdt
-        asset_id:
-          type: string
-          description: Only applies to recordings created for Asset Management. The id for the asset associated with your recording. You can manage your asset in Asset Management.
-          example: tk1plmzr
-        file_name:
-          type: string
-          description: 'The file name of the recording.
-
-
-            <blockquote><strong>Note:</strong> To avoid file management issues in storage, Wowza Video removes or replaces special characters in file names.</blockquote>'
-          example: ''
-        real_time_stream_id:
-          type: string
-          description: Only applies to Real-Time Streaming at Scale. The unique alphanumeric string that identifies the real-time stream that was recorded.
-          example: cj39nmrt
-        reason:
-          type: string
-          description: The reason that a recording has the state **failed**.
-          example: ''
-        state:
-          type: string
-          description: The state of the recording.
-          example: completed
-          enum:
-          - uploading
-          - converting
-          - removing
-          - completed
-          - failed
-        transcoder_id:
-          type: string
-          description: The unique alphanumeric string that identifies the transcoder that was recorded.
-          example: bjaplmrw
-        updated_at:
-          type: string
-          description: The date and time that the recording was updated.
-          example: '2020-01-31T14:14:01.993Z'
-          format: date-time
-    Error422:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. ... can't be blank
-            description: ''
-            links: []
-        Example Response 2:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. Provider wowza_video is not allowed
-            description: ''
-            links: []
-        Example Response 3:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
-            description: ''
-            links: []
-        Example Response 4:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
-            description: ''
-            links: []
-        Example Response 5:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
-            description: ''
-            links: []
-    Error410:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 410
-            code: ERR-410-RecordDeleted
-            title: Record Deleted Error
-            message: The requested resource has been deleted.
-            description: ''
-            links: []
-    recordings:
-      type: object
-      description: ''
-      required:
-      - recordings
-      properties:
-        recordings:
-          type: array
-          items:
-            $ref: '#/components/schemas/index_recordings'
-      example:
-        recordings:
-        - id: 4Jjzstdt
-          transcoder_id: bjaplmrw
-          state: converting
-          reason: ''
-          file_name: 31a4f9f4.stream.0.mp4
-          created_at: '2023-01-29T17:16:21.993Z'
-          updated_at: '2023-01-31T10:37:57.993Z'
-        - id: fFWxVsyj
-          state: completed
-          reason: ''
-          file_name: my_rts_recording.mp4
-          asset_id: thfsm6c2
-          real_time_asset_id: xbzk91ts
-          created_at: '2023-01-28T17:16:21.993Z'
-          updated_at: '2023-01-30T21:34:45.993Z'
-    Error404:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 404
-            code: ERR-404-RecordNotFound
-            title: Record Not Found Error
-            message: The requested resource couldn't be found.
-            description: ''
-            links: []
-    recording:
-      type: object
-      description: ''
-      properties:
-        asset_id:
-          type: string
-          description: Only applies to recordings created for Asset Management. The id for the asset associated with your recording. You can manage your asset in Asset Management.
-        created_at:
-          type: string
-          description: The date and time that the recording was created.
-          example: ''
-          format: date-time
-        download_url:
-          type: string
-          description: The URL that can be used to download the recording.
-          example: ''
-        duration:
-          type: integer
-          description: The length of the recording, in hours, minutes, and seconds.
-          example: ''
-          format: int64
-        file_name:
-          type: string
-          description: 'The file name of the recording.
-
-
-            <blockquote><strong>Note:</strong> To avoid file management issues in storage, Wowza Video removes or replaces special characters in file names.</blockquote>'
-          example: ''
-        file_size:
-          type: integer
-          description: The file size of the recording.
-          example: ''
-          format: int64
-        id:
-          type: string
-          description: The unique alphanumeric string that identifies the recording.
-          example: ''
-        real_time_stream_id:
-          type: string
-          description: Only applies to Real-Time Streaming at Scale. The unique alphanumeric string that identifies the real-time stream that was recorded.
-          example: cj39nmrt
-        reason:
-          type: string
-          description: The reason that a recording has the state **failed**.
-          example: ''
-        starts_at:
-          type: string
-          description: The date and time that the recording started.
-          example: ''
-        state:
-          type: string
-          description: The state of the recording.
-          example: ''
-          enum:
-          - uploading
-          - converting
-          - removing
-          - completed
-          - failed
-        transcoder_id:
-          type: string
-          description: The unique alphanumeric string that identifies the transcoder that was recorded.
-          example: ''
-        transcoder_name:
-          type: string
-          description: The descriptive name of the transcoder that was recorded.
-          example: ''
-        transcoding_uptime_id:
-          type: string
-          description: The unique identifier associated with the transcoding uptime for this recording.
-          example: ''
-          format: date-time
-        updated_at:
-          type: string
-          description: The date and time that the recording was updated.
-          example: ''
-          format: date-time
-      example:
-        created_at: '2020-01-29T17:16:21.993Z'
-        download_url: https://s3.amazonaws.com/prod-wse-recordings/transcoder_035163/64886_00a613bf@367500.stream.0.mp4
-        duration: 362905
-        file_name: 00a613bf@367500.stream.0.mp4
-        file_size: 53113429
-        id: 4Jjzstdt
-        reason: ''
-        starts_at: '2020-02-01T00:00:00.000Z'
-        transcoding_uptime_id: vxyz9876
-        state: completed
-        transcoder_id: bjQplmRw
-        transcoder_name: My Camera
-        updated_at: '2020-01-30T17:22:20.993Z'
   parameters:
+    per_page:
+      name: per_page
+      in: query
+      description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
+      schema:
+        type: integer
     filter:
       name: filter
       in: query
@@ -750,18 +750,42 @@ components:
       description: "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
       schema:
         type: integer
-    per_page:
-      name: per_page
-      in: query
-      description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
-      schema:
-        type: integer
   securitySchemes:
-    basicAuth:
+    WV_JWT:
       type: http
-      scheme: basic
-      description: HTTP Basic Authentication using Wowza Streaming Engine admin credentials
-    digestAuth:
-      type: http
-      scheme: digest
-      description: HTTP Digest Authentication
+      scheme: bearer
+      description: Your Wowza-generated access token, also called a JSON web token (JWT). Send it as a bearer token in the Authentication header of your requests. See [Authentication](https://www.wowza.com/docs/how-to-use-the-wowza-video-rest-api#authentication).
+x-tagGroups:
+- name: Resource Management
+  tags:
+  - live_streams
+  - transcoders
+  - stream_sources
+  - stream_targets
+  - schedules
+  - real_time
+  - videos
+  - categories
+  - advanced_token_authentication
+  - clipping
+- name: Analytics
+  tags:
+  - analytics_viewers
+  - analytics_ingest
+  - analytics_engagement
+  - analytics_popularity
+  - quality_of_experience
+- name: Usage
+  tags:
+  - usage_account
+  - usage_transcoders
+  - usage
+  - usage_real_time_streams
+- name: Deprecated in 2.0
+  tags:
+  - assets
+  - players
+  - recordings
+  - vod_streams
+  - storage
+  - usage_vod_streams

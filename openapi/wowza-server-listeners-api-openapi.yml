@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Wowza Streaming Engine REST advanced_token_authentication Server Listeners API
+  title: Wowza Streaming Engine REST Server Listeners API
   description: Complete REST API for Wowza Streaming Engine. Auto-converted from Swagger 1.2 (http://localhost:8089/swagger.json) to OpenAPI 3.0.3 for public documentation.
   version: 2.0.0
   contact:
@@ -81,6 +81,25 @@ paths:
           description: Internal server error
 components:
   schemas:
+    ServerListenersConfig:
+      type: object
+      properties:
+        serverListeners:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServerListenerConfig'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - serverListeners
     ServerListenerConfig:
       type: object
       properties:
@@ -102,25 +121,6 @@ components:
       - serverName
       - order
       - baseClass
-    ServerListenersConfig:
-      type: object
-      properties:
-        serverListeners:
-          type: array
-          items:
-            $ref: '#/components/schemas/ServerListenerConfig'
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - serverListeners
   securitySchemes:
     basicAuth:
       type: http
