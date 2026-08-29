@@ -2052,6 +2052,9 @@ apis:
   - type: SDKs
     url: https://github.com/WowzaMediaSystems/wse-rest-library-php
 common:
+  - type: CapabilityMap
+    url: capabilities/wowza-capability-edges.yml
+    name: Wowza Business Capability Map
   - type: AgenticAccess
     url: agentic-access/wowza-agentic-access.yml
   - type: DomainSecurity

@@ -1,0 +1,127 @@
+slug: wowza
+provider: Wowza
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Media, Entertainment & Telecom Content
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 11
+edges:
+- tag: videos
+  spec_file: wowza-videos-api-openapi.yml
+  capability_id: BC-3710
+  capability_id_l1: BC-3710
+  capability_name: Media Asset Management
+  confidence: 0.85
+  evidence: POST /videos  createVideo  Create a video ... PATCH /videos/{id}  patchVideo  Update a video's
+    metadata ... EncodingModel, ThumbnailResponse, DRMConfigModel
+  reason: Full CRUD over video assets including upload/re-upload, metadata update, encoding and thumbnail/preview
+    models — onboarding and cataloguing of media assets in the platform. Spans ingest (BC-3710.10) and
+    metadata (BC-3710.20), so only the L1 is asserted.
+- tag: assets
+  spec_file: wowza-assets-api-openapi.yml
+  capability_id: BC-3710
+  capability_id_l1: BC-3710
+  capability_name: Media Asset Management
+  confidence: 0.8
+  evidence: 'POST /assets  createAsset  Create an asset; PATCH /assets/{id}/upload_completed  reportUploadedAsset  Report
+    asset as uploaded; GET /asset_tags  Fetch all asset tags; schemas: renditions, asset_restream'
+  reason: CRUD over media assets with upload reporting, tags and renditions is media asset management.
+    Left at L1 because the surface spans ingest, metadata tagging and restreaming rather than one sub-capability.
+- tag: live_streams
+  spec_file: wowza-live-streams-api-openapi.yml
+  capability_id: BC-3740.20
+  capability_id_l1: BC-3740
+  capability_name: OTT & Streaming Delivery
+  confidence: 0.8
+  evidence: POST /live_streams createLiveStream Create a live stream; PUT /live_streams/{id}/start startLiveStream
+  reason: Lifecycle control of live streams on a managed cloud streaming platform is operation of live
+    streaming origin/delivery for direct-to-consumer and partner OTT services.
+- tag: stream_targets
+  spec_file: wowza-stream-targets-api-openapi.yml
+  capability_id: BC-3740
+  capability_id_l1: BC-3740
+  capability_name: Content Distribution & Delivery Management
+  confidence: 0.8
+  evidence: POST /stream_targets/wowza_cdn createFastlyStreamTarget Create a Wowza CDN stream target;
+    schemas stream_target_facebook, stream_target_linkedin
+  reason: Configures destinations to which streams are pushed — CDN endpoints and third-party platforms
+    — which is content distribution and delivery. Split between CDN operations and syndication to third-party
+    platforms, so L1 only.
+- tag: transcoders
+  spec_file: wowza-transcoders-api-openapi.yml
+  capability_id: BC-3710.40
+  capability_id_l1: BC-3710
+  capability_name: Transcoding & Format Conversion
+  confidence: 0.8
+  evidence: POST /transcoders createTranscoder Create a transcoder; output_create_input, output_stream_target_create_input
+  reason: Creates and operates transcoders and their renditions/outputs, i.e. production of distribution
+    renditions through transcoding and packaging pipelines.
+- tag: Applications
+  spec_file: wowza-applications-api-openapi.yml
+  capability_id: BC-3740.20
+  capability_id_l1: BC-3740
+  capability_name: OTT & Streaming Delivery
+  confidence: 0.75
+  evidence: GET .../applications/{appName}/drm  getDRMConfig  Get DRM config; schemas TranscoderEncodeAppConfigAdv,
+    WebRTCConfigAdv, SMILFileStreamConfig, DefaultStreamRecorderConfig
+  reason: These operations configure and control streaming-server applications on a media server (live/VOD
+    streaming apps, publishers, transcoding, DVR, WebRTC, DRM stream maps), i.e. operation of streaming
+    origin/packaging for live and on-demand delivery. Not full 0.95 because the surface is server configuration
+    spanning several delivery sub-capabilities (DRM, transcoding) rather than OTT delivery alone.
+- tag: real_time
+  spec_file: wowza-real-time-api-openapi.yml
+  capability_id: BC-3740.20
+  capability_id_l1: BC-3740
+  capability_name: OTT & Streaming Delivery
+  confidence: 0.75
+  evidence: POST /real_time createRealTimeStream Create a real-time stream; PUT /real_time/{id}/stop stopRealTimeStream
+  reason: Provisioning and lifecycle of low-latency (WebRTC) real-time streams is operation of streaming
+    delivery for direct-to-consumer/partner services.
+- tag: Server Transcoder
+  spec_file: wowza-server-transcoder-api-openapi.yml
+  capability_id: BC-3710.40
+  capability_id_l1: BC-3710
+  capability_name: Transcoding & Format Conversion
+  confidence: 0.7
+  evidence: GET /v2/servers/{serverName}/transcoder  getTranscoderConfig  Get transcoder config
+  reason: The endpoint exposes the media server's transcoder configuration, which governs production of
+    distribution renditions — transcoding and format conversion. Confidence moderated because it is a
+    single read-only config operation.
+- tag: Webhooks
+  spec_file: wowza-webhooks-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.7
+  evidence: 'GET /v2/servers/{serverName}/webhooks/targets  getTargetsList  Get target list; POST /v2/servers/{serverName}/webhooks/filters  Create
+    filter list; schemas: TargetConfig, TargetAuth, WebhooksConfig'
+  reason: The operations create and maintain outbound webhook targets, authentication headers and event
+    filters — the lifecycle of outbound event subscriptions and their delivery configuration, which is
+    exactly BC-4270.80.
+- tag: analytics_engagement
+  spec_file: wowza-analytics-engagement-api-openapi.yml
+  capability_id: BC-3770.30
+  capability_id_l1: BC-3770
+  capability_name: Content Performance Analytics
+  confidence: 0.7
+  evidence: GET /analytics/engagement/vod_streams/{id}  analyticsVodStreamEngagement  Fetch engagement
+    analytics data for a VOD stream
+  reason: Returns engagement analytics for a specific VOD title/stream, i.e. how content performs — Content
+    Performance Analytics within Audience Measurement & Insights.
+- tag: analytics_popularity
+  spec_file: wowza-analytics-popularity-api-openapi.yml
+  capability_id: BC-3770.30
+  capability_id_l1: BC-3770
+  capability_name: Content Performance Analytics
+  confidence: 0.7
+  evidence: GET /analytics/popularity/live_streams/{id}  Fetch popularity analytics data for a live stream
+    or real-time stream
+  reason: Popularity analytics per live and VOD stream is analysis of how individual content performs,
+    fitting Content Performance Analytics under Audience Measurement & Insights.
