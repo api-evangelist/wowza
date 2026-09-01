@@ -33,7 +33,7 @@ tags:
   - Video
   - Streaming
   - Live Streaming
-  - Video On Demand
+  - Video-on-Demand
   - Transcoding
   - Media Server
   - RTMP
@@ -581,7 +581,8 @@ apis:
     creating a transcoder, output renditions, stream targets, and associated players.
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
-  tags: []
+  tags:
+  - Live Streams
   tags_raw:
   - live_streams
   properties:
@@ -709,7 +710,8 @@ apis:
   description: Operations related to quality of experience metrics.
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
-  tags: []
+  tags:
+  - Quality of Experience
   tags_raw:
   - quality_of_experience
   properties:
@@ -757,7 +759,8 @@ apis:
     a call</a>.</blockquote>
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
-  tags: []
+  tags:
+  - Real-Time
   tags_raw:
   - real_time
   properties:
@@ -804,7 +807,7 @@ apis:
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
   tags:
-  - recordings
+  - Recordings
   tags_raw:
   - recordings
   properties:
@@ -1528,7 +1531,8 @@ apis:
     stop a stream after the video source disconnects.
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
-  tags: []
+  tags:
+  - Stream Sources
   tags_raw:
   - stream_sources
   properties:
