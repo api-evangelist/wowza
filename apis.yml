@@ -747,55 +747,6 @@ apis:
     url: https://www.wowza.com/docs/how-to-install-and-configure-wowza-streaming-engine
   - type: SDKs
     url: https://github.com/WowzaMediaSystems/wse-rest-library-php
-- aid: wowza:wowza-real-time-api
-  name: Wowza real_time API
-  description: >-
-    Operations related to Real-Time Streaming at Scale. If your audience is fewer than 300 viewers or
-    you want to deliver a stream in near real time alongside other delivery protocols, <a href="https://www.wowza.com/docs/deliver-webrtc-streams-to-viewers-using-the-wowza-video-rest-api">use
-    our WebRTC solution</a>.
-
-
-    <blockquote>To enable and purchase capacity for Real-Time Streaming at Scale for your account and
-    access the <tt>/real_time</tt> operations, contact 720.279.8163 or <a href="https://www.wowza.com/professional-services#get-a-quote">schedule
-    a call</a>.</blockquote>
-  humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
-  baseURL: https://api.video.wowza.com/api/v2.0
-  tags:
-  - Real-Time
-  tags_raw:
-  - real_time
-  properties:
-  - type: OpenAPI
-    url: openapi/wowza-real-time-api-openapi.yml
-  - type: APIReference
-    url: https://developer.wowza.com/docs/wowza-video/api/video/openapi
-  - type: Documentation
-    url: https://developer.wowza.com/docs/wowza-video/about-wowza-video/
-  - type: Documentation
-    url: https://developer.wowza.com/docs/wowza-video/api/video/current/overview/
-  - type: GettingStarted
-    url: https://www.wowza.com/docs/quick-start-for-an-rtmp-live-stream-in-wowza-video
-  - type: Documentation
-    url: https://www.wowza.com/docs/wowza-video-rest-api-lifecycle-management
-  - type: Documentation
-    url: https://www.wowza.com/docs/wowza-video-rest-api
-  - type: ChangeLog
-    url: https://www.wowza.com/docs/wowza-video-release-notes
-  - type: Documentation
-    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
-  - type: APIReference
-    url: >-
-      https://www.wowza.com/docs/how-to-access-documentation-for-wowza-streaming-engine-rest-api
-  - type: Documentation
-    url: >-
-      https://www.wowza.com/docs/how-to-access-wowza-streaming-engine-rest-api-reference-documentation-with-postman
-  - type: Documentation
-    url: >-
-      https://www.wowza.com/docs/how-to-access-wowza-streaming-engine-swagger-documentation-with-swagger-codegen
-  - type: GettingStarted
-    url: https://www.wowza.com/docs/how-to-install-and-configure-wowza-streaming-engine
-  - type: SDKs
-    url: https://github.com/WowzaMediaSystems/wse-rest-library-php
 - aid: wowza:wowza-recordings-api
   name: Wowza recordings API
   description: "<blockquote>The <strong>recordings</strong> operations are deprecated in 2.0. Use the\
@@ -2023,6 +1974,52 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/wowza-webhooks-api-openapi.yml
+  - type: APIReference
+    url: https://developer.wowza.com/docs/wowza-video/api/video/openapi
+  - type: Documentation
+    url: https://developer.wowza.com/docs/wowza-video/about-wowza-video/
+  - type: Documentation
+    url: https://developer.wowza.com/docs/wowza-video/api/video/current/overview/
+  - type: GettingStarted
+    url: https://www.wowza.com/docs/quick-start-for-an-rtmp-live-stream-in-wowza-video
+  - type: Documentation
+    url: https://www.wowza.com/docs/wowza-video-rest-api-lifecycle-management
+  - type: Documentation
+    url: https://www.wowza.com/docs/wowza-video-rest-api
+  - type: ChangeLog
+    url: https://www.wowza.com/docs/wowza-video-release-notes
+  - type: Documentation
+    url: https://www.wowza.com/docs/wowza-streaming-engine-rest-api
+  - type: APIReference
+    url: >-
+      https://www.wowza.com/docs/how-to-access-documentation-for-wowza-streaming-engine-rest-api
+  - type: Documentation
+    url: >-
+      https://www.wowza.com/docs/how-to-access-wowza-streaming-engine-rest-api-reference-documentation-with-postman
+  - type: Documentation
+    url: >-
+      https://www.wowza.com/docs/how-to-access-wowza-streaming-engine-swagger-documentation-with-swagger-codegen
+  - type: GettingStarted
+    url: https://www.wowza.com/docs/how-to-install-and-configure-wowza-streaming-engine
+  - type: SDKs
+    url: https://github.com/WowzaMediaSystems/wse-rest-library-php
+- aid: wowza:wowza-realtime-api
+  name: Wowza Realtime API
+  description: >-
+    Operations related to Real-Time Streaming at Scale. If your audience is fewer than 300 viewers or
+    you want to deliver a stream in near real time alongside other delivery protocols, use our WebRTC
+    solution.
+
+
+    To enable and purchase capacity for Real-Time Streaming at Scale for your account and access the /real_time
+    operations, contact 720.279.8163 or schedule a call.
+  humanURL: https://www.wowza.com/docs/wowza-streaming-engine-java-api-reference-documentation
+  baseURL: https://www.wowza.com
+  tags:
+  - Realtime
+  properties:
+  - type: OpenAPI
+    url: openapi/wowza-realtime-api-openapi.yml
   - type: APIReference
     url: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   - type: Documentation
