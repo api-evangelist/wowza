@@ -671,7 +671,7 @@ apis:
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
   tags:
-  - Players
+  - Player
   tags_raw:
   - players
   properties:
@@ -759,7 +759,7 @@ apis:
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
   tags:
-  - Recordings
+  - Recording
   tags_raw:
   - recordings
   properties:
@@ -844,7 +844,7 @@ apis:
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
   tags:
-  - Schedules
+  - Schedule
   tags_raw:
   - schedules
   properties:
@@ -1842,7 +1842,7 @@ apis:
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
   tags:
-  - Videos
+  - Video
   tags_raw:
   - videos
   properties:
@@ -2016,6 +2016,8 @@ apis:
   humanURL: https://www.wowza.com/docs/wowza-streaming-engine-java-api-reference-documentation
   baseURL: https://www.wowza.com
   tags:
+  - Real-Time
+  tags_raw:
   - Realtime
   properties:
   - type: OpenAPI
