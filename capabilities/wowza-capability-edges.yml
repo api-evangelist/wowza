@@ -76,7 +76,8 @@ edges:
     origin/packaging for live and on-demand delivery. Not full 0.95 because the surface is server configuration
     spanning several delivery sub-capabilities (DRM, transcoding) rather than OTT delivery alone.
 - tag: real_time
-  spec_file: wowza-real-time-api-openapi.yml
+  spec_file: wowza-realtime-api-openapi.yml
+  reanchored_from: wowza-real-time-api-openapi.yml
   capability_id: BC-3740.20
   capability_id_l1: BC-3740
   capability_name: OTT & Streaming Delivery
