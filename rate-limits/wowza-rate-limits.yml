@@ -1,0 +1,15 @@
+# Rate limits transcribed from the provider's own documentation — see provenance. Quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://developer.wowza.com/docs/wowza-video/about-the-rest-api/api-overview
+sources:
+- https://developer.wowza.com/docs/wowza-video/about-the-rest-api/api-overview
+provenance:
+  tool: planning/api-economics/harvest_ratelimits.py
+  run: 20260920T133210
+  grounding: every limit_text was found verbatim in the fetched page text
+published: false
+note: API overview page; mentions rate and resource limits exist and links to a separate limits page,
+  but states no numeric limits.
+limit_count: 0
+limits: []
