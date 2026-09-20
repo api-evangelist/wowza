@@ -1,0 +1,42 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://www.wowza.com/pricing
+sources:
+- https://www.wowza.com/pricing
+provenance:
+  tool: planning/api-economics/harvest_pricing.py
+  run: 20260920T124425
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: tiered-subscription
+published: true
+note: Wowza Streaming Engine pricing page; two published numeric plans plus custom Enterprise. Add-on
+  services (Wowza CDN, Premium Support, Live Event Support) are quote-only.
+plan_count: 3
+currency: USD
+plans:
+- name: One Month of Streaming
+  price_text: $295
+  price: 295
+  currency: USD
+  period: one-time
+  unit: instance
+  included_quota: first instance included; Up to 10 concurrent, transcoded channels
+  overage: Additional instances $295 per month; Additional Transcoded Channels $25 per channel
+- name: Basic Monthly
+  price_text: $195
+  price: 195
+  currency: USD
+  period: month
+  unit: instance
+  included_quota: first instance included; Up to 10 concurrent, transcoded channels
+  overage: Additional instances $195 per month; Additional Transcoded Channels $25 per channel
+- name: Enterprise
+  price_text: Get a Custom Quote
+  period: none
+  included_quota: Custom instances, custom transcoded channels, containerized and offline deployment pricing
+  overage: Custom
+rate_limit_statements:
+- Yes, you are limited to a maximum of 10 concurrent, transcoded channels per instance per month.
+- Wowza Streaming Engine does not have a limit on the number of source streams you can run.
