@@ -64,6 +64,21 @@ paths:
           description: Internal server error
 components:
   schemas:
+    HistoricMachineStatistics:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - entries
     CurrentMachineStatistics:
       type: object
       properties:
@@ -112,27 +127,12 @@ components:
       - diskFree
       - diskUsed
       - connectionCount
-    Long:
-      type: object
-      properties: {}
     Integer:
       type: object
       properties: {}
-    HistoricMachineStatistics:
+    Long:
       type: object
-      properties:
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - entries
+      properties: {}
   securitySchemes:
     basicAuth:
       type: http

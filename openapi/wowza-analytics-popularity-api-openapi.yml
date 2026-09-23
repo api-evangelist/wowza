@@ -1,11 +1,14 @@
 openapi: 3.2.0
 info:
   version: v2.0
-  title: Wowza Video REST API Reference Documentation Analytics Popularity API
+  title: Wowza Video REST API Reference Documentation Analytics…
   license:
     name: Terms of Use
     url: https://www.wowza.com/legal/terms-of-use
-  description: "API lifecycle phase: [Current](https://www.wowza.com/docs/wowza-video-rest-api-lifecycle-management#api-lifecycle0)\n\n\n<table>\n<tr style=\"background-color:lightgrey;\"><td>\n<strong>Want to take the API for a test run?</strong>\n\nAll you'll need is a [Wowza Video subscription](https://www.wowza.com/pricing), or [free trial](https://www.wowza.com/free-trial), for the API access token. Then, fork [our collection in Postman](https://www.postman.com/wowzavideo/workspace/wowza-video-rest-api) and you'll be\nmaking calls to our REST API in minutes!\n\nSee [Trial the Wowza Video REST API using Postman](https://www.wowza.com/docs/trial-the-wowza-video-rest-api-using-postman) for more information.\n</td>\n</tr>\n</table>\n\n\nThis reference documentation provides details about the operations, parameters, and request and response schemas for every resource and endpoint in the Wowza Video REST API.\nSamples appear in the right column. Sample requests are presented in cURL (Shell) and JavaScript; some samples also include just the JSON object. Response samples are all JSON. \nExamples in cURL use environment variables so you can easily copy and paste them. To learn more, see [Using cURL](https://wowza.com/docs/how-to-use-the-wowza-video-rest-api#curl).\n\n\nReference documentation is available for every version of the API. Use the **Version** menu at the top of the page to access the reference doc for a different version of the API.\n\n<blockquote><strong>Note</strong>: If you haven't moved over to the new Wowza Video UI experience, you won't be able to access v2.0 of the API. We're migrating customers iteratively. See <a href=\"https://developer.wowza.com/docs/wowza-video/upgrade-to-wowza-video/\">Upgrade to the Wowza Video 2.0 REST API</a> for more information.</blockquote>\n"
+  description: 'API lifecycle phase: Current
+
+
+    Want to take the API for a test run?'
 servers:
 - url: https://api.video.wowza.com/api/v2.0
 tags:
@@ -16,7 +19,22 @@ paths:
   /analytics/popularity/live_streams/{id}:
     get:
       summary: Fetch popularity analytics data for a live stream or real-time stream
-      description: "(Available from version 1.11) This operation returns the popularity data for a specific live stream or real-time stream. Popularity data provides insight into how many times  your stream is displayed to a possible viewer and how many times it's played. \n\nIf you don't send from and to query parameters, the last hour's worth of data is returned. \n\nUse the include query parameter to specify whether you want to return trend data. See the **trend** field in the response for information about sample intervals.\n\nIf the time range between **from** and **to** query parameters is:\n\n<ul><li>Less than 60 minutes, the cache time between responses is 10 seconds.</li>\n<li>More than 60 minutes, the cache time between responses is 60 seconds.</li>"
+      description: '(Available from version 1.11) This operation returns the popularity data for a specific live stream or real-time stream. Popularity data provides insight into how many times your stream is displayed to a possible viewer and how many times it''s played.
+
+
+        If you don''t send from and to query parameters, the last hour''s worth of data is returned.
+
+
+        Use the include query parameter to specify whether you want to return trend data. See the **trend** field in the response for information about sample intervals.
+
+
+        If the time range between **from** and **to** query parameters is:
+
+
+        Less than 60 minutes, the cache time between responses is 10 seconds.
+
+
+        More than 60 minutes, the cache time between responses is 60 seconds.'
       operationId: analyticsLivestreamPopularity
       tags:
       - analytics_popularity
@@ -100,7 +118,22 @@ paths:
   /analytics/popularity/vod_streams/{id}:
     get:
       summary: Fetch popularity analytics data for a VOD stream
-      description: "(Available from version 1.11) This operation returns the popularity data for a specific VOD stream. Popularity data provides insight into how many times  your video is displayed to a possible viewer and how many times it's played. \n\nIf you don't send from and to query parameters, the last hour's worth of data is returned. See the **trend** field in the response for information about sample intervals.\n\nUse the include query parameter to specify whether you want to return trend data. See the **trend** field in the response for information about sample intervals.\n\nIf the time range between **from** and **to** query parameters is:\n\n<ul><li>Less than 60 minutes, the cache time between responses is 10 seconds.</li>\n<li>More than 60 minutes, the cache time between responses is 60 seconds.</li>"
+      description: '(Available from version 1.11) This operation returns the popularity data for a specific VOD stream. Popularity data provides insight into how many times your video is displayed to a possible viewer and how many times it''s played.
+
+
+        If you don''t send from and to query parameters, the last hour''s worth of data is returned. See the **trend** field in the response for information about sample intervals.
+
+
+        Use the include query parameter to specify whether you want to return trend data. See the **trend** field in the response for information about sample intervals.
+
+
+        If the time range between **from** and **to** query parameters is:
+
+
+        Less than 60 minutes, the cache time between responses is 10 seconds.
+
+
+        More than 60 minutes, the cache time between responses is 60 seconds.'
       operationId: analyticsVodStreamPopularity
       tags:
       - analytics_popularity
@@ -300,6 +333,116 @@ components:
         limits:
           from: '2024-03-14T10:31:54.000Z'
           to: '2024-03-14T10:31:54.000Z'
+    Error401:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 401
+            code: ERR-401-NoApiKey
+            title: No API Key Error
+            message: No API key sent in header.
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 401
+            code: ERR-401-NoAccessKey
+            title: No Access Key Error
+            message: No access key sent in header.
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 401
+            code: ERR-401-InvalidApiKey
+            title: Invalid Api Key Error
+            message: Invalid API key.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 401
+            code: ERR-401-InvalidAccessKey
+            title: Invalid Access Key Error
+            message: Invalid access key.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 401
+            code: ERR-401-BadAccountStatus
+            title: Bad Account Status Error
+            message: Your account's status doesn't allow this action.
+            description: ''
+            links: []
+        Example Response 6:
+          meta:
+            status: 401
+            code: ERR-401-FeatureNotEnabled
+            title: Feature Not Enabled Error
+            message: This feature isn't enabled.
+            description: ''
+            links: []
+        Example Response 7:
+          meta:
+            status: 401
+            code: ERR-401-TrialExceeded
+            title: Bad Billing Status Error
+            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
+            description: ''
+            links: []
+        Example Response 8:
+          meta:
+            status: 401
+            code: ERR-401-ExpiredToken
+            title: JWT is expired
+            message: Token has exired.
+            description: ''
+            links: []
+        Example Response 9:
+          meta:
+            status: 401
+            code: ERR-401-InvalidToken
+            title: JWT is invalid
+            message: Token is invalid.
+            description: ''
+            links: []
     analytics_popularity_live_stream:
       type: object
       description: ''
@@ -539,116 +682,6 @@ components:
             code: ERR-410-RecordDeleted
             title: Record Deleted Error
             message: The requested resource has been deleted.
-            description: ''
-            links: []
-    Error401:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 401
-            code: ERR-401-NoApiKey
-            title: No API Key Error
-            message: No API key sent in header.
-            description: ''
-            links: []
-        Example Response 2:
-          meta:
-            status: 401
-            code: ERR-401-NoAccessKey
-            title: No Access Key Error
-            message: No access key sent in header.
-            description: ''
-            links: []
-        Example Response 3:
-          meta:
-            status: 401
-            code: ERR-401-InvalidApiKey
-            title: Invalid Api Key Error
-            message: Invalid API key.
-            description: ''
-            links: []
-        Example Response 4:
-          meta:
-            status: 401
-            code: ERR-401-InvalidAccessKey
-            title: Invalid Access Key Error
-            message: Invalid access key.
-            description: ''
-            links: []
-        Example Response 5:
-          meta:
-            status: 401
-            code: ERR-401-BadAccountStatus
-            title: Bad Account Status Error
-            message: Your account's status doesn't allow this action.
-            description: ''
-            links: []
-        Example Response 6:
-          meta:
-            status: 401
-            code: ERR-401-FeatureNotEnabled
-            title: Feature Not Enabled Error
-            message: This feature isn't enabled.
-            description: ''
-            links: []
-        Example Response 7:
-          meta:
-            status: 401
-            code: ERR-401-TrialExceeded
-            title: Bad Billing Status Error
-            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
-            description: ''
-            links: []
-        Example Response 8:
-          meta:
-            status: 401
-            code: ERR-401-ExpiredToken
-            title: JWT is expired
-            message: Token has exired.
-            description: ''
-            links: []
-        Example Response 9:
-          meta:
-            status: 401
-            code: ERR-401-InvalidToken
-            title: JWT is invalid
-            message: Token is invalid.
             description: ''
             links: []
   securitySchemes:

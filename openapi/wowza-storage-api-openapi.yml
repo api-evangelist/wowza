@@ -5,12 +5,15 @@ info:
   license:
     name: Terms of Use
     url: https://www.wowza.com/legal/terms-of-use
-  description: "API lifecycle phase: [Current](https://www.wowza.com/docs/wowza-video-rest-api-lifecycle-management#api-lifecycle0)\n\n\n<table>\n<tr style=\"background-color:lightgrey;\"><td>\n<strong>Want to take the API for a test run?</strong>\n\nAll you'll need is a [Wowza Video subscription](https://www.wowza.com/pricing), or [free trial](https://www.wowza.com/free-trial), for the API access token. Then, fork [our collection in Postman](https://www.postman.com/wowzavideo/workspace/wowza-video-rest-api) and you'll be\nmaking calls to our REST API in minutes!\n\nSee [Trial the Wowza Video REST API using Postman](https://www.wowza.com/docs/trial-the-wowza-video-rest-api-using-postman) for more information.\n</td>\n</tr>\n</table>\n\n\nThis reference documentation provides details about the operations, parameters, and request and response schemas for every resource and endpoint in the Wowza Video REST API.\nSamples appear in the right column. Sample requests are presented in cURL (Shell) and JavaScript; some samples also include just the JSON object. Response samples are all JSON. \nExamples in cURL use environment variables so you can easily copy and paste them. To learn more, see [Using cURL](https://wowza.com/docs/how-to-use-the-wowza-video-rest-api#curl).\n\n\nReference documentation is available for every version of the API. Use the **Version** menu at the top of the page to access the reference doc for a different version of the API.\n\n<blockquote><strong>Note</strong>: If you haven't moved over to the new Wowza Video UI experience, you won't be able to access v2.0 of the API. We're migrating customers iteratively. See <a href=\"https://developer.wowza.com/docs/wowza-video/upgrade-to-wowza-video/\">Upgrade to the Wowza Video 2.0 REST API</a> for more information.</blockquote>\n"
+  description: 'API lifecycle phase: Current
+
+
+    Want to take the API for a test run?'
 servers:
 - url: https://api.video.wowza.com/api/v2.0
 tags:
-- name: storage
-  description: '<blockquote>The <strong>storage</strong> operations are deprecated in 2.0.
+- name: Storage
+  description: 'The storage operations are deprecated in 2.0.
 
 
     Operations related to peak and current storage for an account.'
@@ -25,7 +28,7 @@ paths:
         This operation shows the amount of peak recording and VOD stream storage used for the account. The default time frame is *from* the last billing date *to* the end of the current day.'
       operationId: usageStoragePeakRecordingIndex
       tags:
-      - storage
+      - Storage
       x-codeSamples:
       - lang: Shell
         source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"GET\" \\\n  \"${WV_HOST}/api/v2.0/usage/storage/peak\"\n"
@@ -80,7 +83,7 @@ paths:
         This operation shows the total amount of recording and VOD stream storage used for the account at the current, or present, time of the request. '''
       operationId: usageStorageCurrentRecordingIndex
       tags:
-      - storage
+      - Storage
       x-codeSamples:
       - lang: Shell
         source: "// Using cURL\ncurl -H \"Authorization: Bearer ${WV_JWT}\" \\\n  \n  -H \"Content-Type: application/json\" \\\n  -X \"GET\" \\\n  \"${WV_HOST}/api/v2.0/usage/storage/current\"\n"
@@ -101,6 +104,51 @@ paths:
                 $ref: '#/components/schemas/Error401'
 components:
   schemas:
+    usage_storage_peak:
+      type: object
+      description: ''
+      properties:
+        bytes:
+          type: integer
+          description: The amount, in bytes, used to store recordings and VOD streams during the selected time frame. If the time frame is in the past, *bytes* is the amount of storage that was used and billed. If the time frame includes the current billing period, *bytes* is the greatest amount of content stored in Wowza Video at any point to date in the billing period.
+          example: ''
+          format: int32
+        limits:
+          type: object
+          description: The time frame represented in the response.
+          properties:
+            from:
+              type: string
+              description: The start of the range of time represented in the response.
+              example: ''
+              format: date-time
+            to:
+              type: string
+              description: The end of the range of time represented in the response.
+              example: ''
+              format: date-time
+      example:
+        bytes: 163535997883
+        limits:
+          from: '2019-12-07T00:00:00.000Z'
+          to: '2019-12-21T00:00:00.000Z'
+    usage_storage_current:
+      type: object
+      description: ''
+      properties:
+        recording_bytes:
+          type: integer
+          description: The amount, in bytes, used to store all recordings.
+          example: ''
+          format: int32
+        vod_stream_bytes:
+          type: integer
+          description: The amount, in bytes, used to store all VOD streams.
+          example: ''
+          format: int32
+      example:
+        recording_bytes: 1057200777662
+        vod_stream_bytes: 2142226694010
     Error401:
       type: object
       description: ''
@@ -211,51 +259,6 @@ components:
             message: Token is invalid.
             description: ''
             links: []
-    usage_storage_peak:
-      type: object
-      description: ''
-      properties:
-        bytes:
-          type: integer
-          description: The amount, in bytes, used to store recordings and VOD streams during the selected time frame. If the time frame is in the past, *bytes* is the amount of storage that was used and billed. If the time frame includes the current billing period, *bytes* is the greatest amount of content stored in Wowza Video at any point to date in the billing period.
-          example: ''
-          format: int32
-        limits:
-          type: object
-          description: The time frame represented in the response.
-          properties:
-            from:
-              type: string
-              description: The start of the range of time represented in the response.
-              example: ''
-              format: date-time
-            to:
-              type: string
-              description: The end of the range of time represented in the response.
-              example: ''
-              format: date-time
-      example:
-        bytes: 163535997883
-        limits:
-          from: '2019-12-07T00:00:00.000Z'
-          to: '2019-12-21T00:00:00.000Z'
-    usage_storage_current:
-      type: object
-      description: ''
-      properties:
-        recording_bytes:
-          type: integer
-          description: The amount, in bytes, used to store all recordings.
-          example: ''
-          format: int32
-        vod_stream_bytes:
-          type: integer
-          description: The amount, in bytes, used to store all VOD streams.
-          example: ''
-          format: int32
-      example:
-        recording_bytes: 1057200777662
-        vod_stream_bytes: 2142226694010
   securitySchemes:
     WV_JWT:
       type: http

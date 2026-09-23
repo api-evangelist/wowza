@@ -50,13 +50,17 @@
     "wowza-videos-api-openapi.yml",
     "wowza-vod-streams-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
     "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "wowza-streaming-engine-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "wowza-video-openapi.yml: upgraded openapi 3.0.2 -> OpenAPI 3.2.0; renamed 1 component key(s) illegal in 3.x (e.g. analytics_qoe_error_density_media_{id})"
+    "wowza-video-openapi.yml: upgraded openapi 3.0.2 -> OpenAPI 3.2.0; renamed 1 component key(s) illegal in 3.x (e.g. analytics_qoe_error_density_media_{id})",
+    "superseded outputs removed: wowza-realtime-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 48 total)"
   ],
   "skipped": [
     "wowza-advanced-token-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
@@ -72,7 +76,7 @@
     "wowza-machine-stats-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "wowza-players-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "wowza-quality-of-experience-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "wowza-real-time-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "wowza-realtime-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "wowza-recordings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "wowza-rest-information-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "wowza-schedules-api-openapi.yml: previously refined output, superseded by openapi/_original/",

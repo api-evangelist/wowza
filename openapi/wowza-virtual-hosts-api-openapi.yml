@@ -3614,134 +3614,34 @@ paths:
           description: Internal server error
 components:
   schemas:
-    SMILFileConfig:
+    TranscoderStreamNameGroupConfig:
       type: object
       properties:
         name:
           type: string
         serverName:
           type: string
-        smilStreams:
-          type: array
-          items:
-            $ref: '#/components/schemas/SMILFileStreamConfig'
+        description:
+          type: string
         saveFieldList:
           type: array
           items:
             type: string
-        title:
-          type: string
         version:
           type: string
+        streamName:
+          type: string
+        Members:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranscoderMemberConfig'
       required:
       - version
       - serverName
       - name
-      - title
-      - smilStreams
-    CurrentVHostStatistics:
-      type: object
-      properties:
-        totalConnections:
-          $ref: '#/components/schemas/Long'
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-        uptime:
-          $ref: '#/components/schemas/Long'
-        bytesIn:
-          $ref: '#/components/schemas/Long'
-        bytesOut:
-          $ref: '#/components/schemas/Long'
-      required:
-      - version
-      - serverName
-      - uptime
-      - bytesIn
-      - bytesOut
-      - totalConnections
-      - connectionCount
-    TranscoderStreamNameGroupsConfig:
-      type: object
-      properties:
-        streamNameGroups:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShortObject'
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - streamNameGroups
-    StartupStreamsConfig:
-      type: object
-      properties:
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-        Streams:
-          type: array
-          items:
-            $ref: '#/components/schemas/StartupStreamConfig'
-      required:
-      - version
-      - serverName
-      - Streams
-    VHostsConfig:
-      type: object
-      properties:
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        vhosts:
-          type: array
-          items:
-            $ref: '#/components/schemas/VHostShortObject'
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - vhosts
-    TranscoderEncodesConfig:
-      type: object
-      properties:
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        encodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShortObject'
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - encodes
+      - description
+      - streamName
+      - Members
     SMILFileStreamConfig:
       type: object
       properties:
@@ -3814,39 +3714,15 @@ components:
       - keyFrameOnly
       - isWowzaCaptionStream
       - wowzaCaptionIngestType
-    TranscoderStreamNameGroupConfig:
-      type: object
-      properties:
-        name:
-          type: string
-        serverName:
-          type: string
-        description:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-        streamName:
-          type: string
-        Members:
-          type: array
-          items:
-            $ref: '#/components/schemas/TranscoderMemberConfig'
-      required:
-      - version
-      - serverName
-      - name
-      - description
-      - streamName
-      - Members
-    HistoricVHostStatistics:
+    PublishersVhostConfig:
       type: object
       properties:
         serverName:
           type: string
+        publishers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublisherVhostConfig'
         saveFieldList:
           type: array
           items:
@@ -3856,126 +3732,7 @@ components:
       required:
       - version
       - serverName
-      - entries
-    Long:
-      type: object
-      properties: {}
-    MediaCacheStoreList:
-      type: object
-      properties:
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-        mediacacheitemlist:
-          type: array
-          items:
-            type: string
-      required:
-      - version
-      - serverName
-      - mediacacheitemlist
-    SMILFilesConfig:
-      type: object
-      properties:
-        vhostName:
-          type: string
-        serverName:
-          type: string
-        smilFiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShortObject'
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - vhostName
-      - smilFiles
-    VHostTuneConfig:
-      type: object
-      properties:
-        multicastOutgoingProcessorCountAutoValue:
-          type: string
-        netConnectionsProcessorCountAutoValue:
-          type: string
-        idleWorkerCountAutoValue:
-          type: string
-        unicastIncomingProcessorCountAutoValue:
-          type: string
-        unicastOutgoingProcessorCountAutoValue:
-          type: string
-        mediaCasterProcessorCount:
-          type: string
-        serverName:
-          type: string
-        multicastOutgoingProcessorCount:
-          type: string
-        multicastIncomingProcessorCountAutoValue:
-          type: string
-        version:
-          type: string
-        netConnectionsProcessorCount:
-          type: string
-        unicastOutgoingProcessorCount:
-          type: string
-        mediaCasterProcessorCountAutoValue:
-          type: string
-        idleWorkerCount:
-          type: string
-        transportThreadPoolSize:
-          type: integer
-          format: int32
-        clientIdleFrequency:
-          type: integer
-          format: int32
-        name:
-          type: string
-        unicastIncomingProcessorCount:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        multicastIncomingProcessorCount:
-          type: string
-        rtpIdleFrequency:
-          type: integer
-          format: int32
-        handlerThreadPoolSize:
-          type: integer
-          format: int32
-      required:
-      - version
-      - serverName
-      - name
-      - netConnectionsProcessorCount
-      - netConnectionsProcessorCountAutoValue
-      - mediaCasterProcessorCount
-      - mediaCasterProcessorCountAutoValue
-      - idleWorkerCount
-      - idleWorkerCountAutoValue
-      - unicastIncomingProcessorCount
-      - unicastIncomingProcessorCountAutoValue
-      - unicastOutgoingProcessorCount
-      - unicastOutgoingProcessorCountAutoValue
-      - multicastIncomingProcessorCount
-      - multicastIncomingProcessorCountAutoValue
-      - multicastOutgoingProcessorCount
-      - multicastOutgoingProcessorCountAutoValue
-      - clientIdleFrequency
-      - rtpIdleFrequency
-      - handlerThreadPoolSize
-      - transportThreadPoolSize
+      - publishers
     TranscoderConfig:
       type: object
       properties:
@@ -4004,63 +3761,432 @@ components:
       - licensed
       - licenses
       - licensesInUse
-    TranscoderOverlayEncodeConfig:
+    HostPortConfig:
       type: object
       properties:
-        overlayName:
+        sslDomainToKeyStoreMapPath:
           type: string
-        imagePath:
+        ipAddress:
+          type: string
+        serverName:
+          type: string
+        sslKeyStoreType:
+          type: string
+        HTTPProviders:
+          type: array
+          items:
+            $ref: '#/components/schemas/HTTPProviderConfig'
+        sslAlgorithm:
+          type: string
+        type:
+          type: string
+        sslKeyStorePath:
+          type: string
+        version:
+          type: string
+        ssl:
+          type: array
+          items:
+            type: string
+        sslEnable:
+          type: boolean
+        sslKeyStorePassword:
+          type: string
+        sslProtocols:
+          type: array
+          items:
+            type: string
+        webRtcEnable:
+          $ref: '#/components/schemas/Boolean'
+        port:
+          type: string
+        name:
+          type: string
+        sslProtocol:
+          type: string
+        sslDomains:
+          type: array
+          items:
+            type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+      required:
+      - version
+      - serverName
+      - name
+      - type
+      - port
+      - ipAddress
+      - sslEnable
+      - sslKeyStorePath
+      - sslKeyStorePassword
+      - sslKeyStoreType
+      - sslDomainToKeyStoreMapPath
+      - sslProtocol
+      - sslAlgorithm
+      - ssl
+      - sslProtocols
+      - sslDomains
+      - webRtcEnable
+      - HTTPProviders
+    StreamFileConfig:
+      type: object
+      properties:
+        sourceControlDriver:
+          type: string
+        sourceControlUserName:
+          type: string
+        sourceControlPassword:
+          type: string
+        name:
+          type: string
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        uri:
+          type: string
+      required:
+      - version
+      - serverName
+      - name
+      - uri
+      - sourceControlUserName
+      - sourceControlPassword
+      - sourceControlDriver
+    MpegTSFilter:
+      type: object
+      properties:
+        name:
+          type: string
+        mpegtsProgramID:
+          type: string
+        mpegtsVideoPID:
+          type: string
+        mpegtsAudioPID:
+          type: string
+      required:
+      - name
+      - mpegtsProgramID
+      - mpegtsVideoPID
+      - mpegtsAudioPID
+    HostportsTuneConfig:
+      type: object
+      properties:
+        hostports:
+          type: array
+          items:
+            $ref: '#/components/schemas/HostPortConfigAdv'
+        name:
+          type: string
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - name
+      - hostports
+    HostPortsConfig:
+      type: object
+      properties:
+        hostports:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShortObject'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - hostports
+    TestPlaybackInfoConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        applications:
+          $ref: '#/components/schemas/ApplicationsConfig'
+      required:
+      - version
+      - serverName
+      - testPlayers
+      - applications
+      - instances
+    AdvancedSetting:
+      type: object
+      properties:
+        sectionName:
+          type: string
+        canRemove:
+          type: boolean
+        defaultValue:
+          type: string
+        documented:
+          type: boolean
+        name:
+          type: string
+        section:
+          type: string
+        type:
+          type: string
+        value:
+          type: string
+        initialValue:
+          type: string
+        enabled:
+          type: boolean
+      required:
+      - enabled
+      - canRemove
+      - name
+      - value
+      - defaultValue
+      - type
+      - sectionName
+      - section
+      - documented
+      - initialValue
+    VHostShortObject:
+      type: object
+      properties:
+        connectingSSLEnable:
+          type: boolean
+        connectingIPAddress:
+          type: string
+        connectingPort:
+          type: integer
+          format: int32
+        id:
+          type: string
+        href:
+          type: string
+      required:
+      - id
+      - href
+      - connectingIPAddress
+      - connectingPort
+      - connectingSSLEnable
+    TranscoderTemplateConfig:
+      type: object
+      properties:
+        enableDynamicOverlays:
+          type: boolean
+        streamNameGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranscoderStreamNameGroupConfig'
+        implementationScale:
+          type: string
+        deinterlace:
+          type: boolean
+        implementation:
+          type: string
+        overlays:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranscoderOverlayDecodeConfig'
+        name:
           type: string
         serverName:
           type: string
         description:
           type: string
-        index:
-          type: integer
-          format: int32
-        align:
-          type: string
-        version:
-          type: string
-        enable:
-          type: boolean
-        x:
-          type: integer
-          format: int32
-        width:
-          type: string
-        name:
-          type: string
-        y:
-          type: integer
-          format: int32
         saveFieldList:
           type: array
           items:
             type: string
-        checkForUpdates:
-          type: boolean
-        opacity:
-          type: integer
-          format: int32
-        height:
+        encodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranscoderEncodeConfig'
+        version:
           type: string
       required:
       - version
       - serverName
-      - overlayName
-      - description
-      - enable
-      - imagePath
-      - index
-      - checkForUpdates
-      - opacity
-      - x
-      - y
-      - width
-      - height
-      - align
       - name
+      - description
+      - implementation
+      - implementationScale
+      - deinterlace
+      - enableDynamicOverlays
+      - encodes
+      - streamNameGroups
+      - overlays
+    TranscoderEncodesConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        encodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShortObject'
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - encodes
+    VHostConfigAdv:
+      type: object
+      properties:
+        advancedSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedSetting'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - advancedSettings
+    MediaCacheStoreList:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        mediacacheitemlist:
+          type: array
+          items:
+            type: string
+      required:
+      - version
+      - serverName
+      - mediacacheitemlist
+    StreamFileConfigAdv:
+      type: object
+      properties:
+        sourceControlDriver:
+          type: string
+        advancedSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedSetting'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        mpegTSFilters:
+          type: array
+          items:
+            $ref: '#/components/schemas/MpegTSFilter'
+      required:
+      - version
+      - serverName
+      - advancedSettings
+      - sourceControlDriver
+    PublisherVhostConfig:
+      type: object
+      properties:
+        password:
+          type: string
+        publisherName:
+          type: string
+        serverName:
+          type: string
+        description:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - publisherName
+      - description
+      - password
+    Boolean:
+      type: object
+      properties: {}
+    StartupStreamsConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        Streams:
+          type: array
+          items:
+            $ref: '#/components/schemas/StartupStreamConfig'
+      required:
+      - version
+      - serverName
+      - Streams
+    TranscoderTemplatesConfig:
+      type: object
+      properties:
+        vhostName:
+          type: string
+        templates:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShortObject'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - vhostName
+      - templates
     StartupStreamConfig:
       type: object
       properties:
@@ -4148,6 +4274,31 @@ components:
       - srtListenerLocalIPAddress
       - srtListenerLocalPort
       - srtPassPhrase
+    Long:
+      type: object
+      properties: {}
+    TranscoderEncodeConfigAdv:
+      type: object
+      properties:
+        advancedSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedSetting'
+        name:
+          type: string
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - advancedSettings
+      - name
     ApplicationsConfig:
       type: object
       properties:
@@ -4167,83 +4318,31 @@ components:
       - version
       - serverName
       - applications
-    HostportsTuneConfig:
+    SMILFileConfig:
       type: object
       properties:
-        hostports:
-          type: array
-          items:
-            $ref: '#/components/schemas/HostPortConfigAdv'
         name:
           type: string
         serverName:
           type: string
+        smilStreams:
+          type: array
+          items:
+            $ref: '#/components/schemas/SMILFileStreamConfig'
         saveFieldList:
           type: array
           items:
             type: string
+        title:
+          type: string
         version:
           type: string
       required:
       - version
       - serverName
       - name
-      - hostports
-    ShortObject:
-      type: object
-      properties:
-        id:
-          type: string
-        href:
-          type: string
-      required:
-      - id
-      - href
-    SSLConfig:
-      type: object
-      properties:
-        sslKeyStorePassword:
-          type: string
-        sslProtocols:
-          type: array
-          items:
-            type: string
-        sslDomainToKeyStoreMapPath:
-          type: string
-        sslCipherSuites:
-          type: array
-          items:
-            type: string
-        serverName:
-          type: string
-        sslKeyStoreType:
-          type: string
-        sslProtocol:
-          type: string
-        sslAlgorithm:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        sslKeyStorePath:
-          type: string
-        version:
-          type: string
-        sslEnable:
-          type: boolean
-      required:
-      - version
-      - serverName
-      - sslEnable
-      - sslKeyStorePath
-      - sslKeyStorePassword
-      - sslKeyStoreType
-      - sslDomainToKeyStoreMapPath
-      - sslProtocol
-      - sslAlgorithm
-      - sslCipherSuites
-      - sslProtocols
+      - title
+      - smilStreams
     AppShortObject:
       type: object
       properties:
@@ -4269,80 +4368,101 @@ components:
       - drmEnabled
       - transcoderEnabled
       - streamTargetsEnabled
-    HostPortConfig:
+    VHostTuneConfig:
       type: object
       properties:
-        sslDomainToKeyStoreMapPath:
+        multicastOutgoingProcessorCountAutoValue:
           type: string
-        ipAddress:
+        netConnectionsProcessorCountAutoValue:
+          type: string
+        idleWorkerCountAutoValue:
+          type: string
+        unicastIncomingProcessorCountAutoValue:
+          type: string
+        unicastOutgoingProcessorCountAutoValue:
+          type: string
+        mediaCasterProcessorCount:
           type: string
         serverName:
           type: string
-        sslKeyStoreType:
+        multicastOutgoingProcessorCount:
           type: string
-        HTTPProviders:
-          type: array
-          items:
-            $ref: '#/components/schemas/HTTPProviderConfig'
-        sslAlgorithm:
-          type: string
-        type:
-          type: string
-        sslKeyStorePath:
+        multicastIncomingProcessorCountAutoValue:
           type: string
         version:
           type: string
-        ssl:
-          type: array
-          items:
-            type: string
-        sslEnable:
-          type: boolean
-        sslKeyStorePassword:
+        netConnectionsProcessorCount:
           type: string
-        sslProtocols:
-          type: array
-          items:
-            type: string
-        webRtcEnable:
-          $ref: '#/components/schemas/Boolean'
-        port:
+        unicastOutgoingProcessorCount:
           type: string
+        mediaCasterProcessorCountAutoValue:
+          type: string
+        idleWorkerCount:
+          type: string
+        transportThreadPoolSize:
+          type: integer
+          format: int32
+        clientIdleFrequency:
+          type: integer
+          format: int32
         name:
           type: string
-        sslProtocol:
+        unicastIncomingProcessorCount:
           type: string
-        sslDomains:
-          type: array
-          items:
-            type: string
         saveFieldList:
           type: array
           items:
             type: string
+        multicastIncomingProcessorCount:
+          type: string
+        rtpIdleFrequency:
+          type: integer
+          format: int32
+        handlerThreadPoolSize:
+          type: integer
+          format: int32
       required:
       - version
       - serverName
       - name
-      - type
-      - port
-      - ipAddress
-      - sslEnable
-      - sslKeyStorePath
-      - sslKeyStorePassword
-      - sslKeyStoreType
-      - sslDomainToKeyStoreMapPath
-      - sslProtocol
-      - sslAlgorithm
-      - ssl
-      - sslProtocols
-      - sslDomains
-      - webRtcEnable
-      - HTTPProviders
-    Boolean:
+      - netConnectionsProcessorCount
+      - netConnectionsProcessorCountAutoValue
+      - mediaCasterProcessorCount
+      - mediaCasterProcessorCountAutoValue
+      - idleWorkerCount
+      - idleWorkerCountAutoValue
+      - unicastIncomingProcessorCount
+      - unicastIncomingProcessorCountAutoValue
+      - unicastOutgoingProcessorCount
+      - unicastOutgoingProcessorCountAutoValue
+      - multicastIncomingProcessorCount
+      - multicastIncomingProcessorCountAutoValue
+      - multicastOutgoingProcessorCount
+      - multicastOutgoingProcessorCountAutoValue
+      - clientIdleFrequency
+      - rtpIdleFrequency
+      - handlerThreadPoolSize
+      - transportThreadPoolSize
+    VHostsConfig:
       type: object
-      properties: {}
-    TranscoderEncodeConfigAdv:
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        vhosts:
+          type: array
+          items:
+            $ref: '#/components/schemas/VHostShortObject'
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - vhosts
+    TranscoderTemplateConfigAdv:
       type: object
       properties:
         advancedSettings:
@@ -4364,92 +4484,234 @@ components:
       - serverName
       - advancedSettings
       - name
-    StreamFileConfig:
+    TranscoderOverlayDecodeConfig:
       type: object
       properties:
-        sourceControlDriver:
+        overlayName:
           type: string
-        sourceControlUserName:
+        imagePath:
           type: string
-        sourceControlPassword:
+        serverName:
+          type: string
+        description:
+          type: string
+        index:
+          type: integer
+          format: int32
+        align:
+          type: string
+        version:
+          type: string
+        enable:
+          type: boolean
+        x:
+          type: integer
+          format: int32
+        width:
+          type: string
+        y:
+          type: integer
+          format: int32
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        checkForUpdates:
+          type: boolean
+        opacity:
+          type: integer
+          format: int32
+        height:
+          type: string
+      required:
+      - version
+      - serverName
+      - overlayName
+      - description
+      - enable
+      - imagePath
+      - index
+      - checkForUpdates
+      - opacity
+      - x
+      - y
+      - width
+      - height
+      - align
+    TranscoderMemberConfig:
+      type: object
+      properties:
+        wowzaVideoOnly:
+          type: boolean
+        encodeName:
+          type: string
+        wowzaAudioOnly:
+          type: boolean
+        serverName:
+          type: string
+        memberName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - memberName
+      - encodeName
+      - wowzaVideoOnly
+      - wowzaAudioOnly
+    StreamFilesConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        streamFiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShortObject'
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - streamFiles
+    HistoricVHostStatistics:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - entries
+    HostPortConfigAdv:
+      type: object
+      properties:
+        processorCountAutoValue:
+          type: integer
+          format: int32
+        port:
+          type: string
+        processorCount:
+          type: string
+        advancedSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedSetting'
+        name:
+          type: string
+        ipAddress:
+          type: string
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        type:
+          type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - advancedSettings
+      - name
+      - type
+      - ipAddress
+      - port
+      - processorCount
+      - processorCountAutoValue
+    TranscoderStreamNameGroupsConfig:
+      type: object
+      properties:
+        streamNameGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShortObject'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - streamNameGroups
+    TranscoderOverlayEncodeConfig:
+      type: object
+      properties:
+        overlayName:
+          type: string
+        imagePath:
+          type: string
+        serverName:
+          type: string
+        description:
+          type: string
+        index:
+          type: integer
+          format: int32
+        align:
+          type: string
+        version:
+          type: string
+        enable:
+          type: boolean
+        x:
+          type: integer
+          format: int32
+        width:
           type: string
         name:
           type: string
-        serverName:
-          type: string
+        y:
+          type: integer
+          format: int32
         saveFieldList:
           type: array
           items:
             type: string
-        version:
-          type: string
-        uri:
+        checkForUpdates:
+          type: boolean
+        opacity:
+          type: integer
+          format: int32
+        height:
           type: string
       required:
       - version
       - serverName
+      - overlayName
+      - description
+      - enable
+      - imagePath
+      - index
+      - checkForUpdates
+      - opacity
+      - x
+      - y
+      - width
+      - height
+      - align
       - name
-      - uri
-      - sourceControlUserName
-      - sourceControlPassword
-      - sourceControlDriver
-    SDPFilesConfig:
-      type: object
-      properties:
-        sdpFiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShortObject'
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - sdpFiles
-    HostPortsConfig:
-      type: object
-      properties:
-        hostports:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShortObject'
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - hostports
-    PublishersVhostConfig:
-      type: object
-      properties:
-        serverName:
-          type: string
-        publishers:
-          type: array
-          items:
-            $ref: '#/components/schemas/PublisherVhostConfig'
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - publishers
     TranscoderEncodeConfig:
       type: object
       properties:
@@ -4530,306 +4792,55 @@ components:
       - audioBitrate
       - Overlays
       - convert8bit
-    TranscoderTemplateConfig:
+    SSLConfig:
       type: object
       properties:
-        enableDynamicOverlays:
-          type: boolean
-        streamNameGroups:
+        sslKeyStorePassword:
+          type: string
+        sslProtocols:
           type: array
           items:
-            $ref: '#/components/schemas/TranscoderStreamNameGroupConfig'
-        implementationScale:
+            type: string
+        sslDomainToKeyStoreMapPath:
           type: string
-        deinterlace:
-          type: boolean
-        implementation:
-          type: string
-        overlays:
+        sslCipherSuites:
           type: array
           items:
-            $ref: '#/components/schemas/TranscoderOverlayDecodeConfig'
-        name:
-          type: string
+            type: string
         serverName:
           type: string
-        description:
+        sslKeyStoreType:
+          type: string
+        sslProtocol:
+          type: string
+        sslAlgorithm:
           type: string
         saveFieldList:
           type: array
           items:
             type: string
-        encodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/TranscoderEncodeConfig'
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - name
-      - description
-      - implementation
-      - implementationScale
-      - deinterlace
-      - enableDynamicOverlays
-      - encodes
-      - streamNameGroups
-      - overlays
-    TestPlaybackInfoConfig:
-      type: object
-      properties:
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-        applications:
-          $ref: '#/components/schemas/ApplicationsConfig'
-      required:
-      - version
-      - serverName
-      - testPlayers
-      - applications
-      - instances
-    HostPortConfigAdv:
-      type: object
-      properties:
-        processorCountAutoValue:
-          type: integer
-          format: int32
-        port:
-          type: string
-        processorCount:
-          type: string
-        advancedSettings:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdvancedSetting'
-        name:
-          type: string
-        ipAddress:
-          type: string
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        type:
+        sslKeyStorePath:
           type: string
         version:
           type: string
-      required:
-      - version
-      - serverName
-      - advancedSettings
-      - name
-      - type
-      - ipAddress
-      - port
-      - processorCount
-      - processorCountAutoValue
-    StreamFilesConfig:
-      type: object
-      properties:
-        serverName:
-          type: string
-        streamFiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShortObject'
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - streamFiles
-    VHostConfigAdv:
-      type: object
-      properties:
-        advancedSettings:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdvancedSetting'
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - advancedSettings
-    StreamFileConfigAdv:
-      type: object
-      properties:
-        sourceControlDriver:
-          type: string
-        advancedSettings:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdvancedSetting'
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-        mpegTSFilters:
-          type: array
-          items:
-            $ref: '#/components/schemas/MpegTSFilter'
-      required:
-      - version
-      - serverName
-      - advancedSettings
-      - sourceControlDriver
-    MpegTSFilter:
-      type: object
-      properties:
-        name:
-          type: string
-        mpegtsProgramID:
-          type: string
-        mpegtsVideoPID:
-          type: string
-        mpegtsAudioPID:
-          type: string
-      required:
-      - name
-      - mpegtsProgramID
-      - mpegtsVideoPID
-      - mpegtsAudioPID
-    AdvancedSetting:
-      type: object
-      properties:
-        sectionName:
-          type: string
-        canRemove:
-          type: boolean
-        defaultValue:
-          type: string
-        documented:
-          type: boolean
-        name:
-          type: string
-        section:
-          type: string
-        type:
-          type: string
-        value:
-          type: string
-        initialValue:
-          type: string
-        enabled:
+        sslEnable:
           type: boolean
       required:
-      - enabled
-      - canRemove
-      - name
-      - value
-      - defaultValue
-      - type
-      - sectionName
-      - section
-      - documented
-      - initialValue
-    TranscoderTemplateConfigAdv:
-      type: object
-      properties:
-        advancedSettings:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdvancedSetting'
-        name:
-          type: string
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
       - version
       - serverName
-      - advancedSettings
-      - name
-    TranscoderOverlayDecodeConfig:
+      - sslEnable
+      - sslKeyStorePath
+      - sslKeyStorePassword
+      - sslKeyStoreType
+      - sslDomainToKeyStoreMapPath
+      - sslProtocol
+      - sslAlgorithm
+      - sslCipherSuites
+      - sslProtocols
+    SDPFilesConfig:
       type: object
       properties:
-        overlayName:
-          type: string
-        imagePath:
-          type: string
-        serverName:
-          type: string
-        description:
-          type: string
-        index:
-          type: integer
-          format: int32
-        align:
-          type: string
-        version:
-          type: string
-        enable:
-          type: boolean
-        x:
-          type: integer
-          format: int32
-        width:
-          type: string
-        y:
-          type: integer
-          format: int32
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        checkForUpdates:
-          type: boolean
-        opacity:
-          type: integer
-          format: int32
-        height:
-          type: string
-      required:
-      - version
-      - serverName
-      - overlayName
-      - description
-      - enable
-      - imagePath
-      - index
-      - checkForUpdates
-      - opacity
-      - x
-      - y
-      - width
-      - height
-      - align
-    TranscoderTemplatesConfig:
-      type: object
-      properties:
-        vhostName:
-          type: string
-        templates:
+        sdpFiles:
           type: array
           items:
             $ref: '#/components/schemas/ShortObject'
@@ -4844,8 +4855,7 @@ components:
       required:
       - version
       - serverName
-      - vhostName
-      - templates
+      - sdpFiles
     HTTPProviderConfig:
       type: object
       properties:
@@ -4869,18 +4879,12 @@ components:
       - baseClass
       - requestFilters
       - authenticationMethod
-    TranscoderMemberConfig:
+    CurrentVHostStatistics:
       type: object
       properties:
-        wowzaVideoOnly:
-          type: boolean
-        encodeName:
-          type: string
-        wowzaAudioOnly:
-          type: boolean
+        totalConnections:
+          $ref: '#/components/schemas/Long'
         serverName:
-          type: string
-        memberName:
           type: string
         saveFieldList:
           type: array
@@ -4888,23 +4892,23 @@ components:
             type: string
         version:
           type: string
+        uptime:
+          $ref: '#/components/schemas/Long'
+        bytesIn:
+          $ref: '#/components/schemas/Long'
+        bytesOut:
+          $ref: '#/components/schemas/Long'
       required:
       - version
       - serverName
-      - memberName
-      - encodeName
-      - wowzaVideoOnly
-      - wowzaAudioOnly
-    VHostShortObject:
+      - uptime
+      - bytesIn
+      - bytesOut
+      - totalConnections
+      - connectionCount
+    ShortObject:
       type: object
       properties:
-        connectingSSLEnable:
-          type: boolean
-        connectingIPAddress:
-          type: string
-        connectingPort:
-          type: integer
-          format: int32
         id:
           type: string
         href:
@@ -4912,20 +4916,17 @@ components:
       required:
       - id
       - href
-      - connectingIPAddress
-      - connectingPort
-      - connectingSSLEnable
-    PublisherVhostConfig:
+    SMILFilesConfig:
       type: object
       properties:
-        password:
-          type: string
-        publisherName:
+        vhostName:
           type: string
         serverName:
           type: string
-        description:
-          type: string
+        smilFiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShortObject'
         saveFieldList:
           type: array
           items:
@@ -4935,9 +4936,8 @@ components:
       required:
       - version
       - serverName
-      - publisherName
-      - description
-      - password
+      - vhostName
+      - smilFiles
   securitySchemes:
     basicAuth:
       type: http

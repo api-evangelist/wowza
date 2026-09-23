@@ -81,25 +81,6 @@ paths:
           description: Internal server error
 components:
   schemas:
-    ServerListenersConfig:
-      type: object
-      properties:
-        serverListeners:
-          type: array
-          items:
-            $ref: '#/components/schemas/ServerListenerConfig'
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - serverListeners
     ServerListenerConfig:
       type: object
       properties:
@@ -121,6 +102,25 @@ components:
       - serverName
       - order
       - baseClass
+    ServerListenersConfig:
+      type: object
+      properties:
+        serverListeners:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServerListenerConfig'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - serverListeners
   securitySchemes:
     basicAuth:
       type: http
