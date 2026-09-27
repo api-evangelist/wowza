@@ -104,34 +104,6 @@ paths:
                 $ref: '#/components/schemas/Error401'
 components:
   schemas:
-    usage_storage_peak:
-      type: object
-      description: ''
-      properties:
-        bytes:
-          type: integer
-          description: The amount, in bytes, used to store recordings and VOD streams during the selected time frame. If the time frame is in the past, *bytes* is the amount of storage that was used and billed. If the time frame includes the current billing period, *bytes* is the greatest amount of content stored in Wowza Video at any point to date in the billing period.
-          example: ''
-          format: int32
-        limits:
-          type: object
-          description: The time frame represented in the response.
-          properties:
-            from:
-              type: string
-              description: The start of the range of time represented in the response.
-              example: ''
-              format: date-time
-            to:
-              type: string
-              description: The end of the range of time represented in the response.
-              example: ''
-              format: date-time
-      example:
-        bytes: 163535997883
-        limits:
-          from: '2019-12-07T00:00:00.000Z'
-          to: '2019-12-21T00:00:00.000Z'
     usage_storage_current:
       type: object
       description: ''
@@ -259,6 +231,34 @@ components:
             message: Token is invalid.
             description: ''
             links: []
+    usage_storage_peak:
+      type: object
+      description: ''
+      properties:
+        bytes:
+          type: integer
+          description: The amount, in bytes, used to store recordings and VOD streams during the selected time frame. If the time frame is in the past, *bytes* is the amount of storage that was used and billed. If the time frame includes the current billing period, *bytes* is the greatest amount of content stored in Wowza Video at any point to date in the billing period.
+          example: ''
+          format: int32
+        limits:
+          type: object
+          description: The time frame represented in the response.
+          properties:
+            from:
+              type: string
+              description: The start of the range of time represented in the response.
+              example: ''
+              format: date-time
+            to:
+              type: string
+              description: The end of the range of time represented in the response.
+              example: ''
+              format: date-time
+      example:
+        bytes: 163535997883
+        limits:
+          from: '2019-12-07T00:00:00.000Z'
+          to: '2019-12-21T00:00:00.000Z'
   securitySchemes:
     WV_JWT:
       type: http

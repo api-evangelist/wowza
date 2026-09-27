@@ -218,17 +218,15 @@ paths:
           description: Internal server error
 components:
   schemas:
-    PublisherConfig3:
+    PublishersConfig3:
       type: object
       properties:
-        password:
-          type: string
         serverName:
           type: string
-        publisher:
-          type: string
-        description:
-          type: string
+        publishers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublisherConfig3'
         saveFieldList:
           type: array
           items:
@@ -238,9 +236,7 @@ components:
       required:
       - version
       - serverName
-      - publisher
-      - description
-      - password
+      - publishers
     PublisherConfig:
       type: object
       properties:
@@ -264,15 +260,17 @@ components:
       - name
       - description
       - password
-    PublishersConfig3:
+    PublisherConfig3:
       type: object
       properties:
+        password:
+          type: string
         serverName:
           type: string
-        publishers:
-          type: array
-          items:
-            $ref: '#/components/schemas/PublisherConfig3'
+        publisher:
+          type: string
+        description:
+          type: string
         saveFieldList:
           type: array
           items:
@@ -282,7 +280,9 @@ components:
       required:
       - version
       - serverName
-      - publishers
+      - publisher
+      - description
+      - password
   securitySchemes:
     basicAuth:
       type: http

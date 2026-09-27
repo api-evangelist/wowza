@@ -96,7 +96,6 @@ apis:
   - Plugins
   - SDK
   humanURL: https://www.wowza.com/docs/wowza-streaming-engine-java-api-reference-documentation
-  baseURL: https://www.wowza.com
   properties:
   - url: https://www.wowza.com/docs/wowza-streaming-engine-java-api-reference-documentation
     type: APIReference
@@ -143,7 +142,6 @@ apis:
   - Live Streaming
   - Capture
   humanURL: https://github.com/WowzaMediaSystems/gocoder-sdk-samples-ios
-  baseURL: https://www.wowza.com
   properties:
   - url: https://github.com/WowzaMediaSystems/gocoder-sdk-samples-ios
     type: SDKs
@@ -165,7 +163,6 @@ apis:
   - SDK
   - Live Streaming
   humanURL: https://github.com/WowzaMediaSystems/wowza-rts-docs
-  baseURL: https://www.wowza.com
   properties:
   - url: https://github.com/WowzaMediaSystems/wowza-rts-docs
     type: Documentation
@@ -176,7 +173,7 @@ apis:
     Streaming service. Public documentation repo and WebRTC sample applications are hosted in the WowzaMediaSystems
     GitHub organization.
 - aid: wowza:wowza-advanced-token-authentication-api
-  name: Wowza advanced_token_authentication API
+  name: Wowza Advanced Token Authentication API
   description: "Operations related to using advanced token authentication, known in Wowza Video as a default\
     \ playback token behavior option, with videos. \n\nUse token authentication when distributing valuable\
     \ or sensitive video content to audiences to ensure that only authorized users can access the content\
@@ -246,7 +243,7 @@ apis:
   - type: SDKs
     url: https://github.com/WowzaMediaSystems/wse-rest-library-php
 - aid: wowza:wowza-analytics-engagement-api
-  name: Wowza analytics_engagement API
+  name: Wowza Analytics Engagement API
   description: Operations related to engagement analytics for a VOD stream.
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
@@ -286,7 +283,7 @@ apis:
   - type: SDKs
     url: https://github.com/WowzaMediaSystems/wse-rest-library-php
 - aid: wowza:wowza-analytics-ingest-api
-  name: Wowza analytics_ingest API
+  name: Wowza Analytics Ingest API
   description: Operations related to ingest analytics for a live stream.
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
@@ -326,7 +323,7 @@ apis:
   - type: SDKs
     url: https://github.com/WowzaMediaSystems/wse-rest-library-php
 - aid: wowza:wowza-analytics-popularity-api
-  name: Wowza analytics_popularity API
+  name: Wowza Analytics Popularity API
   description: Operations related to popularity analytics.
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
@@ -366,7 +363,7 @@ apis:
   - type: SDKs
     url: https://github.com/WowzaMediaSystems/wse-rest-library-php
 - aid: wowza:wowza-analytics-viewers-api
-  name: Wowza analytics_viewers API
+  name: Wowza Analytics Viewers API
   description: Operations related to viewer analytics.
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
@@ -447,7 +444,7 @@ apis:
   - type: SDKs
     url: https://github.com/WowzaMediaSystems/wse-rest-library-php
 - aid: wowza:wowza-assets-api
-  name: Wowza assets API
+  name: Wowza Assets API
   description: >-
     <blockquote>The <strong>assets</strong> operations are deprecated in 2.0. Use the <strong>/videos</strong>
     endpoints instead.</blockquote>
@@ -494,7 +491,7 @@ apis:
   - type: SDKs
     url: https://github.com/WowzaMediaSystems/wse-rest-library-php
 - aid: wowza:wowza-categories-api
-  name: Wowza categories API
+  name: Wowza Categories API
   description: Operations related to categorizing videos.
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
@@ -535,7 +532,7 @@ apis:
   - type: SDKs
     url: https://github.com/WowzaMediaSystems/wse-rest-library-php
 - aid: wowza:wowza-clipping-api
-  name: Wowza clipping API
+  name: Wowza Clipping API
   description: Operations related to clipping and stitching videos and live streams.
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
@@ -574,7 +571,7 @@ apis:
   - type: SDKs
     url: https://github.com/WowzaMediaSystems/wse-rest-library-php
 - aid: wowza:wowza-live-streams-api
-  name: Wowza live_streams API
+  name: Wowza Live Streams API
   description: >-
     Operations related to live streams. A live stream is a single, linear video broadcast. You broadcast
     a live stream by receiving encoded source video into the Wowza Video service and letting Wowza Video
@@ -658,7 +655,7 @@ apis:
   - type: SDKs
     url: https://github.com/WowzaMediaSystems/wse-rest-library-php
 - aid: wowza:wowza-players-api
-  name: Wowza players API
+  name: Wowza Players API
   description: >-
     <blockquote>The <strong>player</strong> operations are deprecated in 2.0. Create and update player
     configurations in the user interface. Any values you send using the <strong>player</strong> operations
@@ -707,7 +704,7 @@ apis:
   - type: SDKs
     url: https://github.com/WowzaMediaSystems/wse-rest-library-php
 - aid: wowza:wowza-quality-of-experience-api
-  name: Wowza quality_of_experience API
+  name: Wowza Quality Of Experience API
   description: Operations related to quality of experience metrics.
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
@@ -748,7 +745,7 @@ apis:
   - type: SDKs
     url: https://github.com/WowzaMediaSystems/wse-rest-library-php
 - aid: wowza:wowza-recordings-api
-  name: Wowza recordings API
+  name: Wowza Recordings API
   description: "<blockquote>The <strong>recordings</strong> operations are deprecated in 2.0. Use the\
     \ <strong>/videos</strong> endpoints instead.</blockquote> \n\nOperations related to recordings, which\
     \ are created through the ``/live_streams`` or ``/transcoders`` resources. The Wowza Video service\
@@ -834,7 +831,7 @@ apis:
   - type: SDKs
     url: https://github.com/WowzaMediaSystems/wse-rest-library-php
 - aid: wowza:wowza-schedules-api
-  name: Wowza schedules API
+  name: Wowza Schedules API
   description: >-
     Operations related to schedules. Schedules allow you to automatically start or stop a live stream
     or transcoder at a predetermined date and time. You can configure a schedule to start and/or stop
@@ -1428,7 +1425,7 @@ apis:
   - type: SDKs
     url: https://github.com/WowzaMediaSystems/wse-rest-library-php
 - aid: wowza:wowza-storage-api
-  name: Wowza storage API
+  name: Wowza Storage API
   description: >-
     <blockquote>The <strong>storage</strong> operations are deprecated in 2.0.
 
@@ -1473,7 +1470,7 @@ apis:
   - type: SDKs
     url: https://github.com/WowzaMediaSystems/wse-rest-library-php
 - aid: wowza:wowza-stream-sources-api
-  name: Wowza stream_sources API
+  name: Wowza Stream Sources API
   description: >-
     Operations related to stream sources. You can create a Wowza stream source and associate it to a live
     stream or transcoder.
@@ -1520,7 +1517,7 @@ apis:
   - type: SDKs
     url: https://github.com/WowzaMediaSystems/wse-rest-library-php
 - aid: wowza:wowza-stream-targets-api
-  name: Wowza stream_targets API
+  name: Wowza Stream Targets API
   description: "Operations related to stream targets. A stream target is a destination for a stream. Stream\
     \ targets can be Wowza Video edge resources; custom, external destinations, target destinations.\n\
     \ \n ### Wowza CDN Stream Targets\n Wowza CDN stream targets distribute streams to players. When you\
@@ -1569,7 +1566,7 @@ apis:
   - type: SDKs
     url: https://github.com/WowzaMediaSystems/wse-rest-library-php
 - aid: wowza:wowza-transcoders-api
-  name: Wowza transcoders API
+  name: Wowza Transcoders API
   description: >-
     Operations related to transcoders, output renditions, and output stream targets.
      ### Transcoders
@@ -1632,7 +1629,7 @@ apis:
   - type: SDKs
     url: https://github.com/WowzaMediaSystems/wse-rest-library-php
 - aid: wowza:wowza-usage-account-api
-  name: Wowza usage_account API
+  name: Wowza Usage Account API
   description: Operations related to stream analytics for an account.
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
@@ -1672,7 +1669,7 @@ apis:
   - type: SDKs
     url: https://github.com/WowzaMediaSystems/wse-rest-library-php
 - aid: wowza:wowza-usage-api
-  name: Wowza usage API
+  name: Wowza Usage API
   description: Operations related to stream target analytics, including CDN usage and viewer data.
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
@@ -1713,7 +1710,7 @@ apis:
   - type: SDKs
     url: https://github.com/WowzaMediaSystems/wse-rest-library-php
 - aid: wowza:wowza-usage-real-time-streams-api
-  name: Wowza usage_real_time_streams API
+  name: Wowza Usage Real Time Streams API
   description: Operations related to real-time streams analytics.
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
@@ -1753,7 +1750,7 @@ apis:
   - type: SDKs
     url: https://github.com/WowzaMediaSystems/wse-rest-library-php
 - aid: wowza:wowza-usage-transcoders-api
-  name: Wowza usage_transcoders API
+  name: Wowza Usage Transcoders API
   description: Operations related to transcoder analytics.
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
@@ -1793,7 +1790,7 @@ apis:
   - type: SDKs
     url: https://github.com/WowzaMediaSystems/wse-rest-library-php
 - aid: wowza:wowza-usage-vod-streams-api
-  name: Wowza usage_vod_streams API
+  name: Wowza Usage Vod Streams API
   description: >-
     <blockquote>The <strong>VOD stream</strong> operations are deprecated in 2.0.
 
@@ -1837,7 +1834,7 @@ apis:
   - type: SDKs
     url: https://github.com/WowzaMediaSystems/wse-rest-library-php
 - aid: wowza:wowza-videos-api
-  name: Wowza videos API
+  name: Wowza Videos API
   description: Operations related to uploading and categorizing videos.
   humanURL: https://developer.wowza.com/docs/wowza-video/api/video/openapi
   baseURL: https://api.video.wowza.com/api/v2.0
@@ -1917,7 +1914,7 @@ apis:
   - type: SDKs
     url: https://github.com/WowzaMediaSystems/wse-rest-library-php
 - aid: wowza:wowza-vod-streams-api
-  name: Wowza vod_streams API
+  name: Wowza Vod Streams API
   description: "<blockquote>The <strong>VOD stream</strong> operations are deprecated in 2.0. Use the\
     \ <strong>/videos</strong> endpoints instead.</blockquote> \n\nOperations related to video on demand\
     \ (VOD) streams, which are created through the ``/live_streams`` or ``/transcoders`` resources. A\
@@ -2014,10 +2011,8 @@ apis:
     To enable and purchase capacity for Real-Time Streaming at Scale for your account and access the /real_time
     operations, contact 720.279.8163 or schedule a call.
   humanURL: https://www.wowza.com/docs/wowza-streaming-engine-java-api-reference-documentation
-  baseURL: https://www.wowza.com
+  baseURL: https://www.wowza.com/video/player
   tags:
-  - Real-Time
-  tags_raw:
   - Realtime
   properties:
   - type: OpenAPI

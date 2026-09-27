@@ -260,86 +260,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error422'
 components:
+  parameters:
+    page:
+      name: page
+      in: query
+      description: "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
+      schema:
+        type: integer
+    per_page:
+      name: per_page
+      in: query
+      description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
+      schema:
+        type: integer
   schemas:
-    CreatePlaybackTokenKeyResponseModel:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the playback token key. The id will contain the organization id in the key id.
-          example: 51cd5c07-1583-4f5e-bd81-f1aa11510ea9
-        organization_id:
-          type: string
-          description: The organization id for Wowza Video.
-          example: 123456
-        name:
-          type: string
-          description: The name of the key for the organization.
-          example: key name
-        created_at:
-          type: string
-          description: The key creation timestamp.
-          format: date-time
-          example: '2020-01-01T12:33:22Z'
-        value:
-          type: string
-          description: 'The key value for the key.
-
-
-            If you generate a playback token for advanced token authentication by creating a  standard common access token (CAT) through the means you usually use to create tokens, you''ll need to add this key value during token creation to sign the token. The key  value is only returned in this endpoint to keep it in a place that you can access it later when you create your playback token. '
-    CatnipClaim:
-      type: object
-      properties:
-        tag:
-          type: integer
-          description: The tag must be 52 (IPV4 address) or 54 (IPV6 address).
-          format: int32
-          example: 52
-        value:
-          type: array
-          description: "A two-element array:\n\n\n  1. two-element array:\n     - For IPv4, must be < 24. \n     - For IPv6, must be < 56. \n  2. An object whose keys are byte-indices (\"0\", \"1\", ...) and values are the byte values.\n\n\nYou must have a minimum of two items and can have a maximum of two items. "
-          items:
-          - type: integer
-            description: The IP-prefix length.
-          - type: object
-            description: 'Byte-map of the IP-prefix.  '
-            additionalProperties:
-              type: integer
-              description: The byte value (0-255)
-          example:
-          - 24
-          - '0': 188
-            '1': 4
-            '2': 23
-    PlaybackTokenKeyResponseModel:
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the playback token key. It will contain the organization identifier.
-        organization_id:
-          type: string
-          description: The organization id.
-        name:
-          type: string
-          description: The name of the playback token key for the organization.
-        created_at:
-          type: string
-          description: The playback token creation timestamp.
-          format: date-time
-          example: '2020-01-01T12:33:22Z'
     GenerateTokenResponse:
       type: object
       properties:
         token:
           type: string
           description: "The unique identifier for the playback token. \n\nAdd this token to your site along with the JS-embed for the video to use advanced token authentication. You must also use PATCH /videos/{id} to select **ADVANCED_TOKEN** as your authentication type for the video after you create the playback token. "
-    CreatePlaybackTokenKeyRequestWrapper:
-      type: object
-      description: Create playback token key for the Wowza Video REST API
-      properties:
-        playback_token_key:
-          type: object
-          $ref: '#/components/schemas/CreatePlaybackTokenKeyRequestModel'
     Error401:
       type: object
       description: ''
@@ -450,163 +390,32 @@ components:
             message: Token is invalid.
             description: ''
             links: []
-    Error403:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 403
-            code: ERR-403-RecordUnaccessible
-            title: Record Unaccessible Error
-            message: The requested resource isn't accessible.
-            description: ''
-            links: []
-    ListPlaybackTokenKeyResponseWrapper:
+    CreatePlaybackTokenKeyResponseModel:
       type: object
       properties:
-        playback_token_keys:
-          type: array
-          description: The list of playback token keys.
-          items:
-            $ref: '#/components/schemas/PlaybackTokenKeyResponseModel'
-        pagination:
-          type: object
-          description: Page information for the results generated by the query.
-          properties:
-            payload_version:
-              type: integer
-              description: The pagination object version.
-            total_records:
-              type: integer
-              description: The total number of records in the database that match the query.
-              example: ''
-            page:
-              type: integer
-              description: The page number, starting at 1. The default is 1.
-              example: ''
-            per_page:
-              type: integer
-              description: The number of records included per page. The default is 20.
-              example: ''
-            total_pages:
-              type: integer
-              description: The total number of pages generated by the query.
-              example: ''
-            page_first_index:
-              type: integer
-              description: The index of the first record in the response.
-              example: ''
-            page_last_index:
-              type: integer
-              description: The index of the last record in the response.
-              example: ''
-    GenerateTokenRequest:
-      required:
-      - exp
-      - key_id
-      type: object
-      properties:
-        key_id:
+        id:
           type: string
-          description: The unique identifier for the id key returned when you used the POST /playback_tokens/keys endpoint to create a playback token key. This key will sign the token you create.
+          description: Unique identifier for the playback token key. The id will contain the organization id in the key id.
           example: 51cd5c07-1583-4f5e-bd81-f1aa11510ea9
-        exp:
-          type: integer
-          description: The expiration time of the token which is the <a href="https://www.unixtimestamp.com/" target="_blank">unix timestamp</a> in seconds. If the current time is greater than the expiration time, the request will be considered invalid.
-          format: int64
-          example: 1679816499
-        nbf:
-          type: integer
-          description: The time before which the token must not be accepted for processing which is the <a href="https://www.unixtimestamp.com/" target="_blank">unix timestamp</a> in seconds.
-          format: int64
-          example: 1679816499
-        iat:
-          type: integer
-          description: The issue date of the token which is the <a href="https://www.unixtimestamp.com/" target="_blank">unix timestamp</a> in seconds.
-          format: int64
-          example: 1679816499
-        iss:
+        organization_id:
           type: string
-          description: The issuer of the token.
-          example: my-issuer
-        sub:
+          description: The organization id for Wowza Video.
+          example: 123456
+        name:
           type: string
-          description: The subject of the token.
-          example: subscriber1234
-        aud:
+          description: The name of the key for the organization.
+          example: key name
+        created_at:
           type: string
-          description: The audience of the token.
-          example: my-audience
-        cti:
+          description: The key creation timestamp.
+          format: date-time
+          example: '2020-01-01T12:33:22Z'
+        value:
           type: string
-          description: Uniquely identifies a token to help prevent reuse or replay attacks.
-          example: unique-token-id
-        catnip:
-          type: array
-          description: "The IP address of the network for which the token was issued. The array contains objects with tag and value.  Each object represents a catnip claim. \n\nThe max number of items allowed is 5 and the minimum is zero. "
-          items:
-            $ref: '#/components/schemas/CatnipClaim'
-        catu:
-          type: object
-          description: 'A map of URIs to which the token applies. The maximum number of items allowed is five.  The object contains an array of key and value. '
-          additionalProperties:
-            type: array
-            description: "The object contains an array of keys and values. \n\n\n - Each key represents a URI component and must be between 0-8. \n\n\n - The value is a list of URIs. The first element of the value (match type) must be one of 0,1,2,3. The second element must be a string. \n\n\n**Examples based on tables below**: \n - \"1\": [0, \"token.dotv.wowza.com\"]          //Host (exact match)\n - \"3\": [3, \"ssai\"]          //Path (contains match)\n\n\n<details> <summary>Click to expand for the full list of valid values</summary>\n\n | Key |  URI Component | RFC Reference |\n |---|---|---|\n | 0 | Scheme                    | RFC 3986 Section 3.1   |\n | 1 | Host                      | RFC 3986 Section 3.2.2 |\n | 2 | Port                      | RFC 3986 Section 3.2.3 |\n | 3 | Path                      | RFC 3986 Section 3.3   |\n | 4 | Query                     | RFC 3986 Section 3.4   |\n | 5 | Parent Path               | -                      |\n | 6 | Filename                  | -                      |\n | 7 | Stem                      | -                      |\n | 8 | Extension                 | -                      |\n</details>\n<details> <summary>Click to expand for the full list of valid values</summary>\n\n | Value |Match Type          |\n |---|---|\n | 0     | Exact Text Match   |\n | 1     | Prefix Match       |\n | 2     | Suffix Match       |\n | 3     | Contains Match     |\n</details>"
-        catgeoiso3166:
-          type: array
-          description: 'The ISO3166 country codes from which the token was issued. Optionally, followed by a hyphen and a region code. the maximum number allowed is five. '
-          items:
-            type: string
-            example:
-            - US
-            - CA-ON
-        catv:
-          type: integer
-          description: The version of the token. The integer must be 1.
-          format: int323
-          example: 1
-    CreatePlaybackTokenKeyResponseWrapper:
-      type: object
-      description: Create playback token key for the Wowza Video REST API
-      properties:
-        playback_token_key:
-          type: object
-          $ref: '#/components/schemas/CreatePlaybackTokenKeyResponseModel'
+          description: 'The key value for the key.
+
+
+            If you generate a playback token for advanced token authentication by creating a  standard common access token (CAT) through the means you usually use to create tokens, you''ll need to add this key value during token creation to sign the token. The key  value is only returned in this endpoint to keep it in a place that you can access it later when you create your playback token. '
     Error422:
       type: object
       description: ''
@@ -685,15 +494,76 @@ components:
             message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
             description: ''
             links: []
-    CreatePlaybackTokenKeyRequestModel:
+    Error403:
+      type: object
+      description: ''
       required:
-      - name
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 403
+            code: ERR-403-RecordUnaccessible
+            title: Record Unaccessible Error
+            message: The requested resource isn't accessible.
+            description: ''
+            links: []
+    CatnipClaim:
       type: object
       properties:
-        name:
-          type: string
-          description: The name of the playback token key for the organization.
-          example: Key name
+        tag:
+          type: integer
+          description: The tag must be 52 (IPV4 address) or 54 (IPV6 address).
+          format: int32
+          example: 52
+        value:
+          type: array
+          description: "A two-element array:\n\n\n  1. two-element array:\n     - For IPv4, must be < 24. \n     - For IPv6, must be < 56. \n  2. An object whose keys are byte-indices (\"0\", \"1\", ...) and values are the byte values.\n\n\nYou must have a minimum of two items and can have a maximum of two items. "
+          items:
+          - type: integer
+            description: The IP-prefix length.
+          - type: object
+            description: 'Byte-map of the IP-prefix.  '
+            additionalProperties:
+              type: integer
+              description: The byte value (0-255)
+          example:
+          - 24
+          - '0': 188
+            '1': 4
+            '2': 23
     Error404:
       type: object
       description: ''
@@ -740,6 +610,84 @@ components:
             message: The requested resource couldn't be found.
             description: ''
             links: []
+    ListPlaybackTokenKeyResponseWrapper:
+      type: object
+      properties:
+        playback_token_keys:
+          type: array
+          description: The list of playback token keys.
+          items:
+            $ref: '#/components/schemas/PlaybackTokenKeyResponseModel'
+        pagination:
+          type: object
+          description: Page information for the results generated by the query.
+          properties:
+            payload_version:
+              type: integer
+              description: The pagination object version.
+            total_records:
+              type: integer
+              description: The total number of records in the database that match the query.
+              example: ''
+            page:
+              type: integer
+              description: The page number, starting at 1. The default is 1.
+              example: ''
+            per_page:
+              type: integer
+              description: The number of records included per page. The default is 20.
+              example: ''
+            total_pages:
+              type: integer
+              description: The total number of pages generated by the query.
+              example: ''
+            page_first_index:
+              type: integer
+              description: The index of the first record in the response.
+              example: ''
+            page_last_index:
+              type: integer
+              description: The index of the last record in the response.
+              example: ''
+    CreatePlaybackTokenKeyResponseWrapper:
+      type: object
+      description: Create playback token key for the Wowza Video REST API
+      properties:
+        playback_token_key:
+          type: object
+          $ref: '#/components/schemas/CreatePlaybackTokenKeyResponseModel'
+    PlaybackTokenKeyResponseModel:
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the playback token key. It will contain the organization identifier.
+        organization_id:
+          type: string
+          description: The organization id.
+        name:
+          type: string
+          description: The name of the playback token key for the organization.
+        created_at:
+          type: string
+          description: The playback token creation timestamp.
+          format: date-time
+          example: '2020-01-01T12:33:22Z'
+    CreatePlaybackTokenKeyRequestWrapper:
+      type: object
+      description: Create playback token key for the Wowza Video REST API
+      properties:
+        playback_token_key:
+          type: object
+          $ref: '#/components/schemas/CreatePlaybackTokenKeyRequestModel'
+    CreatePlaybackTokenKeyRequestModel:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the playback token key for the organization.
+          example: Key name
     Error410:
       type: object
       description: ''
@@ -786,19 +734,71 @@ components:
             message: The requested resource has been deleted.
             description: ''
             links: []
-  parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
-      schema:
-        type: integer
-    page:
-      name: page
-      in: query
-      description: "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
-      schema:
-        type: integer
+    GenerateTokenRequest:
+      required:
+      - exp
+      - key_id
+      type: object
+      properties:
+        key_id:
+          type: string
+          description: The unique identifier for the id key returned when you used the POST /playback_tokens/keys endpoint to create a playback token key. This key will sign the token you create.
+          example: 51cd5c07-1583-4f5e-bd81-f1aa11510ea9
+        exp:
+          type: integer
+          description: The expiration time of the token which is the <a href="https://www.unixtimestamp.com/" target="_blank">unix timestamp</a> in seconds. If the current time is greater than the expiration time, the request will be considered invalid.
+          format: int64
+          example: 1679816499
+        nbf:
+          type: integer
+          description: The time before which the token must not be accepted for processing which is the <a href="https://www.unixtimestamp.com/" target="_blank">unix timestamp</a> in seconds.
+          format: int64
+          example: 1679816499
+        iat:
+          type: integer
+          description: The issue date of the token which is the <a href="https://www.unixtimestamp.com/" target="_blank">unix timestamp</a> in seconds.
+          format: int64
+          example: 1679816499
+        iss:
+          type: string
+          description: The issuer of the token.
+          example: my-issuer
+        sub:
+          type: string
+          description: The subject of the token.
+          example: subscriber1234
+        aud:
+          type: string
+          description: The audience of the token.
+          example: my-audience
+        cti:
+          type: string
+          description: Uniquely identifies a token to help prevent reuse or replay attacks.
+          example: unique-token-id
+        catnip:
+          type: array
+          description: "The IP address of the network for which the token was issued. The array contains objects with tag and value.  Each object represents a catnip claim. \n\nThe max number of items allowed is 5 and the minimum is zero. "
+          items:
+            $ref: '#/components/schemas/CatnipClaim'
+        catu:
+          type: object
+          description: 'A map of URIs to which the token applies. The maximum number of items allowed is five.  The object contains an array of key and value. '
+          additionalProperties:
+            type: array
+            description: "The object contains an array of keys and values. \n\n\n - Each key represents a URI component and must be between 0-8. \n\n\n - The value is a list of URIs. The first element of the value (match type) must be one of 0,1,2,3. The second element must be a string. \n\n\n**Examples based on tables below**: \n - \"1\": [0, \"token.dotv.wowza.com\"]          //Host (exact match)\n - \"3\": [3, \"ssai\"]          //Path (contains match)\n\n\n<details> <summary>Click to expand for the full list of valid values</summary>\n\n | Key |  URI Component | RFC Reference |\n |---|---|---|\n | 0 | Scheme                    | RFC 3986 Section 3.1   |\n | 1 | Host                      | RFC 3986 Section 3.2.2 |\n | 2 | Port                      | RFC 3986 Section 3.2.3 |\n | 3 | Path                      | RFC 3986 Section 3.3   |\n | 4 | Query                     | RFC 3986 Section 3.4   |\n | 5 | Parent Path               | -                      |\n | 6 | Filename                  | -                      |\n | 7 | Stem                      | -                      |\n | 8 | Extension                 | -                      |\n</details>\n<details> <summary>Click to expand for the full list of valid values</summary>\n\n | Value |Match Type          |\n |---|---|\n | 0     | Exact Text Match   |\n | 1     | Prefix Match       |\n | 2     | Suffix Match       |\n | 3     | Contains Match     |\n</details>"
+        catgeoiso3166:
+          type: array
+          description: 'The ISO3166 country codes from which the token was issued. Optionally, followed by a hyphen and a region code. the maximum number allowed is five. '
+          items:
+            type: string
+            example:
+            - US
+            - CA-ON
+        catv:
+          type: integer
+          description: The version of the token. The integer must be 1.
+          format: int323
+          example: 1
   securitySchemes:
     WV_JWT:
       type: http

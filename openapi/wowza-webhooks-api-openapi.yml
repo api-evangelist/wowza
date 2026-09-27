@@ -472,6 +472,9 @@ paths:
           description: Internal server error
 components:
   schemas:
+    Long:
+      type: object
+      properties: {}
     TargetAuth:
       type: object
       properties:
@@ -482,110 +485,6 @@ components:
       required:
       - type
       - secret
-    Long:
-      type: object
-      properties: {}
-    SourceItem:
-      type: object
-      properties:
-        serverName:
-          type: string
-        source:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - source
-    FilterConfig:
-      type: object
-      properties:
-        retryDelay:
-          $ref: '#/components/schemas/Long'
-        retryDelayUnit:
-          type: string
-        targetRef:
-          type: string
-        criteria:
-          type: string
-        id:
-          type: string
-        enabled:
-          $ref: '#/components/schemas/Boolean'
-        maxRetryAttempts:
-          $ref: '#/components/schemas/Integer'
-      required:
-      - id
-      - enabled
-      - criteria
-      - targetRef
-      - maxRetryAttempts
-      - retryDelay
-      - retryDelayUnit
-    TargetsList:
-      type: object
-      properties:
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-        targets:
-          type: array
-          items:
-            $ref: '#/components/schemas/TargetConfig'
-      required:
-      - version
-      - serverName
-      - targets
-    TargetConfig:
-      type: object
-      properties:
-        headers:
-          type: array
-          items:
-            $ref: '#/components/schemas/TargetHeader'
-        auth:
-          $ref: '#/components/schemas/TargetAuth'
-        id:
-          type: string
-        url:
-          type: string
-      required:
-      - id
-      - url
-      - headers
-      - auth
-    FiltersList:
-      type: object
-      properties:
-        serverName:
-          type: string
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/FilterConfig'
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - filters
-    Integer:
-      type: object
-      properties: {}
     Webhooks:
       type: object
       properties:
@@ -606,6 +505,23 @@ components:
       - source
       - filters
       - targets
+    SourceItem:
+      type: object
+      properties:
+        serverName:
+          type: string
+        source:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - source
     TargetItem:
       type: object
       properties:
@@ -634,26 +550,6 @@ components:
       - url
       - headers
       - auth
-    WebhooksConfig:
-      type: object
-      properties:
-        webhooks:
-          $ref: '#/components/schemas/Webhooks'
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - webhooks
-    Boolean:
-      type: object
-      properties: {}
     FilterItem:
       type: object
       properties:
@@ -689,6 +585,88 @@ components:
       - maxRetryAttempts
       - retryDelay
       - retryDelayUnit
+    Boolean:
+      type: object
+      properties: {}
+    FiltersList:
+      type: object
+      properties:
+        serverName:
+          type: string
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/FilterConfig'
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - filters
+    TargetConfig:
+      type: object
+      properties:
+        headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/TargetHeader'
+        auth:
+          $ref: '#/components/schemas/TargetAuth'
+        id:
+          type: string
+        url:
+          type: string
+      required:
+      - id
+      - url
+      - headers
+      - auth
+    WebhooksConfig:
+      type: object
+      properties:
+        webhooks:
+          $ref: '#/components/schemas/Webhooks'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - webhooks
+    FilterConfig:
+      type: object
+      properties:
+        retryDelay:
+          $ref: '#/components/schemas/Long'
+        retryDelayUnit:
+          type: string
+        targetRef:
+          type: string
+        criteria:
+          type: string
+        id:
+          type: string
+        enabled:
+          $ref: '#/components/schemas/Boolean'
+        maxRetryAttempts:
+          $ref: '#/components/schemas/Integer'
+      required:
+      - id
+      - enabled
+      - criteria
+      - targetRef
+      - maxRetryAttempts
+      - retryDelay
+      - retryDelayUnit
     TargetHeader:
       type: object
       properties:
@@ -699,6 +677,28 @@ components:
       required:
       - name
       - value
+    Integer:
+      type: object
+      properties: {}
+    TargetsList:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        targets:
+          type: array
+          items:
+            $ref: '#/components/schemas/TargetConfig'
+      required:
+      - version
+      - serverName
+      - targets
   securitySchemes:
     basicAuth:
       type: http

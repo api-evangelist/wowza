@@ -676,7 +676,7 @@ components:
       - serverId1
       - serverId2
       - serverTS
-    VHostListenersConfig:
+    ServerLogFilesConfig:
       type: object
       properties:
         serverName:
@@ -685,81 +685,56 @@ components:
           type: array
           items:
             type: string
-        vhostListeners:
+        version:
+          type: string
+        serverLogFiles:
           type: array
           items:
-            $ref: '#/components/schemas/VHostListenerConfig'
+            $ref: '#/components/schemas/ServerLogShortObject'
+      required:
+      - version
+      - serverName
+      - serverLogFiles
+    ServerLogTypesConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        serverLogType:
+          type: array
+          items:
+            type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
         version:
           type: string
       required:
       - version
       - serverName
-      - vhostListeners
-    ServerLogsConfig:
+      - serverLogType
+    VHostListenerConfig:
       type: object
       properties:
-        endOffset:
-          type: integer
-          format: int64
-        logStartDate:
-          type: string
-        logDate:
-          type: string
-        endDate:
+        baseclass:
           type: string
         serverName:
-          type: string
-        version:
-          type: string
-        logLines:
-          type: array
-          items:
-            type: string
-        filterStr:
-          type: string
-        retLineCount:
-          type: integer
-          format: int64
-        logFields:
-          type: string
-        logSoftware:
-          type: string
-        startOffset:
-          type: integer
-          format: int64
-        searchStr:
-          type: string
-        regexSearch:
-          type: boolean
-        logVersion:
           type: string
         saveFieldList:
           type: array
           items:
             type: string
-        fileLength:
-          type: integer
-          format: int64
-        startDate:
+        version:
           type: string
+        order:
+          type: integer
+          format: int32
       required:
       - version
       - serverName
-      - retLineCount
-      - startOffset
-      - endOffset
-      - fileLength
-      - filterStr
-      - logFields
-      - logVersion
-      - logStartDate
-      - logSoftware
-      - logDate
-      - logLines
-      - searchStr
-      - regexSearch
-      - startDate
-      - endDate
+      - order
+      - baseclass
     AdvancedSetting:
       type: object
       properties:
@@ -794,16 +769,35 @@ components:
       - section
       - documented
       - initialValue
-    ServerLogTypesConfig:
+    VHostListenersConfig:
       type: object
       properties:
         serverName:
           type: string
-        serverLogType:
+        saveFieldList:
           type: array
           items:
             type: string
+        vhostListeners:
+          type: array
+          items:
+            $ref: '#/components/schemas/VHostListenerConfig'
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - vhostListeners
+    SourceDriverNamesList:
+      type: object
+      properties:
+        serverName:
+          type: string
         saveFieldList:
+          type: array
+          items:
+            type: string
+        list:
           type: array
           items:
             type: string
@@ -812,68 +806,7 @@ components:
       required:
       - version
       - serverName
-      - serverLogType
-    ServerListenerConfig:
-      type: object
-      properties:
-        serverName:
-          type: string
-        baseClass:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-        order:
-          type: integer
-          format: int32
-      required:
-      - version
-      - serverName
-      - order
-      - baseClass
-    VHostListenerConfig:
-      type: object
-      properties:
-        baseclass:
-          type: string
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-        order:
-          type: integer
-          format: int32
-      required:
-      - version
-      - serverName
-      - order
-      - baseclass
-    ServersConfig:
-      type: object
-      properties:
-        servers:
-          type: array
-          items:
-            $ref: '#/components/schemas/ServerConfig'
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - servers
+      - list
     ServerLogFileConfig:
       type: object
       properties:
@@ -939,9 +872,13 @@ components:
       - regexSearch
       - startDate
       - endDate
-    ServerLogFileDownloadConfig:
+    ServersConfig:
       type: object
       properties:
+        servers:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServerConfig'
         serverName:
           type: string
         saveFieldList:
@@ -953,25 +890,28 @@ components:
       required:
       - version
       - serverName
-    SourceDriverNamesList:
+      - servers
+    ServerListenerConfig:
       type: object
       properties:
         serverName:
+          type: string
+        baseClass:
           type: string
         saveFieldList:
           type: array
           items:
             type: string
-        list:
-          type: array
-          items:
-            type: string
         version:
           type: string
+        order:
+          type: integer
+          format: int32
       required:
       - version
       - serverName
-      - list
+      - order
+      - baseClass
     ServerConfigAdv:
       type: object
       properties:
@@ -996,7 +936,7 @@ components:
       - serverName
       - advancedSettings
       - serverListeners
-    ServerLogFilesConfig:
+    ServerLogFileDownloadConfig:
       type: object
       properties:
         serverName:
@@ -1007,14 +947,92 @@ components:
             type: string
         version:
           type: string
-        serverLogFiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/ServerLogShortObject'
       required:
       - version
       - serverName
-      - serverLogFiles
+    ServerLogShortObject:
+      type: object
+      properties:
+        fileSize:
+          type: integer
+          format: int64
+        startDateMS:
+          type: integer
+          format: int64
+        id:
+          type: string
+        href:
+          type: string
+      required:
+      - id
+      - href
+      - fileSize
+      - startDateMS
+    ServerLogsConfig:
+      type: object
+      properties:
+        endOffset:
+          type: integer
+          format: int64
+        logStartDate:
+          type: string
+        logDate:
+          type: string
+        endDate:
+          type: string
+        serverName:
+          type: string
+        version:
+          type: string
+        logLines:
+          type: array
+          items:
+            type: string
+        filterStr:
+          type: string
+        retLineCount:
+          type: integer
+          format: int64
+        logFields:
+          type: string
+        logSoftware:
+          type: string
+        startOffset:
+          type: integer
+          format: int64
+        searchStr:
+          type: string
+        regexSearch:
+          type: boolean
+        logVersion:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        fileLength:
+          type: integer
+          format: int64
+        startDate:
+          type: string
+      required:
+      - version
+      - serverName
+      - retLineCount
+      - startOffset
+      - endOffset
+      - fileLength
+      - filterStr
+      - logFields
+      - logVersion
+      - logStartDate
+      - logSoftware
+      - logDate
+      - logLines
+      - searchStr
+      - regexSearch
+      - startDate
+      - endDate
     ServerListenersConfig:
       type: object
       properties:
@@ -1034,24 +1052,6 @@ components:
       - version
       - serverName
       - serverListeners
-    ServerLogShortObject:
-      type: object
-      properties:
-        fileSize:
-          type: integer
-          format: int64
-        startDateMS:
-          type: integer
-          format: int64
-        id:
-          type: string
-        href:
-          type: string
-      required:
-      - id
-      - href
-      - fileSize
-      - startDateMS
   securitySchemes:
     basicAuth:
       type: http

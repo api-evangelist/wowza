@@ -111,6 +111,21 @@ paths:
           description: Internal server error
 components:
   schemas:
+    HistoricServerStatistics:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - entries
     MonitoringConfig:
       type: object
       properties:
@@ -134,21 +149,6 @@ components:
       - enable
       - debugEnable
       - databaseDebugEnable
-    HistoricServerStatistics:
-      type: object
-      properties:
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - entries
   securitySchemes:
     basicAuth:
       type: http

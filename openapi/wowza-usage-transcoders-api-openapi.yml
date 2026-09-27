@@ -267,53 +267,20 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error422'
 components:
+  parameters:
+    page:
+      name: page
+      in: query
+      description: "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
+      schema:
+        type: integer
+    per_page:
+      name: per_page
+      in: query
+      description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
+      schema:
+        type: integer
   schemas:
-    Error403:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 403
-            code: ERR-403-RecordUnaccessible
-            title: Record Unaccessible Error
-            message: The requested resource isn't accessible.
-            description: ''
-            links: []
     Error401:
       type: object
       description: ''
@@ -422,6 +389,257 @@ components:
             code: ERR-401-InvalidToken
             title: JWT is invalid
             message: Token is invalid.
+            description: ''
+            links: []
+    Error422:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. ... can't be blank
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. Provider wowza_video is not allowed
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
+            description: ''
+            links: []
+    Error403:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 403
+            code: ERR-403-RecordUnaccessible
+            title: Record Unaccessible Error
+            message: The requested resource isn't accessible.
+            description: ''
+            links: []
+    usage_transcoder_summary:
+      type: object
+      title: transcoders
+      description: ''
+      properties:
+        summary:
+          type: object
+          description: ''
+          properties:
+            egress_bytes:
+              type: integer
+              description: The total amount of content, in bytes, that went through all transcoders during the selected time frame.
+              example: ''
+              format: int32
+            egress_seconds:
+              type: integer
+              description: The total amount of time, in seconds, that it took for all transcoders to be processed.
+              example: ''
+            configurations:
+              type: object
+              description: ''
+              properties:
+                transcoder_type:
+                  type: string
+                  description: The type of transcoder. The default is **transcoded**.
+                  example: ''
+                  enum:
+                  - transcoded
+                  - passthrough
+                billing_mode:
+                  type: string
+                  description: 'The billing mode for the transcoder. The default is **pay_as_you_go**.
+
+
+                    **pay_as_you_go** — Billed as a single event. A single event is use-based and you incur charges for the time spent streaming.
+
+
+                    **twentyfour_seven** — Billed as a 24x7 channel. A 24x7 channel is unlimited stream time for one channel. This billing mode doesn''t incur overages, since it''s unlimited.'
+                  example: ''
+                  enum:
+                  - pay_as_you_go
+                  - twentyfour_seven
+                egress_bytes:
+                  type: integer
+                  description: The amount of content, in bytes, that went through the transcoder during the selected time frame.
+                  example: ''
+                  format: int32
+                egress_seconds:
+                  type: integer
+                  description: The amount of time, in seconds, that it took for the transcoder to be processed.
+                  example: ''
+        limits:
+          type: object
+          description: The time frame represented in the response.
+          properties:
+            from:
+              type: string
+              description: The start of the range of time represented in the response.
+              example: ''
+              format: date-time
+            to:
+              type: string
+              description: The end of the range of time represented in the response.
+              example: ''
+              format: date-time
+      example:
+        summary:
+          egress_bytes: 3000
+          egress_seconds: 300
+          configurations:
+          - transcoder_type: transcoded
+            billing_mode: pay_as_you_go
+            egress_bytes: 1000
+            egress_seconds: 200
+          - transcoder_type: passthrough
+            billing_mode: twentyfour_seven
+            egress_bytes: 2000
+            egress_seconds: 100
+        limits:
+          from: '2019-02-15T00:00:00.000Z'
+          to: '2019-09-24T00:00:00.000Z'
+    Error404:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 404
+            code: ERR-404-RecordNotFound
+            title: Record Not Found Error
+            message: The requested resource couldn't be found.
             description: ''
             links: []
     usage_transcoders:
@@ -678,211 +896,6 @@ components:
         limits:
           from: '2019-10-01T07:00:00.000Z'
           to: '2019-10-16T11:00:00.000Z'
-    Error422:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. ... can't be blank
-            description: ''
-            links: []
-        Example Response 2:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. Provider wowza_video is not allowed
-            description: ''
-            links: []
-        Example Response 3:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
-            description: ''
-            links: []
-        Example Response 4:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
-            description: ''
-            links: []
-        Example Response 5:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
-            description: ''
-            links: []
-    usage_transcoder_summary:
-      type: object
-      title: transcoders
-      description: ''
-      properties:
-        summary:
-          type: object
-          description: ''
-          properties:
-            egress_bytes:
-              type: integer
-              description: The total amount of content, in bytes, that went through all transcoders during the selected time frame.
-              example: ''
-              format: int32
-            egress_seconds:
-              type: integer
-              description: The total amount of time, in seconds, that it took for all transcoders to be processed.
-              example: ''
-            configurations:
-              type: object
-              description: ''
-              properties:
-                transcoder_type:
-                  type: string
-                  description: The type of transcoder. The default is **transcoded**.
-                  example: ''
-                  enum:
-                  - transcoded
-                  - passthrough
-                billing_mode:
-                  type: string
-                  description: 'The billing mode for the transcoder. The default is **pay_as_you_go**.
-
-
-                    **pay_as_you_go** — Billed as a single event. A single event is use-based and you incur charges for the time spent streaming.
-
-
-                    **twentyfour_seven** — Billed as a 24x7 channel. A 24x7 channel is unlimited stream time for one channel. This billing mode doesn''t incur overages, since it''s unlimited.'
-                  example: ''
-                  enum:
-                  - pay_as_you_go
-                  - twentyfour_seven
-                egress_bytes:
-                  type: integer
-                  description: The amount of content, in bytes, that went through the transcoder during the selected time frame.
-                  example: ''
-                  format: int32
-                egress_seconds:
-                  type: integer
-                  description: The amount of time, in seconds, that it took for the transcoder to be processed.
-                  example: ''
-        limits:
-          type: object
-          description: The time frame represented in the response.
-          properties:
-            from:
-              type: string
-              description: The start of the range of time represented in the response.
-              example: ''
-              format: date-time
-            to:
-              type: string
-              description: The end of the range of time represented in the response.
-              example: ''
-              format: date-time
-      example:
-        summary:
-          egress_bytes: 3000
-          egress_seconds: 300
-          configurations:
-          - transcoder_type: transcoded
-            billing_mode: pay_as_you_go
-            egress_bytes: 1000
-            egress_seconds: 200
-          - transcoder_type: passthrough
-            billing_mode: twentyfour_seven
-            egress_bytes: 2000
-            egress_seconds: 100
-        limits:
-          from: '2019-02-15T00:00:00.000Z'
-          to: '2019-09-24T00:00:00.000Z'
-    Error404:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 404
-            code: ERR-404-RecordNotFound
-            title: Record Not Found Error
-            message: The requested resource couldn't be found.
-            description: ''
-            links: []
     Error410:
       type: object
       description: ''
@@ -929,19 +942,6 @@ components:
             message: The requested resource has been deleted.
             description: ''
             links: []
-  parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
-      schema:
-        type: integer
-    page:
-      name: page
-      in: query
-      description: "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
-      schema:
-        type: integer
   securitySchemes:
     WV_JWT:
       type: http
