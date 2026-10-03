@@ -216,311 +216,6 @@ paths:
                 $ref: '#/components/schemas/Error422'
 components:
   schemas:
-    Error401:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 401
-            code: ERR-401-NoApiKey
-            title: No API Key Error
-            message: No API key sent in header.
-            description: ''
-            links: []
-        Example Response 2:
-          meta:
-            status: 401
-            code: ERR-401-NoAccessKey
-            title: No Access Key Error
-            message: No access key sent in header.
-            description: ''
-            links: []
-        Example Response 3:
-          meta:
-            status: 401
-            code: ERR-401-InvalidApiKey
-            title: Invalid Api Key Error
-            message: Invalid API key.
-            description: ''
-            links: []
-        Example Response 4:
-          meta:
-            status: 401
-            code: ERR-401-InvalidAccessKey
-            title: Invalid Access Key Error
-            message: Invalid access key.
-            description: ''
-            links: []
-        Example Response 5:
-          meta:
-            status: 401
-            code: ERR-401-BadAccountStatus
-            title: Bad Account Status Error
-            message: Your account's status doesn't allow this action.
-            description: ''
-            links: []
-        Example Response 6:
-          meta:
-            status: 401
-            code: ERR-401-FeatureNotEnabled
-            title: Feature Not Enabled Error
-            message: This feature isn't enabled.
-            description: ''
-            links: []
-        Example Response 7:
-          meta:
-            status: 401
-            code: ERR-401-TrialExceeded
-            title: Bad Billing Status Error
-            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
-            description: ''
-            links: []
-        Example Response 8:
-          meta:
-            status: 401
-            code: ERR-401-ExpiredToken
-            title: JWT is expired
-            message: Token has exired.
-            description: ''
-            links: []
-        Example Response 9:
-          meta:
-            status: 401
-            code: ERR-401-InvalidToken
-            title: JWT is invalid
-            message: Token is invalid.
-            description: ''
-            links: []
-    Error422:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. ... can't be blank
-            description: ''
-            links: []
-        Example Response 2:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. Provider wowza_video is not allowed
-            description: ''
-            links: []
-        Example Response 3:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
-            description: ''
-            links: []
-        Example Response 4:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
-            description: ''
-            links: []
-        Example Response 5:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
-            description: ''
-            links: []
-    Error403:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 403
-            code: ERR-403-RecordUnaccessible
-            title: Record Unaccessible Error
-            message: The requested resource isn't accessible.
-            description: ''
-            links: []
-    analytics_popularity_live_stream:
-      type: object
-      description: ''
-      properties:
-        live_stream:
-          type: object
-          title: live_stream
-          description: ''
-          properties:
-            id:
-              type: string
-              description: The unique alphanumeric string that identifies the live stream or real-time stream.
-              format: int32
-            plays:
-              type: integer
-              description: The total number of plays for a live stream or real-time stream. A play is registered when the stream begins to play.
-              example: ''
-              format: int32
-            displays:
-              type: integer
-              description: The total number of displays for a live stream or real-time stream. A display is registered when the player is completely loaded and ready to play the stream.
-              example: ''
-              format: int32
-            trend:
-              type: object
-              title: Array of popularity trends
-              description: "An array of popularity trend data. The granularity of sampled data changes based on the from and to query values you use:\n\n1. Requests made for data _within_ the most recent 3 days returns sample intervals by the hour. You can return sample intervals by the minute by specifying a specific hour range.\n\n2. Requests made for data _beyond_ the most recent 3 days can only return sample intervals by the hour or day. The minute data is not retained beyond the 3rd day. \n\n\n <blockquote>Note: Data from the most recent hour data might not be included in the result of a time range that extends beyond the most recent 3 days. </blockquote>\n\n\n<strong>Default</strong>: Last hour"
-              properties:
-                plays:
-                  type: integer
-                  description: The total number of plays for a stream at the time the trend data was sampled. A play is registered when the stream begins to play.
-                  example: ''
-                  format: int32
-                displays:
-                  type: integer
-                  description: The total number of displays for a stream at the time the trend data was sampled. A display is registered when the player is completely loaded and ready to play the stream.
-                  example: ''
-                  format: int32
-                sampled_at:
-                  type: string
-                  description: The date and time the trend data was sampled.
-                  format: date-time
-            limits:
-              type: object
-              description: The time frame represented in the response.
-              properties:
-                from:
-                  type: string
-                  description: The start of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-                to:
-                  type: string
-                  description: The end of the range of time represented in the response.
-                  example: ''
-                  format: date-time
-      example:
-        live_stream:
-          id: tvctq36g
-          plays: 2
-          displays: 2
-          trend:
-          - plays: 1
-            displays: 1
-            sampled_at: '2024-03-14T11:31:54.000Z'
-          - plays: 1
-            displays: 1
-            sampled_at: '2024-03-14T12:31:54.000Z'
-        limits:
-          from: '2024-03-14T10:31:54.000Z'
-          to: '2024-04-13T10:31:54.000Z'
     Error404:
       type: object
       description: ''
@@ -682,6 +377,311 @@ components:
             code: ERR-410-RecordDeleted
             title: Record Deleted Error
             message: The requested resource has been deleted.
+            description: ''
+            links: []
+    Error403:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 403
+            code: ERR-403-RecordUnaccessible
+            title: Record Unaccessible Error
+            message: The requested resource isn't accessible.
+            description: ''
+            links: []
+    analytics_popularity_live_stream:
+      type: object
+      description: ''
+      properties:
+        live_stream:
+          type: object
+          title: live_stream
+          description: ''
+          properties:
+            id:
+              type: string
+              description: The unique alphanumeric string that identifies the live stream or real-time stream.
+              format: int32
+            plays:
+              type: integer
+              description: The total number of plays for a live stream or real-time stream. A play is registered when the stream begins to play.
+              example: ''
+              format: int32
+            displays:
+              type: integer
+              description: The total number of displays for a live stream or real-time stream. A display is registered when the player is completely loaded and ready to play the stream.
+              example: ''
+              format: int32
+            trend:
+              type: object
+              title: Array of popularity trends
+              description: "An array of popularity trend data. The granularity of sampled data changes based on the from and to query values you use:\n\n1. Requests made for data _within_ the most recent 3 days returns sample intervals by the hour. You can return sample intervals by the minute by specifying a specific hour range.\n\n2. Requests made for data _beyond_ the most recent 3 days can only return sample intervals by the hour or day. The minute data is not retained beyond the 3rd day. \n\n\n <blockquote>Note: Data from the most recent hour data might not be included in the result of a time range that extends beyond the most recent 3 days. </blockquote>\n\n\n<strong>Default</strong>: Last hour"
+              properties:
+                plays:
+                  type: integer
+                  description: The total number of plays for a stream at the time the trend data was sampled. A play is registered when the stream begins to play.
+                  example: ''
+                  format: int32
+                displays:
+                  type: integer
+                  description: The total number of displays for a stream at the time the trend data was sampled. A display is registered when the player is completely loaded and ready to play the stream.
+                  example: ''
+                  format: int32
+                sampled_at:
+                  type: string
+                  description: The date and time the trend data was sampled.
+                  format: date-time
+            limits:
+              type: object
+              description: The time frame represented in the response.
+              properties:
+                from:
+                  type: string
+                  description: The start of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+                to:
+                  type: string
+                  description: The end of the range of time represented in the response.
+                  example: ''
+                  format: date-time
+      example:
+        live_stream:
+          id: tvctq36g
+          plays: 2
+          displays: 2
+          trend:
+          - plays: 1
+            displays: 1
+            sampled_at: '2024-03-14T11:31:54.000Z'
+          - plays: 1
+            displays: 1
+            sampled_at: '2024-03-14T12:31:54.000Z'
+        limits:
+          from: '2024-03-14T10:31:54.000Z'
+          to: '2024-04-13T10:31:54.000Z'
+    Error422:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. ... can't be blank
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. Provider wowza_video is not allowed
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
+            description: ''
+            links: []
+    Error401:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 401
+            code: ERR-401-NoApiKey
+            title: No API Key Error
+            message: No API key sent in header.
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 401
+            code: ERR-401-NoAccessKey
+            title: No Access Key Error
+            message: No access key sent in header.
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 401
+            code: ERR-401-InvalidApiKey
+            title: Invalid Api Key Error
+            message: Invalid API key.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 401
+            code: ERR-401-InvalidAccessKey
+            title: Invalid Access Key Error
+            message: Invalid access key.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 401
+            code: ERR-401-BadAccountStatus
+            title: Bad Account Status Error
+            message: Your account's status doesn't allow this action.
+            description: ''
+            links: []
+        Example Response 6:
+          meta:
+            status: 401
+            code: ERR-401-FeatureNotEnabled
+            title: Feature Not Enabled Error
+            message: This feature isn't enabled.
+            description: ''
+            links: []
+        Example Response 7:
+          meta:
+            status: 401
+            code: ERR-401-TrialExceeded
+            title: Bad Billing Status Error
+            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
+            description: ''
+            links: []
+        Example Response 8:
+          meta:
+            status: 401
+            code: ERR-401-ExpiredToken
+            title: JWT is expired
+            message: Token has exired.
+            description: ''
+            links: []
+        Example Response 9:
+          meta:
+            status: 401
+            code: ERR-401-InvalidToken
+            title: JWT is invalid
+            message: Token is invalid.
             description: ''
             links: []
   securitySchemes:

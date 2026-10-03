@@ -6062,81 +6062,111 @@ paths:
           description: Internal server error
 components:
   schemas:
-    StreamFilesAppConfig:
+    DefaultStreamRecorderConfig:
       type: object
       properties:
+        timeScale:
+          type: integer
+          format: int64
+        instanceName:
+          type: string
+        fileVersionDelegateName:
+          type: string
         serverName:
           type: string
-        streamFiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShortObject'
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
+        recorderName:
           type: string
-      required:
-      - version
-      - serverName
-      - streamFiles
-    InstanceConfig:
-      type: object
-      properties:
-        incomingStreams:
-          type: array
-          items:
-            $ref: '#/components/schemas/IncomingStreamConfig'
-        name:
+        currentSize:
+          type: integer
+          format: int64
+        segmentSchedule:
           type: string
-        outgoingStreams:
-          type: array
-          items:
-            $ref: '#/components/schemas/OutgoingStreamConfig'
-        serverName:
+        startOnKeyFrame:
+          type: boolean
+        outputPath:
           type: string
-        streamGroups:
-          type: array
-          items:
-            $ref: '#/components/schemas/StreamGroupConfig'
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-        recorders:
-          type: array
-          items:
-            $ref: '#/components/schemas/StreamRecorderConfig'
-      required:
-      - version
-      - serverName
-      - name
-      - incomingStreams
-      - outgoingStreams
-      - recorders
-      - streamGroups
-    DVRConfigAdv:
-      type: object
-      properties:
-        advancedSettings:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdvancedSetting'
-        serverName:
+        currentFile:
           type: string
         saveFieldList:
           type: array
           items:
             type: string
+        defaultAudioSearchPosition:
+          type: boolean
+        recordData:
+          type: boolean
+        applicationName:
+          type: string
+        moveFirstVideoFrameToZero:
+          type: boolean
+        recorderErrorString:
+          type: string
+        segmentSize:
+          type: integer
+          format: int64
+        defaultRecorder:
+          type: boolean
+        splitOnTcDiscontinuity:
+          type: boolean
         version:
+          type: string
+        skipKeyFrameUntilAudioTimeout:
+          type: integer
+          format: int32
+        baseFile:
+          type: string
+        segmentDuration:
+          type: integer
+          format: int64
+        recordingStartTime:
+          type: string
+        fileTemplate:
+          type: string
+        backBufferTime:
+          type: integer
+          format: int64
+        segmentationType:
+          type: string
+        currentDuration:
+          type: integer
+          format: int64
+        fileFormat:
+          type: string
+        recorderState:
+          type: string
+        option:
           type: string
       required:
       - version
       - serverName
-      - advancedSettings
+      - recorderName
+      - instanceName
+      - applicationName
+      - recorderState
+      - recorderErrorString
+      - defaultRecorder
+      - segmentationType
+      - outputPath
+      - baseFile
+      - fileFormat
+      - fileVersionDelegateName
+      - fileTemplate
+      - segmentDuration
+      - segmentSize
+      - segmentSchedule
+      - recordData
+      - startOnKeyFrame
+      - splitOnTcDiscontinuity
+      - backBufferTime
+      - option
+      - moveFirstVideoFrameToZero
+      - currentSize
+      - currentDuration
+      - currentFile
+      - recordingStartTime
+      - timeScale
+      - defaultAudioSearchPosition
+      - skipKeyFrameUntilAudioTimeout
     SecurityConfig:
       type: object
       properties:
@@ -6216,40 +6246,164 @@ components:
       - playIPBlackList
       - playIPWhiteList
       - playAuthenticationMethod
-    AdvancedSetting:
+    ApplicationConfigAdv:
       type: object
       properties:
-        sectionName:
+        advancedSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedSetting'
+        serverName:
           type: string
-        canRemove:
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        modules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModuleConfig'
+      required:
+      - version
+      - serverName
+      - advancedSettings
+      - modules
+    TranscoderTemplatesAppConfig:
+      type: object
+      properties:
+        vhostName:
+          type: string
+        templates:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShortObject'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - vhostName
+      - templates
+    WebRTCConfig:
+      type: object
+      properties:
+        udpBindAddress:
+          type: string
+        enablePlay:
           type: boolean
-        defaultValue:
+        preferredCodecsAudio:
           type: string
-        documented:
+        preferredCodecsVideo:
+          type: string
+        enableQuery:
           type: boolean
-        name:
+        debugLog:
+          type: boolean
+        serverName:
           type: string
-        section:
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        iceCandidateIpAddresses:
           type: string
-        type:
+        version:
           type: string
-        value:
-          type: string
-        initialValue:
-          type: string
-        enabled:
+        enablePublish:
           type: boolean
       required:
-      - enabled
-      - canRemove
-      - name
-      - value
-      - defaultValue
-      - type
-      - sectionName
-      - section
-      - documented
-      - initialValue
+      - version
+      - serverName
+      - enablePublish
+      - enablePlay
+      - enableQuery
+      - iceCandidateIpAddresses
+      - udpBindAddress
+      - preferredCodecsAudio
+      - preferredCodecsVideo
+      - debugLog
+    VideoSettings:
+      type: object
+      properties:
+        framerate:
+          type: number
+          format: double
+        width:
+          type: integer
+          format: int32
+        bitrate:
+          type: integer
+          format: int32
+        height:
+          type: integer
+          format: int32
+      required:
+      - framerate
+      - width
+      - height
+      - bitrate
+    TranscoderMemberConfig:
+      type: object
+      properties:
+        wowzaVideoOnly:
+          type: boolean
+        encodeName:
+          type: string
+        wowzaAudioOnly:
+          type: boolean
+        serverName:
+          type: string
+        memberName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - memberName
+      - encodeName
+      - wowzaVideoOnly
+      - wowzaAudioOnly
+    SourceControlConfig:
+      type: object
+      properties:
+        featureList:
+          type: array
+          items:
+            type: string
+        serverName:
+          type: string
+        model:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        firmware:
+          type: string
+        manufacturer:
+          type: string
+      required:
+      - version
+      - serverName
+      - manufacturer
+      - model
+      - firmware
+      - featureList
     StreamFileAppConfig:
       type: object
       properties:
@@ -6279,6 +6433,155 @@ components:
       - sourceControlUserName
       - sourceControlPassword
       - sourceControlDriver
+    PushPublishCloudStorageProvidersConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - providers
+    AppShortObject:
+      type: object
+      properties:
+        drmEnabled:
+          type: boolean
+        streamTargetsEnabled:
+          type: boolean
+        appType:
+          type: string
+        transcoderEnabled:
+          type: boolean
+        dvrEnabled:
+          type: boolean
+        id:
+          type: string
+        href:
+          type: string
+      required:
+      - id
+      - href
+      - appType
+      - dvrEnabled
+      - drmEnabled
+      - transcoderEnabled
+      - streamTargetsEnabled
+    ShortObject:
+      type: object
+      properties:
+        id:
+          type: string
+        href:
+          type: string
+      required:
+      - id
+      - href
+    MpegTSFilter:
+      type: object
+      properties:
+        name:
+          type: string
+        mpegtsProgramID:
+          type: string
+        mpegtsVideoPID:
+          type: string
+        mpegtsAudioPID:
+          type: string
+      required:
+      - name
+      - mpegtsProgramID
+      - mpegtsVideoPID
+      - mpegtsAudioPID
+    TranscoderStreamNameGroupsAppConfig:
+      type: object
+      properties:
+        streamNameGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShortObject'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - streamNameGroups
+    Output:
+      type: object
+      properties:
+        rtmp:
+          $ref: '#/components/schemas/RTMP'
+        video:
+          $ref: '#/components/schemas/VideoSettings'
+      required:
+      - rtmp
+      - video
+    TranscoderOverlayDecodeConfig:
+      type: object
+      properties:
+        overlayName:
+          type: string
+        imagePath:
+          type: string
+        serverName:
+          type: string
+        description:
+          type: string
+        index:
+          type: integer
+          format: int32
+        align:
+          type: string
+        version:
+          type: string
+        enable:
+          type: boolean
+        x:
+          type: integer
+          format: int32
+        width:
+          type: string
+        y:
+          type: integer
+          format: int32
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        checkForUpdates:
+          type: boolean
+        opacity:
+          type: integer
+          format: int32
+        height:
+          type: string
+      required:
+      - version
+      - serverName
+      - overlayName
+      - description
+      - enable
+      - imagePath
+      - index
+      - checkForUpdates
+      - opacity
+      - x
+      - y
+      - width
+      - height
+      - align
     StreamGroupConfig:
       type: object
       properties:
@@ -6307,91 +6610,89 @@ components:
       - instanceName
       - members
       - isTranscodeResult
-    ModuleConfig:
+    TranscoderOverlayEncodeConfig:
       type: object
       properties:
-        name:
+        overlayName:
+          type: string
+        imagePath:
           type: string
         serverName:
           type: string
         description:
           type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-        class:
-          type: string
-        order:
+        index:
           type: integer
           format: int32
-      required:
-      - version
-      - serverName
-      - order
-      - name
-      - description
-      - class
-    OutgoingStreamConfig:
-      type: object
-      properties:
-        someProp2:
+        align:
           type: string
-        someProp:
+        version:
+          type: string
+        enable:
+          type: boolean
+        x:
+          type: integer
+          format: int32
+        width:
           type: string
         name:
           type: string
+        y:
+          type: integer
+          format: int32
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        checkForUpdates:
+          type: boolean
+        opacity:
+          type: integer
+          format: int32
+        height:
+          type: string
+      required:
+      - version
+      - serverName
+      - overlayName
+      - description
+      - enable
+      - imagePath
+      - index
+      - checkForUpdates
+      - opacity
+      - x
+      - y
+      - width
+      - height
+      - align
+      - name
+    TranscoderEncodesAppConfig:
+      type: object
+      properties:
         serverName:
           type: string
         saveFieldList:
           type: array
           items:
             type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - name
-      - someProp
-      - someProp2
-    TranscoderStreamNameGroupAppConfig:
-      type: object
-      properties:
-        name:
-          type: string
-        serverName:
-          type: string
-        description:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-        streamName:
-          type: string
-        Members:
-          type: array
-          items:
-            $ref: '#/components/schemas/TranscoderMemberConfig'
-      required:
-      - version
-      - serverName
-      - name
-      - description
-      - streamName
-      - Members
-    TranscoderStreamNameGroupsAppConfig:
-      type: object
-      properties:
-        streamNameGroups:
+        encodes:
           type: array
           items:
             $ref: '#/components/schemas/ShortObject'
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - encodes
+    DvrRESTConverterStores:
+      type: object
+      properties:
+        groupConversionStatusList:
+          type: array
+          items:
+            type: string
         serverName:
           type: string
         saveFieldList:
@@ -6400,133 +6701,141 @@ components:
             type: string
         version:
           type: string
-      required:
-      - version
-      - serverName
-      - streamNameGroups
-    TranscoderMemberConfig:
-      type: object
-      properties:
-        wowzaVideoOnly:
-          type: boolean
-        encodeName:
-          type: string
-        wowzaAudioOnly:
-          type: boolean
-        serverName:
-          type: string
-        memberName:
-          type: string
-        saveFieldList:
+        dvrconverterstoresummary:
           type: array
           items:
             type: string
-        version:
-          type: string
       required:
       - version
       - serverName
-      - memberName
-      - encodeName
-      - wowzaVideoOnly
-      - wowzaAudioOnly
-    MpegTSFilter:
+      - dvrconverterstoresummary
+      - groupConversionStatusList
+    IncomingStreamConfig:
       type: object
       properties:
+        ptzPollingIntervalMinimum:
+          type: integer
+          format: int32
+        applicationInstance:
+          type: string
+        isPTZEnabled:
+          type: boolean
+        isConnected:
+          type: boolean
+        serverName:
+          type: string
+        version:
+          type: string
+        ptzPollingInterval:
+          type: integer
+          format: int32
+        isRecordingSet:
+          type: boolean
+        sourceIp:
+          type: string
         name:
           type: string
-        mpegtsProgramID:
-          type: string
-        mpegtsVideoPID:
-          type: string
-        mpegtsAudioPID:
-          type: string
+        isPublishedToVOD:
+          type: boolean
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        isStreamManagerStream:
+          type: boolean
       required:
+      - version
+      - serverName
+      - applicationInstance
       - name
-      - mpegtsProgramID
-      - mpegtsVideoPID
-      - mpegtsAudioPID
-    ModulesConfig:
+      - sourceIp
+      - isRecordingSet
+      - isStreamManagerStream
+      - isPublishedToVOD
+      - isConnected
+      - isPTZEnabled
+      - ptzPollingInterval
+      - ptzPollingIntervalMinimum
+    TranscoderEncodeConfig:
       type: object
       properties:
-        moduleList:
-          type: array
-          items:
-            $ref: '#/components/schemas/ModuleConfig'
-        serverName:
+        followSource:
+          type: boolean
+        implementation:
           type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - moduleList
-    RTMP:
-      type: object
-      properties:
-        password:
-          type: string
-        stream:
-          type: string
-        backup_url:
-          type: string
-        url:
-          type: string
-        username:
-          type: string
-      required:
-      - url
-      - backup_url
-      - stream
-      - username
-      - password
-    PushPublishCloudStorageProvidersConfig:
-      type: object
-      properties:
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - providers
-    TranscoderStreamNameGroupConfig:
-      type: object
-      properties:
-        name:
+        gpuid:
+          type: integer
+          format: int32
+        profile:
           type: string
         serverName:
           type: string
         description:
           type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
+        audioCodec:
+          type: string
         version:
           type: string
         streamName:
           type: string
-        Members:
+        Overlays:
           type: array
           items:
-            $ref: '#/components/schemas/TranscoderMemberConfig'
+            $ref: '#/components/schemas/TranscoderOverlayEncodeConfig'
+        audioBitrate:
+          type: string
+        videoBitrate:
+          type: string
+        enable:
+          type: boolean
+        name:
+          type: string
+        width:
+          type: integer
+          format: int32
+        interval:
+          type: integer
+          format: int32
+        fitMode:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        crop:
+          type: string
+        convert8bit:
+          type: boolean
+        videoCodec:
+          type: string
+        height:
+          type: integer
+          format: int32
+        sourceRectangle:
+          type: string
       required:
       - version
       - serverName
       - name
+      - enable
       - description
       - streamName
-      - Members
+      - videoCodec
+      - implementation
+      - gpuid
+      - profile
+      - videoBitrate
+      - followSource
+      - interval
+      - fitMode
+      - width
+      - height
+      - crop
+      - sourceRectangle
+      - audioCodec
+      - audioBitrate
+      - Overlays
+      - convert8bit
     DRMConfig:
       type: object
       properties:
@@ -6597,6 +6906,693 @@ components:
       - cupertinoEncryptionAPIBased
       - buyDRMStreamMaps
       - verimatrixStreamMaps
+    TranscoderAppConfig:
+      type: object
+      properties:
+        profileDir:
+          type: string
+        licensed:
+          type: boolean
+        templates:
+          $ref: '#/components/schemas/TranscoderTemplatesConfig'
+        available:
+          type: boolean
+        serverName:
+          type: string
+        templateDir:
+          type: string
+        version:
+          type: string
+        createTemplateDir:
+          type: boolean
+        licenses:
+          type: integer
+          format: int32
+        liveStreamTranscoder:
+          type: string
+        templatesInUse:
+          type: string
+        licensesInUse:
+          type: integer
+          format: int32
+        saveFieldList:
+          type: array
+          items:
+            type: string
+      required:
+      - version
+      - serverName
+      - available
+      - licensed
+      - licenses
+      - licensesInUse
+      - templates
+      - liveStreamTranscoder
+      - templatesInUse
+      - profileDir
+      - templateDir
+      - createTemplateDir
+    StreamFileAppConfigAdv:
+      type: object
+      properties:
+        sourceControlDriver:
+          type: string
+        advancedSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedSetting'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        mpegTSFilters:
+          type: array
+          items:
+            $ref: '#/components/schemas/MpegTSFilter'
+      required:
+      - version
+      - serverName
+      - advancedSettings
+      - sourceControlDriver
+    TranscoderTemplatesConfig:
+      type: object
+      properties:
+        vhostName:
+          type: string
+        templates:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShortObject'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - vhostName
+      - templates
+    StreamFilesAppConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        streamFiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShortObject'
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - streamFiles
+    SMILFilesAppConfig:
+      type: object
+      properties:
+        vhostName:
+          type: string
+        appName:
+          type: string
+        serverName:
+          type: string
+        smilFiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShortObject'
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - vhostName
+      - smilFiles
+      - appName
+    SMILFileStreamConfig:
+      type: object
+      properties:
+        systemLanguage:
+          type: string
+        dur:
+          type: string
+        ngrp:
+          type: string
+        keyFrameOnly:
+          type: string
+        src:
+          type: string
+        systemBitrate:
+          type: string
+        serverName:
+          type: string
+        videoCodecId:
+          type: string
+        type:
+          type: string
+        version:
+          type: string
+        audioBitrate:
+          type: string
+        audioCodecId:
+          type: string
+        videoBitrate:
+          type: string
+        isWowzaCaptionStream:
+          type: string
+        videoOnly:
+          type: string
+        audioOnly:
+          type: string
+        width:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        idx:
+          type: integer
+          format: int32
+        begin:
+          type: string
+        wowzaCaptionIngestType:
+          type: string
+        height:
+          type: string
+      required:
+      - version
+      - serverName
+      - idx
+      - type
+      - src
+      - systemLanguage
+      - systemBitrate
+      - width
+      - height
+      - begin
+      - dur
+      - videoBitrate
+      - videoCodecId
+      - videoOnly
+      - ngrp
+      - audioBitrate
+      - audioCodecId
+      - audioOnly
+      - keyFrameOnly
+      - isWowzaCaptionStream
+      - wowzaCaptionIngestType
+    CurrentApplicationStatistics:
+      type: object
+      properties:
+        totalConnections:
+          $ref: '#/components/schemas/Long'
+        bytesOutRate:
+          type: integer
+          format: int64
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        uptime:
+          $ref: '#/components/schemas/Long'
+        bytesIn:
+          $ref: '#/components/schemas/Long'
+        bytesOut:
+          $ref: '#/components/schemas/Long'
+        bytesInRate:
+          type: integer
+          format: int64
+      required:
+      - version
+      - serverName
+      - uptime
+      - bytesIn
+      - bytesOut
+      - bytesInRate
+      - bytesOutRate
+      - totalConnections
+      - connectionCount
+    CurrentIncomingStreamStatistics:
+      type: object
+      properties:
+        totalConnections:
+          type: integer
+          format: int64
+        applicationInstance:
+          type: string
+        bytesOutRate:
+          type: integer
+          format: int64
+        name:
+          type: string
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        uptime:
+          type: integer
+          format: int64
+        bytesIn:
+          type: integer
+          format: int64
+        bytesOut:
+          type: integer
+          format: int64
+        bytesInRate:
+          type: integer
+          format: int64
+      required:
+      - version
+      - serverName
+      - applicationInstance
+      - name
+      - uptime
+      - bytesIn
+      - bytesOut
+      - bytesInRate
+      - bytesOutRate
+      - totalConnections
+      - connectionCount
+    StreamRecordersConfig:
+      type: object
+      properties:
+        streamrecorder:
+          type: array
+          items:
+            $ref: '#/components/schemas/StreamRecorderConfig'
+        instanceName:
+          type: string
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - instanceName
+      - streamrecorder
+    AdvancedSetting:
+      type: object
+      properties:
+        sectionName:
+          type: string
+        canRemove:
+          type: boolean
+        defaultValue:
+          type: string
+        documented:
+          type: boolean
+        name:
+          type: string
+        section:
+          type: string
+        type:
+          type: string
+        value:
+          type: string
+        initialValue:
+          type: string
+        enabled:
+          type: boolean
+      required:
+      - enabled
+      - canRemove
+      - name
+      - value
+      - defaultValue
+      - type
+      - sectionName
+      - section
+      - documented
+      - initialValue
+    HistoricApplicationStatistics:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - entries
+    LiveEncoderConfig:
+      type: object
+      properties:
+        output:
+          $ref: '#/components/schemas/Output'
+        serverName:
+          type: string
+        source:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - output
+      - source
+    Long:
+      type: object
+      properties: {}
+    TranscoderEncodeAppConfigAdv:
+      type: object
+      properties:
+        advancedSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedSetting'
+        name:
+          type: string
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - advancedSettings
+      - name
+    DvrRESTConverterStore:
+      type: object
+      properties:
+        dvrStoreName:
+          type: string
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        DvrConverterStore:
+          type: string
+      required:
+      - version
+      - serverName
+      - dvrStoreName
+      - DvrConverterStore
+    DRMConfigAdv:
+      type: object
+      properties:
+        advancedSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedSetting'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - advancedSettings
+    TranscoderOverlayEncodeAppConfig:
+      type: object
+      properties:
+        overlayName:
+          type: string
+        imagePath:
+          type: string
+        serverName:
+          type: string
+        description:
+          type: string
+        index:
+          type: integer
+          format: int32
+        align:
+          type: string
+        version:
+          type: string
+        enable:
+          type: boolean
+        x:
+          type: integer
+          format: int32
+        width:
+          type: string
+        name:
+          type: string
+        y:
+          type: integer
+          format: int32
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        checkForUpdates:
+          type: boolean
+        opacity:
+          type: integer
+          format: int32
+        height:
+          type: string
+      required:
+      - version
+      - serverName
+      - overlayName
+      - description
+      - enable
+      - imagePath
+      - index
+      - checkForUpdates
+      - opacity
+      - x
+      - y
+      - width
+      - height
+      - align
+      - name
+    Integer:
+      type: object
+      properties: {}
+    TranscoderEncodeAppConfig:
+      type: object
+      properties:
+        followSource:
+          type: boolean
+        implementation:
+          type: string
+        gpuid:
+          type: integer
+          format: int32
+        profile:
+          type: string
+        serverName:
+          type: string
+        description:
+          type: string
+        audioCodec:
+          type: string
+        version:
+          type: string
+        streamName:
+          type: string
+        Overlays:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranscoderOverlayEncodeConfig'
+        audioBitrate:
+          type: string
+        videoBitrate:
+          type: string
+        enable:
+          type: boolean
+        name:
+          type: string
+        width:
+          type: integer
+          format: int32
+        interval:
+          type: integer
+          format: int32
+        fitMode:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        crop:
+          type: string
+        convert8bit:
+          type: boolean
+        videoCodec:
+          type: string
+        height:
+          type: integer
+          format: int32
+        sourceRectangle:
+          type: string
+      required:
+      - version
+      - serverName
+      - name
+      - enable
+      - description
+      - streamName
+      - videoCodec
+      - implementation
+      - gpuid
+      - profile
+      - videoBitrate
+      - followSource
+      - interval
+      - fitMode
+      - width
+      - height
+      - crop
+      - sourceRectangle
+      - audioCodec
+      - audioBitrate
+      - Overlays
+      - convert8bit
+    InstanceConfig:
+      type: object
+      properties:
+        incomingStreams:
+          type: array
+          items:
+            $ref: '#/components/schemas/IncomingStreamConfig'
+        name:
+          type: string
+        outgoingStreams:
+          type: array
+          items:
+            $ref: '#/components/schemas/OutgoingStreamConfig'
+        serverName:
+          type: string
+        streamGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/StreamGroupConfig'
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        recorders:
+          type: array
+          items:
+            $ref: '#/components/schemas/StreamRecorderConfig'
+      required:
+      - version
+      - serverName
+      - name
+      - incomingStreams
+      - outgoingStreams
+      - recorders
+      - streamGroups
+    BuyDRMStreamMapsConfig:
+      type: object
+      properties:
+        buyDRMStreamNameMapFile:
+          type: string
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - buyDRMStreamNameMapFile
+      - buyDRMStreamMaps
+    ApplicationsConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        applications:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppShortObject'
+      required:
+      - version
+      - serverName
+      - applications
+    TranscoderStreamNameGroupConfig:
+      type: object
+      properties:
+        name:
+          type: string
+        serverName:
+          type: string
+        description:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        streamName:
+          type: string
+        Members:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranscoderMemberConfig'
+      required:
+      - version
+      - serverName
+      - name
+      - description
+      - streamName
+      - Members
     PushPublishStreamAppConfig:
       type: object
       properties:
@@ -6997,86 +7993,6 @@ components:
       - group.streamMatcher
       - group.name
       - extraOptions
-    TranscoderTemplatesConfig:
-      type: object
-      properties:
-        vhostName:
-          type: string
-        templates:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShortObject'
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - vhostName
-      - templates
-    CurrentApplicationStatistics:
-      type: object
-      properties:
-        totalConnections:
-          $ref: '#/components/schemas/Long'
-        bytesOutRate:
-          type: integer
-          format: int64
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-        uptime:
-          $ref: '#/components/schemas/Long'
-        bytesIn:
-          $ref: '#/components/schemas/Long'
-        bytesOut:
-          $ref: '#/components/schemas/Long'
-        bytesInRate:
-          type: integer
-          format: int64
-      required:
-      - version
-      - serverName
-      - uptime
-      - bytesIn
-      - bytesOut
-      - bytesInRate
-      - bytesOutRate
-      - totalConnections
-      - connectionCount
-    Long:
-      type: object
-      properties: {}
-    LiveEncoderConfig:
-      type: object
-      properties:
-        output:
-          $ref: '#/components/schemas/Output'
-        serverName:
-          type: string
-        source:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - output
-      - source
     StreamRecorderConfig:
       type: object
       properties:
@@ -7182,37 +8098,11 @@ components:
       - timeScale
       - defaultAudioSearchPosition
       - skipKeyFrameUntilAudioTimeout
-    StreamGroupsConfig:
+    ShortUrlEncoderConfig:
       type: object
       properties:
-        instanceName:
+        statusText:
           type: string
-        serverName:
-          type: string
-        streamGroups:
-          type: array
-          items:
-            $ref: '#/components/schemas/StreamGroupConfig'
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - instanceName
-      - streamGroups
-    StreamFileAppConfigAdv:
-      type: object
-      properties:
-        sourceControlDriver:
-          type: string
-        advancedSettings:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdvancedSetting'
         serverName:
           type: string
         saveFieldList:
@@ -7221,15 +8111,16 @@ components:
             type: string
         version:
           type: string
-        mpegTSFilters:
-          type: array
-          items:
-            $ref: '#/components/schemas/MpegTSFilter'
+        url:
+          type: string
+        statusCode:
+          $ref: '#/components/schemas/Integer'
       required:
       - version
       - serverName
-      - advancedSettings
-      - sourceControlDriver
+      - url
+      - statusText
+      - statusCode
     WebRTCConfigAdv:
       type: object
       properties:
@@ -7249,7 +8140,29 @@ components:
       - version
       - serverName
       - advancedSettings
-    TranscoderOverlayEncodeAppConfig:
+    TranscoderTemplateAppConfigAdv:
+      type: object
+      properties:
+        advancedSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedSetting'
+        name:
+          type: string
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - advancedSettings
+      - name
+    TranscoderOverlayDecodeAppConfig:
       type: object
       properties:
         overlayName:
@@ -7273,8 +8186,6 @@ components:
           type: integer
           format: int32
         width:
-          type: string
-        name:
           type: string
         y:
           type: integer
@@ -7305,109 +8216,70 @@ components:
       - width
       - height
       - align
-      - name
-    VerimatrixStreamMapsConfig:
+    RTMP:
       type: object
       properties:
-        filename:
+        password:
           type: string
-        serverName:
+        stream:
           type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
+        backup_url:
           type: string
-        verimatrixStreamMaps:
-          type: array
-          items:
-            type: string
+        url:
+          type: string
+        username:
+          type: string
       required:
-      - version
-      - serverName
-      - filename
-      - verimatrixStreamMaps
-    TranscoderEncodeConfig:
+      - url
+      - backup_url
+      - stream
+      - username
+      - password
+    OutgoingStreamConfig:
       type: object
       properties:
-        followSource:
-          type: boolean
-        implementation:
+        someProp2:
           type: string
-        gpuid:
-          type: integer
-          format: int32
-        profile:
+        someProp:
           type: string
-        serverName:
-          type: string
-        description:
-          type: string
-        audioCodec:
-          type: string
-        version:
-          type: string
-        streamName:
-          type: string
-        Overlays:
-          type: array
-          items:
-            $ref: '#/components/schemas/TranscoderOverlayEncodeConfig'
-        audioBitrate:
-          type: string
-        videoBitrate:
-          type: string
-        enable:
-          type: boolean
         name:
           type: string
-        width:
-          type: integer
-          format: int32
-        interval:
-          type: integer
-          format: int32
-        fitMode:
+        serverName:
           type: string
         saveFieldList:
           type: array
           items:
             type: string
-        crop:
-          type: string
-        convert8bit:
-          type: boolean
-        videoCodec:
-          type: string
-        height:
-          type: integer
-          format: int32
-        sourceRectangle:
+        version:
           type: string
       required:
       - version
       - serverName
       - name
-      - enable
-      - description
-      - streamName
-      - videoCodec
-      - implementation
-      - gpuid
-      - profile
-      - videoBitrate
-      - followSource
-      - interval
-      - fitMode
-      - width
-      - height
-      - crop
-      - sourceRectangle
-      - audioCodec
-      - audioBitrate
-      - Overlays
-      - convert8bit
+      - someProp
+      - someProp2
+    StreamGroupsConfig:
+      type: object
+      properties:
+        instanceName:
+          type: string
+        serverName:
+          type: string
+        streamGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/StreamGroupConfig'
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - instanceName
+      - streamGroups
     SMILFileAppConfig:
       type: object
       properties:
@@ -7433,177 +8305,13 @@ components:
       - name
       - title
       - smilStreams
-    Integer:
-      type: object
-      properties: {}
-    PublishersAppConfig:
+    WSCRESTProxyConfig:
       type: object
       properties:
-        serverName:
+        apiRequest:
           type: string
-        publishers:
-          type: array
-          items:
-            $ref: '#/components/schemas/PublisherVhostConfig'
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - publishers
-    ApplicationConfigAdv:
-      type: object
-      properties:
-        advancedSettings:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdvancedSetting'
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-        modules:
-          type: array
-          items:
-            $ref: '#/components/schemas/ModuleConfig'
-      required:
-      - version
-      - serverName
-      - advancedSettings
-      - modules
-    ApplicationsConfig:
-      type: object
-      properties:
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-        applications:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppShortObject'
-      required:
-      - version
-      - serverName
-      - applications
-    DvrRESTConverterStores:
-      type: object
-      properties:
-        groupConversionStatusList:
-          type: array
-          items:
-            type: string
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-        dvrconverterstoresummary:
-          type: array
-          items:
-            type: string
-      required:
-      - version
-      - serverName
-      - dvrconverterstoresummary
-      - groupConversionStatusList
-    SourceControlConfig:
-      type: object
-      properties:
-        featureList:
-          type: array
-          items:
-            type: string
-        serverName:
-          type: string
-        model:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-        firmware:
-          type: string
-        manufacturer:
-          type: string
-      required:
-      - version
-      - serverName
-      - manufacturer
-      - model
-      - firmware
-      - featureList
-    TranscoderTemplateAppConfig:
-      type: object
-      properties:
-        enableDynamicOverlays:
+        encrypted:
           type: boolean
-        streamNameGroups:
-          type: array
-          items:
-            $ref: '#/components/schemas/TranscoderStreamNameGroupConfig'
-        implementationScale:
-          type: string
-        deinterlace:
-          type: boolean
-        implementation:
-          type: string
-        overlays:
-          type: array
-          items:
-            $ref: '#/components/schemas/TranscoderOverlayDecodeConfig'
-        name:
-          type: string
-        serverName:
-          type: string
-        description:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        encodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/TranscoderEncodeConfig'
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - name
-      - description
-      - implementation
-      - implementationScale
-      - deinterlace
-      - enableDynamicOverlays
-      - encodes
-      - streamNameGroups
-      - overlays
-    PushPublishStreamsAppConfig:
-      type: object
-      properties:
-        mapEntries:
-          type: array
-          items:
-            $ref: '#/components/schemas/PushPublishStreamAppConfig'
         serverName:
           type: string
         saveFieldList:
@@ -7615,179 +8323,8 @@ components:
       required:
       - version
       - serverName
-      - mapEntries
-    DefaultStreamRecorderConfig:
-      type: object
-      properties:
-        timeScale:
-          type: integer
-          format: int64
-        instanceName:
-          type: string
-        fileVersionDelegateName:
-          type: string
-        serverName:
-          type: string
-        recorderName:
-          type: string
-        currentSize:
-          type: integer
-          format: int64
-        segmentSchedule:
-          type: string
-        startOnKeyFrame:
-          type: boolean
-        outputPath:
-          type: string
-        currentFile:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        defaultAudioSearchPosition:
-          type: boolean
-        recordData:
-          type: boolean
-        applicationName:
-          type: string
-        moveFirstVideoFrameToZero:
-          type: boolean
-        recorderErrorString:
-          type: string
-        segmentSize:
-          type: integer
-          format: int64
-        defaultRecorder:
-          type: boolean
-        splitOnTcDiscontinuity:
-          type: boolean
-        version:
-          type: string
-        skipKeyFrameUntilAudioTimeout:
-          type: integer
-          format: int32
-        baseFile:
-          type: string
-        segmentDuration:
-          type: integer
-          format: int64
-        recordingStartTime:
-          type: string
-        fileTemplate:
-          type: string
-        backBufferTime:
-          type: integer
-          format: int64
-        segmentationType:
-          type: string
-        currentDuration:
-          type: integer
-          format: int64
-        fileFormat:
-          type: string
-        recorderState:
-          type: string
-        option:
-          type: string
-      required:
-      - version
-      - serverName
-      - recorderName
-      - instanceName
-      - applicationName
-      - recorderState
-      - recorderErrorString
-      - defaultRecorder
-      - segmentationType
-      - outputPath
-      - baseFile
-      - fileFormat
-      - fileVersionDelegateName
-      - fileTemplate
-      - segmentDuration
-      - segmentSize
-      - segmentSchedule
-      - recordData
-      - startOnKeyFrame
-      - splitOnTcDiscontinuity
-      - backBufferTime
-      - option
-      - moveFirstVideoFrameToZero
-      - currentSize
-      - currentDuration
-      - currentFile
-      - recordingStartTime
-      - timeScale
-      - defaultAudioSearchPosition
-      - skipKeyFrameUntilAudioTimeout
-    ShortObject:
-      type: object
-      properties:
-        id:
-          type: string
-        href:
-          type: string
-      required:
-      - id
-      - href
-    TranscoderOverlayEncodeConfig:
-      type: object
-      properties:
-        overlayName:
-          type: string
-        imagePath:
-          type: string
-        serverName:
-          type: string
-        description:
-          type: string
-        index:
-          type: integer
-          format: int32
-        align:
-          type: string
-        version:
-          type: string
-        enable:
-          type: boolean
-        x:
-          type: integer
-          format: int32
-        width:
-          type: string
-        name:
-          type: string
-        y:
-          type: integer
-          format: int32
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        checkForUpdates:
-          type: boolean
-        opacity:
-          type: integer
-          format: int32
-        height:
-          type: string
-      required:
-      - version
-      - serverName
-      - overlayName
-      - description
-      - enable
-      - imagePath
-      - index
-      - checkForUpdates
-      - opacity
-      - x
-      - y
-      - width
-      - height
-      - align
-      - name
+      - encrypted
+      - apiRequest
     TranscoderAppConfigAdv:
       type: object
       properties:
@@ -7807,190 +8344,7 @@ components:
       - version
       - serverName
       - advancedSettings
-    SMILFilesAppConfig:
-      type: object
-      properties:
-        vhostName:
-          type: string
-        appName:
-          type: string
-        serverName:
-          type: string
-        smilFiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShortObject'
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - vhostName
-      - smilFiles
-      - appName
-    Output:
-      type: object
-      properties:
-        rtmp:
-          $ref: '#/components/schemas/RTMP'
-        video:
-          $ref: '#/components/schemas/VideoSettings'
-      required:
-      - rtmp
-      - video
-    TranscoderEncodeAppConfigAdv:
-      type: object
-      properties:
-        advancedSettings:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdvancedSetting'
-        name:
-          type: string
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - advancedSettings
-      - name
-    SMILFileStreamConfig:
-      type: object
-      properties:
-        systemLanguage:
-          type: string
-        dur:
-          type: string
-        ngrp:
-          type: string
-        keyFrameOnly:
-          type: string
-        src:
-          type: string
-        systemBitrate:
-          type: string
-        serverName:
-          type: string
-        videoCodecId:
-          type: string
-        type:
-          type: string
-        version:
-          type: string
-        audioBitrate:
-          type: string
-        audioCodecId:
-          type: string
-        videoBitrate:
-          type: string
-        isWowzaCaptionStream:
-          type: string
-        videoOnly:
-          type: string
-        audioOnly:
-          type: string
-        width:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        idx:
-          type: integer
-          format: int32
-        begin:
-          type: string
-        wowzaCaptionIngestType:
-          type: string
-        height:
-          type: string
-      required:
-      - version
-      - serverName
-      - idx
-      - type
-      - src
-      - systemLanguage
-      - systemBitrate
-      - width
-      - height
-      - begin
-      - dur
-      - videoBitrate
-      - videoCodecId
-      - videoOnly
-      - ngrp
-      - audioBitrate
-      - audioCodecId
-      - audioOnly
-      - keyFrameOnly
-      - isWowzaCaptionStream
-      - wowzaCaptionIngestType
-    TranscoderOverlayDecodeConfig:
-      type: object
-      properties:
-        overlayName:
-          type: string
-        imagePath:
-          type: string
-        serverName:
-          type: string
-        description:
-          type: string
-        index:
-          type: integer
-          format: int32
-        align:
-          type: string
-        version:
-          type: string
-        enable:
-          type: boolean
-        x:
-          type: integer
-          format: int32
-        width:
-          type: string
-        y:
-          type: integer
-          format: int32
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        checkForUpdates:
-          type: boolean
-        opacity:
-          type: integer
-          format: int32
-        height:
-          type: string
-      required:
-      - version
-      - serverName
-      - overlayName
-      - description
-      - enable
-      - imagePath
-      - index
-      - checkForUpdates
-      - opacity
-      - x
-      - y
-      - width
-      - height
-      - align
-    DRMConfigAdv:
+    DVRConfigAdv:
       type: object
       properties:
         advancedSettings:
@@ -8009,108 +8363,6 @@ components:
       - version
       - serverName
       - advancedSettings
-    TranscoderTemplatesAppConfig:
-      type: object
-      properties:
-        vhostName:
-          type: string
-        templates:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShortObject'
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - vhostName
-      - templates
-    PublisherAppConfig:
-      type: object
-      properties:
-        password:
-          type: string
-        publisherName:
-          type: string
-        serverName:
-          type: string
-        description:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - publisherName
-      - description
-      - password
-    HistoricApplicationStatistics:
-      type: object
-      properties:
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - entries
-    ShortUrlEncoderConfig:
-      type: object
-      properties:
-        statusText:
-          type: string
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-        url:
-          type: string
-        statusCode:
-          $ref: '#/components/schemas/Integer'
-      required:
-      - version
-      - serverName
-      - url
-      - statusText
-      - statusCode
-    InstancesConfig:
-      type: object
-      properties:
-        instanceList:
-          type: array
-          items:
-            $ref: '#/components/schemas/InstanceConfig'
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - instanceList
     ApplicationConfig:
       type: object
       properties:
@@ -8221,153 +8473,244 @@ components:
       - transcoderConfig
       - webRTCConfig
       - modules
-    TranscoderOverlayDecodeAppConfig:
+    SDPFilesAppConfig:
       type: object
       properties:
-        overlayName:
+        sdpFiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShortObject'
+        serverName:
           type: string
-        imagePath:
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - sdpFiles
+    InstancesConfig:
+      type: object
+      properties:
+        instanceList:
+          type: array
+          items:
+            $ref: '#/components/schemas/InstanceConfig'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - instanceList
+    PublishersAppConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        publishers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublisherVhostConfig'
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - publishers
+    PublisherAppConfig:
+      type: object
+      properties:
+        password:
+          type: string
+        publisherName:
           type: string
         serverName:
           type: string
         description:
           type: string
-        index:
-          type: integer
-          format: int32
-        align:
-          type: string
-        version:
-          type: string
-        enable:
-          type: boolean
-        x:
-          type: integer
-          format: int32
-        width:
-          type: string
-        y:
-          type: integer
-          format: int32
         saveFieldList:
           type: array
           items:
             type: string
-        checkForUpdates:
-          type: boolean
-        opacity:
-          type: integer
-          format: int32
-        height:
+        version:
           type: string
       required:
       - version
       - serverName
-      - overlayName
+      - publisherName
       - description
-      - enable
-      - imagePath
-      - index
-      - checkForUpdates
-      - opacity
-      - x
-      - y
-      - width
-      - height
-      - align
-    TranscoderTemplateAppConfigAdv:
+      - password
+    TranscoderTemplateAppConfig:
       type: object
       properties:
-        advancedSettings:
+        enableDynamicOverlays:
+          type: boolean
+        streamNameGroups:
           type: array
           items:
-            $ref: '#/components/schemas/AdvancedSetting'
+            $ref: '#/components/schemas/TranscoderStreamNameGroupConfig'
+        implementationScale:
+          type: string
+        deinterlace:
+          type: boolean
+        implementation:
+          type: string
+        overlays:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranscoderOverlayDecodeConfig'
         name:
           type: string
         serverName:
           type: string
+        description:
+          type: string
         saveFieldList:
           type: array
           items:
             type: string
+        encodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranscoderEncodeConfig'
         version:
           type: string
       required:
       - version
       - serverName
-      - advancedSettings
       - name
-    TranscoderAppConfig:
+      - description
+      - implementation
+      - implementationScale
+      - deinterlace
+      - enableDynamicOverlays
+      - encodes
+      - streamNameGroups
+      - overlays
+    ModuleConfig:
       type: object
       properties:
-        profileDir:
+        name:
           type: string
-        licensed:
-          type: boolean
-        templates:
-          $ref: '#/components/schemas/TranscoderTemplatesConfig'
-        available:
-          type: boolean
         serverName:
           type: string
-        templateDir:
+        description:
           type: string
-        version:
-          type: string
-        createTemplateDir:
-          type: boolean
-        licenses:
-          type: integer
-          format: int32
-        liveStreamTranscoder:
-          type: string
-        templatesInUse:
-          type: string
-        licensesInUse:
-          type: integer
-          format: int32
         saveFieldList:
           type: array
           items:
             type: string
+        version:
+          type: string
+        class:
+          type: string
+        order:
+          type: integer
+          format: int32
       required:
       - version
       - serverName
-      - available
-      - licensed
-      - licenses
-      - licensesInUse
-      - templates
-      - liveStreamTranscoder
-      - templatesInUse
-      - profileDir
-      - templateDir
-      - createTemplateDir
-    AppShortObject:
+      - order
+      - name
+      - description
+      - class
+    StreamConfigurationConfig:
       type: object
       properties:
-        drmEnabled:
-          type: boolean
-        streamTargetsEnabled:
-          type: boolean
-        appType:
+        streamType:
           type: string
-        transcoderEnabled:
+        storageDirExists:
           type: boolean
-        dvrEnabled:
-          type: boolean
-        id:
+        keyDir:
           type: string
-        href:
+        createStorageDir:
+          type: boolean
+        liveStreamPacketizer:
+          type: array
+          items:
+            type: string
+        serverName:
+          type: string
+        storageDir:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        httpRandomizeMediaName:
+          type: boolean
+      required:
+      - version
+      - serverName
+      - streamType
+      - storageDir
+      - createStorageDir
+      - storageDirExists
+      - keyDir
+      - liveStreamPacketizer
+      - httpRandomizeMediaName
+    TranscoderStreamNameGroupAppConfig:
+      type: object
+      properties:
+        name:
+          type: string
+        serverName:
+          type: string
+        description:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        streamName:
+          type: string
+        Members:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranscoderMemberConfig'
+      required:
+      - version
+      - serverName
+      - name
+      - description
+      - streamName
+      - Members
+    ModulesConfig:
+      type: object
+      properties:
+        moduleList:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModuleConfig'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
           type: string
       required:
-      - id
-      - href
-      - appType
-      - dvrEnabled
-      - drmEnabled
-      - transcoderEnabled
-      - streamTargetsEnabled
+      - version
+      - serverName
+      - moduleList
     PublisherVhostConfig:
       type: object
       properties:
@@ -8391,58 +8734,13 @@ components:
       - publisherName
       - description
       - password
-    CurrentIncomingStreamStatistics:
+    PushPublishStreamsAppConfig:
       type: object
       properties:
-        totalConnections:
-          type: integer
-          format: int64
-        applicationInstance:
-          type: string
-        bytesOutRate:
-          type: integer
-          format: int64
-        name:
-          type: string
-        serverName:
-          type: string
-        saveFieldList:
+        mapEntries:
           type: array
           items:
-            type: string
-        version:
-          type: string
-        uptime:
-          type: integer
-          format: int64
-        bytesIn:
-          type: integer
-          format: int64
-        bytesOut:
-          type: integer
-          format: int64
-        bytesInRate:
-          type: integer
-          format: int64
-      required:
-      - version
-      - serverName
-      - applicationInstance
-      - name
-      - uptime
-      - bytesIn
-      - bytesOut
-      - bytesInRate
-      - bytesOutRate
-      - totalConnections
-      - connectionCount
-    SDPFilesAppConfig:
-      type: object
-      properties:
-        sdpFiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShortObject'
+            $ref: '#/components/schemas/PushPublishStreamAppConfig'
         serverName:
           type: string
         saveFieldList:
@@ -8454,248 +8752,7 @@ components:
       required:
       - version
       - serverName
-      - sdpFiles
-    IncomingStreamConfig:
-      type: object
-      properties:
-        ptzPollingIntervalMinimum:
-          type: integer
-          format: int32
-        applicationInstance:
-          type: string
-        isPTZEnabled:
-          type: boolean
-        isConnected:
-          type: boolean
-        serverName:
-          type: string
-        version:
-          type: string
-        ptzPollingInterval:
-          type: integer
-          format: int32
-        isRecordingSet:
-          type: boolean
-        sourceIp:
-          type: string
-        name:
-          type: string
-        isPublishedToVOD:
-          type: boolean
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        isStreamManagerStream:
-          type: boolean
-      required:
-      - version
-      - serverName
-      - applicationInstance
-      - name
-      - sourceIp
-      - isRecordingSet
-      - isStreamManagerStream
-      - isPublishedToVOD
-      - isConnected
-      - isPTZEnabled
-      - ptzPollingInterval
-      - ptzPollingIntervalMinimum
-    TranscoderEncodesAppConfig:
-      type: object
-      properties:
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        encodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShortObject'
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - encodes
-    WSCRESTProxyConfig:
-      type: object
-      properties:
-        apiRequest:
-          type: string
-        encrypted:
-          type: boolean
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - encrypted
-      - apiRequest
-    BuyDRMStreamMapsConfig:
-      type: object
-      properties:
-        buyDRMStreamNameMapFile:
-          type: string
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - buyDRMStreamNameMapFile
-      - buyDRMStreamMaps
-    VideoSettings:
-      type: object
-      properties:
-        framerate:
-          type: number
-          format: double
-        width:
-          type: integer
-          format: int32
-        bitrate:
-          type: integer
-          format: int32
-        height:
-          type: integer
-          format: int32
-      required:
-      - framerate
-      - width
-      - height
-      - bitrate
-    TranscoderEncodeAppConfig:
-      type: object
-      properties:
-        followSource:
-          type: boolean
-        implementation:
-          type: string
-        gpuid:
-          type: integer
-          format: int32
-        profile:
-          type: string
-        serverName:
-          type: string
-        description:
-          type: string
-        audioCodec:
-          type: string
-        version:
-          type: string
-        streamName:
-          type: string
-        Overlays:
-          type: array
-          items:
-            $ref: '#/components/schemas/TranscoderOverlayEncodeConfig'
-        audioBitrate:
-          type: string
-        videoBitrate:
-          type: string
-        enable:
-          type: boolean
-        name:
-          type: string
-        width:
-          type: integer
-          format: int32
-        interval:
-          type: integer
-          format: int32
-        fitMode:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        crop:
-          type: string
-        convert8bit:
-          type: boolean
-        videoCodec:
-          type: string
-        height:
-          type: integer
-          format: int32
-        sourceRectangle:
-          type: string
-      required:
-      - version
-      - serverName
-      - name
-      - enable
-      - description
-      - streamName
-      - videoCodec
-      - implementation
-      - gpuid
-      - profile
-      - videoBitrate
-      - followSource
-      - interval
-      - fitMode
-      - width
-      - height
-      - crop
-      - sourceRectangle
-      - audioCodec
-      - audioBitrate
-      - Overlays
-      - convert8bit
-    WebRTCConfig:
-      type: object
-      properties:
-        udpBindAddress:
-          type: string
-        enablePlay:
-          type: boolean
-        preferredCodecsAudio:
-          type: string
-        preferredCodecsVideo:
-          type: string
-        enableQuery:
-          type: boolean
-        debugLog:
-          type: boolean
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        iceCandidateIpAddresses:
-          type: string
-        version:
-          type: string
-        enablePublish:
-          type: boolean
-      required:
-      - version
-      - serverName
-      - enablePublish
-      - enablePlay
-      - enableQuery
-      - iceCandidateIpAddresses
-      - udpBindAddress
-      - preferredCodecsAudio
-      - preferredCodecsVideo
-      - debugLog
+      - mapEntries
     DVRConfig:
       type: object
       properties:
@@ -8750,51 +8807,10 @@ components:
       - dvrEncryptionSharedSecret
       - dvrMediaCacheEnabled
       - httpRandomizeMediaName
-    StreamConfigurationConfig:
+    VerimatrixStreamMapsConfig:
       type: object
       properties:
-        streamType:
-          type: string
-        storageDirExists:
-          type: boolean
-        keyDir:
-          type: string
-        createStorageDir:
-          type: boolean
-        liveStreamPacketizer:
-          type: array
-          items:
-            type: string
-        serverName:
-          type: string
-        storageDir:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-        httpRandomizeMediaName:
-          type: boolean
-      required:
-      - version
-      - serverName
-      - streamType
-      - storageDir
-      - createStorageDir
-      - storageDirExists
-      - keyDir
-      - liveStreamPacketizer
-      - httpRandomizeMediaName
-    StreamRecordersConfig:
-      type: object
-      properties:
-        streamrecorder:
-          type: array
-          items:
-            $ref: '#/components/schemas/StreamRecorderConfig'
-        instanceName:
+        filename:
           type: string
         serverName:
           type: string
@@ -8804,31 +8820,15 @@ components:
             type: string
         version:
           type: string
-      required:
-      - version
-      - serverName
-      - instanceName
-      - streamrecorder
-    DvrRESTConverterStore:
-      type: object
-      properties:
-        dvrStoreName:
-          type: string
-        serverName:
-          type: string
-        saveFieldList:
+        verimatrixStreamMaps:
           type: array
           items:
             type: string
-        version:
-          type: string
-        DvrConverterStore:
-          type: string
       required:
       - version
       - serverName
-      - dvrStoreName
-      - DvrConverterStore
+      - filename
+      - verimatrixStreamMaps
   securitySchemes:
     basicAuth:
       type: http

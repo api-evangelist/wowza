@@ -266,34 +266,191 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error422'
 components:
-  parameters:
-    page:
-      name: page
-      in: query
-      description: "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
-      schema:
-        type: integer
-    per_page:
-      name: per_page
-      in: query
-      description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
-      schema:
-        type: integer
-    filter:
-      name: filter
-      in: query
-      description: 'Restricts the data that gets returned by filtering on one or more values associated with a field. Construct a filter using a two-part expression that specifies the field on which to filter and the logic to use to filter. Filters use a zero-based index.
-
-
-        For valid filter operators and filter fields, see [How to get filtered query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-filtered-query-results-with-the-wowza-video-rest-api).
-
-
-        Example:
-
-        **filter[0][field]=state&filter[0][eq]=stopped**'
-      schema:
-        type: string
   schemas:
+    Error404:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 404
+            code: ERR-404-RecordNotFound
+            title: Record Not Found Error
+            message: The requested resource couldn't be found.
+            description: ''
+            links: []
+    wowza_stream_source_create_input:
+      type: object
+      description: ''
+      required:
+      - stream_source_wowza
+      properties:
+        stream_source_wowza:
+          type: object
+          title: stream_source_wowza
+          description: ''
+          example:
+            name: My Wowza Stream Source
+          required:
+          - name
+          properties:
+            name:
+              type: string
+              description: A descriptive name for the Wowza stream source. Maximum 255 characters.
+              example: My region-based Akamai Stream Source
+    Error410:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 410
+            code: ERR-410-RecordDeleted
+            title: Record Deleted Error
+            message: The requested resource has been deleted.
+            description: ''
+            links: []
+    stream_source_wowza:
+      type: object
+      title: stream_source_wowza
+      description: ''
+      properties:
+        created_at:
+          type: string
+          description: The date and time that the Wowza stream source was created.
+          example: ''
+          format: date-time
+        id:
+          type: string
+          description: The unique alphanumeric string that identifies the Wowza stream source.
+          example: ''
+        name:
+          type: string
+          description: A descriptive name for the Wowza stream source. Maximum 255 characters.
+          example: ''
+        primary_url:
+          type: string
+          description: The origin URL where you send your source stream.
+          example: ''
+        state:
+          type: string
+          description: The current state of the Wowza stream source.
+          example: ''
+          enum:
+          - started
+          - stopped
+          - error
+        stream_name:
+          type: string
+          description: The name of the stream that you can use to configure the source encoder to connect to the Wowza stream source.
+          example: ''
+        transcoders:
+          type: array
+          description: The transcoders associated with the Wowza stream source.
+          items:
+            type: object
+            title: transcoders
+            properties:
+              id:
+                type: string
+                description: The unique alphanumeric string that identifies the transcoder.
+                example: ''
+              name:
+                type: string
+                description: A descriptive name for the transcoder. Maximum 255 characters.
+                example: dcxq5q6c
+              type:
+                type: string
+                description: The type of transcoder associated with the Wowza stream source be it a transcoder associated with a live stream or a standalone transcoder.
+                example: ''
+                enum:
+                - transcoder
+                - livestream
+        updated_at:
+          type: string
+          description: The date and time that the Wowza stream source was updated.
+          example: ''
+          format: date-time
+      example:
+        created_at: '2020-01-29T17:16:22.001Z'
+        id: brcndjJt
+        name: My Updated Wowza Stream Source
+        primary_url: rtmp://origin.cdn.wowza.com:1935/live
+        state: stopped
+        stream_name: 0I3abc1FPZ2P3Qxdfz3YwKtZdDqu6102
+        transcoders:
+        - id: dkcr5y9l
+          name: my transcoder
+          type: LiveStream
+        updated_at: '2020-01-31T14:56:21.001Z'
     wowza_stream_source_update_input:
       type: object
       description: ''
@@ -311,6 +468,147 @@ components:
               type: string
               description: A descriptive name for the Wowza stream source. Maximum 255 characters.
               example: My Updated Wowza Stream Source
+    Error403:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 403
+            code: ERR-403-RecordUnaccessible
+            title: Record Unaccessible Error
+            message: The requested resource isn't accessible.
+            description: ''
+            links: []
+    stream_sources:
+      type: object
+      description: ''
+      required:
+      - stream_sources
+      properties:
+        stream_sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/index_stream_source'
+      example:
+        stream_sources:
+        - id: cJYndjJt
+          name: My region-based Stream Source
+          type: wowza
+          created_at: '2020-01-29T17:16:22.000Z'
+          updated_at: '2020-01-31T02:37:48.000Z'
+        - id: pvVWPLZC
+          name: My IP address based Stream Source
+          type: wowza
+          created_at: '2020-01-28T17:16:22.000Z'
+          updated_at: '2020-01-30T14:13:07.000Z'
+    wowza_stream_source_patch_response:
+      type: object
+      title: stream_source_wowza
+      description: ''
+      properties:
+        created_at:
+          type: string
+          description: The date and time that the Wowza stream source was created.
+          example: ''
+          format: date-time
+        id:
+          type: string
+          description: The unique alphanumeric string that identifies the Wowza stream source.
+          example: ''
+        name:
+          type: string
+          description: A descriptive name for the Wowza stream source. Maximum 255 characters.
+          example: ''
+        primary_url:
+          type: string
+          description: The origin URL where you send your source stream.
+          example: ''
+        state:
+          type: string
+          description: The current state of the Wowza stream source.
+          example: ''
+          enum:
+          - started
+          - stopped
+          - error
+        stream_name:
+          type: string
+          description: The name of the stream that you can use to configure the source encoder to connect to the Wowza stream source.
+          example: ''
+        transcoders:
+          type: array
+          description: The transcoders associated with the Wowza stream source.
+          items:
+            type: object
+            title: transcoders
+            properties:
+              id:
+                type: string
+                description: The unique alphanumeric string that identifies the transcoder.
+                example: ''
+              name:
+                type: string
+                description: A descriptive name for the transcoder. Maximum 255 characters.
+                example: dcxq5q6c
+              type:
+                type: string
+                description: The type of transcoder associated with the Wowza stream source be it a transcoder associated with a live stream or a standalone transcoder.
+                example: ''
+                enum:
+                - transcoder
+                - livestream
+        updated_at:
+          type: string
+          description: The date and time that the Wowza stream source was updated.
+          example: ''
+          format: date-time
+      example:
+        created_at: '2020-01-29T17:16:22.001Z'
+        id: brcndjJt
+        name: My Updated Wowza Stream Source
+        primary_url: rtmp://origin.cdn.wowza.com:1935/live
+        state: stopped
+        stream_name: 0I3abc1FPZ2P3Qxdfz3YwKtZdDqu6102
+        transcoders:
+        - id: dkcr5y9l
+          name: my transcoder
+          type: LiveStream
+        updated_at: '2020-01-31T14:56:21.001Z'
     stream_source_wowza_create:
       type: object
       description: ''
@@ -358,6 +656,35 @@ components:
         state: stopped
         stream_name: 0I3abc1FPZ2P3Qxdfz3YwKtZdDqu6102
         updated_at: '2020-01-31T07:32:43.001Z'
+    index_stream_source:
+      type: object
+      description: ''
+      title: stream_sources
+      properties:
+        created_at:
+          type: string
+          description: The date and time that the stream source was created.
+          example: ''
+          format: date-time
+        id:
+          type: string
+          description: The unique alphanumeric string that identifies the stream source.
+          example: ''
+        name:
+          type: string
+          description: A descriptive name for the stream source. Maximum 255 characters.
+          example: ''
+        type:
+          type: string
+          description: A **wowza** stream source enables automatic transcoder start, stop, and broadcast location detection.
+          example: ''
+          enum:
+          - wowza
+        updated_at:
+          type: string
+          description: The date and time that the stream source was updated.
+          example: ''
+          format: date-time
     Error422:
       type: object
       description: ''
@@ -546,360 +873,33 @@ components:
             message: Token is invalid.
             description: ''
             links: []
-    Error403:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 403
-            code: ERR-403-RecordUnaccessible
-            title: Record Unaccessible Error
-            message: The requested resource isn't accessible.
-            description: ''
-            links: []
-    stream_source_wowza:
-      type: object
-      title: stream_source_wowza
-      description: ''
-      properties:
-        created_at:
-          type: string
-          description: The date and time that the Wowza stream source was created.
-          example: ''
-          format: date-time
-        id:
-          type: string
-          description: The unique alphanumeric string that identifies the Wowza stream source.
-          example: ''
-        name:
-          type: string
-          description: A descriptive name for the Wowza stream source. Maximum 255 characters.
-          example: ''
-        primary_url:
-          type: string
-          description: The origin URL where you send your source stream.
-          example: ''
-        state:
-          type: string
-          description: The current state of the Wowza stream source.
-          example: ''
-          enum:
-          - started
-          - stopped
-          - error
-        stream_name:
-          type: string
-          description: The name of the stream that you can use to configure the source encoder to connect to the Wowza stream source.
-          example: ''
-        transcoders:
-          type: array
-          description: The transcoders associated with the Wowza stream source.
-          items:
-            type: object
-            title: transcoders
-            properties:
-              id:
-                type: string
-                description: The unique alphanumeric string that identifies the transcoder.
-                example: ''
-              name:
-                type: string
-                description: A descriptive name for the transcoder. Maximum 255 characters.
-                example: dcxq5q6c
-              type:
-                type: string
-                description: The type of transcoder associated with the Wowza stream source be it a transcoder associated with a live stream or a standalone transcoder.
-                example: ''
-                enum:
-                - transcoder
-                - livestream
-        updated_at:
-          type: string
-          description: The date and time that the Wowza stream source was updated.
-          example: ''
-          format: date-time
-      example:
-        created_at: '2020-01-29T17:16:22.001Z'
-        id: brcndjJt
-        name: My Updated Wowza Stream Source
-        primary_url: rtmp://origin.cdn.wowza.com:1935/live
-        state: stopped
-        stream_name: 0I3abc1FPZ2P3Qxdfz3YwKtZdDqu6102
-        transcoders:
-        - id: dkcr5y9l
-          name: my transcoder
-          type: LiveStream
-        updated_at: '2020-01-31T14:56:21.001Z'
-    Error404:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 404
-            code: ERR-404-RecordNotFound
-            title: Record Not Found Error
-            message: The requested resource couldn't be found.
-            description: ''
-            links: []
-    stream_sources:
-      type: object
-      description: ''
-      required:
-      - stream_sources
-      properties:
-        stream_sources:
-          type: array
-          items:
-            $ref: '#/components/schemas/index_stream_source'
-      example:
-        stream_sources:
-        - id: cJYndjJt
-          name: My region-based Stream Source
-          type: wowza
-          created_at: '2020-01-29T17:16:22.000Z'
-          updated_at: '2020-01-31T02:37:48.000Z'
-        - id: pvVWPLZC
-          name: My IP address based Stream Source
-          type: wowza
-          created_at: '2020-01-28T17:16:22.000Z'
-          updated_at: '2020-01-30T14:13:07.000Z'
-    wowza_stream_source_patch_response:
-      type: object
-      title: stream_source_wowza
-      description: ''
-      properties:
-        created_at:
-          type: string
-          description: The date and time that the Wowza stream source was created.
-          example: ''
-          format: date-time
-        id:
-          type: string
-          description: The unique alphanumeric string that identifies the Wowza stream source.
-          example: ''
-        name:
-          type: string
-          description: A descriptive name for the Wowza stream source. Maximum 255 characters.
-          example: ''
-        primary_url:
-          type: string
-          description: The origin URL where you send your source stream.
-          example: ''
-        state:
-          type: string
-          description: The current state of the Wowza stream source.
-          example: ''
-          enum:
-          - started
-          - stopped
-          - error
-        stream_name:
-          type: string
-          description: The name of the stream that you can use to configure the source encoder to connect to the Wowza stream source.
-          example: ''
-        transcoders:
-          type: array
-          description: The transcoders associated with the Wowza stream source.
-          items:
-            type: object
-            title: transcoders
-            properties:
-              id:
-                type: string
-                description: The unique alphanumeric string that identifies the transcoder.
-                example: ''
-              name:
-                type: string
-                description: A descriptive name for the transcoder. Maximum 255 characters.
-                example: dcxq5q6c
-              type:
-                type: string
-                description: The type of transcoder associated with the Wowza stream source be it a transcoder associated with a live stream or a standalone transcoder.
-                example: ''
-                enum:
-                - transcoder
-                - livestream
-        updated_at:
-          type: string
-          description: The date and time that the Wowza stream source was updated.
-          example: ''
-          format: date-time
-      example:
-        created_at: '2020-01-29T17:16:22.001Z'
-        id: brcndjJt
-        name: My Updated Wowza Stream Source
-        primary_url: rtmp://origin.cdn.wowza.com:1935/live
-        state: stopped
-        stream_name: 0I3abc1FPZ2P3Qxdfz3YwKtZdDqu6102
-        transcoders:
-        - id: dkcr5y9l
-          name: my transcoder
-          type: LiveStream
-        updated_at: '2020-01-31T14:56:21.001Z'
-    wowza_stream_source_create_input:
-      type: object
-      description: ''
-      required:
-      - stream_source_wowza
-      properties:
-        stream_source_wowza:
-          type: object
-          title: stream_source_wowza
-          description: ''
-          example:
-            name: My Wowza Stream Source
-          required:
-          - name
-          properties:
-            name:
-              type: string
-              description: A descriptive name for the Wowza stream source. Maximum 255 characters.
-              example: My region-based Akamai Stream Source
-    index_stream_source:
-      type: object
-      description: ''
-      title: stream_sources
-      properties:
-        created_at:
-          type: string
-          description: The date and time that the stream source was created.
-          example: ''
-          format: date-time
-        id:
-          type: string
-          description: The unique alphanumeric string that identifies the stream source.
-          example: ''
-        name:
-          type: string
-          description: A descriptive name for the stream source. Maximum 255 characters.
-          example: ''
-        type:
-          type: string
-          description: A **wowza** stream source enables automatic transcoder start, stop, and broadcast location detection.
-          example: ''
-          enum:
-          - wowza
-        updated_at:
-          type: string
-          description: The date and time that the stream source was updated.
-          example: ''
-          format: date-time
-    Error410:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 410
-            code: ERR-410-RecordDeleted
-            title: Record Deleted Error
-            message: The requested resource has been deleted.
-            description: ''
-            links: []
+  parameters:
+    per_page:
+      name: per_page
+      in: query
+      description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
+      schema:
+        type: integer
+    filter:
+      name: filter
+      in: query
+      description: 'Restricts the data that gets returned by filtering on one or more values associated with a field. Construct a filter using a two-part expression that specifies the field on which to filter and the logic to use to filter. Filters use a zero-based index.
+
+
+        For valid filter operators and filter fields, see [How to get filtered query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-filtered-query-results-with-the-wowza-video-rest-api).
+
+
+        Example:
+
+        **filter[0][field]=state&filter[0][eq]=stopped**'
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      description: "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
+      schema:
+        type: integer
   securitySchemes:
     WV_JWT:
       type: http

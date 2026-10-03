@@ -743,105 +743,6 @@ paths:
           description: Internal server error
 components:
   schemas:
-    MediaCacheSourceConfigAdv:
-      type: object
-      properties:
-        advancedSettings:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdvancedSetting'
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - advancedSettings
-    MediaCacheStoreConfig:
-      type: object
-      properties:
-        path:
-          type: string
-        writeRate:
-          type: string
-        name:
-          type: string
-        serverName:
-          type: string
-        description:
-          type: string
-        maxSize:
-          type: string
-        writeRateMaxBucketSize:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - name
-      - description
-      - path
-      - maxSize
-      - writeRate
-      - writeRateMaxBucketSize
-    MediaCacheSourcesConfig:
-      type: object
-      properties:
-        sources:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShortObject'
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - sources
-    MediaCacheConfigAdv:
-      type: object
-      properties:
-        advancedSettings:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdvancedSetting'
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - advancedSettings
-    ShortObject:
-      type: object
-      properties:
-        id:
-          type: string
-        href:
-          type: string
-      required:
-      - id
-      - href
     AdvancedSetting:
       type: object
       properties:
@@ -876,6 +777,44 @@ components:
       - section
       - documented
       - initialValue
+    MediaCacheSourceConfigAdv:
+      type: object
+      properties:
+        advancedSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedSetting'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - advancedSettings
+    MediaCacheSourcesConfig:
+      type: object
+      properties:
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShortObject'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - sources
     MediaCacheStoreConfigAdv:
       type: object
       properties:
@@ -895,54 +834,25 @@ components:
       - version
       - serverName
       - advancedSettings
-    MediaCacheConfig:
+    MediaCacheConfigAdv:
       type: object
       properties:
-        maxPendingWriteRequestSizeAutoValue:
-          type: string
-        sources:
+        advancedSettings:
           type: array
           items:
-            $ref: '#/components/schemas/MediaCacheSourceConfig'
-        stores:
-          type: array
-          items:
-            $ref: '#/components/schemas/MediaCacheStoreConfig'
+            $ref: '#/components/schemas/AdvancedSetting'
         serverName:
-          type: string
-        version:
-          type: string
-        maxPendingReadAheadRequestSizeAutoValue:
-          type: string
-        readAheadThreadPoolSizeAutoValue:
-          type: string
-        readAheadThreadPoolSize:
-          type: string
-        maxPendingReadAheadRequestSize:
           type: string
         saveFieldList:
           type: array
           items:
             type: string
-        maxPendingWriteRequestSize:
-          type: string
-        writerThreadPoolSizeAutoValue:
-          type: string
-        writerThreadPoolSize:
+        version:
           type: string
       required:
       - version
       - serverName
-      - writerThreadPoolSize
-      - writerThreadPoolSizeAutoValue
-      - readAheadThreadPoolSize
-      - readAheadThreadPoolSizeAutoValue
-      - maxPendingWriteRequestSize
-      - maxPendingWriteRequestSizeAutoValue
-      - maxPendingReadAheadRequestSize
-      - maxPendingReadAheadRequestSizeAutoValue
-      - stores
-      - sources
+      - advancedSettings
     MediaCacheStoresConfig:
       type: object
       properties:
@@ -962,6 +872,38 @@ components:
       - version
       - serverName
       - stores
+    MediaCacheStoreConfig:
+      type: object
+      properties:
+        path:
+          type: string
+        writeRate:
+          type: string
+        name:
+          type: string
+        serverName:
+          type: string
+        description:
+          type: string
+        maxSize:
+          type: string
+        writeRateMaxBucketSize:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - name
+      - description
+      - path
+      - maxSize
+      - writeRate
+      - writeRateMaxBucketSize
     MediaCacheSourceConfig:
       type: object
       properties:
@@ -1047,6 +989,64 @@ components:
       - googleServicePrivateKeyFile
       - googleServicePrivateKeyPassword
       - googleEncMethod
+    MediaCacheConfig:
+      type: object
+      properties:
+        maxPendingWriteRequestSizeAutoValue:
+          type: string
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/MediaCacheSourceConfig'
+        stores:
+          type: array
+          items:
+            $ref: '#/components/schemas/MediaCacheStoreConfig'
+        serverName:
+          type: string
+        version:
+          type: string
+        maxPendingReadAheadRequestSizeAutoValue:
+          type: string
+        readAheadThreadPoolSizeAutoValue:
+          type: string
+        readAheadThreadPoolSize:
+          type: string
+        maxPendingReadAheadRequestSize:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        maxPendingWriteRequestSize:
+          type: string
+        writerThreadPoolSizeAutoValue:
+          type: string
+        writerThreadPoolSize:
+          type: string
+      required:
+      - version
+      - serverName
+      - writerThreadPoolSize
+      - writerThreadPoolSizeAutoValue
+      - readAheadThreadPoolSize
+      - readAheadThreadPoolSizeAutoValue
+      - maxPendingWriteRequestSize
+      - maxPendingWriteRequestSizeAutoValue
+      - maxPendingReadAheadRequestSize
+      - maxPendingReadAheadRequestSizeAutoValue
+      - stores
+      - sources
+    ShortObject:
+      type: object
+      properties:
+        id:
+          type: string
+        href:
+          type: string
+      required:
+      - id
+      - href
   securitySchemes:
     basicAuth:
       type: http

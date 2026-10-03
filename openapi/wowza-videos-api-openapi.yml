@@ -449,7 +449,150 @@ paths:
                 $ref: '#/components/schemas/Error422'
 components:
   schemas:
-    Error401:
+    InputVideoRequest:
+      type: object
+      description: "Specifies the input method for uploading the video.\n\nThere are two methods to choose from: `DIRECT` or `FETCH`. \n\nExpand the `input` description, by clicking the **>** next to the `input` label, then click each tab to learn about the methods.\n\nLearn more:\n\n- [Upload a video from local storage](https://developer.wowza.com/docs/wowza-video/guides/videos/upload-a-video-locally)\n- [Upload a video from external storage](https://developer.wowza.com/docs/wowza-video/guides/videos/upload-a-video-external)"
+      oneOf:
+      - $ref: '#/components/schemas/DirectInputRequest'
+      - $ref: '#/components/schemas/FetchInputRequest'
+    DirectInputRequest:
+      required:
+      - method
+      type: object
+      properties:
+        method:
+          type: string
+          description: 'Method that video file will be provided. Indicates that you''ll upload a video from local storage. Use the `upload_url` parameter in the response to do the actual upload of the video. '
+          example: DIRECT
+          enum:
+          - DIRECT
+    AnimatedPreviewModel:
+      type: object
+      properties:
+        url:
+          type: string
+        type:
+          type: string
+        height:
+          type: integer
+          description: Height of the animated preview in pixels.
+          format: int32
+          example: 1080
+        width:
+          type: integer
+          description: Width of the animated preview in pixels.
+          format: int32
+          example: 1920
+      description: The animated previews for the video.
+    DRMConfigModel:
+      type: object
+      properties:
+        com.widevine.alpha:
+          $ref: '#/components/schemas/DRMProviderConfigModel'
+        com.apple.fps.1_0:
+          $ref: '#/components/schemas/DRMProviderConfigModel'
+        com.microsoft.playready:
+          $ref: '#/components/schemas/DRMProviderConfigModel'
+      description: Contains all DRM configurations for one video.
+    VideoListModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the video.
+          example: 2aa3343e-2fb5-42c3-8671-b52c24b7c3e2
+        name:
+          type: string
+          description: The video name. Can be displayed in the player. If not specified, it will default to the input file's name.
+          example: My video
+        description:
+          type: string
+          description: The video description. Can be displayed in the player.
+          example: A new video for my business.
+        duration_in_ms:
+          type: integer
+          description: Duration of the video in milliseconds.
+          format: int64
+        unpublish:
+          type: boolean
+          description: If `true`, the `unpublish_date` is respected and the video will not be available after `unpublish_date`. If `false`, the video will not be unpublished.
+          default: true
+        unpublished_at:
+          type: string
+          description: Date and time, in ISO-8601 format, when the video no longer is available for publishing. After this date, the video is not visible in the player if using `ovp-plugin` to request the video.
+          format: date-time
+          example: '2025-01-01T12:33:22Z'
+        published:
+          type: boolean
+          description: This field, together with `publish_date` and `unpublish_date`, determines if this video will be visible in public listings such as MRSS-feeds, endscreens, and playlists. If `true` and `publish_date` and `unpublish_date` allows, the video will be visible.
+        published_at:
+          type: string
+          description: Date and time, in ISO-8601 format, when the video is available for publishing. Before this date, the video is not visible in the player if using `ovp-plugin` to request the video.
+          format: date-time
+          example: '2024-01-01T12:33:22Z'
+        tags:
+          type: array
+          description: An array of tags.
+          example:
+          - foo
+          - bar
+          items:
+            type: string
+            description: An array of tags.
+            example:
+            - foo
+            - bar
+        category_id:
+          type: string
+          description: The unique identifier for the category that the video belongs to.
+          default: <The account's default category>
+        no_ads:
+          type: boolean
+          description: "When set to `true`, no ads will be displayed during this video. \n\n**Note**: This feature only works for Iframe embeds."
+        ad_keywords:
+          type: string
+          description: 'Used for replacing the `ad_keywords` macro in the VAST-tag in any player that plays the video. '
+          example: special_ads
+        created_at:
+          type: string
+          description: Date and time, in ISO-8601 format, when the video was created.
+          format: date-time
+          example: '2024-01-01T12:33:22Z'
+        updated_at:
+          type: string
+          description: Date and time, in ISO-8601 format, when the video was updated.
+          format: date-time
+          example: '2024-01-01T12:33:22Z'
+        state:
+          type: string
+          description: 'The current state of the video. The state reflects the current status of the video files for the video asset. Possible states listed below:
+
+
+
+            | State | Description |
+
+            |-----------|-------|
+
+            | UPLOADING  | The source file is currently being uploaded or waiting to be downloaded by our API. |
+
+            | WAITING_FOR_ENCODER | The source file was successfully downloaded by the platform and is in queue to be encoded. |
+
+            | PROCESSING  | Source file for the asset is encoding. The current encoding progress can be found on `encoding_progress` property. |
+
+            | FINISHED | The encoding is done and the encoded files can be fetched. In this state it''s possible to embed the video. |
+
+            | ERROR  | If the platform, for some reason, could not download the source file or failed during the encoding process. `error_messsage` property can give more information about why it errored.  |
+
+            | DELETED  | The video files have been deleted. Usually the video asset have been deleted when this state is reached and because of that it''s very uncommon to see assets with this state. |
+
+            '
+          example: FINISHED
+        playback_token_behavior:
+          type: string
+          description: "Specifies the behavior of token  authentication for the video, determining the level of access control.  Use this security when distributing sensitive or valuable video content to audiences. It ensures that only authorized users can access the  content within the intended application.\n\n**enum:** \n\n\n - **NO_TOKEN:** Video files are accessible and can be downloaded and played by anyone at any time. This is the default.      \n\n\n - **BASIC_TOKEN:** The platform automatically creates tokenized video URLs. This setting makes it hard for a viewer\n to extract the video URL and store it for usage in unintended applications\n over time since the embed URL, which has the token as part of the URL, \n will only be playable for 48 hours. The token autorenews after 48 hours\n when used in the intended application. \n\n\n - **ADVANCED_TOKEN:** You add the stream's JS embed code and a token to your\n  site to provide tokenization. The protections are similar to those for the **Basic\n  Token** option except you customize the time limit, geographical limits,\n etc. during token creation. \n\n   You must either:\n     - Customize and generate a token via the Wowza Video 2.0 API to add\n     to your site before you can use this enum. You'll need to, first, generate a key id to create and \n     sign the token.\n\n     - Customize and generate a standard common access token (CAT) through \n     the means you usually use to create tokens before you can use this enum. You must, first, generate\n     a key id and key via the Wowza Video 2.0 API, to create and sign the token.\n\n - **FOLLOW_DEFAULT:** The token behavior is based on the **Default Playback Token Behavior**\n setting you select for your Wowza account. See the <a href=\"https://www.wowza.com/docs/org-setting-page-in-wowza-video\" target=\"_blank\">Org Settings page in Wowza Video</a> article\n for where to set this configuration. "
+          example: NO_TOKEN
+      description: List Video response from the Wowza Video REST API
+    Error410:
       type: object
       description: ''
       required:
@@ -489,166 +632,10 @@ components:
       example:
         Example Response 1:
           meta:
-            status: 401
-            code: ERR-401-NoApiKey
-            title: No API Key Error
-            message: No API key sent in header.
-            description: ''
-            links: []
-        Example Response 2:
-          meta:
-            status: 401
-            code: ERR-401-NoAccessKey
-            title: No Access Key Error
-            message: No access key sent in header.
-            description: ''
-            links: []
-        Example Response 3:
-          meta:
-            status: 401
-            code: ERR-401-InvalidApiKey
-            title: Invalid Api Key Error
-            message: Invalid API key.
-            description: ''
-            links: []
-        Example Response 4:
-          meta:
-            status: 401
-            code: ERR-401-InvalidAccessKey
-            title: Invalid Access Key Error
-            message: Invalid access key.
-            description: ''
-            links: []
-        Example Response 5:
-          meta:
-            status: 401
-            code: ERR-401-BadAccountStatus
-            title: Bad Account Status Error
-            message: Your account's status doesn't allow this action.
-            description: ''
-            links: []
-        Example Response 6:
-          meta:
-            status: 401
-            code: ERR-401-FeatureNotEnabled
-            title: Feature Not Enabled Error
-            message: This feature isn't enabled.
-            description: ''
-            links: []
-        Example Response 7:
-          meta:
-            status: 401
-            code: ERR-401-TrialExceeded
-            title: Bad Billing Status Error
-            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
-            description: ''
-            links: []
-        Example Response 8:
-          meta:
-            status: 401
-            code: ERR-401-ExpiredToken
-            title: JWT is expired
-            message: Token has exired.
-            description: ''
-            links: []
-        Example Response 9:
-          meta:
-            status: 401
-            code: ERR-401-InvalidToken
-            title: JWT is invalid
-            message: Token is invalid.
-            description: ''
-            links: []
-    Error403:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 403
-            code: ERR-403-RecordUnaccessible
-            title: Record Unaccessible Error
-            message: The requested resource isn't accessible.
-            description: ''
-            links: []
-    Error404:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 404
-            code: ERR-404-RecordNotFound
-            title: Record Not Found Error
-            message: The requested resource couldn't be found.
+            status: 410
+            code: ERR-410-RecordDeleted
+            title: Record Deleted Error
+            message: The requested resource has been deleted.
             description: ''
             links: []
     CreateVideoRequestModel:
@@ -740,6 +727,170 @@ components:
               description: "Specifies the behavior of token  authentication for the video, determining the level of access control.  Use this security when distributing sensitive or valuable video content to audiences. It ensures that only authorized users can access the  content within the intended application.\n\n**enum:** \n\n\n - **NO_TOKEN:** Video files are accessible and can be downloaded and played by anyone at any time. This is the default.      \n\n\n - **BASIC_TOKEN:** The platform automatically creates tokenized video URLs. This setting makes it hard for a viewer\n   to extract the video URL and store it for usage in unintended applications\n   over time since the embed URL, which has the token as part of the URL, \n   will only be playable for 48 hours. The token autorenews after 48 hours\n   when used in the intended application. \n\n\n - **ADVANCED_TOKEN:** You add the stream's JS embed code and a token to your\n  site to provide tokenization. The protections are similar to those for the **Basic\n Token** option except you customize the time limit, geographical limits,\n etc. during token creation. \n\n   You must either:\n    - Customize and generate a token via the Wowza Video 2.0 API to add\n      to your site before you can use this enum. You'll need to, first, generate a key id to create and \n       sign the token.\n\n    - Customize and generate a standard common access token (CAT) through \n        the means you usually use to create tokens before you can use this enum. You must, first, generate\n        a key id and key via the Wowza Video 2.0 API, to create and sign the token.\n\n - **FOLLOW_DEFAULT:** The token behavior is based on the **Default Playback Token Behavior**\n    setting you select for your Wowza account. See the <a href=\"https://www.wowza.com/docs/org-setting-page-in-wowza-video\" target=\"_blank\">Org Settings page in Wowza Video</a> article\n    for where to set this configuration. "
               example: NO_TOKEN
       description: Create Video request for the Wowza Video REST API
+    Error403:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 403
+            code: ERR-403-RecordUnaccessible
+            title: Record Unaccessible Error
+            message: The requested resource isn't accessible.
+            description: ''
+            links: []
+    ReuploadVideoRequestModel:
+      required:
+      - input
+      type: object
+      properties:
+        video:
+          type: object
+          title: video
+          description: ''
+          properties:
+            input:
+              $ref: '#/components/schemas/InputVideoRequest'
+      description: Reupload Video request for the Wowza Video REST API. In this request it's only possible to add a new version of the video file. To change the metadata, use the PATCH endpoint.
+    Error422:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. ... can't be blank
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. Provider wowza_video is not allowed
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
+            description: ''
+            links: []
+    ThumbnailResponse:
+      type: object
+      properties:
+        src:
+          type: string
+          description: Link to the VTT file.
+      description: Link to the VTT file used by the Thumbnails plug-in. See [Thumbnails](https://developer.wowza.com/docs/wowza-flowplayer/plugins/preview-thumbnails/) to learn more.
+    FetchInputRequest:
+      required:
+      - fetch_url
+      - method
+      type: object
+      properties:
+        method:
+          type: string
+          description: Method that video file will be provided. Fetches the video from the URL specified and makes a copy in Wowza Video.
+          example: FETCH
+          enum:
+          - FETCH
+        fetch_url:
+          type: string
+          description: URL to the video that the platform will download, encode, and serve to the player. We accept HTTP and HTTPS addresses. Required if the select method is `FETCH`.
+          example: https://example.com/video.mp4
+        fetch_image_url:
+          type: string
+          description: URL to an image the platform will download and serve in the player as poster image. We accept HTTP and HTTPS addresses. Required if the select method is `FETCH`.
+          example: https://example.com/image.jpg
     PatchVideoRequestModel:
       type: object
       properties:
@@ -883,90 +1034,31 @@ components:
           format: int64
           example: 8325555
       description: Array containing all available Video files and their metadata
-    Error410:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 410
-            code: ERR-410-RecordDeleted
-            title: Record Deleted Error
-            message: The requested resource has been deleted.
-            description: ''
-            links: []
-    DirectInputRequest:
-      required:
-      - method
+    ImageModel:
       type: object
       properties:
-        method:
+        type:
           type: string
-          description: 'Method that video file will be provided. Indicates that you''ll upload a video from local storage. Use the `upload_url` parameter in the response to do the actual upload of the video. '
-          example: DIRECT
+          description: Image type where valid values are `thumbnail` or `image`. `thumbnail` is a smaller image and `image` is larger. Size of the images depends on the size of the uploaded image.
           enum:
-          - DIRECT
-    ThumbnailResponse:
-      type: object
-      properties:
-        src:
+          - thumbnail
+          - image
+          - image_0
+          - image_1
+          - image_2
+          - image_3
+          - image_4
+          - image_5
+        url:
           type: string
-          description: Link to the VTT file.
-      description: Link to the VTT file used by the Thumbnails plug-in. See [Thumbnails](https://developer.wowza.com/docs/wowza-flowplayer/plugins/preview-thumbnails/) to learn more.
-    DRMConfigModel:
-      type: object
-      properties:
-        com.widevine.alpha:
-          $ref: '#/components/schemas/DRMProviderConfigModel'
-        com.apple.fps.1_0:
-          $ref: '#/components/schemas/DRMProviderConfigModel'
-        com.microsoft.playready:
-          $ref: '#/components/schemas/DRMProviderConfigModel'
-      description: Contains all DRM configurations for one video.
-    VideoList:
-      type: object
-      properties:
-        videos:
-          type: array
-          description: The list of videos
-          items:
-            $ref: '#/components/schemas/VideoListModel'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
+          description: The URL to the image. We accept HTTP and HTTPS addresses.
+          example: https://example.com/image.jpg
+      description: 'Images used together with the video in the platform and the player.
+
+
+        For platform video images specified in create and update requests, these are uploaded and delivered through the platform. For remote assets, the specified image URLs are just passed along to the player using the URL specified in the request.
+
+        '
     Pagination:
       type: object
       properties:
@@ -1006,203 +1098,62 @@ components:
           description: The index of the last record in the response.
           format: int32
           example: 10
-    CreateVideoResponseModel:
+    VideoList:
       type: object
       properties:
-        video:
+        videos:
+          type: array
+          description: The list of videos
+          items:
+            $ref: '#/components/schemas/VideoListModel'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    Error404:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
           type: object
-          title: video
+          title: meta
           description: ''
           properties:
-            id:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
               type: string
-              description: The unique identifier for the video.
-              example: 2aa3343e-2fb5-42c3-8671-b52c24b7c3e2
-            name:
+              description: ''
+              example: ''
+            title:
               type: string
-              description: The video name. Can be displayed in the player. If not specified, it will default to the input file's name.
-              example: My video
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
             description:
               type: string
-              description: The video description. Can be displayed in the player.
-              example: A new video for my business.
-            duration_in_ms:
-              type: integer
-              description: Duration of the video in milliseconds.
-              format: int64
-            unpublish:
-              type: boolean
-              description: If `true`, the `unpublish_date` is respected and the video will not be available after `unpublish_date`. If `false`, the video will not be unpublished.
-              default: true
-            unpublished_at:
-              type: string
-              description: Date and time, in ISO-8601 format, when video no longer is available for publishing. After this date, the video is not visible in the player if using `ovp-plugin` to request the video.
-              format: date-time
-              example: '2025-01-01T12:33:22Z'
-            published:
-              type: boolean
-              description: This field, together with `publish_date` and `unpublish_date`, determines if this video will be visible in public listings such as MRSS-feeds, endscreens and playlists. If `true`, and `publish_date` and `unpublish_date` allows, the video will be visible.
-            published_at:
-              type: string
-              description: Date and time, in ISO-8601 format, when video is available for publishing. Before this date the video is not visible in the player if using `ovp-plugin` to request the video.
-              format: date-time
-              example: '2024-01-01T12:33:22Z'
-            tags:
+              description: ''
+              example: ''
+            links:
               type: array
-              description: An array of tags.
-              example:
-              - foo
-              - bar
-              items:
-                type: string
-                description: An array of tags.
-                example:
-                - foo
-                - bar
-            category_id:
-              type: string
-              description: The unique identifier for the category that the video belongs to.
-              default: <The account's default category>
-            ad_insertion_points:
-              type: array
-              description: 'A list of ad insertion points specified for a video. Ad insertion points are pre-defined locations in a video where advertisements are placed during playback. Ads can be inserted at pre-roll (at the beginning of the video), mid-roll (during the video), or post-roll (at the end of the video) position(s).
-
-
-
-
-
-                **Note**: Ad insertion points are only applicable for <a href="https://www.wowza.com/docs/get-started-with-advertising-in-wowza-video#client-side-ad-insertion-csai-%C2%A00">client-side ad insertion</a>. If you create mid-roll ad insertion points for a video, for example, they overwrite any mid-roll ad positions created using the <a href="https://www.wowza.com/docs/create-a-video-ad-serving-template-vast-ad-schedule-in-wowza-video">Video Ad Serving Template ad schedule</a> form. This is because the ad insertion points created using the Wowza Video 2.0 API are time-specific and more accurate than the percentages chosen in the Video Ad Serving Template ad schedule page.'
-              items:
-                type: object
-                description: ''
-                properties:
-                  offset_from_start_in_ms:
-                    type: integer
-                    description: Specifies the time offset from the start of the video in milliseconds. This parameter determines the point in the video at which the ad break begins.
-                    format: int64
-                    example: 20000
-                  description:
-                    type: string
-                    description: The description of the ad position. For example, it can be an ad position in a video such as pre-roll, mid-roll, and post-roll.
-                    example: mid-roll
-            no_ads:
-              type: boolean
-              description: "When set to `true`, no ads will be displayed during this video. \n\n**Note**: This feature only works for Iframe embeds."
-            ad_keywords:
-              type: string
-              description: 'Used for replacing the `ad_keywords` macro in the VAST-tag in any player that plays the video. '
-              example: special_ads
-            created_at:
-              type: string
-              description: Date and time, in ISO-8601 format, when video was created.
-              format: date-time
-              example: '2025-01-01T12:33:22Z'
-            updated_at:
-              type: string
-              description: Date and time, in ISO-8601 format, when video was updated.
-              format: date-time
-              example: '2024-01-01T12:33:22Z'
-            state:
-              type: string
-              description: 'The current state of the video. The state reflects the current status of the video files for the video asset. Possible states listed below:
-
-
-
-                | State | Description |
-
-                |-----------|-------|
-
-                | UPLOADING  | The source file is currently being uploaded or waiting to be downloaded by our API. |
-
-                | WAITING_FOR_ENCODER | The source file was successfully downloaded by the platform and is in queue to be encoded. |
-
-                | PROCESSING  | Source file for the asset is encoding. The current encoding progress can be found on `encoding_progress` property. |
-
-                | FINISHED | The encoding is done and the encoded files can be fetched. In this state it''s possible to embed the video. |
-
-                | ERROR  | If the platform, for some reason, could not download the source file or failed during the encoding process. `error_messsage` property can give more information about why it errored.  |
-
-                | DELETED  | The video files have been deleted. Usually the Video asset have been deleted when this state is reached and because of that it''s very uncommon to see assets with this state. |
-
-                '
-              example: FINISHED
-            encoding_progress:
-              type: number
-              description: Progress of video encoding, in percentage. The max value, `100`, is reached when all video files have been encoded.
-              format: double
-            upload_progress:
-              type: number
-              description: Progress of source file upload, in percentage. If the value is `100`, the source file is uploaded.
-              format: double
-            error_message:
-              type: string
-              description: If the platform failed to encode the source file, a message describing the error reason will be presented in this property.
-            deactivated:
-              type: boolean
-              description: If `true`, this video has been deactivated and is no longer available for embedding. This usually happens if the account was cancelled or trial limits were exceeded.
-              default: false
-            images:
-              type: array
-              description: 'Images used together with the video in the platform and the player.
-
-
-                For platform video images specified in create and update requests, these are uploaded and delivered through the platform. For remote assets, the specified image URLs are passed along to the player using the URL specified in the request.
-
-                '
-              items:
-                $ref: '#/components/schemas/ImageModel'
-            encodings:
-              type: array
-              description: Array containing all available video files and their metadata.
-              items:
-                $ref: '#/components/schemas/EncodingModel'
-            drm:
-              $ref: '#/components/schemas/DRMConfigModel'
-            shallow_copy:
-              type: boolean
-              description: 'Whether this video is a shallow copy of another video. A shallow copy uses video files controlled by another video, usually on another workspace.
-
-
-
-                Videos that are shallow copies can''t use all features available for normal videos. For example, it''s not possible to upload a new version of the video.
-
-
-
-                Another difference is that deleting the video will not delete any video files. If the video asset that is the source of the copy is deleted, the files will no longer be available for this asset.
-
-
-                '
-            shallow_copy_source_id:
-              type: string
-              description: 'If the video is a shallow copy, this field contains the ID of the source video entity.
-
-
-                Note: There are cases where it is not possible to identify the source and in those cases this value will be `null`.'
-            multiple_audio_tracks:
-              type: boolean
-              description: If `true`, this video has several different audio tracks available for the player. For example, there may be audio tracks in different languages.
-            audio_only:
-              type: boolean
-              description: If `true`, this video has no video track but only audio tracks.
-            version:
-              type: integer
-              description: Tracks the number of times a new source file was uploaded for this video asset. For each time a new source file is uploaded, the value increases by one.
-              format: int32
-            thumbnails:
-              $ref: '#/components/schemas/ThumbnailResponse'
-            animated_previews:
-              type: array
-              description: The animated previews for the video.
-              items:
-                $ref: '#/components/schemas/AnimatedPreviewModel'
-            playback_token_behavior:
-              type: string
-              description: "Specifies the behavior of token  authentication for the video, determining the level of access control.  Use this security when distributing sensitive or valuable video content to audiences. It ensures that only authorized users can access the  content within the intended application.\n\n**enum:** \n\n\n - **NO_TOKEN:** Video files are accessible and can be downloaded and played by anyone at any time. This is the default.      \n\n\n - **BASIC_TOKEN:** The platform automatically creates tokenized video URLs. This setting makes it hard for a viewer\n   to extract the video URL and store it for usage in unintended applications\n  over time since the embed URL, which has the token as part of the URL, \n  will only be playable for 48 hours. The token autorenews after 48 hours\n  when used in the intended application. \n\n\n - **ADVANCED_TOKEN:** You add the stream's JS embed code and a token to your\n  site to provide tokenization. The protections are similar to those for the **Basic\n  Token** option except you customize the time limit, geographical limits,\n  etc. during token creation. \n\n    You must either:\n     - Customize and generate a token via the Wowza Video 2.0 API to add\n       to your site before you can use this enum. You'll need to, first, generate a key id to create and \n       sign the token.\n\n     - Customize and generate a standard common access token (CAT) through \n       the means you usually use to create tokens before you can use this enum. You must, first, generate\n        a key id and key via the Wowza Video 2.0 API, to create and sign the token.\n\n - **FOLLOW_DEFAULT:** The token behavior is based on the **Default Playback Token Behavior**\n  setting you select for your Wowza account. See the <a href=\"https://www.wowza.com/docs/org-setting-page-in-wowza-video\" target=\"_blank\">Org Settings page in Wowza Video</a> article\n   for where to set this configuration. "
-              example: NO_TOKEN
-            upload_url:
-              type: string
-              description: If input method `DIRECT` was select, this field contains the signed URL that will be used to upload the file.
-      description: Video Response from the Wowza Video REST API
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 404
+            code: ERR-404-RecordNotFound
+            title: Record Not Found Error
+            message: The requested resource couldn't be found.
+            description: ''
+            links: []
     VideoResponseModel:
       type: object
       properties:
@@ -1419,7 +1370,214 @@ components:
                   example: hvpcp3kn
               description: The origin of the video.
       description: Video Response from the Wowza Video REST API
-    Error422:
+    DRMProviderConfigModel:
+      type: object
+      properties:
+        license_server:
+          type: string
+          description: URL to the license server that can validate the license.
+        certificate:
+          type: string
+          description: 'Note: This field is only needed for Fairplay DRM. URL to the Fairplay certificate. '
+      description: Contains configuration for one DRM provider.
+    CreateVideoResponseModel:
+      type: object
+      properties:
+        video:
+          type: object
+          title: video
+          description: ''
+          properties:
+            id:
+              type: string
+              description: The unique identifier for the video.
+              example: 2aa3343e-2fb5-42c3-8671-b52c24b7c3e2
+            name:
+              type: string
+              description: The video name. Can be displayed in the player. If not specified, it will default to the input file's name.
+              example: My video
+            description:
+              type: string
+              description: The video description. Can be displayed in the player.
+              example: A new video for my business.
+            duration_in_ms:
+              type: integer
+              description: Duration of the video in milliseconds.
+              format: int64
+            unpublish:
+              type: boolean
+              description: If `true`, the `unpublish_date` is respected and the video will not be available after `unpublish_date`. If `false`, the video will not be unpublished.
+              default: true
+            unpublished_at:
+              type: string
+              description: Date and time, in ISO-8601 format, when video no longer is available for publishing. After this date, the video is not visible in the player if using `ovp-plugin` to request the video.
+              format: date-time
+              example: '2025-01-01T12:33:22Z'
+            published:
+              type: boolean
+              description: This field, together with `publish_date` and `unpublish_date`, determines if this video will be visible in public listings such as MRSS-feeds, endscreens and playlists. If `true`, and `publish_date` and `unpublish_date` allows, the video will be visible.
+            published_at:
+              type: string
+              description: Date and time, in ISO-8601 format, when video is available for publishing. Before this date the video is not visible in the player if using `ovp-plugin` to request the video.
+              format: date-time
+              example: '2024-01-01T12:33:22Z'
+            tags:
+              type: array
+              description: An array of tags.
+              example:
+              - foo
+              - bar
+              items:
+                type: string
+                description: An array of tags.
+                example:
+                - foo
+                - bar
+            category_id:
+              type: string
+              description: The unique identifier for the category that the video belongs to.
+              default: <The account's default category>
+            ad_insertion_points:
+              type: array
+              description: 'A list of ad insertion points specified for a video. Ad insertion points are pre-defined locations in a video where advertisements are placed during playback. Ads can be inserted at pre-roll (at the beginning of the video), mid-roll (during the video), or post-roll (at the end of the video) position(s).
+
+
+
+
+
+                **Note**: Ad insertion points are only applicable for <a href="https://www.wowza.com/docs/get-started-with-advertising-in-wowza-video#client-side-ad-insertion-csai-%C2%A00">client-side ad insertion</a>. If you create mid-roll ad insertion points for a video, for example, they overwrite any mid-roll ad positions created using the <a href="https://www.wowza.com/docs/create-a-video-ad-serving-template-vast-ad-schedule-in-wowza-video">Video Ad Serving Template ad schedule</a> form. This is because the ad insertion points created using the Wowza Video 2.0 API are time-specific and more accurate than the percentages chosen in the Video Ad Serving Template ad schedule page.'
+              items:
+                type: object
+                description: ''
+                properties:
+                  offset_from_start_in_ms:
+                    type: integer
+                    description: Specifies the time offset from the start of the video in milliseconds. This parameter determines the point in the video at which the ad break begins.
+                    format: int64
+                    example: 20000
+                  description:
+                    type: string
+                    description: The description of the ad position. For example, it can be an ad position in a video such as pre-roll, mid-roll, and post-roll.
+                    example: mid-roll
+            no_ads:
+              type: boolean
+              description: "When set to `true`, no ads will be displayed during this video. \n\n**Note**: This feature only works for Iframe embeds."
+            ad_keywords:
+              type: string
+              description: 'Used for replacing the `ad_keywords` macro in the VAST-tag in any player that plays the video. '
+              example: special_ads
+            created_at:
+              type: string
+              description: Date and time, in ISO-8601 format, when video was created.
+              format: date-time
+              example: '2025-01-01T12:33:22Z'
+            updated_at:
+              type: string
+              description: Date and time, in ISO-8601 format, when video was updated.
+              format: date-time
+              example: '2024-01-01T12:33:22Z'
+            state:
+              type: string
+              description: 'The current state of the video. The state reflects the current status of the video files for the video asset. Possible states listed below:
+
+
+
+                | State | Description |
+
+                |-----------|-------|
+
+                | UPLOADING  | The source file is currently being uploaded or waiting to be downloaded by our API. |
+
+                | WAITING_FOR_ENCODER | The source file was successfully downloaded by the platform and is in queue to be encoded. |
+
+                | PROCESSING  | Source file for the asset is encoding. The current encoding progress can be found on `encoding_progress` property. |
+
+                | FINISHED | The encoding is done and the encoded files can be fetched. In this state it''s possible to embed the video. |
+
+                | ERROR  | If the platform, for some reason, could not download the source file or failed during the encoding process. `error_messsage` property can give more information about why it errored.  |
+
+                | DELETED  | The video files have been deleted. Usually the Video asset have been deleted when this state is reached and because of that it''s very uncommon to see assets with this state. |
+
+                '
+              example: FINISHED
+            encoding_progress:
+              type: number
+              description: Progress of video encoding, in percentage. The max value, `100`, is reached when all video files have been encoded.
+              format: double
+            upload_progress:
+              type: number
+              description: Progress of source file upload, in percentage. If the value is `100`, the source file is uploaded.
+              format: double
+            error_message:
+              type: string
+              description: If the platform failed to encode the source file, a message describing the error reason will be presented in this property.
+            deactivated:
+              type: boolean
+              description: If `true`, this video has been deactivated and is no longer available for embedding. This usually happens if the account was cancelled or trial limits were exceeded.
+              default: false
+            images:
+              type: array
+              description: 'Images used together with the video in the platform and the player.
+
+
+                For platform video images specified in create and update requests, these are uploaded and delivered through the platform. For remote assets, the specified image URLs are passed along to the player using the URL specified in the request.
+
+                '
+              items:
+                $ref: '#/components/schemas/ImageModel'
+            encodings:
+              type: array
+              description: Array containing all available video files and their metadata.
+              items:
+                $ref: '#/components/schemas/EncodingModel'
+            drm:
+              $ref: '#/components/schemas/DRMConfigModel'
+            shallow_copy:
+              type: boolean
+              description: 'Whether this video is a shallow copy of another video. A shallow copy uses video files controlled by another video, usually on another workspace.
+
+
+
+                Videos that are shallow copies can''t use all features available for normal videos. For example, it''s not possible to upload a new version of the video.
+
+
+
+                Another difference is that deleting the video will not delete any video files. If the video asset that is the source of the copy is deleted, the files will no longer be available for this asset.
+
+
+                '
+            shallow_copy_source_id:
+              type: string
+              description: 'If the video is a shallow copy, this field contains the ID of the source video entity.
+
+
+                Note: There are cases where it is not possible to identify the source and in those cases this value will be `null`.'
+            multiple_audio_tracks:
+              type: boolean
+              description: If `true`, this video has several different audio tracks available for the player. For example, there may be audio tracks in different languages.
+            audio_only:
+              type: boolean
+              description: If `true`, this video has no video track but only audio tracks.
+            version:
+              type: integer
+              description: Tracks the number of times a new source file was uploaded for this video asset. For each time a new source file is uploaded, the value increases by one.
+              format: int32
+            thumbnails:
+              $ref: '#/components/schemas/ThumbnailResponse'
+            animated_previews:
+              type: array
+              description: The animated previews for the video.
+              items:
+                $ref: '#/components/schemas/AnimatedPreviewModel'
+            playback_token_behavior:
+              type: string
+              description: "Specifies the behavior of token  authentication for the video, determining the level of access control.  Use this security when distributing sensitive or valuable video content to audiences. It ensures that only authorized users can access the  content within the intended application.\n\n**enum:** \n\n\n - **NO_TOKEN:** Video files are accessible and can be downloaded and played by anyone at any time. This is the default.      \n\n\n - **BASIC_TOKEN:** The platform automatically creates tokenized video URLs. This setting makes it hard for a viewer\n   to extract the video URL and store it for usage in unintended applications\n  over time since the embed URL, which has the token as part of the URL, \n  will only be playable for 48 hours. The token autorenews after 48 hours\n  when used in the intended application. \n\n\n - **ADVANCED_TOKEN:** You add the stream's JS embed code and a token to your\n  site to provide tokenization. The protections are similar to those for the **Basic\n  Token** option except you customize the time limit, geographical limits,\n  etc. during token creation. \n\n    You must either:\n     - Customize and generate a token via the Wowza Video 2.0 API to add\n       to your site before you can use this enum. You'll need to, first, generate a key id to create and \n       sign the token.\n\n     - Customize and generate a standard common access token (CAT) through \n       the means you usually use to create tokens before you can use this enum. You must, first, generate\n        a key id and key via the Wowza Video 2.0 API, to create and sign the token.\n\n - **FOLLOW_DEFAULT:** The token behavior is based on the **Default Playback Token Behavior**\n  setting you select for your Wowza account. See the <a href=\"https://www.wowza.com/docs/org-setting-page-in-wowza-video\" target=\"_blank\">Org Settings page in Wowza Video</a> article\n   for where to set this configuration. "
+              example: NO_TOKEN
+            upload_url:
+              type: string
+              description: If input method `DIRECT` was select, this field contains the signed URL that will be used to upload the file.
+      description: Video Response from the Wowza Video REST API
+    Error401:
       type: object
       description: ''
       required:
@@ -1459,234 +1617,76 @@ components:
       example:
         Example Response 1:
           meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. ... can't be blank
+            status: 401
+            code: ERR-401-NoApiKey
+            title: No API Key Error
+            message: No API key sent in header.
             description: ''
             links: []
         Example Response 2:
           meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. Provider wowza_video is not allowed
+            status: 401
+            code: ERR-401-NoAccessKey
+            title: No Access Key Error
+            message: No access key sent in header.
             description: ''
             links: []
         Example Response 3:
           meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
+            status: 401
+            code: ERR-401-InvalidApiKey
+            title: Invalid Api Key Error
+            message: Invalid API key.
             description: ''
             links: []
         Example Response 4:
           meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
+            status: 401
+            code: ERR-401-InvalidAccessKey
+            title: Invalid Access Key Error
+            message: Invalid access key.
             description: ''
             links: []
         Example Response 5:
           meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
+            status: 401
+            code: ERR-401-BadAccountStatus
+            title: Bad Account Status Error
+            message: Your account's status doesn't allow this action.
             description: ''
             links: []
-    FetchInputRequest:
-      required:
-      - fetch_url
-      - method
-      type: object
-      properties:
-        method:
-          type: string
-          description: Method that video file will be provided. Fetches the video from the URL specified and makes a copy in Wowza Video.
-          example: FETCH
-          enum:
-          - FETCH
-        fetch_url:
-          type: string
-          description: URL to the video that the platform will download, encode, and serve to the player. We accept HTTP and HTTPS addresses. Required if the select method is `FETCH`.
-          example: https://example.com/video.mp4
-        fetch_image_url:
-          type: string
-          description: URL to an image the platform will download and serve in the player as poster image. We accept HTTP and HTTPS addresses. Required if the select method is `FETCH`.
-          example: https://example.com/image.jpg
-    AnimatedPreviewModel:
-      type: object
-      properties:
-        url:
-          type: string
-        type:
-          type: string
-        height:
-          type: integer
-          description: Height of the animated preview in pixels.
-          format: int32
-          example: 1080
-        width:
-          type: integer
-          description: Width of the animated preview in pixels.
-          format: int32
-          example: 1920
-      description: The animated previews for the video.
-    DRMProviderConfigModel:
-      type: object
-      properties:
-        license_server:
-          type: string
-          description: URL to the license server that can validate the license.
-        certificate:
-          type: string
-          description: 'Note: This field is only needed for Fairplay DRM. URL to the Fairplay certificate. '
-      description: Contains configuration for one DRM provider.
-    ImageModel:
-      type: object
-      properties:
-        type:
-          type: string
-          description: Image type where valid values are `thumbnail` or `image`. `thumbnail` is a smaller image and `image` is larger. Size of the images depends on the size of the uploaded image.
-          enum:
-          - thumbnail
-          - image
-          - image_0
-          - image_1
-          - image_2
-          - image_3
-          - image_4
-          - image_5
-        url:
-          type: string
-          description: The URL to the image. We accept HTTP and HTTPS addresses.
-          example: https://example.com/image.jpg
-      description: 'Images used together with the video in the platform and the player.
-
-
-        For platform video images specified in create and update requests, these are uploaded and delivered through the platform. For remote assets, the specified image URLs are just passed along to the player using the URL specified in the request.
-
-        '
-    VideoListModel:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the video.
-          example: 2aa3343e-2fb5-42c3-8671-b52c24b7c3e2
-        name:
-          type: string
-          description: The video name. Can be displayed in the player. If not specified, it will default to the input file's name.
-          example: My video
-        description:
-          type: string
-          description: The video description. Can be displayed in the player.
-          example: A new video for my business.
-        duration_in_ms:
-          type: integer
-          description: Duration of the video in milliseconds.
-          format: int64
-        unpublish:
-          type: boolean
-          description: If `true`, the `unpublish_date` is respected and the video will not be available after `unpublish_date`. If `false`, the video will not be unpublished.
-          default: true
-        unpublished_at:
-          type: string
-          description: Date and time, in ISO-8601 format, when the video no longer is available for publishing. After this date, the video is not visible in the player if using `ovp-plugin` to request the video.
-          format: date-time
-          example: '2025-01-01T12:33:22Z'
-        published:
-          type: boolean
-          description: This field, together with `publish_date` and `unpublish_date`, determines if this video will be visible in public listings such as MRSS-feeds, endscreens, and playlists. If `true` and `publish_date` and `unpublish_date` allows, the video will be visible.
-        published_at:
-          type: string
-          description: Date and time, in ISO-8601 format, when the video is available for publishing. Before this date, the video is not visible in the player if using `ovp-plugin` to request the video.
-          format: date-time
-          example: '2024-01-01T12:33:22Z'
-        tags:
-          type: array
-          description: An array of tags.
-          example:
-          - foo
-          - bar
-          items:
-            type: string
-            description: An array of tags.
-            example:
-            - foo
-            - bar
-        category_id:
-          type: string
-          description: The unique identifier for the category that the video belongs to.
-          default: <The account's default category>
-        no_ads:
-          type: boolean
-          description: "When set to `true`, no ads will be displayed during this video. \n\n**Note**: This feature only works for Iframe embeds."
-        ad_keywords:
-          type: string
-          description: 'Used for replacing the `ad_keywords` macro in the VAST-tag in any player that plays the video. '
-          example: special_ads
-        created_at:
-          type: string
-          description: Date and time, in ISO-8601 format, when the video was created.
-          format: date-time
-          example: '2024-01-01T12:33:22Z'
-        updated_at:
-          type: string
-          description: Date and time, in ISO-8601 format, when the video was updated.
-          format: date-time
-          example: '2024-01-01T12:33:22Z'
-        state:
-          type: string
-          description: 'The current state of the video. The state reflects the current status of the video files for the video asset. Possible states listed below:
-
-
-
-            | State | Description |
-
-            |-----------|-------|
-
-            | UPLOADING  | The source file is currently being uploaded or waiting to be downloaded by our API. |
-
-            | WAITING_FOR_ENCODER | The source file was successfully downloaded by the platform and is in queue to be encoded. |
-
-            | PROCESSING  | Source file for the asset is encoding. The current encoding progress can be found on `encoding_progress` property. |
-
-            | FINISHED | The encoding is done and the encoded files can be fetched. In this state it''s possible to embed the video. |
-
-            | ERROR  | If the platform, for some reason, could not download the source file or failed during the encoding process. `error_messsage` property can give more information about why it errored.  |
-
-            | DELETED  | The video files have been deleted. Usually the video asset have been deleted when this state is reached and because of that it''s very uncommon to see assets with this state. |
-
-            '
-          example: FINISHED
-        playback_token_behavior:
-          type: string
-          description: "Specifies the behavior of token  authentication for the video, determining the level of access control.  Use this security when distributing sensitive or valuable video content to audiences. It ensures that only authorized users can access the  content within the intended application.\n\n**enum:** \n\n\n - **NO_TOKEN:** Video files are accessible and can be downloaded and played by anyone at any time. This is the default.      \n\n\n - **BASIC_TOKEN:** The platform automatically creates tokenized video URLs. This setting makes it hard for a viewer\n to extract the video URL and store it for usage in unintended applications\n over time since the embed URL, which has the token as part of the URL, \n will only be playable for 48 hours. The token autorenews after 48 hours\n when used in the intended application. \n\n\n - **ADVANCED_TOKEN:** You add the stream's JS embed code and a token to your\n  site to provide tokenization. The protections are similar to those for the **Basic\n  Token** option except you customize the time limit, geographical limits,\n etc. during token creation. \n\n   You must either:\n     - Customize and generate a token via the Wowza Video 2.0 API to add\n     to your site before you can use this enum. You'll need to, first, generate a key id to create and \n     sign the token.\n\n     - Customize and generate a standard common access token (CAT) through \n     the means you usually use to create tokens before you can use this enum. You must, first, generate\n     a key id and key via the Wowza Video 2.0 API, to create and sign the token.\n\n - **FOLLOW_DEFAULT:** The token behavior is based on the **Default Playback Token Behavior**\n setting you select for your Wowza account. See the <a href=\"https://www.wowza.com/docs/org-setting-page-in-wowza-video\" target=\"_blank\">Org Settings page in Wowza Video</a> article\n for where to set this configuration. "
-          example: NO_TOKEN
-      description: List Video response from the Wowza Video REST API
-    InputVideoRequest:
-      type: object
-      description: "Specifies the input method for uploading the video.\n\nThere are two methods to choose from: `DIRECT` or `FETCH`. \n\nExpand the `input` description, by clicking the **>** next to the `input` label, then click each tab to learn about the methods.\n\nLearn more:\n\n- [Upload a video from local storage](https://developer.wowza.com/docs/wowza-video/guides/videos/upload-a-video-locally)\n- [Upload a video from external storage](https://developer.wowza.com/docs/wowza-video/guides/videos/upload-a-video-external)"
-      oneOf:
-      - $ref: '#/components/schemas/DirectInputRequest'
-      - $ref: '#/components/schemas/FetchInputRequest'
-    ReuploadVideoRequestModel:
-      required:
-      - input
-      type: object
-      properties:
-        video:
-          type: object
-          title: video
-          description: ''
-          properties:
-            input:
-              $ref: '#/components/schemas/InputVideoRequest'
-      description: Reupload Video request for the Wowza Video REST API. In this request it's only possible to add a new version of the video file. To change the metadata, use the PATCH endpoint.
+        Example Response 6:
+          meta:
+            status: 401
+            code: ERR-401-FeatureNotEnabled
+            title: Feature Not Enabled Error
+            message: This feature isn't enabled.
+            description: ''
+            links: []
+        Example Response 7:
+          meta:
+            status: 401
+            code: ERR-401-TrialExceeded
+            title: Bad Billing Status Error
+            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
+            description: ''
+            links: []
+        Example Response 8:
+          meta:
+            status: 401
+            code: ERR-401-ExpiredToken
+            title: JWT is expired
+            message: Token has exired.
+            description: ''
+            links: []
+        Example Response 9:
+          meta:
+            status: 401
+            code: ERR-401-InvalidToken
+            title: JWT is invalid
+            message: Token is invalid.
+            description: ''
+            links: []
   securitySchemes:
     WV_JWT:
       type: http
