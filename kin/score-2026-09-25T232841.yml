@@ -1,24 +1,22 @@
-# Kin Score artifact — wowza — 2026-08-28T221322
+# Kin Score artifact — wowza — 2026-09-25T232841
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: wowza
-  schema_version: 0.15.1
-  scored_at: '2026-08-28'
-  run_ts: 2026-08-28T221322
-  composite: 50.2
-  band: developing
+  schema_version: 0.23.0
+  scored_at: '2026-09-25'
+  run_ts: 2026-09-25T232841
+  composite: 54.4
+  band: strong
   facets:
-    discoverability: 68.5
-    contract_quality: 53.7
-    governance: 0.0
+    discoverability: 51.8
+    contract_quality: 52.3
+    contract_governance: 0.0
     operational_transparency: 36.8
     developer_ergonomics: 81.0
-    commercial_clarity: 44.7
-    contract_governance: 0.0
-    access_clarity: 44.7
+    access_clarity: 76.3
   agent_readiness:
-    score: 25.5
+    score: 28.1
     band: agent-aware
     dimensions:
       spec_presence: true
@@ -29,7 +27,7 @@ kin_score:
       idempotency: false
       error_semantics: verified
       openapi_examples: partial
-      rate_limit_signal: false
+      rate_limit_signal: documented
       event_surface_described: false
       agent_skills: false
       well_known_catalog: false
@@ -40,10 +38,16 @@ kin_score:
       protected_resource_metadata: false
       dynamic_client_registration: false
       agentic_commerce: false
+  regulatory:
+    applies: true
+    regime: Horizontal (data, software, accessibility, platform)
+    regime_id: horizontal
+    score: 19.6
+    matched_via: fallback
   provenance:
     agentic_access: derived
     contracts:
       total: 44
       derived: 0
       coverage: 0.0
-      callable: 0.0
+      callable: 100.0
