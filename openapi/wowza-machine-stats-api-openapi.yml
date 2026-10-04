@@ -64,9 +64,6 @@ paths:
           description: Internal server error
 components:
   schemas:
-    Integer:
-      type: object
-      properties: {}
     CurrentMachineStatistics:
       type: object
       properties:
@@ -115,9 +112,6 @@ components:
       - diskFree
       - diskUsed
       - connectionCount
-    Long:
-      type: object
-      properties: {}
     HistoricMachineStatistics:
       type: object
       properties:
@@ -133,6 +127,12 @@ components:
       - version
       - serverName
       - entries
+    Long:
+      type: object
+      properties: {}
+    Integer:
+      type: object
+      properties: {}
   securitySchemes:
     basicAuth:
       type: http

@@ -104,6 +104,23 @@ paths:
                 $ref: '#/components/schemas/Error401'
 components:
   schemas:
+    usage_storage_current:
+      type: object
+      description: ''
+      properties:
+        recording_bytes:
+          type: integer
+          description: The amount, in bytes, used to store all recordings.
+          example: ''
+          format: int32
+        vod_stream_bytes:
+          type: integer
+          description: The amount, in bytes, used to store all VOD streams.
+          example: ''
+          format: int32
+      example:
+        recording_bytes: 1057200777662
+        vod_stream_bytes: 2142226694010
     usage_storage_peak:
       type: object
       description: ''
@@ -132,23 +149,6 @@ components:
         limits:
           from: '2019-12-07T00:00:00.000Z'
           to: '2019-12-21T00:00:00.000Z'
-    usage_storage_current:
-      type: object
-      description: ''
-      properties:
-        recording_bytes:
-          type: integer
-          description: The amount, in bytes, used to store all recordings.
-          example: ''
-          format: int32
-        vod_stream_bytes:
-          type: integer
-          description: The amount, in bytes, used to store all VOD streams.
-          example: ''
-          format: int32
-      example:
-        recording_bytes: 1057200777662
-        vod_stream_bytes: 2142226694010
     Error401:
       type: object
       description: ''

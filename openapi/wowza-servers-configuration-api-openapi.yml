@@ -614,6 +614,105 @@ paths:
           description: Internal server error
 components:
   schemas:
+    VHostListenerConfig:
+      type: object
+      properties:
+        baseclass:
+          type: string
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        order:
+          type: integer
+          format: int32
+      required:
+      - version
+      - serverName
+      - order
+      - baseclass
+    ServerLogFilesConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        serverLogFiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServerLogShortObject'
+      required:
+      - version
+      - serverName
+      - serverLogFiles
+    ServerLogTypesConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        serverLogType:
+          type: array
+          items:
+            type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - serverLogType
+    VHostListenersConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        vhostListeners:
+          type: array
+          items:
+            $ref: '#/components/schemas/VHostListenerConfig'
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - vhostListeners
+    ServerListenerConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        baseClass:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        order:
+          type: integer
+          format: int32
+      required:
+      - version
+      - serverName
+      - order
+      - baseClass
     ServerLogFileConfig:
       type: object
       properties:
@@ -679,98 +778,6 @@ components:
       - regexSearch
       - startDate
       - endDate
-    VHostListenerConfig:
-      type: object
-      properties:
-        baseclass:
-          type: string
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-        order:
-          type: integer
-          format: int32
-      required:
-      - version
-      - serverName
-      - order
-      - baseclass
-    SourceDriverNamesList:
-      type: object
-      properties:
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        list:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - list
-    ServerLogTypesConfig:
-      type: object
-      properties:
-        serverName:
-          type: string
-        serverLogType:
-          type: array
-          items:
-            type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - serverLogType
-    ServerLogFileDownloadConfig:
-      type: object
-      properties:
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-    ServersConfig:
-      type: object
-      properties:
-        servers:
-          type: array
-          items:
-            $ref: '#/components/schemas/ServerConfig'
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - servers
     ServerListenersConfig:
       type: object
       properties:
@@ -790,46 +797,24 @@ components:
       - version
       - serverName
       - serverListeners
-    ServerListenerConfig:
+    ServerLogShortObject:
       type: object
       properties:
-        serverName:
-          type: string
-        baseClass:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-        order:
+        fileSize:
           type: integer
-          format: int32
-      required:
-      - version
-      - serverName
-      - order
-      - baseClass
-    ServerLogFilesConfig:
-      type: object
-      properties:
-        serverName:
+          format: int64
+        startDateMS:
+          type: integer
+          format: int64
+        id:
           type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
+        href:
           type: string
-        serverLogFiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/ServerLogShortObject'
       required:
-      - version
-      - serverName
-      - serverLogFiles
+      - id
+      - href
+      - fileSize
+      - startDateMS
     ServerConfig:
       type: object
       properties:
@@ -957,43 +942,6 @@ components:
       - regexSearch
       - startDate
       - endDate
-    VHostListenersConfig:
-      type: object
-      properties:
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        vhostListeners:
-          type: array
-          items:
-            $ref: '#/components/schemas/VHostListenerConfig'
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - vhostListeners
-    ServerLogShortObject:
-      type: object
-      properties:
-        fileSize:
-          type: integer
-          format: int64
-        startDateMS:
-          type: integer
-          format: int64
-        id:
-          type: string
-        href:
-          type: string
-      required:
-      - id
-      - href
-      - fileSize
-      - startDateMS
     ServerConfigAdv:
       type: object
       properties:
@@ -1052,6 +1000,58 @@ components:
       - section
       - documented
       - initialValue
+    SourceDriverNamesList:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        list:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - list
+    ServersConfig:
+      type: object
+      properties:
+        servers:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServerConfig'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - servers
+    ServerLogFileDownloadConfig:
+      type: object
+      properties:
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
   securitySchemes:
     basicAuth:
       type: http

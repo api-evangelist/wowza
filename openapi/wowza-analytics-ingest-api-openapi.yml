@@ -120,52 +120,69 @@ paths:
                 $ref: '#/components/schemas/Error422'
 components:
   schemas:
-    Error404:
+    audio_codec_metric:
       type: object
       description: ''
-      required:
-      - meta
       properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 404
-            code: ERR-404-RecordNotFound
-            title: Record Not Found Error
-            message: The requested resource couldn't be found.
-            description: ''
-            links: []
+        status:
+          type: string
+          description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
+          example: normal
+        text:
+          type: string
+          description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
+          example: ''
+        units:
+          type: string
+          description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
+          example: ''
+        value:
+          type: string
+          description: The value of the associated key.
+          example: aac
+    frame_rate_metric:
+      type: object
+      description: ''
+      properties:
+        status:
+          type: string
+          description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
+          example: normal
+        text:
+          type: string
+          description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
+          example: ''
+        units:
+          type: string
+          description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
+          example: FPS
+        value:
+          type: integer
+          description: The value of the associated key.
+          example: 30
+    video_codec_metric:
+      type: object
+      description: ''
+      properties:
+        status:
+          type: string
+          description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
+          example: normal
+        text:
+          type: string
+          description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
+          example: ''
+        units:
+          type: string
+          description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
+          example: ''
+        value:
+          type: string
+          description: 'The value of the associated key.
+
+
+            <blockquote>Note: You might see avc1 or h264 returned interchangeably.</blockquote>'
+          example: h264
     Error410:
       type: object
       description: ''
@@ -212,63 +229,6 @@ components:
             message: The requested resource has been deleted.
             description: ''
             links: []
-    video_codec_metric:
-      type: object
-      description: ''
-      properties:
-        status:
-          type: string
-          description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
-          example: normal
-        text:
-          type: string
-          description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
-          example: ''
-        units:
-          type: string
-          description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
-          example: ''
-        value:
-          type: string
-          description: 'The value of the associated key.
-
-
-            <blockquote>Note: You might see avc1 or h264 returned interchangeably.</blockquote>'
-          example: h264
-    limits_metric:
-      type: object
-      description: The time frame represented in the response.
-      properties:
-        from:
-          type: string
-          description: The start of the range of time represented in the response.
-          example: '2024-03-14T10:31:54.000Z'
-          format: date-time
-        to:
-          type: string
-          description: The end of the range of time represented in the response.
-          example: '2024-04-13T10:31:54.000Z'
-          format: date-time
-    connected_metric:
-      type: object
-      description: ''
-      properties:
-        status:
-          type: string
-          description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
-          example: normal
-        text:
-          type: string
-          description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
-          example: ''
-        units:
-          type: string
-          description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
-          example: ''
-        value:
-          type: string
-          description: The value of the associated key.
-          example: 'Yes'
     width_metric:
       type: object
       description: ''
@@ -289,71 +249,52 @@ components:
           type: integer
           description: The value of the associated key.
           example: 1280
-    analytics_ingest_live_stream:
+    Error404:
       type: object
       description: ''
+      required:
+      - meta
       properties:
-        live_stream:
+        meta:
           type: object
-          title: live_stream
+          title: meta
           description: ''
           properties:
-            id:
-              type: string
-              description: The unique alphanumeric string that identifies the live stream.
-              example: tvctq36g
+            status:
+              type: integer
+              description: ''
+              example: ''
               format: int32
-            audio_codec:
-              $ref: '#/components/schemas/audio_codec_metric'
-            bits_in_rate:
-              $ref: '#/components/schemas/bits_in_rate_metric'
-            bytes_in_rate:
-              $ref: '#/components/schemas/bytes_in_rate_metric'
-            connected:
-              $ref: '#/components/schemas/connected_metric'
-            frame_size:
-              $ref: '#/components/schemas/frame_size_metric'
-            frame_rate:
-              $ref: '#/components/schemas/frame_rate_metric'
-            height:
-              $ref: '#/components/schemas/height_metric'
-            keyframe_interval:
-              $ref: '#/components/schemas/keyframe_interval_metric'
-            video_codec:
-              $ref: '#/components/schemas/video_codec_metric'
-            width:
-              $ref: '#/components/schemas/width_metric'
-            stream_target_status:
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
               type: array
-              description: An array of stream_target_status data.
-              items:
-                type: object
-                title: stream_target_status
-                properties:
-                  status:
-                    type: string
-                    description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
-                    example: normal
-                  text:
-                    type: string
-                    description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
-                    example: ''
-                  units:
-                    type: string
-                    description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
-                    example: ''
-                  value:
-                    type: integer
-                    description: The value of the associated key.
-                    example: Active
-                  id:
-                    type: string
-                    description: The unique alphanumeric string that identifies the stream_target_status. This ID id created by combining the output ID and stream target ID as OUTPUTIDX_STREAMTARGETIDX.
-                    example: 3lftlf1r_fcm6d98
-            trend:
-              $ref: '#/components/schemas/trend_metric'
-        limits:
-          $ref: '#/components/schemas/limits_metric'
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 404
+            code: ERR-404-RecordNotFound
+            title: Record Not Found Error
+            message: The requested resource couldn't be found.
+            description: ''
+            links: []
     Error403:
       type: object
       description: ''
@@ -400,269 +341,6 @@ components:
             message: The requested resource isn't accessible.
             description: ''
             links: []
-    trend_metric:
-      type: object
-      description: 'An array of viewer trend data.
-
-        > **Note:** This parameter only returns data for Fastly stream targets.'
-      properties:
-        bits_in_rate:
-          type: integer
-          description: The rate at which data is processed in.
-          example: ''
-        created_at:
-          type: string
-          description: The date and time that the trend was created.
-          example: ''
-        frame_rate:
-          type: integer
-          description: The number of frames that appear in a second.
-          example: ''
-        height:
-          type: integer
-          description: The height of the video player, in pixels.
-          example: ''
-        keyframe_interval:
-          type: integer
-          description: An encoding setting that determines how often the whole picture is transmitted.
-          example: ''
-        width:
-          type: integer
-          description: The width of the video player, in pixels.
-          example: ''
-      example:
-      - bits_in_rate: 1030123
-        created_at: '2023-03-30T22:42:57Z'
-        frame_rate: 30
-        height: 288
-        keyframe_interval: 60
-        width: 512
-      - bits_in_rate: 866928
-        created_at: '2023-03-30T22:42:58Z'
-        frame_rate: 30
-        height: 288
-        keyframe_interval: 60
-        width: 512
-    bytes_in_rate_metric:
-      type: object
-      description: ''
-      properties:
-        status:
-          type: string
-          description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
-          example: normal
-        text:
-          type: string
-          description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
-          example: ''
-        units:
-          type: string
-          description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
-          example: KBps
-        value:
-          type: number
-          description: The value of the associated key.
-          example: 317.3
-          format: float
-    frame_size_metric:
-      type: object
-      description: ''
-      properties:
-        status:
-          type: string
-          description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
-          example: warning
-        text:
-          type: string
-          description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
-          example: 'Configured frame size is different from what Wowza Video is receiving from the source: 1280x720.'
-        units:
-          type: string
-          description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
-          example: ''
-        value:
-          type: string
-          description: The value of the associated key.
-          example: 1280x720
-    bits_in_rate_metric:
-      type: object
-      description: ''
-      properties:
-        status:
-          type: string
-          description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
-          example: normal
-        text:
-          type: string
-          description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
-          example: ''
-        units:
-          type: string
-          description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
-          example: Kbps
-        value:
-          type: number
-          description: The value of the associated key.
-          example: 317.3
-          format: float
-    audio_codec_metric:
-      type: object
-      description: ''
-      properties:
-        status:
-          type: string
-          description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
-          example: normal
-        text:
-          type: string
-          description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
-          example: ''
-        units:
-          type: string
-          description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
-          example: ''
-        value:
-          type: string
-          description: The value of the associated key.
-          example: aac
-    Error422:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. ... can't be blank
-            description: ''
-            links: []
-        Example Response 2:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. Provider wowza_video is not allowed
-            description: ''
-            links: []
-        Example Response 3:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
-            description: ''
-            links: []
-        Example Response 4:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
-            description: ''
-            links: []
-        Example Response 5:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
-            description: ''
-            links: []
-    frame_rate_metric:
-      type: object
-      description: ''
-      properties:
-        status:
-          type: string
-          description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
-          example: normal
-        text:
-          type: string
-          description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
-          example: ''
-        units:
-          type: string
-          description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
-          example: FPS
-        value:
-          type: integer
-          description: The value of the associated key.
-          example: 30
-    keyframe_interval_metric:
-      type: object
-      description: ''
-      properties:
-        status:
-          type: string
-          description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
-          example: normal
-        text:
-          type: string
-          description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
-          example: ''
-        units:
-          type: string
-          description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
-          example: GOP
-        value:
-          type: integer
-          description: The value of the associated key.
-          example: 69
-    height_metric:
-      type: object
-      description: ''
-      properties:
-        status:
-          type: string
-          description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
-          example: warning
-        text:
-          type: string
-          description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
-          example: 'Configured height is different from what Wowza Video is receiving from the source: 720.'
-        units:
-          type: string
-          description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
-          example: px
-        value:
-          type: integer
-          description: The value of the associated key.
-          example: 720
     Error401:
       type: object
       description: ''
@@ -773,6 +451,328 @@ components:
             message: Token is invalid.
             description: ''
             links: []
+    Error422:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. ... can't be blank
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. Provider wowza_video is not allowed
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
+            description: ''
+            links: []
+    trend_metric:
+      type: object
+      description: 'An array of viewer trend data.
+
+        > **Note:** This parameter only returns data for Fastly stream targets.'
+      properties:
+        bits_in_rate:
+          type: integer
+          description: The rate at which data is processed in.
+          example: ''
+        created_at:
+          type: string
+          description: The date and time that the trend was created.
+          example: ''
+        frame_rate:
+          type: integer
+          description: The number of frames that appear in a second.
+          example: ''
+        height:
+          type: integer
+          description: The height of the video player, in pixels.
+          example: ''
+        keyframe_interval:
+          type: integer
+          description: An encoding setting that determines how often the whole picture is transmitted.
+          example: ''
+        width:
+          type: integer
+          description: The width of the video player, in pixels.
+          example: ''
+      example:
+      - bits_in_rate: 1030123
+        created_at: '2023-03-30T22:42:57Z'
+        frame_rate: 30
+        height: 288
+        keyframe_interval: 60
+        width: 512
+      - bits_in_rate: 866928
+        created_at: '2023-03-30T22:42:58Z'
+        frame_rate: 30
+        height: 288
+        keyframe_interval: 60
+        width: 512
+    bytes_in_rate_metric:
+      type: object
+      description: ''
+      properties:
+        status:
+          type: string
+          description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
+          example: normal
+        text:
+          type: string
+          description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
+          example: ''
+        units:
+          type: string
+          description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
+          example: KBps
+        value:
+          type: number
+          description: The value of the associated key.
+          example: 317.3
+          format: float
+    keyframe_interval_metric:
+      type: object
+      description: ''
+      properties:
+        status:
+          type: string
+          description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
+          example: normal
+        text:
+          type: string
+          description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
+          example: ''
+        units:
+          type: string
+          description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
+          example: GOP
+        value:
+          type: integer
+          description: The value of the associated key.
+          example: 69
+    height_metric:
+      type: object
+      description: ''
+      properties:
+        status:
+          type: string
+          description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
+          example: warning
+        text:
+          type: string
+          description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
+          example: 'Configured height is different from what Wowza Video is receiving from the source: 720.'
+        units:
+          type: string
+          description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
+          example: px
+        value:
+          type: integer
+          description: The value of the associated key.
+          example: 720
+    connected_metric:
+      type: object
+      description: ''
+      properties:
+        status:
+          type: string
+          description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
+          example: normal
+        text:
+          type: string
+          description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
+          example: ''
+        units:
+          type: string
+          description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
+          example: ''
+        value:
+          type: string
+          description: The value of the associated key.
+          example: 'Yes'
+    frame_size_metric:
+      type: object
+      description: ''
+      properties:
+        status:
+          type: string
+          description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
+          example: warning
+        text:
+          type: string
+          description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
+          example: 'Configured frame size is different from what Wowza Video is receiving from the source: 1280x720.'
+        units:
+          type: string
+          description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
+          example: ''
+        value:
+          type: string
+          description: The value of the associated key.
+          example: 1280x720
+    bits_in_rate_metric:
+      type: object
+      description: ''
+      properties:
+        status:
+          type: string
+          description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
+          example: normal
+        text:
+          type: string
+          description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
+          example: ''
+        units:
+          type: string
+          description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
+          example: Kbps
+        value:
+          type: number
+          description: The value of the associated key.
+          example: 317.3
+          format: float
+    limits_metric:
+      type: object
+      description: The time frame represented in the response.
+      properties:
+        from:
+          type: string
+          description: The start of the range of time represented in the response.
+          example: '2024-03-14T10:31:54.000Z'
+          format: date-time
+        to:
+          type: string
+          description: The end of the range of time represented in the response.
+          example: '2024-04-13T10:31:54.000Z'
+          format: date-time
+    analytics_ingest_live_stream:
+      type: object
+      description: ''
+      properties:
+        live_stream:
+          type: object
+          title: live_stream
+          description: ''
+          properties:
+            id:
+              type: string
+              description: The unique alphanumeric string that identifies the live stream.
+              example: tvctq36g
+              format: int32
+            audio_codec:
+              $ref: '#/components/schemas/audio_codec_metric'
+            bits_in_rate:
+              $ref: '#/components/schemas/bits_in_rate_metric'
+            bytes_in_rate:
+              $ref: '#/components/schemas/bytes_in_rate_metric'
+            connected:
+              $ref: '#/components/schemas/connected_metric'
+            frame_size:
+              $ref: '#/components/schemas/frame_size_metric'
+            frame_rate:
+              $ref: '#/components/schemas/frame_rate_metric'
+            height:
+              $ref: '#/components/schemas/height_metric'
+            keyframe_interval:
+              $ref: '#/components/schemas/keyframe_interval_metric'
+            video_codec:
+              $ref: '#/components/schemas/video_codec_metric'
+            width:
+              $ref: '#/components/schemas/width_metric'
+            stream_target_status:
+              type: array
+              description: An array of stream_target_status data.
+              items:
+                type: object
+                title: stream_target_status
+                properties:
+                  status:
+                    type: string
+                    description: The status of the current key. Possible values are **normal** (everything is fine), **warning** (something may be misconfigured), and **no_data** (no data was returned, perhaps because the instance isn't running).
+                    example: normal
+                  text:
+                    type: string
+                    description: A message related to the value and status of the current key. Usually blank unless there's a warning status.
+                    example: ''
+                  units:
+                    type: string
+                    description: The unit of the returned value, such as **Kbps**, **bps**, **%**, **FPS**, or **GOP**.
+                    example: ''
+                  value:
+                    type: integer
+                    description: The value of the associated key.
+                    example: Active
+                  id:
+                    type: string
+                    description: The unique alphanumeric string that identifies the stream_target_status. This ID id created by combining the output ID and stream target ID as OUTPUTIDX_STREAMTARGETIDX.
+                    example: 3lftlf1r_fcm6d98
+            trend:
+              $ref: '#/components/schemas/trend_metric'
+        limits:
+          $ref: '#/components/schemas/limits_metric'
   securitySchemes:
     WV_JWT:
       type: http

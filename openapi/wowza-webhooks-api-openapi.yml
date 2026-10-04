@@ -472,6 +472,24 @@ paths:
           description: Internal server error
 components:
   schemas:
+    TargetConfig:
+      type: object
+      properties:
+        headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/TargetHeader'
+        auth:
+          $ref: '#/components/schemas/TargetAuth'
+        id:
+          type: string
+        url:
+          type: string
+      required:
+      - id
+      - url
+      - headers
+      - auth
     TargetItem:
       type: object
       properties:
@@ -500,12 +518,15 @@ components:
       - url
       - headers
       - auth
-    WebhooksConfig:
+    Integer:
+      type: object
+      properties: {}
+    SourceItem:
       type: object
       properties:
-        webhooks:
-          $ref: '#/components/schemas/Webhooks'
         serverName:
+          type: string
+        source:
           type: string
         saveFieldList:
           type: array
@@ -516,10 +537,27 @@ components:
       required:
       - version
       - serverName
-      - webhooks
-    Integer:
+      - source
+    Webhooks:
       type: object
-      properties: {}
+      properties:
+        debugLog:
+          $ref: '#/components/schemas/Boolean'
+        source:
+          type: string
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/FilterConfig'
+        targets:
+          type: array
+          items:
+            $ref: '#/components/schemas/TargetConfig'
+      required:
+      - debugLog
+      - source
+      - filters
+      - targets
     TargetsList:
       type: object
       properties:
@@ -539,6 +577,33 @@ components:
       - version
       - serverName
       - targets
+    TargetHeader:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+      required:
+      - name
+      - value
+    WebhooksConfig:
+      type: object
+      properties:
+        webhooks:
+          $ref: '#/components/schemas/Webhooks'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - webhooks
     Boolean:
       type: object
       properties: {}
@@ -561,6 +626,9 @@ components:
       - version
       - serverName
       - filters
+    Long:
+      type: object
+      properties: {}
     TargetAuth:
       type: object
       properties:
@@ -571,24 +639,31 @@ components:
       required:
       - type
       - secret
-    TargetConfig:
+    FilterConfig:
       type: object
       properties:
-        headers:
-          type: array
-          items:
-            $ref: '#/components/schemas/TargetHeader'
-        auth:
-          $ref: '#/components/schemas/TargetAuth'
+        retryDelay:
+          $ref: '#/components/schemas/Long'
+        retryDelayUnit:
+          type: string
+        targetRef:
+          type: string
+        criteria:
+          type: string
         id:
           type: string
-        url:
-          type: string
+        enabled:
+          $ref: '#/components/schemas/Boolean'
+        maxRetryAttempts:
+          $ref: '#/components/schemas/Integer'
       required:
       - id
-      - url
-      - headers
-      - auth
+      - enabled
+      - criteria
+      - targetRef
+      - maxRetryAttempts
+      - retryDelay
+      - retryDelayUnit
     FilterItem:
       type: object
       properties:
@@ -617,81 +692,6 @@ components:
       required:
       - version
       - serverName
-      - id
-      - enabled
-      - criteria
-      - targetRef
-      - maxRetryAttempts
-      - retryDelay
-      - retryDelayUnit
-    Webhooks:
-      type: object
-      properties:
-        debugLog:
-          $ref: '#/components/schemas/Boolean'
-        source:
-          type: string
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/FilterConfig'
-        targets:
-          type: array
-          items:
-            $ref: '#/components/schemas/TargetConfig'
-      required:
-      - debugLog
-      - source
-      - filters
-      - targets
-    Long:
-      type: object
-      properties: {}
-    SourceItem:
-      type: object
-      properties:
-        serverName:
-          type: string
-        source:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - source
-    TargetHeader:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-      required:
-      - name
-      - value
-    FilterConfig:
-      type: object
-      properties:
-        retryDelay:
-          $ref: '#/components/schemas/Long'
-        retryDelayUnit:
-          type: string
-        targetRef:
-          type: string
-        criteria:
-          type: string
-        id:
-          type: string
-        enabled:
-          $ref: '#/components/schemas/Boolean'
-        maxRetryAttempts:
-          $ref: '#/components/schemas/Integer'
-      required:
       - id
       - enabled
       - criteria

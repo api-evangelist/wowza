@@ -85,6 +85,25 @@ paths:
           description: Internal server error
 components:
   schemas:
+    MediaCastersConfig:
+      type: object
+      properties:
+        mediaCasters:
+          type: array
+          items:
+            $ref: '#/components/schemas/MediaCasterConfig'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - mediaCasters
     MediaCasterConfig:
       type: object
       properties:
@@ -117,25 +136,6 @@ components:
       - baseClass
       - connectionTimeout
       - keepAliveTime
-    MediaCastersConfig:
-      type: object
-      properties:
-        mediaCasters:
-          type: array
-          items:
-            $ref: '#/components/schemas/MediaCasterConfig'
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - mediaCasters
   securitySchemes:
     basicAuth:
       type: http

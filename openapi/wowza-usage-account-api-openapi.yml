@@ -114,162 +114,6 @@ paths:
                 $ref: '#/components/schemas/Error422'
 components:
   schemas:
-    Error404:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 404
-            code: ERR-404-RecordNotFound
-            title: Record Not Found Error
-            message: The requested resource couldn't be found.
-            description: ''
-            links: []
-    usage_account:
-      type: object
-      description: ''
-      properties:
-        account:
-          type: object
-          title: account
-          description: Data for the account.
-          properties:
-            id:
-              type: string
-              description: The unique alphanumeric string that identifies an account.
-              example: ''
-              format: int32
-            viewing_seconds:
-              type: integer
-              description: The total length of time, in seconds, that the stream was played at the target. May be longer than the duration of the stream.
-              example: ''
-              format: int32
-            viewing_bytes:
-              type: integer
-              description: The amount of content, in bytes, that went through the stream target during the selected time frame.
-              example: ''
-              format: int32
-            egress_seconds:
-              type: integer
-              description: The length of time, in seconds, that Wowza CDN on Fastly pulled from storage during the selected time frame.
-              example: ''
-              format: int32
-            egress_seconds_additional_targets:
-              type: integer
-              description: The length of time, in seconds, that additional stream targets pulled from storage during the selected time frame. Subscriptions prices include egress for one target; additional targets incur additional charges.
-              example: ''
-              format: int32
-            egress_bytes:
-              type: integer
-              description: The amount of content, in bytes, that Wowza CDN on Fastly pulled from storage during the selected time frame.
-              example: ''
-              format: int32
-            trend:
-              type: object
-              title: Array of viewer trends
-              description: 'An array of viewer trend data. The granularity of sampled data changes based on the from and to query values you use:
-
-
-                Requests made for data within the past 30 days, return the following sample intervals: <ul><li>0 minutes to 3 hours - Samples returned per minute</li> <li>3 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 90 days - Samples returned per day</li></ul>
-
-
-                <strong>Defaults</strong>: from = last billing date, to = end of current day'
-              properties:
-                sampled_at:
-                  type: string
-                  description: The date and time the trend data was sampled.
-                  format: date-time
-                viewing_seconds:
-                  type: integer
-                  description: The total length of time, in seconds, that the stream was played at the target. May be longer than the duration of the stream.
-                  example: ''
-                  format: int32
-                viewing_bytes:
-                  type: integer
-                  description: The amount of content, in bytes, that went through the transcoder during the selected time frame.
-                  example: ''
-                  format: int32
-        limits:
-          type: object
-          description: The query parameters applied to the request.
-          properties:
-            resources:
-              type: object
-              title: resources
-              description: The resources represented in the response.
-              properties:
-                transcoders:
-                  type: string
-                  description: The response includes transcoders.
-                  example: ''
-                vod_streams:
-                  type: string
-                  description: The response includes VOD streams.
-                  example: ''
-            from:
-              type: string
-              description: The start of the range of time represented in the response.
-              example: ''
-              format: date-time
-            to:
-              type: string
-              description: The end of the range of time represented in the response.
-              example: ''
-              format: date-time
-      example:
-        account:
-          id: rfP7rDv2
-          viewing_seconds: 44925498
-          avg_viewing_seconds: 2634
-          viewing_bytes: 22886
-          egress_seconds: 49549
-          egress_seconds_additional_targets: 345
-          egress_bytes: 7066810
-          trend:
-          - sampled_at: '2019-10-01T08:00:00.000Z'
-            viewing_seconds: 45
-            viewing_bytes: 20
-        limits:
-          resources:
-          - transcoders
-          - vod_streams
-          from: '2021-01-07T00:00:00.000Z'
-          to: '2021-10-05T00:00:00.000Z'
     Error410:
       type: object
       description: ''
@@ -316,6 +160,52 @@ components:
             message: The requested resource has been deleted.
             description: ''
             links: []
+    Error404:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 404
+            code: ERR-404-RecordNotFound
+            title: Record Not Found Error
+            message: The requested resource couldn't be found.
+            description: ''
+            links: []
     Error403:
       type: object
       description: ''
@@ -360,84 +250,6 @@ components:
             code: ERR-403-RecordUnaccessible
             title: Record Unaccessible Error
             message: The requested resource isn't accessible.
-            description: ''
-            links: []
-    Error422:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. ... can't be blank
-            description: ''
-            links: []
-        Example Response 2:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. Provider wowza_video is not allowed
-            description: ''
-            links: []
-        Example Response 3:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
-            description: ''
-            links: []
-        Example Response 4:
-          meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
-            description: ''
-            links: []
-        Example Response 5:
-          meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
             description: ''
             links: []
     Error401:
@@ -550,6 +362,194 @@ components:
             message: Token is invalid.
             description: ''
             links: []
+    Error422:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. ... can't be blank
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. Provider wowza_video is not allowed
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
+            description: ''
+            links: []
+    usage_account:
+      type: object
+      description: ''
+      properties:
+        account:
+          type: object
+          title: account
+          description: Data for the account.
+          properties:
+            id:
+              type: string
+              description: The unique alphanumeric string that identifies an account.
+              example: ''
+              format: int32
+            viewing_seconds:
+              type: integer
+              description: The total length of time, in seconds, that the stream was played at the target. May be longer than the duration of the stream.
+              example: ''
+              format: int32
+            viewing_bytes:
+              type: integer
+              description: The amount of content, in bytes, that went through the stream target during the selected time frame.
+              example: ''
+              format: int32
+            egress_seconds:
+              type: integer
+              description: The length of time, in seconds, that Wowza CDN on Fastly pulled from storage during the selected time frame.
+              example: ''
+              format: int32
+            egress_seconds_additional_targets:
+              type: integer
+              description: The length of time, in seconds, that additional stream targets pulled from storage during the selected time frame. Subscriptions prices include egress for one target; additional targets incur additional charges.
+              example: ''
+              format: int32
+            egress_bytes:
+              type: integer
+              description: The amount of content, in bytes, that Wowza CDN on Fastly pulled from storage during the selected time frame.
+              example: ''
+              format: int32
+            trend:
+              type: object
+              title: Array of viewer trends
+              description: 'An array of viewer trend data. The granularity of sampled data changes based on the from and to query values you use:
+
+
+                Requests made for data within the past 30 days, return the following sample intervals: <ul><li>0 minutes to 3 hours - Samples returned per minute</li> <li>3 hours, 1 second to 24 hours - Samples returned per hour</li> <li>24 hours, 1 second to 90 days - Samples returned per day</li></ul>
+
+
+                <strong>Defaults</strong>: from = last billing date, to = end of current day'
+              properties:
+                sampled_at:
+                  type: string
+                  description: The date and time the trend data was sampled.
+                  format: date-time
+                viewing_seconds:
+                  type: integer
+                  description: The total length of time, in seconds, that the stream was played at the target. May be longer than the duration of the stream.
+                  example: ''
+                  format: int32
+                viewing_bytes:
+                  type: integer
+                  description: The amount of content, in bytes, that went through the transcoder during the selected time frame.
+                  example: ''
+                  format: int32
+        limits:
+          type: object
+          description: The query parameters applied to the request.
+          properties:
+            resources:
+              type: object
+              title: resources
+              description: The resources represented in the response.
+              properties:
+                transcoders:
+                  type: string
+                  description: The response includes transcoders.
+                  example: ''
+                vod_streams:
+                  type: string
+                  description: The response includes VOD streams.
+                  example: ''
+            from:
+              type: string
+              description: The start of the range of time represented in the response.
+              example: ''
+              format: date-time
+            to:
+              type: string
+              description: The end of the range of time represented in the response.
+              example: ''
+              format: date-time
+      example:
+        account:
+          id: rfP7rDv2
+          viewing_seconds: 44925498
+          avg_viewing_seconds: 2634
+          viewing_bytes: 22886
+          egress_seconds: 49549
+          egress_seconds_additional_targets: 345
+          egress_bytes: 7066810
+          trend:
+          - sampled_at: '2019-10-01T08:00:00.000Z'
+            viewing_seconds: 45
+            viewing_bytes: 20
+        limits:
+          resources:
+          - transcoders
+          - vod_streams
+          from: '2021-01-07T00:00:00.000Z'
+          to: '2021-10-05T00:00:00.000Z'
   securitySchemes:
     WV_JWT:
       type: http

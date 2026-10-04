@@ -402,53 +402,34 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error423'
 components:
+  parameters:
+    page:
+      name: page
+      in: query
+      description: "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
+      schema:
+        type: integer
+    filter:
+      name: filter
+      in: query
+      description: 'Restricts the data that gets returned by filtering on one or more values associated with a field. Construct a filter using a two-part expression that specifies the field on which to filter and the logic to use to filter. Filters use a zero-based index.
+
+
+        For valid filter operators and filter fields, see [How to get filtered query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-filtered-query-results-with-the-wowza-video-rest-api).
+
+
+        Example:
+
+        **filter[0][field]=state&filter[0][eq]=stopped**'
+      schema:
+        type: string
+    per_page:
+      name: per_page
+      in: query
+      description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
+      schema:
+        type: integer
   schemas:
-    Error404:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 404
-            code: ERR-404-RecordNotFound
-            title: Record Not Found Error
-            message: The requested resource couldn't be found.
-            description: ''
-            links: []
     real_time_stream:
       type: object
       description: ''
@@ -839,34 +820,7 @@ components:
             message: The requested resource has been deleted.
             description: ''
             links: []
-    real_time_streams:
-      type: object
-      description: ''
-      required:
-      - real_time_streams
-      properties:
-        real_time_streams:
-          type: array
-          items:
-            $ref: '#/components/schemas/index_real_time_stream'
-      example:
-        real_time_streams:
-        - id: 2adffc17
-          name: MyRealTimeStream
-          state: started
-          created_at: '2021-01-29T17:16:21.849Z'
-          updated_at: '2021-01-31T16:06:47.849Z'
-        - id: if7le8ip
-          name: MyRealTimeStream2
-          state: started
-          created_at: '2020-01-29T17:16:21.849Z'
-          updated_at: '2020-01-31T02:26:05.849Z'
-        - id: dd4udt1b
-          name: MyRealTimeStream3
-          state: started
-          created_at: '2020-01-29T17:16:21.849Z'
-          updated_at: '2020-01-30T18:13:18.849Z'
-    Error423:
+    Error404:
       type: object
       description: ''
       required:
@@ -906,10 +860,10 @@ components:
       example:
         Example Response 1:
           meta:
-            status: 423
-            code: ERR-423-StreamAlreadyStopped
-            title: Stream Already Stopped Error
-            message: The request couldn't be processed. The stream has already been stopped.
+            status: 404
+            code: ERR-404-RecordNotFound
+            title: Record Not Found Error
+            message: The requested resource couldn't be found.
             description: ''
             links: []
     Error403:
@@ -956,6 +910,130 @@ components:
             code: ERR-403-RecordUnaccessible
             title: Record Unaccessible Error
             message: The requested resource isn't accessible.
+            description: ''
+            links: []
+    Error423:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 423
+            code: ERR-423-StreamAlreadyStopped
+            title: Stream Already Stopped Error
+            message: The request couldn't be processed. The stream has already been stopped.
+            description: ''
+            links: []
+    Error422:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. ... can't be blank
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: The request couldn't be processed. Provider wowza_video is not allowed
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 422
+            code: ERR-422-RecordInvalid
+            title: Record Invalid Error
+            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 422
+            code: ERR-422-InvalidStateChange
+            title: Invalid State Change Error
+            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
             description: ''
             links: []
     real_time_stream_update:
@@ -1271,7 +1349,7 @@ components:
           description: The date and time that the real-time stream was updated.
           example: ''
           format: date-time
-    Error422:
+    Error401:
       type: object
       description: ''
       required:
@@ -1311,42 +1389,74 @@ components:
       example:
         Example Response 1:
           meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. ... can't be blank
+            status: 401
+            code: ERR-401-NoApiKey
+            title: No API Key Error
+            message: No API key sent in header.
             description: ''
             links: []
         Example Response 2:
           meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: The request couldn't be processed. Provider wowza_video is not allowed
+            status: 401
+            code: ERR-401-NoAccessKey
+            title: No Access Key Error
+            message: No access key sent in header.
             description: ''
             links: []
         Example Response 3:
           meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. There must be at least one WebRTC output for this transcoder.
+            status: 401
+            code: ERR-401-InvalidApiKey
+            title: Invalid Api Key Error
+            message: Invalid API key.
             description: ''
             links: []
         Example Response 4:
           meta:
-            status: 422
-            code: ERR-422-RecordInvalid
-            title: Record Invalid Error
-            message: API cannot remove the primary Output Stream Target with the ID of <output id> from the Live Stream <livestream id><livestream name>.
+            status: 401
+            code: ERR-401-InvalidAccessKey
+            title: Invalid Access Key Error
+            message: Invalid access key.
             description: ''
             links: []
         Example Response 5:
           meta:
-            status: 422
-            code: ERR-422-InvalidStateChange
-            title: Invalid State Change Error
-            message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
+            status: 401
+            code: ERR-401-BadAccountStatus
+            title: Bad Account Status Error
+            message: Your account's status doesn't allow this action.
+            description: ''
+            links: []
+        Example Response 6:
+          meta:
+            status: 401
+            code: ERR-401-FeatureNotEnabled
+            title: Feature Not Enabled Error
+            message: This feature isn't enabled.
+            description: ''
+            links: []
+        Example Response 7:
+          meta:
+            status: 401
+            code: ERR-401-TrialExceeded
+            title: Bad Billing Status Error
+            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
+            description: ''
+            links: []
+        Example Response 8:
+          meta:
+            status: 401
+            code: ERR-401-ExpiredToken
+            title: JWT is expired
+            message: Token has exired.
+            description: ''
+            links: []
+        Example Response 9:
+          meta:
+            status: 401
+            code: ERR-401-InvalidToken
+            title: JWT is invalid
+            message: Token is invalid.
             description: ''
             links: []
     real_time_stream_create:
@@ -1629,143 +1739,33 @@ components:
         real_time_stream:
           name: MyRealTimeStream
           description: This is my first real-time stream.
-    Error401:
+    real_time_streams:
       type: object
       description: ''
       required:
-      - meta
+      - real_time_streams
       properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
+        real_time_streams:
+          type: array
+          items:
+            $ref: '#/components/schemas/index_real_time_stream'
       example:
-        Example Response 1:
-          meta:
-            status: 401
-            code: ERR-401-NoApiKey
-            title: No API Key Error
-            message: No API key sent in header.
-            description: ''
-            links: []
-        Example Response 2:
-          meta:
-            status: 401
-            code: ERR-401-NoAccessKey
-            title: No Access Key Error
-            message: No access key sent in header.
-            description: ''
-            links: []
-        Example Response 3:
-          meta:
-            status: 401
-            code: ERR-401-InvalidApiKey
-            title: Invalid Api Key Error
-            message: Invalid API key.
-            description: ''
-            links: []
-        Example Response 4:
-          meta:
-            status: 401
-            code: ERR-401-InvalidAccessKey
-            title: Invalid Access Key Error
-            message: Invalid access key.
-            description: ''
-            links: []
-        Example Response 5:
-          meta:
-            status: 401
-            code: ERR-401-BadAccountStatus
-            title: Bad Account Status Error
-            message: Your account's status doesn't allow this action.
-            description: ''
-            links: []
-        Example Response 6:
-          meta:
-            status: 401
-            code: ERR-401-FeatureNotEnabled
-            title: Feature Not Enabled Error
-            message: This feature isn't enabled.
-            description: ''
-            links: []
-        Example Response 7:
-          meta:
-            status: 401
-            code: ERR-401-TrialExceeded
-            title: Bad Billing Status Error
-            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
-            description: ''
-            links: []
-        Example Response 8:
-          meta:
-            status: 401
-            code: ERR-401-ExpiredToken
-            title: JWT is expired
-            message: Token has exired.
-            description: ''
-            links: []
-        Example Response 9:
-          meta:
-            status: 401
-            code: ERR-401-InvalidToken
-            title: JWT is invalid
-            message: Token is invalid.
-            description: ''
-            links: []
-  parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
-      schema:
-        type: integer
-    page:
-      name: page
-      in: query
-      description: "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
-      schema:
-        type: integer
-    filter:
-      name: filter
-      in: query
-      description: 'Restricts the data that gets returned by filtering on one or more values associated with a field. Construct a filter using a two-part expression that specifies the field on which to filter and the logic to use to filter. Filters use a zero-based index.
-
-
-        For valid filter operators and filter fields, see [How to get filtered query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-filtered-query-results-with-the-wowza-video-rest-api).
-
-
-        Example:
-
-        **filter[0][field]=state&filter[0][eq]=stopped**'
-      schema:
-        type: string
+        real_time_streams:
+        - id: 2adffc17
+          name: MyRealTimeStream
+          state: started
+          created_at: '2021-01-29T17:16:21.849Z'
+          updated_at: '2021-01-31T16:06:47.849Z'
+        - id: if7le8ip
+          name: MyRealTimeStream2
+          state: started
+          created_at: '2020-01-29T17:16:21.849Z'
+          updated_at: '2020-01-31T02:26:05.849Z'
+        - id: dd4udt1b
+          name: MyRealTimeStream3
+          state: started
+          created_at: '2020-01-29T17:16:21.849Z'
+          updated_at: '2020-01-30T18:13:18.849Z'
   securitySchemes:
     WV_JWT:
       type: http

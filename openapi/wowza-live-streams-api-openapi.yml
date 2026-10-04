@@ -846,6 +846,12 @@ paths:
                 $ref: '#/components/schemas/Error410'
 components:
   parameters:
+    page:
+      name: page
+      in: query
+      description: "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
+      schema:
+        type: integer
     filter:
       name: filter
       in: query
@@ -866,59 +872,7 @@ components:
       description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
       schema:
         type: integer
-    page:
-      name: page
-      in: query
-      description: "Returns a paginated view of results from the HTTP request. Specify a positive integer to indicate which page of the results should be displayed. The default is **1**. \n\n For more information and examples, see [Get paginated query results with the Wowza Video REST API](https://www.wowza.com/docs/how-to-get-paginated-query-results-with-the-wowza-video-rest-api)."
-      schema:
-        type: integer
   schemas:
-    Error410:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 410
-            code: ERR-410-RecordDeleted
-            title: Record Deleted Error
-            message: The requested resource has been deleted.
-            description: ''
-            links: []
     Error403:
       type: object
       description: ''
@@ -992,26 +946,6 @@ components:
           state: started
           created_at: '2020-01-29T17:16:21.849Z'
           updated_at: '2020-01-30T18:13:18.849Z'
-    broadcast_location:
-      type: string
-      description: The location of your stream. Choose a location as close as possible to your video source.
-      example: eu_germany
-      enum:
-      - asia_pacific_australia
-      - asia_pacific_india
-      - asia_pacific_japan
-      - asia_pacific_singapore
-      - asia_pacific_s_korea
-      - asia_pacific_taiwan
-      - eu_belgium
-      - eu_germany
-      - eu_ireland
-      - south_america_brazil
-      - us_central_iowa
-      - us_east_s_carolina
-      - us_east_virginia
-      - us_west_california
-      - us_west_oregon
     Error422:
       type: object
       description: ''
@@ -1090,91 +1024,223 @@ components:
             message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
             description: ''
             links: []
-    hosted_page_request_object_create:
+    Error410:
       type: object
-      description: Configuration of the hosted page.
+      description: ''
+      required:
+      - meta
       properties:
-        enabled:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 410
+            code: ERR-410-RecordDeleted
+            title: Record Deleted Error
+            message: The requested resource has been deleted.
+            description: ''
+            links: []
+    player_request_object:
+      type: object
+      description: "The **player** object is deprecated in 2.0. Create and update player configurations in the user interface. \n\nAny values you send using the **player** object will be ignored.\n\nThe following fields have been moved outside of the **player** object and reside within the **live_stream** object where you can still access them through the API:\n  * **logo_image**\n  * **logo_position**\n  * **video_poster_image**\n  * **width**\n  * **remove_video_poster_image**\n  * **remove_logo_image**"
+      properties:
+        customizations:
+          type: object
+          description: Configuration of the player customizations.
+          properties:
+            play_icon:
+              type: string
+              description: 'A play icon that is displayed on the video preview. The default, **solid**, uses the standard play (solid triangle) icon. **outlined** uses an alternate (outlined triangle) play icon. **ring** uses an alternate (small solid triangle enclosed in a circle) play icon.
+
+
+                Default: **solid**
+
+
+                **Example:** <code>"play_icon": "solid"</code>'
+              example: solid
+              enum:
+              - solid
+              - outlined
+              - ring
+            thin_timeline:
+              type: boolean
+              description: 'If **true**, displays a thinner control bar than the default in the video. The default is **false**.
+
+
+                **Example:** <code>"thin_timeline": false</code>'
+              example: ''
+            drag_handle:
+              type: boolean
+              description: 'If **true**, displays a drag handle on the progress bar. The default is **false**.
+
+
+                **Example:** <code>"drag_handle": false</code>'
+              example: ''
+            volume:
+              type: boolean
+              description: 'If **true**, displays a volume button on the video. The default is **true**.
+
+
+                **Example:** <code>"volume": true</code>'
+              example: ''
+            mute:
+              type: boolean
+              description: 'If **true**, displays a mute button on the video. The default is **true**.
+
+
+                **Example:** <code>"mute": true</code>'
+              example: ''
+            fullscreen:
+              type: boolean
+              description: 'If **true**, displays a fullscreen button on the video. The default is **true**.
+
+
+                **Example:** <code>"fullscreen": true</code>'
+              example: ''
+            show_player_title:
+              type: boolean
+              description: 'If **true**, displays a preview title on the video. The default is **false**.
+
+
+                **Example:** <code>"show_player_title": false</code>'
+              example: ''
+            color:
+              type: string
+              description: 'The color of the timeline and volume bar of the player. You can set the color of your choice by passing a hex code for that specific color.
+
+
+                **Example:** <code>"color": "4d4d4d"</code>'
+              example: ''
+        countdown:
           type: boolean
-          description: 'A web page hosted by Wowza Video that includes a player for the live stream. The default, **true**, creates a hosted page. Specify **false** to not create a hosted web page.
+          description: 'A clock that appears in the player before the event and counts down to the start of the stream. Specify **true** to display the countdown clock. The default is **false**.
 
 
-            **Example:** <code>"enabled": true</code>'
+            **Example:** <code>"countdown": false</code>'
           example: ''
-        description:
+        countdown_at:
           type: string
-          description: 'A description that appears on the hosted page below the player. Can''t include custom HTML, JavaScript, or other tags.
+          description: 'The date and time that the event starts, used by the countdown clock. Specify **YYYY-MM-DD HH:MM:SS**, where **HH** is a 24-hour clock in UTC.
 
 
-            **Example:** <code>"description": "My Hosted Page Description"</code>'
+            **Example:** <code>"countdown_at": "2020-02-01T17:00:00.000Z"</code>'
           example: ''
         logo_image:
           type: string
-          description: 'A Base64-encoded string representation of a GIF, JPEG, or PNG logo file that that appears in the upper-left corner of the hosted page. Logo file must be 2.5 MB or smaller.
+          description: 'A Base64-encoded string representation of a GIF, JPEG, or PNG logo  file that appears partially transparent in a corner of the player throughout playback. Logo file must be 2.5 MB or smaller.
 
 
-            **Example:** <code>"logo_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>'
-          example: '[Base64-encoded string representation of GIF, JPEG, or PNG file]'
-        sharing_icons:
-          type: boolean
-          description: 'Icons that let viewers share the stream on Facebook, Google+, Twitter, and by email. The default, **true**, includes sharing icons on the hosted page. Specify **false** to omit sharing icons.
-
-
-            **Example:** <code>"sharing_icons": false</code>'
+            **Example:** <code>"logo_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>   '
           example: ''
-        title:
+        logo_position:
           type: string
-          description: 'A title for the page that appears above the player. Can''t include custom HTML, JavaScript, or other tags.
+          description: 'The corner of the player in which you want the player logo to appear. The default is **top-left**.
 
 
-            **Example:** <code>"title": "My Hosted Page"</code>'
+            **Example:** <code>"logo_position": "top-right"</code>'
           example: ''
-    hosted_page_request_object:
-      type: object
-      description: Configuration of the hosted page.
-      properties:
-        enabled:
-          type: boolean
-          description: 'A web page hosted by Wowza Video that includes a player for the live stream. The default, **true**, creates a hosted page. Specify **false** to not create a hosted web page.
+          enum:
+          - top-left
+          - top-right
+          - bottom-left
+          - bottom-right
+        plugins:
+          type: object
+          description: Configuration of the plugins.
+          properties:
+            airplay:
+              type: boolean
+              description: 'If **true**, enables Airplay functionality in the player which allows you to cast to an Airplay device. The default is **false**.
 
 
-            **Example:** <code>"enabled": true</code>'
-          example: ''
-        description:
-          type: string
-          description: 'A description that appears on the hosted page below the player. Can''t include custom HTML, JavaScript, or other tags.
+                **Example:** <code>"airplay": false</code>'
+              example: ''
+            chromecast:
+              type: boolean
+              description: 'If **true**, enables Chromecast functionality in the player which allows you to cast to a Chromecast device. The default is **false**.
 
 
-            **Example:** <code>"description": "My Hosted Page Description"</code>'
-          example: ''
-        logo_image:
-          type: string
-          description: 'A Base64-encoded string representation of a GIF, JPEG, or PNG logo file that that appears in the upper-left corner of the hosted page. Logo file must be 2.5 MB or smaller.
-
-
-            **Example:** <code>"logo_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>'
-          example: '[Base64-encoded string representation of GIF, JPEG, or PNG file]'
+                **Example:** <code>"chromecast": false</code>'
+              example: ''
         remove_logo_image:
           type: boolean
-          description: 'If **true**, removes the logo file from the hosted page. The default is **false**.
+          description: 'If **true**, removes the logo file from the player. The default is **false**.
 
 
             **Example:** <code>"remove_logo_image": true</code>'
           example: true
-        sharing_icons:
+        remove_video_poster_image:
           type: boolean
-          description: 'Icons that let viewers share the stream on Facebook, Google+, Twitter, and by email. The default, **true**, includes sharing icons on the hosted page. Specify **false** to omit sharing icons.
+          description: 'If **true**, removes the poster image. The default is **false**.
 
 
-            **Example:** <code>"sharing_icons": false</code>'
+            **Example:** <code>"remove_video_poster_image": true</code>'
+          example: true
+        responsive:
+          type: boolean
+          description: "A player whose size adjusts according to the device on which it's being viewed. If **true**, creates a responsive player. If **false**, specify a *player_width*.\n\n\n **Example:** <code>\"type\": false</code>"
           example: ''
-        title:
+        type:
           type: string
-          description: 'A title for the page that appears above the player. Can''t include custom HTML, JavaScript, or other tags.
+          description: 'The player you want to use.
 
 
-            **Example:** <code>"title": "My Hosted Page"</code>'
+            **Wowza Video subscribers**</br> Wowza Flowplayer (wowza_flowplayer) is the only valid option. You''re a subscriber if you have access to Asset Management and Historic and Live Analytics in the user interface.
+
+
+            The Wowza Flowplayer is an easy-to-use, commercial grade player designed for builders and developers. It provides HTML5, HLS, and MPEG-DASH playback and plays streams on any browser and device. It can be [customized](https://www.wowza.com/docs/embed-and-customize-wowza-flowplayer-in-your-site) if you embed it in your site.
+
+
+            **Other subscribers**</br> original _html5 and wowza_player are the only valid options and original_html5 is the default. **original_html5** provides HTML5 playback and falls back to Flash on older browsers. **wowza_player** requires that *target_delivery_protocol* be **hls-https** and *closed_caption_type* be **none**.
+
+
+            **Example:** <code>"type": "wowza_flowplayer"</code>'
           example: ''
+        video_poster_image:
+          type: string
+          description: 'The path to a GIF, JPEG, or PNG poster image that appears in the player before the stream begins. Poster image files must be 2.5 MB or smaller.
+
+
+            **Example:** <code>"video_poster_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>'
+          example: ''
+        width:
+          type: integer
+          description: 'The width, in pixels, of a fixed-size player. The default is **640**.
+
+
+            **Example:** <code>"width": 640</code>'
+          example: ''
+          format: int32
     live_stream_update_input:
       type: object
       description: ''
@@ -1694,6 +1760,473 @@ components:
           name: My Updated Live Stream
           description: This is my first live stream.
           recording: true
+    Error401:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 401
+            code: ERR-401-NoApiKey
+            title: No API Key Error
+            message: No API key sent in header.
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 401
+            code: ERR-401-NoAccessKey
+            title: No Access Key Error
+            message: No access key sent in header.
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 401
+            code: ERR-401-InvalidApiKey
+            title: Invalid Api Key Error
+            message: Invalid API key.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 401
+            code: ERR-401-InvalidAccessKey
+            title: Invalid Access Key Error
+            message: Invalid access key.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 401
+            code: ERR-401-BadAccountStatus
+            title: Bad Account Status Error
+            message: Your account's status doesn't allow this action.
+            description: ''
+            links: []
+        Example Response 6:
+          meta:
+            status: 401
+            code: ERR-401-FeatureNotEnabled
+            title: Feature Not Enabled Error
+            message: This feature isn't enabled.
+            description: ''
+            links: []
+        Example Response 7:
+          meta:
+            status: 401
+            code: ERR-401-TrialExceeded
+            title: Bad Billing Status Error
+            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
+            description: ''
+            links: []
+        Example Response 8:
+          meta:
+            status: 401
+            code: ERR-401-ExpiredToken
+            title: JWT is expired
+            message: Token has exired.
+            description: ''
+            links: []
+        Example Response 9:
+          meta:
+            status: 401
+            code: ERR-401-InvalidToken
+            title: JWT is invalid
+            message: Token is invalid.
+            description: ''
+            links: []
+    player_response_object:
+      type: object
+      description: "The **player** object is deprecated in 2.0. Create and update player configurations in the user interface. \n\nAny values you send using the **player** object will be ignored.\n\nThe following fields have been moved outside of the **player** object and reside within the **live_stream** object where you can still access them through the API:\n  * **embed_code**\n  * **hls_playback_url**\n  * **logo_image_url**\n  * **logo_position**\n  * **video_poster_image_url**\n  * **width**"
+      properties:
+        customizations:
+          type: object
+          description: Configuration of the player customizations.
+          properties:
+            play_icon:
+              type: string
+              description: A play icon that appears on the video preview. The default, **solid**, uses the standard play (solid triangle) icon. **outlined** uses an alternate (outlined triangle) play icon. **ring** uses an alternate (small solid triangle enclosed in a circle) play icon.
+              example: ''
+              enum:
+              - solid
+              - outlined
+              - ring
+            thin_timeline:
+              type: boolean
+              description: A control bar that appears on the video. Specify **true** to display the control bar on the video. The default is **false**.
+              example: ''
+            drag_handle:
+              type: boolean
+              description: A drag handle that you can use to drag the progress of the video on the timeline. Specify **true** to display the drag handle. The default is **false**.
+              example: ''
+            volume:
+              type: boolean
+              description: A volume button that appears on the video. Specify **true** to display the volume button. The default is **true**.
+              example: ''
+            mute:
+              type: boolean
+              description: A mute button that appears on the video. Specify **true** to display the mute button. The default is **true**.
+              example: ''
+            fullscreen:
+              type: boolean
+              description: A fullscreen button that appears on the video. Specify **true** to display the fullscreen button. The default is **true**.
+              example: ''
+            show_player_title:
+              type: boolean
+              description: The player title that appears on the video. Specify **true** to display the player title. The default is **false**.
+              example: ''
+            color:
+              type: string
+              description: 'The color of the timeline and volume bar of the player. You can set the color of your choice by passing a hex code for that specific color. '
+              example: ''
+        countdown:
+          type: boolean
+          description: A clock that appears in the player before the event and counts down to the start of the stream. Specify **true** to display the countdown clock. The default is **false**.
+          example: ''
+        countdown_at:
+          type: string
+          description: The date and time that the event starts, used by the countdown clock. Specify **YYYY-MM-DD HH:MM:SS**, where **HH** is a 24-hour clock in UTC.
+          example: ''
+        embed_code:
+          type: string
+          description: The HTML code that can be used in an external webpage to host the Wowza Flowplayer.
+          example: ''
+        hls_playback_url:
+          type: string
+          description: The address that can be used to configure playback of the stream using the HLS protocol.
+          example: ''
+        id:
+          type: string
+          description: The unique alphanumeric string that identifies the player.
+          example: ''
+        logo_image_url:
+          type: string
+          description: The path to a GIF, JPEG, or PNG logo file that appears partially transparent in a corner of the player throughout playback. Logo file must be 2.5 MB or smaller.
+          example: ''
+        logo_position:
+          type: string
+          description: The corner of the player in which you want the player logo to appear. The default is **top-left**.
+          example: ''
+          enum:
+          - top-left
+          - top-right
+          - bottom-left
+          - bottom-right
+        plugins:
+          type: object
+          description: Configuration of the plugins.
+          properties:
+            airplay:
+              type: boolean
+              description: If **true**, enables Airplay functionality in the player which allows you to cast to an Airplay device. The default is **false**.
+              example: ''
+            chromecast:
+              type: boolean
+              description: If **true**, enables Chromecast functionality in the player which allows you to cast to a Chromecast device. The default is **false**.
+              example: ''
+        responsive:
+          type: boolean
+          description: A player whose size adjusts according to the device on which it's being viewed. If **true**, creates a responsive player. If **false**, specify a *player_width*.
+          example: ''
+        type:
+          type: string
+          description: 'The player you want to use.
+
+
+            **Wowza Video subscribers**</br> Wowza Flowplayer (wowza_flowplayer) is the only valid option. You''re a subscriber if you have access to Asset Management and Historic and Live Analytics in the user interface.
+
+
+            The Wowza Flowplayer is an easy-to-use, commercial grade player designed for builders and developers. It provides HTML5, HLS, and MPEG-DASH playback and plays streams on any browser and device. It can be [customized](https://www.wowza.com/docs/embed-and-customize-wowza-flowplayer-in-your-site) if you embed it in your site.
+
+
+            **Other subscribers**</br> original _html5 and wowza_player are the only valid options and original_html5 is the default. **original_html5** provides HTML5 playback and falls back to Flash on older browsers. **wowza_player** requires that *target_delivery_protocol* be **hls-https** and *closed_caption_type* be **none**.'
+          example: ''
+        video_poster_image_url:
+          type: string
+          description: The path to a GIF, JPEG, or PNG poster image that appears in the player before the stream begins. Poster image files must be 2.5 MB or smaller.
+          example: ''
+        width:
+          type: integer
+          description: The width, in pixels, of a fixed-size player. The default is **640**.
+          example: ''
+          format: int32
+    player_request_object_create:
+      type: object
+      description: "The **player** object is deprecated in 2.0. Create and update player configurations in the user interface. \n\nAny values you send using the **player** object will be ignored.\n\nThe following fields have been moved outside of the **player** object and reside within the **live_stream** object where you can still access them through the API:\n  * **logo_image**\n  * **logo_position**\n  * **video_poster_image**\n  * **width**"
+      properties:
+        customizations:
+          type: object
+          description: Configuration of the player customizations.
+          properties:
+            play_icon:
+              type: string
+              description: 'A play icon that is displayed on the video preview. The default, **solid**, uses the standard play (solid triangle) icon. **outlined** uses an alternate (outlined triangle) play icon. **ring** uses an alternate (small solid triangle enclosed in a circle) play icon.
+
+
+                Default: **solid**
+
+
+                **Example:** <code>"play_icon": "solid"</code>'
+              example: solid
+              enum:
+              - solid
+              - outlined
+              - ring
+            thin_timeline:
+              type: boolean
+              description: 'If **true**, displays a thinner control bar than the default in the video. The default is **false**.
+
+
+                **Example:** <code>"thin_timeline": false</code>'
+              example: ''
+            drag_handle:
+              type: boolean
+              description: 'If **true**, displays a drag handle on the progress bar. The default is **false**.
+
+
+                **Example:** <code>"drag_handle": false</code>'
+              example: ''
+            volume:
+              type: boolean
+              description: 'If **true**, displays a volume button on the video. The default is **true**.
+
+
+                **Example:** <code>"volume": true</code>'
+              example: ''
+            mute:
+              type: boolean
+              description: 'If **true**, displays a mute button on the video. The default is **true**.
+
+
+                **Example:** <code>"mute": true</code>'
+              example: ''
+            fullscreen:
+              type: boolean
+              description: 'If **true**, displays a fullscreen button on the video. The default is **true**.
+
+
+                **Example:** <code>"fullscreen": true</code>'
+              example: ''
+            show_player_title:
+              type: boolean
+              description: 'If **true**, displays a preview title on the video. The default is **false**.
+
+
+                **Example:** <code>"show_player_title": false</code>'
+              example: ''
+            color:
+              type: string
+              description: 'The color of the timeline and volume bar of the player. You can set the color of your choice by passing a hex code for that specific color.
+
+
+                **Example:** <code>"color": "4d4d4d"</code>'
+              example: ''
+        countdown:
+          type: boolean
+          description: 'A clock that appears in the player before the event and counts down to the start of the stream. Specify **true** to display the countdown clock. The default is **false**.
+
+
+            **Example:** <code>"countdown": false</code>'
+          example: ''
+        countdown_at:
+          type: string
+          description: 'The date and time that the event starts, used by the countdown clock. Specify **YYYY-MM-DD HH:MM:SS**, where **HH** is a 24-hour clock in UTC.
+
+
+            **Example:** <code>"countdown_at": "2020-02-01T17:00:00.000Z"</code>'
+          example: ''
+        logo_image:
+          type: string
+          description: 'A Base64-encoded string representation of a GIF, JPEG, or PNG logo  file that appears partially transparent in a corner of the player throughout playback. Logo file must be 2.5 MB or smaller.
+
+
+            **Example:** <code>"logo_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>   '
+          example: ''
+        logo_position:
+          type: string
+          description: 'The corner of the player in which you want the player logo to appear. The default is **top-left**.
+
+
+            **Example:** <code>"logo_position": "top-right"</code>'
+          example: ''
+          enum:
+          - top-left
+          - top-right
+          - bottom-left
+          - bottom-right
+        plugins:
+          type: object
+          description: Configuration of the plugins.
+          properties:
+            airplay:
+              type: boolean
+              description: 'If **true**, enables Airplay functionality in the player which allows you to cast to an Airplay device. The default is **false**.
+
+
+                **Example:** <code>"airplay": false</code>'
+              example: ''
+            chromecast:
+              type: boolean
+              description: 'If **true**, enables Chromecast functionality in the player which allows you to cast to a Chromecast device. The default is **false**.
+
+
+                **Example:** <code>"chromecast": false</code>'
+              example: ''
+        responsive:
+          type: boolean
+          description: "A player whose size adjusts according to the device on which it's being viewed. If **true**, creates a responsive player. If **false**, specify a *player_width*.\n\n\n **Example:** <code>\"type\": false</code>"
+          example: ''
+        type:
+          type: string
+          description: 'The player you want to use.
+
+
+            **Wowza Video subscribers**</br> Wowza Flowplayer (wowza_flowplayer) is the only valid option. You''re a subscriber if you have access to Asset Management and Historic and Live Analytics in the user interface.
+
+
+            The Wowza Flowplayer is an easy-to-use, commercial grade player designed for builders and developers. It provides HTML5, HLS, and MPEG-DASH playback and plays streams on any browser and device. It can be [customized](https://www.wowza.com/docs/embed-and-customize-wowza-flowplayer-in-your-site) if you embed it in your site.
+
+
+            **Other subscribers**</br> original _html5 and wowza_player are the only valid options and original_html5 is the default. **original_html5** provides HTML5 playback and falls back to Flash on older browsers. **wowza_player** requires that *target_delivery_protocol* be **hls-https** and *closed_caption_type* be **none**.
+
+
+            **Example:** <code>"type": "wowza_flowplayer"</code>'
+          example: ''
+        video_poster_image:
+          type: string
+          description: 'The path to a GIF, JPEG, or PNG poster image that appears in the player before the stream begins. Poster image files must be 2.5 MB or smaller.
+
+
+            **Example:** <code>"video_poster_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>'
+          example: ''
+        width:
+          type: integer
+          description: 'The width, in pixels, of a fixed-size player. The default is **640**.
+
+
+            **Example:** <code>"width": 640</code>'
+          example: ''
+          format: int32
+    hosted_page_request_object_create:
+      type: object
+      description: Configuration of the hosted page.
+      properties:
+        enabled:
+          type: boolean
+          description: 'A web page hosted by Wowza Video that includes a player for the live stream. The default, **true**, creates a hosted page. Specify **false** to not create a hosted web page.
+
+
+            **Example:** <code>"enabled": true</code>'
+          example: ''
+        description:
+          type: string
+          description: 'A description that appears on the hosted page below the player. Can''t include custom HTML, JavaScript, or other tags.
+
+
+            **Example:** <code>"description": "My Hosted Page Description"</code>'
+          example: ''
+        logo_image:
+          type: string
+          description: 'A Base64-encoded string representation of a GIF, JPEG, or PNG logo file that that appears in the upper-left corner of the hosted page. Logo file must be 2.5 MB or smaller.
+
+
+            **Example:** <code>"logo_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>'
+          example: '[Base64-encoded string representation of GIF, JPEG, or PNG file]'
+        sharing_icons:
+          type: boolean
+          description: 'Icons that let viewers share the stream on Facebook, Google+, Twitter, and by email. The default, **true**, includes sharing icons on the hosted page. Specify **false** to omit sharing icons.
+
+
+            **Example:** <code>"sharing_icons": false</code>'
+          example: ''
+        title:
+          type: string
+          description: 'A title for the page that appears above the player. Can''t include custom HTML, JavaScript, or other tags.
+
+
+            **Example:** <code>"title": "My Hosted Page"</code>'
+          example: ''
+    hosted_page_request_object:
+      type: object
+      description: Configuration of the hosted page.
+      properties:
+        enabled:
+          type: boolean
+          description: 'A web page hosted by Wowza Video that includes a player for the live stream. The default, **true**, creates a hosted page. Specify **false** to not create a hosted web page.
+
+
+            **Example:** <code>"enabled": true</code>'
+          example: ''
+        description:
+          type: string
+          description: 'A description that appears on the hosted page below the player. Can''t include custom HTML, JavaScript, or other tags.
+
+
+            **Example:** <code>"description": "My Hosted Page Description"</code>'
+          example: ''
+        logo_image:
+          type: string
+          description: 'A Base64-encoded string representation of a GIF, JPEG, or PNG logo file that that appears in the upper-left corner of the hosted page. Logo file must be 2.5 MB or smaller.
+
+
+            **Example:** <code>"logo_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>'
+          example: '[Base64-encoded string representation of GIF, JPEG, or PNG file]'
+        remove_logo_image:
+          type: boolean
+          description: 'If **true**, removes the logo file from the hosted page. The default is **false**.
+
+
+            **Example:** <code>"remove_logo_image": true</code>'
+          example: true
+        sharing_icons:
+          type: boolean
+          description: 'Icons that let viewers share the stream on Facebook, Google+, Twitter, and by email. The default, **true**, includes sharing icons on the hosted page. Specify **false** to omit sharing icons.
+
+
+            **Example:** <code>"sharing_icons": false</code>'
+          example: ''
+        title:
+          type: string
+          description: 'A title for the page that appears above the player. Can''t include custom HTML, JavaScript, or other tags.
+
+
+            **Example:** <code>"title": "My Hosted Page"</code>'
+          example: ''
     index_live_stream:
       type: object
       title: live_streams
@@ -1727,6 +2260,99 @@ components:
           description: The date and time that the live stream was updated.
           example: ''
           format: date-time
+    Error404:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 404
+            code: ERR-404-RecordNotFound
+            title: Record Not Found Error
+            message: The requested resource couldn't be found.
+            description: ''
+            links: []
+    hosted_page_response_object:
+      type: object
+      description: Configuration of the hosted page.
+      properties:
+        enabled:
+          type: boolean
+          description: A web page hosted by Wowza Video that includes a player for the live stream. The default, **true**, creates a hosted page. Specify **false** to not create a hosted web page.
+          example: ''
+        description:
+          type: string
+          description: A description that appears on the hosted page below the player. Can't include custom HTML, JavaScript, or other tags.
+          example: ''
+        logo_image_url:
+          type: string
+          description: The path to a GIF, JPEG, or PNG logo file that appears in the upper-left corner of the hosted page. Logo file must be 2.5 MB or smaller.
+        sharing_icons:
+          type: boolean
+          description: Icons that let viewers share the stream on Facebook, Google+, Twitter, and by email. The default, **true**, includes sharing icons on the hosted page. Specify **false** to omit sharing icons.
+          example: ''
+        title:
+          type: string
+          description: A title for the page that appears above the player. Can't include custom HTML, JavaScript, or other tags.
+          example: ''
+        url:
+          type: string
+          description: The URL of the Wowza Video-hosted webpage that viewers can visit to watch the stream.
+          example: ''
+    broadcast_location:
+      type: string
+      description: The location of your stream. Choose a location as close as possible to your video source.
+      example: eu_germany
+      enum:
+      - asia_pacific_australia
+      - asia_pacific_india
+      - asia_pacific_japan
+      - asia_pacific_singapore
+      - asia_pacific_s_korea
+      - asia_pacific_taiwan
+      - eu_belgium
+      - eu_germany
+      - eu_ireland
+      - south_america_brazil
+      - us_central_iowa
+      - us_east_s_carolina
+      - us_east_virginia
+      - us_west_california
+      - us_west_oregon
     live_stream_create_input:
       type: object
       description: ''
@@ -2911,632 +3537,6 @@ components:
         watermark_opacity: 75
         watermark_position: top-right
         watermark_width: 100
-    player_response_object:
-      type: object
-      description: "The **player** object is deprecated in 2.0. Create and update player configurations in the user interface. \n\nAny values you send using the **player** object will be ignored.\n\nThe following fields have been moved outside of the **player** object and reside within the **live_stream** object where you can still access them through the API:\n  * **embed_code**\n  * **hls_playback_url**\n  * **logo_image_url**\n  * **logo_position**\n  * **video_poster_image_url**\n  * **width**"
-      properties:
-        customizations:
-          type: object
-          description: Configuration of the player customizations.
-          properties:
-            play_icon:
-              type: string
-              description: A play icon that appears on the video preview. The default, **solid**, uses the standard play (solid triangle) icon. **outlined** uses an alternate (outlined triangle) play icon. **ring** uses an alternate (small solid triangle enclosed in a circle) play icon.
-              example: ''
-              enum:
-              - solid
-              - outlined
-              - ring
-            thin_timeline:
-              type: boolean
-              description: A control bar that appears on the video. Specify **true** to display the control bar on the video. The default is **false**.
-              example: ''
-            drag_handle:
-              type: boolean
-              description: A drag handle that you can use to drag the progress of the video on the timeline. Specify **true** to display the drag handle. The default is **false**.
-              example: ''
-            volume:
-              type: boolean
-              description: A volume button that appears on the video. Specify **true** to display the volume button. The default is **true**.
-              example: ''
-            mute:
-              type: boolean
-              description: A mute button that appears on the video. Specify **true** to display the mute button. The default is **true**.
-              example: ''
-            fullscreen:
-              type: boolean
-              description: A fullscreen button that appears on the video. Specify **true** to display the fullscreen button. The default is **true**.
-              example: ''
-            show_player_title:
-              type: boolean
-              description: The player title that appears on the video. Specify **true** to display the player title. The default is **false**.
-              example: ''
-            color:
-              type: string
-              description: 'The color of the timeline and volume bar of the player. You can set the color of your choice by passing a hex code for that specific color. '
-              example: ''
-        countdown:
-          type: boolean
-          description: A clock that appears in the player before the event and counts down to the start of the stream. Specify **true** to display the countdown clock. The default is **false**.
-          example: ''
-        countdown_at:
-          type: string
-          description: The date and time that the event starts, used by the countdown clock. Specify **YYYY-MM-DD HH:MM:SS**, where **HH** is a 24-hour clock in UTC.
-          example: ''
-        embed_code:
-          type: string
-          description: The HTML code that can be used in an external webpage to host the Wowza Flowplayer.
-          example: ''
-        hls_playback_url:
-          type: string
-          description: The address that can be used to configure playback of the stream using the HLS protocol.
-          example: ''
-        id:
-          type: string
-          description: The unique alphanumeric string that identifies the player.
-          example: ''
-        logo_image_url:
-          type: string
-          description: The path to a GIF, JPEG, or PNG logo file that appears partially transparent in a corner of the player throughout playback. Logo file must be 2.5 MB or smaller.
-          example: ''
-        logo_position:
-          type: string
-          description: The corner of the player in which you want the player logo to appear. The default is **top-left**.
-          example: ''
-          enum:
-          - top-left
-          - top-right
-          - bottom-left
-          - bottom-right
-        plugins:
-          type: object
-          description: Configuration of the plugins.
-          properties:
-            airplay:
-              type: boolean
-              description: If **true**, enables Airplay functionality in the player which allows you to cast to an Airplay device. The default is **false**.
-              example: ''
-            chromecast:
-              type: boolean
-              description: If **true**, enables Chromecast functionality in the player which allows you to cast to a Chromecast device. The default is **false**.
-              example: ''
-        responsive:
-          type: boolean
-          description: A player whose size adjusts according to the device on which it's being viewed. If **true**, creates a responsive player. If **false**, specify a *player_width*.
-          example: ''
-        type:
-          type: string
-          description: 'The player you want to use.
-
-
-            **Wowza Video subscribers**</br> Wowza Flowplayer (wowza_flowplayer) is the only valid option. You''re a subscriber if you have access to Asset Management and Historic and Live Analytics in the user interface.
-
-
-            The Wowza Flowplayer is an easy-to-use, commercial grade player designed for builders and developers. It provides HTML5, HLS, and MPEG-DASH playback and plays streams on any browser and device. It can be [customized](https://www.wowza.com/docs/embed-and-customize-wowza-flowplayer-in-your-site) if you embed it in your site.
-
-
-            **Other subscribers**</br> original _html5 and wowza_player are the only valid options and original_html5 is the default. **original_html5** provides HTML5 playback and falls back to Flash on older browsers. **wowza_player** requires that *target_delivery_protocol* be **hls-https** and *closed_caption_type* be **none**.'
-          example: ''
-        video_poster_image_url:
-          type: string
-          description: The path to a GIF, JPEG, or PNG poster image that appears in the player before the stream begins. Poster image files must be 2.5 MB or smaller.
-          example: ''
-        width:
-          type: integer
-          description: The width, in pixels, of a fixed-size player. The default is **640**.
-          example: ''
-          format: int32
-    player_request_object:
-      type: object
-      description: "The **player** object is deprecated in 2.0. Create and update player configurations in the user interface. \n\nAny values you send using the **player** object will be ignored.\n\nThe following fields have been moved outside of the **player** object and reside within the **live_stream** object where you can still access them through the API:\n  * **logo_image**\n  * **logo_position**\n  * **video_poster_image**\n  * **width**\n  * **remove_video_poster_image**\n  * **remove_logo_image**"
-      properties:
-        customizations:
-          type: object
-          description: Configuration of the player customizations.
-          properties:
-            play_icon:
-              type: string
-              description: 'A play icon that is displayed on the video preview. The default, **solid**, uses the standard play (solid triangle) icon. **outlined** uses an alternate (outlined triangle) play icon. **ring** uses an alternate (small solid triangle enclosed in a circle) play icon.
-
-
-                Default: **solid**
-
-
-                **Example:** <code>"play_icon": "solid"</code>'
-              example: solid
-              enum:
-              - solid
-              - outlined
-              - ring
-            thin_timeline:
-              type: boolean
-              description: 'If **true**, displays a thinner control bar than the default in the video. The default is **false**.
-
-
-                **Example:** <code>"thin_timeline": false</code>'
-              example: ''
-            drag_handle:
-              type: boolean
-              description: 'If **true**, displays a drag handle on the progress bar. The default is **false**.
-
-
-                **Example:** <code>"drag_handle": false</code>'
-              example: ''
-            volume:
-              type: boolean
-              description: 'If **true**, displays a volume button on the video. The default is **true**.
-
-
-                **Example:** <code>"volume": true</code>'
-              example: ''
-            mute:
-              type: boolean
-              description: 'If **true**, displays a mute button on the video. The default is **true**.
-
-
-                **Example:** <code>"mute": true</code>'
-              example: ''
-            fullscreen:
-              type: boolean
-              description: 'If **true**, displays a fullscreen button on the video. The default is **true**.
-
-
-                **Example:** <code>"fullscreen": true</code>'
-              example: ''
-            show_player_title:
-              type: boolean
-              description: 'If **true**, displays a preview title on the video. The default is **false**.
-
-
-                **Example:** <code>"show_player_title": false</code>'
-              example: ''
-            color:
-              type: string
-              description: 'The color of the timeline and volume bar of the player. You can set the color of your choice by passing a hex code for that specific color.
-
-
-                **Example:** <code>"color": "4d4d4d"</code>'
-              example: ''
-        countdown:
-          type: boolean
-          description: 'A clock that appears in the player before the event and counts down to the start of the stream. Specify **true** to display the countdown clock. The default is **false**.
-
-
-            **Example:** <code>"countdown": false</code>'
-          example: ''
-        countdown_at:
-          type: string
-          description: 'The date and time that the event starts, used by the countdown clock. Specify **YYYY-MM-DD HH:MM:SS**, where **HH** is a 24-hour clock in UTC.
-
-
-            **Example:** <code>"countdown_at": "2020-02-01T17:00:00.000Z"</code>'
-          example: ''
-        logo_image:
-          type: string
-          description: 'A Base64-encoded string representation of a GIF, JPEG, or PNG logo  file that appears partially transparent in a corner of the player throughout playback. Logo file must be 2.5 MB or smaller.
-
-
-            **Example:** <code>"logo_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>   '
-          example: ''
-        logo_position:
-          type: string
-          description: 'The corner of the player in which you want the player logo to appear. The default is **top-left**.
-
-
-            **Example:** <code>"logo_position": "top-right"</code>'
-          example: ''
-          enum:
-          - top-left
-          - top-right
-          - bottom-left
-          - bottom-right
-        plugins:
-          type: object
-          description: Configuration of the plugins.
-          properties:
-            airplay:
-              type: boolean
-              description: 'If **true**, enables Airplay functionality in the player which allows you to cast to an Airplay device. The default is **false**.
-
-
-                **Example:** <code>"airplay": false</code>'
-              example: ''
-            chromecast:
-              type: boolean
-              description: 'If **true**, enables Chromecast functionality in the player which allows you to cast to a Chromecast device. The default is **false**.
-
-
-                **Example:** <code>"chromecast": false</code>'
-              example: ''
-        remove_logo_image:
-          type: boolean
-          description: 'If **true**, removes the logo file from the player. The default is **false**.
-
-
-            **Example:** <code>"remove_logo_image": true</code>'
-          example: true
-        remove_video_poster_image:
-          type: boolean
-          description: 'If **true**, removes the poster image. The default is **false**.
-
-
-            **Example:** <code>"remove_video_poster_image": true</code>'
-          example: true
-        responsive:
-          type: boolean
-          description: "A player whose size adjusts according to the device on which it's being viewed. If **true**, creates a responsive player. If **false**, specify a *player_width*.\n\n\n **Example:** <code>\"type\": false</code>"
-          example: ''
-        type:
-          type: string
-          description: 'The player you want to use.
-
-
-            **Wowza Video subscribers**</br> Wowza Flowplayer (wowza_flowplayer) is the only valid option. You''re a subscriber if you have access to Asset Management and Historic and Live Analytics in the user interface.
-
-
-            The Wowza Flowplayer is an easy-to-use, commercial grade player designed for builders and developers. It provides HTML5, HLS, and MPEG-DASH playback and plays streams on any browser and device. It can be [customized](https://www.wowza.com/docs/embed-and-customize-wowza-flowplayer-in-your-site) if you embed it in your site.
-
-
-            **Other subscribers**</br> original _html5 and wowza_player are the only valid options and original_html5 is the default. **original_html5** provides HTML5 playback and falls back to Flash on older browsers. **wowza_player** requires that *target_delivery_protocol* be **hls-https** and *closed_caption_type* be **none**.
-
-
-            **Example:** <code>"type": "wowza_flowplayer"</code>'
-          example: ''
-        video_poster_image:
-          type: string
-          description: 'The path to a GIF, JPEG, or PNG poster image that appears in the player before the stream begins. Poster image files must be 2.5 MB or smaller.
-
-
-            **Example:** <code>"video_poster_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>'
-          example: ''
-        width:
-          type: integer
-          description: 'The width, in pixels, of a fixed-size player. The default is **640**.
-
-
-            **Example:** <code>"width": 640</code>'
-          example: ''
-          format: int32
-    Error404:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 404
-            code: ERR-404-RecordNotFound
-            title: Record Not Found Error
-            message: The requested resource couldn't be found.
-            description: ''
-            links: []
-    hosted_page_response_object:
-      type: object
-      description: Configuration of the hosted page.
-      properties:
-        enabled:
-          type: boolean
-          description: A web page hosted by Wowza Video that includes a player for the live stream. The default, **true**, creates a hosted page. Specify **false** to not create a hosted web page.
-          example: ''
-        description:
-          type: string
-          description: A description that appears on the hosted page below the player. Can't include custom HTML, JavaScript, or other tags.
-          example: ''
-        logo_image_url:
-          type: string
-          description: The path to a GIF, JPEG, or PNG logo file that appears in the upper-left corner of the hosted page. Logo file must be 2.5 MB or smaller.
-        sharing_icons:
-          type: boolean
-          description: Icons that let viewers share the stream on Facebook, Google+, Twitter, and by email. The default, **true**, includes sharing icons on the hosted page. Specify **false** to omit sharing icons.
-          example: ''
-        title:
-          type: string
-          description: A title for the page that appears above the player. Can't include custom HTML, JavaScript, or other tags.
-          example: ''
-        url:
-          type: string
-          description: The URL of the Wowza Video-hosted webpage that viewers can visit to watch the stream.
-          example: ''
-    player_request_object_create:
-      type: object
-      description: "The **player** object is deprecated in 2.0. Create and update player configurations in the user interface. \n\nAny values you send using the **player** object will be ignored.\n\nThe following fields have been moved outside of the **player** object and reside within the **live_stream** object where you can still access them through the API:\n  * **logo_image**\n  * **logo_position**\n  * **video_poster_image**\n  * **width**"
-      properties:
-        customizations:
-          type: object
-          description: Configuration of the player customizations.
-          properties:
-            play_icon:
-              type: string
-              description: 'A play icon that is displayed on the video preview. The default, **solid**, uses the standard play (solid triangle) icon. **outlined** uses an alternate (outlined triangle) play icon. **ring** uses an alternate (small solid triangle enclosed in a circle) play icon.
-
-
-                Default: **solid**
-
-
-                **Example:** <code>"play_icon": "solid"</code>'
-              example: solid
-              enum:
-              - solid
-              - outlined
-              - ring
-            thin_timeline:
-              type: boolean
-              description: 'If **true**, displays a thinner control bar than the default in the video. The default is **false**.
-
-
-                **Example:** <code>"thin_timeline": false</code>'
-              example: ''
-            drag_handle:
-              type: boolean
-              description: 'If **true**, displays a drag handle on the progress bar. The default is **false**.
-
-
-                **Example:** <code>"drag_handle": false</code>'
-              example: ''
-            volume:
-              type: boolean
-              description: 'If **true**, displays a volume button on the video. The default is **true**.
-
-
-                **Example:** <code>"volume": true</code>'
-              example: ''
-            mute:
-              type: boolean
-              description: 'If **true**, displays a mute button on the video. The default is **true**.
-
-
-                **Example:** <code>"mute": true</code>'
-              example: ''
-            fullscreen:
-              type: boolean
-              description: 'If **true**, displays a fullscreen button on the video. The default is **true**.
-
-
-                **Example:** <code>"fullscreen": true</code>'
-              example: ''
-            show_player_title:
-              type: boolean
-              description: 'If **true**, displays a preview title on the video. The default is **false**.
-
-
-                **Example:** <code>"show_player_title": false</code>'
-              example: ''
-            color:
-              type: string
-              description: 'The color of the timeline and volume bar of the player. You can set the color of your choice by passing a hex code for that specific color.
-
-
-                **Example:** <code>"color": "4d4d4d"</code>'
-              example: ''
-        countdown:
-          type: boolean
-          description: 'A clock that appears in the player before the event and counts down to the start of the stream. Specify **true** to display the countdown clock. The default is **false**.
-
-
-            **Example:** <code>"countdown": false</code>'
-          example: ''
-        countdown_at:
-          type: string
-          description: 'The date and time that the event starts, used by the countdown clock. Specify **YYYY-MM-DD HH:MM:SS**, where **HH** is a 24-hour clock in UTC.
-
-
-            **Example:** <code>"countdown_at": "2020-02-01T17:00:00.000Z"</code>'
-          example: ''
-        logo_image:
-          type: string
-          description: 'A Base64-encoded string representation of a GIF, JPEG, or PNG logo  file that appears partially transparent in a corner of the player throughout playback. Logo file must be 2.5 MB or smaller.
-
-
-            **Example:** <code>"logo_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>   '
-          example: ''
-        logo_position:
-          type: string
-          description: 'The corner of the player in which you want the player logo to appear. The default is **top-left**.
-
-
-            **Example:** <code>"logo_position": "top-right"</code>'
-          example: ''
-          enum:
-          - top-left
-          - top-right
-          - bottom-left
-          - bottom-right
-        plugins:
-          type: object
-          description: Configuration of the plugins.
-          properties:
-            airplay:
-              type: boolean
-              description: 'If **true**, enables Airplay functionality in the player which allows you to cast to an Airplay device. The default is **false**.
-
-
-                **Example:** <code>"airplay": false</code>'
-              example: ''
-            chromecast:
-              type: boolean
-              description: 'If **true**, enables Chromecast functionality in the player which allows you to cast to a Chromecast device. The default is **false**.
-
-
-                **Example:** <code>"chromecast": false</code>'
-              example: ''
-        responsive:
-          type: boolean
-          description: "A player whose size adjusts according to the device on which it's being viewed. If **true**, creates a responsive player. If **false**, specify a *player_width*.\n\n\n **Example:** <code>\"type\": false</code>"
-          example: ''
-        type:
-          type: string
-          description: 'The player you want to use.
-
-
-            **Wowza Video subscribers**</br> Wowza Flowplayer (wowza_flowplayer) is the only valid option. You''re a subscriber if you have access to Asset Management and Historic and Live Analytics in the user interface.
-
-
-            The Wowza Flowplayer is an easy-to-use, commercial grade player designed for builders and developers. It provides HTML5, HLS, and MPEG-DASH playback and plays streams on any browser and device. It can be [customized](https://www.wowza.com/docs/embed-and-customize-wowza-flowplayer-in-your-site) if you embed it in your site.
-
-
-            **Other subscribers**</br> original _html5 and wowza_player are the only valid options and original_html5 is the default. **original_html5** provides HTML5 playback and falls back to Flash on older browsers. **wowza_player** requires that *target_delivery_protocol* be **hls-https** and *closed_caption_type* be **none**.
-
-
-            **Example:** <code>"type": "wowza_flowplayer"</code>'
-          example: ''
-        video_poster_image:
-          type: string
-          description: 'The path to a GIF, JPEG, or PNG poster image that appears in the player before the stream begins. Poster image files must be 2.5 MB or smaller.
-
-
-            **Example:** <code>"video_poster_image": "[Base64-encoded string representation of GIF, JPEG, or PNG file]"</code>'
-          example: ''
-        width:
-          type: integer
-          description: 'The width, in pixels, of a fixed-size player. The default is **640**.
-
-
-            **Example:** <code>"width": 640</code>'
-          example: ''
-          format: int32
-    Error401:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 401
-            code: ERR-401-NoApiKey
-            title: No API Key Error
-            message: No API key sent in header.
-            description: ''
-            links: []
-        Example Response 2:
-          meta:
-            status: 401
-            code: ERR-401-NoAccessKey
-            title: No Access Key Error
-            message: No access key sent in header.
-            description: ''
-            links: []
-        Example Response 3:
-          meta:
-            status: 401
-            code: ERR-401-InvalidApiKey
-            title: Invalid Api Key Error
-            message: Invalid API key.
-            description: ''
-            links: []
-        Example Response 4:
-          meta:
-            status: 401
-            code: ERR-401-InvalidAccessKey
-            title: Invalid Access Key Error
-            message: Invalid access key.
-            description: ''
-            links: []
-        Example Response 5:
-          meta:
-            status: 401
-            code: ERR-401-BadAccountStatus
-            title: Bad Account Status Error
-            message: Your account's status doesn't allow this action.
-            description: ''
-            links: []
-        Example Response 6:
-          meta:
-            status: 401
-            code: ERR-401-FeatureNotEnabled
-            title: Feature Not Enabled Error
-            message: This feature isn't enabled.
-            description: ''
-            links: []
-        Example Response 7:
-          meta:
-            status: 401
-            code: ERR-401-TrialExceeded
-            title: Bad Billing Status Error
-            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
-            description: ''
-            links: []
-        Example Response 8:
-          meta:
-            status: 401
-            code: ERR-401-ExpiredToken
-            title: JWT is expired
-            message: Token has exired.
-            description: ''
-            links: []
-        Example Response 9:
-          meta:
-            status: 401
-            code: ERR-401-InvalidToken
-            title: JWT is invalid
-            message: Token is invalid.
-            description: ''
-            links: []
   securitySchemes:
     WV_JWT:
       type: http

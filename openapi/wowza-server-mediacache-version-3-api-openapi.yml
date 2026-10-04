@@ -584,40 +584,6 @@ paths:
           description: Internal server error
 components:
   schemas:
-    AdvancedSetting:
-      type: object
-      properties:
-        sectionName:
-          type: string
-        canRemove:
-          type: boolean
-        defaultValue:
-          type: string
-        documented:
-          type: boolean
-        name:
-          type: string
-        section:
-          type: string
-        type:
-          type: string
-        value:
-          type: string
-        initialValue:
-          type: string
-        enabled:
-          type: boolean
-      required:
-      - enabled
-      - canRemove
-      - name
-      - value
-      - defaultValue
-      - type
-      - sectionName
-      - section
-      - documented
-      - initialValue
     MediaCacheSourceConfigAdv3:
       type: object
       properties:
@@ -637,89 +603,6 @@ components:
       - version
       - serverName
       - advancedSettings
-    MediaCacheStoreConfig3:
-      type: object
-      properties:
-        path:
-          type: string
-        writeRate:
-          type: string
-        serverName:
-          type: string
-        description:
-          type: string
-        storeName:
-          type: string
-        maxSize:
-          type: string
-        writeRateMaxBucketSize:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - storeName
-      - description
-      - path
-      - maxSize
-      - writeRate
-      - writeRateMaxBucketSize
-    MediaCacheStoresConfig3:
-      type: object
-      properties:
-        stores:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShortObject'
-        serverName:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - stores
-    MediaCacheStoreConfig:
-      type: object
-      properties:
-        path:
-          type: string
-        writeRate:
-          type: string
-        name:
-          type: string
-        serverName:
-          type: string
-        description:
-          type: string
-        maxSize:
-          type: string
-        writeRateMaxBucketSize:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - name
-      - description
-      - path
-      - maxSize
-      - writeRate
-      - writeRateMaxBucketSize
     MediaCacheSourceConfig:
       type: object
       properties:
@@ -805,25 +688,16 @@ components:
       - googleServicePrivateKeyFile
       - googleServicePrivateKeyPassword
       - googleEncMethod
-    MediaCacheSourcesConfig3:
+    ShortObject:
       type: object
       properties:
-        sources:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShortObject'
-        serverName:
+        id:
           type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
+        href:
           type: string
       required:
-      - version
-      - serverName
-      - sources
+      - id
+      - href
     MediaCacheConfig3:
       type: object
       properties:
@@ -872,16 +746,25 @@ components:
       - maxPendingReadAheadRequestSizeAutoValue
       - stores
       - sources
-    ShortObject:
+    MediaCacheStoresConfig3:
       type: object
       properties:
-        id:
+        stores:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShortObject'
+        serverName:
           type: string
-        href:
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
           type: string
       required:
-      - id
-      - href
+      - version
+      - serverName
+      - stores
     MediaCacheSourceConfig3:
       type: object
       properties:
@@ -967,6 +850,123 @@ components:
       - googleServicePrivateKeyFile
       - googleServicePrivateKeyPassword
       - googleEncMethod
+    MediaCacheStoreConfig:
+      type: object
+      properties:
+        path:
+          type: string
+        writeRate:
+          type: string
+        name:
+          type: string
+        serverName:
+          type: string
+        description:
+          type: string
+        maxSize:
+          type: string
+        writeRateMaxBucketSize:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - name
+      - description
+      - path
+      - maxSize
+      - writeRate
+      - writeRateMaxBucketSize
+    MediaCacheSourcesConfig3:
+      type: object
+      properties:
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShortObject'
+        serverName:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - sources
+    MediaCacheStoreConfig3:
+      type: object
+      properties:
+        path:
+          type: string
+        writeRate:
+          type: string
+        serverName:
+          type: string
+        description:
+          type: string
+        storeName:
+          type: string
+        maxSize:
+          type: string
+        writeRateMaxBucketSize:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - storeName
+      - description
+      - path
+      - maxSize
+      - writeRate
+      - writeRateMaxBucketSize
+    AdvancedSetting:
+      type: object
+      properties:
+        sectionName:
+          type: string
+        canRemove:
+          type: boolean
+        defaultValue:
+          type: string
+        documented:
+          type: boolean
+        name:
+          type: string
+        section:
+          type: string
+        type:
+          type: string
+        value:
+          type: string
+        initialValue:
+          type: string
+        enabled:
+          type: boolean
+      required:
+      - enabled
+      - canRemove
+      - name
+      - value
+      - defaultValue
+      - type
+      - sectionName
+      - section
+      - documented
+      - initialValue
   securitySchemes:
     basicAuth:
       type: http

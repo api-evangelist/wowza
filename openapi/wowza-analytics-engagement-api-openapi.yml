@@ -114,52 +114,6 @@ paths:
                 $ref: '#/components/schemas/Error422'
 components:
   schemas:
-    Error404:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 404
-            code: ERR-404-RecordNotFound
-            title: Record Not Found Error
-            message: The requested resource couldn't be found.
-            description: ''
-            links: []
     Error410:
       type: object
       description: ''
@@ -250,6 +204,162 @@ components:
             code: ERR-403-RecordUnaccessible
             title: Record Unaccessible Error
             message: The requested resource isn't accessible.
+            description: ''
+            links: []
+    Error404:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 404
+            code: ERR-404-RecordNotFound
+            title: Record Not Found Error
+            message: The requested resource couldn't be found.
+            description: ''
+            links: []
+    Error401:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 401
+            code: ERR-401-NoApiKey
+            title: No API Key Error
+            message: No API key sent in header.
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 401
+            code: ERR-401-NoAccessKey
+            title: No Access Key Error
+            message: No access key sent in header.
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 401
+            code: ERR-401-InvalidApiKey
+            title: Invalid Api Key Error
+            message: Invalid API key.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 401
+            code: ERR-401-InvalidAccessKey
+            title: Invalid Access Key Error
+            message: Invalid access key.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 401
+            code: ERR-401-BadAccountStatus
+            title: Bad Account Status Error
+            message: Your account's status doesn't allow this action.
+            description: ''
+            links: []
+        Example Response 6:
+          meta:
+            status: 401
+            code: ERR-401-FeatureNotEnabled
+            title: Feature Not Enabled Error
+            message: This feature isn't enabled.
+            description: ''
+            links: []
+        Example Response 7:
+          meta:
+            status: 401
+            code: ERR-401-TrialExceeded
+            title: Bad Billing Status Error
+            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
+            description: ''
+            links: []
+        Example Response 8:
+          meta:
+            status: 401
+            code: ERR-401-ExpiredToken
+            title: JWT is expired
+            message: Token has exired.
+            description: ''
+            links: []
+        Example Response 9:
+          meta:
+            status: 401
+            code: ERR-401-InvalidToken
+            title: JWT is invalid
+            message: Token is invalid.
             description: ''
             links: []
     analytics_engagement_vod_stream:
@@ -439,116 +549,6 @@ components:
             code: ERR-422-InvalidStateChange
             title: Invalid State Change Error
             message: The request couldn't be processed. The broadcast location can't be updated when using autostart.
-            description: ''
-            links: []
-    Error401:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 401
-            code: ERR-401-NoApiKey
-            title: No API Key Error
-            message: No API key sent in header.
-            description: ''
-            links: []
-        Example Response 2:
-          meta:
-            status: 401
-            code: ERR-401-NoAccessKey
-            title: No Access Key Error
-            message: No access key sent in header.
-            description: ''
-            links: []
-        Example Response 3:
-          meta:
-            status: 401
-            code: ERR-401-InvalidApiKey
-            title: Invalid Api Key Error
-            message: Invalid API key.
-            description: ''
-            links: []
-        Example Response 4:
-          meta:
-            status: 401
-            code: ERR-401-InvalidAccessKey
-            title: Invalid Access Key Error
-            message: Invalid access key.
-            description: ''
-            links: []
-        Example Response 5:
-          meta:
-            status: 401
-            code: ERR-401-BadAccountStatus
-            title: Bad Account Status Error
-            message: Your account's status doesn't allow this action.
-            description: ''
-            links: []
-        Example Response 6:
-          meta:
-            status: 401
-            code: ERR-401-FeatureNotEnabled
-            title: Feature Not Enabled Error
-            message: This feature isn't enabled.
-            description: ''
-            links: []
-        Example Response 7:
-          meta:
-            status: 401
-            code: ERR-401-TrialExceeded
-            title: Bad Billing Status Error
-            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
-            description: ''
-            links: []
-        Example Response 8:
-          meta:
-            status: 401
-            code: ERR-401-ExpiredToken
-            title: JWT is expired
-            message: Token has exired.
-            description: ''
-            links: []
-        Example Response 9:
-          meta:
-            status: 401
-            code: ERR-401-InvalidToken
-            title: JWT is invalid
-            message: Token is invalid.
             description: ''
             links: []
   securitySchemes:

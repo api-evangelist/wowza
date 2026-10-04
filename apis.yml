@@ -2013,8 +2013,6 @@ apis:
   humanURL: https://www.wowza.com/docs/wowza-streaming-engine-java-api-reference-documentation
   baseURL: https://www.wowza.com/video/player
   tags:
-  - Real-Time
-  tags_raw:
   - Realtime
   properties:
   - type: OpenAPI

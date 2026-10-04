@@ -469,98 +469,6 @@ paths:
                 $ref: '#/components/schemas/Error410'
 components:
   schemas:
-    Error404:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 404
-            code: ERR-404-RecordNotFound
-            title: Record Not Found Error
-            message: The requested resource couldn't be found.
-            description: ''
-            links: []
-    Error410:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 410
-            code: ERR-410-RecordDeleted
-            title: Record Deleted Error
-            message: The requested resource has been deleted.
-            description: ''
-            links: []
     schedule_update_input:
       type: object
       description: ''
@@ -641,43 +549,6 @@ components:
               type: string
               description: "The time zone the schedule runs in.\n<details> <summary>Click to expand for the full list of valid values</summary>\n\n  | Locations |  Wowza Video time_zone value |\n  |---|---|\n  | International Date Line West  | Etc/GMT+12                     |\n  | Midway Island                 | Pacific/Midway                 |\n  | American Samoa                | Pacific/Pago_Pago              |\n  | Hawaii                        | Pacific/Honolulu               |\n  | Alaska                        | America/Juneau                 |\n  | Pacific Time (US & Canada)    | America/Los_Angeles            |\n  | Tijuana                       | America/Tijuana                |\n  | Mountain Time (US & Canada)   | America/Denver                 |\n  | Arizona                       | America/Phoenix                |\n  | Chihuahua                     | America/Chihuahua              |\n  | Mazatlan                      | America/Mazatlan               |\n  | Central Time (US & Canada)    | America/Chicago                |\n  | Saskatchewan                  | America/Regina                 |\n  | Guadalajara                   | America/Mexico_City            |\n  | Mexico City                   | America/Mexico_City            |\n  | Monterrey                     | America/Monterrey              |\n  | Central America               | America/Guatemala              |\n  | Eastern Time (US & Canada)    | America/New_York               |\n  | Indiana (East)                | America/Indiana/Indianapolis   |\n  | Bogota                        | America/Bogota                 |\n  | Lima                          | America/Lima                   |\n  | Quito                         | America/Lima                   |\n  | Atlantic Time (Canada)        | America/Halifax                |\n  | Caracas                       | America/Caracas                |\n  | La Paz                        | America/La_Paz                 |\n  | Santiago                      | America/Santiago               |\n  | Newfoundland                  | America/St_Johns               |\n  | Brasilia                      | America/Sao_Paulo              |\n  | Buenos Aires                  | America/Argentina/Buenos_Aires |\n  | Montevideo                    | America/Montevideo             |\n  | Georgetown                    | America/Guyana                 |\n  | Puerto Rico                   | America/Puerto_Rico            |\n  | Greenland                     | America/Godthab                |\n  | Mid-Atlantic                  | Atlantic/South_Georgia         |\n  | Azores                        | Atlantic/Azores                |\n  | Cape Verde Is.                | Atlantic/Cape_Verde            |\n  | Dublin                        | Europe/Dublin                  |\n  | Edinburgh                     | Europe/London                  |\n  | Lisbon                        | Europe/Lisbon                  |\n  | London                        | Europe/London                  |\n  | Casablanca                    | Africa/Casablanca              |\n  | Monrovia                      | Africa/Monrovia                |\n  | UTC                           | Etc/UTC                        |\n  | Belgrade                      | Europe/Belgrade                |\n  | Bratislava                    | Europe/Bratislava              |\n  | Budapest                      | Europe/Budapest                |\n  | Ljubljana                     | Europe/Ljubljana               |\n  | Prague                        | Europe/Prague                  |\n  | Sarajevo                      | Europe/Sarajevo                |\n  | Skopje                        | Europe/Skopje                  |\n  | Warsaw                        | Europe/Warsaw                  |\n  | Zagreb                        | Europe/Zagreb                  |\n  | Brussels                      | Europe/Brussels                |\n  | Copenhagen                    | Europe/Copenhagen              |\n  | Madrid                        | Europe/Madrid                  |\n  | Paris                         | Europe/Paris                   |\n  | Amsterdam                     | Europe/Amsterdam               |\n  | Berlin                        | Europe/Berlin                  |\n  | Bern                          | Europe/Zurich                  |\n  | Zurich                        | Europe/Zurich                  |\n  | Rome                          | Europe/Rome                    |\n  | Stockholm                     | Europe/Stockholm               |\n  | Vienna                        | Europe/Vienna                  |\n  | West Central Africa           | Africa/Algiers                 |\n  | Bucharest                     | Europe/Bucharest               |\n  | Cairo                         | Africa/Cairo                   |\n  | Helsinki                      | Europe/Helsinki                |\n  | Kyiv                          | Europe/Kiev                    |\n  | Riga                          | Europe/Riga                    |\n  | Sofia                         | Europe/Sofia                   |\n  | Tallinn                       | Europe/Tallinn                 |\n  | Vilnius                       | Europe/Vilnius                 |\n  | Athens                        | Europe/Athens                  |\n  | Istanbul                      | Europe/Istanbul                |\n  | Minsk                         | Europe/Minsk                   |\n  | Jerusalem                     | Asia/Jerusalem                 |\n  | Harare                        | Africa/Harare                  |\n  | Pretoria                      | Africa/Johannesburg            |\n  | Kaliningrad                   | Europe/Kaliningrad             |\n  | Moscow                        | Europe/Moscow                  |\n  | St. Petersburg                | Europe/Moscow                  |\n  | Volgograd                     | Europe/Volgograd               |\n  | Samara                        | Europe/Samara                  |\n  | Kuwait                        | Asia/Kuwait                    |\n  | Riyadh                        | Asia/Riyadh                    |\n  | Nairobi                       | Africa/Nairobi                 |\n  | Baghdad                       | Asia/Baghdad                   |\n  | Tehran                        | Asia/Tehran                    |\n  | Abu Dhabi                     | Asia/Muscat                    |\n  | Muscat                        | Asia/Muscat                    |\n  | Baku                          | Asia/Baku                      |\n  | Tbilisi                       | Asia/Tbilisi                   |\n  | Yerevan                       | Asia/Yerevan                   |\n  | Kabul                         | Asia/Kabul                     |\n  | Ekaterinburg                  | Asia/Yekaterinburg             |\n  | Islamabad                     | Asia/Karachi                   |\n  | Karachi                       | Asia/Karachi                   |\n  | Tashkent                      | Asia/Tashkent                  |\n  | Chennai                       | Asia/Kolkata                   |\n  | Kolkata                       | Asia/Kolkata                   |\n  | Mumbai                        | Asia/Kolkata                   |\n  | New Delhi                     | Asia/Kolkata                   |\n  | Kathmandu                     | Asia/Kathmandu                 |\n  | Astana                        | Asia/Dhaka                     |\n  | Dhaka                         | Asia/Dhaka                     |\n  | Sri Jayawardenepura           | Asia/Colombo                   |\n  | Almaty                        | Asia/Almaty                    |\n  | Novosibirsk                   | Asia/Novosibirsk               |\n  | Rangoon                       | Asia/Rangoon                   |\n  | Bangkok                       | Asia/Bangkok                   |\n  | Hanoi                         | Asia/Bangkok                   |\n  | Jakarta                       | Asia/Jakarta                   |\n  | Krasnoyarsk                   | Asia/Krasnoyarsk               |\n  | Beijing                       | Asia/Shanghai                  |\n  | Chongqing                     | Asia/Chongqing                 |\n  | Hong Kong                     | Asia/Hong_Kong                 |\n  | Urumqi                        | Asia/Urumqi                    |\n  | Kuala Lumpur                  | Asia/Kuala_Lumpur              |\n  | Singapore                     | Asia/Singapore                 |\n  | Taipei                        | Asia/Taipei                    |\n  | Perth                         | Australia/Perth                |\n  | Irkutsk                       | Asia/Irkutsk                   |\n  | Ulaanbaatar                   | Asia/Ulaanbaatar               |\n  | Seoul                         | Asia/Seoul                     |\n  | Osaka                         | Asia/Tokyo                     |\n  | Sapporo                       | Asia/Tokyo                     |\n  | Tokyo                         | Asia/Tokyo                     |\n  | Yakutsk                       | Asia/Yakutsk                   |\n  | Darwin                        | Australia/Darwin               |\n  | Adelaide                      | Australia/Adelaide             |\n  | Canberra                      | Australia/Melbourne            |\n  | Melbourne                     | Australia/Melbourne            |\n  | Sydney                        | Australia/Sydney               |\n  | Brisbane                      | Australia/Brisbane             |\n  | Hobart                        | Australia/Hobart               |\n  | Vladivostok                   | Asia/Vladivostok               |\n  | Guam                          | Pacific/Guam                   |\n  | Port Moresby                  | Pacific/Port_Moresby           |\n  | Magadan                       | Asia/Magadan                   |\n  | Srednekolymsk                 | Asia/Srednekolymsk             |\n  | Solomon Is.                   | Pacific/Guadalcanal            |\n  | New Caledonia                 | Pacific/Noumea                 |\n  | Fiji                          | Pacific/Fiji                   |\n  | Kamchatka                     | Asia/Kamchatka                 |\n  | Marshall Is.                  | Pacific/Majuro                 |\n  | Auckland                      | Pacific/Auckland               |\n  | Wellington                    | Pacific/Auckland               |\n  | Nuku'alofa                    | Pacific/Tongatapu              |\n  | Tokelau Is.                   | Pacific/Fakaofo                |\n  | Chatham Is.                   | Pacific/Chatham                |\n  | Samoa                         | Pacific/Apia                   |\n\n</details>\n\n**Default:** `Etc/UTC`\n\n**Example:** `America/New_York`"
               example: America/New_York
-    schedules:
-      type: object
-      description: ''
-      required:
-      - schedules
-      properties:
-        schedules:
-          type: array
-          items:
-            $ref: '#/components/schemas/schedule'
-      example:
-        schedules:
-        - id: 28bwb5WT
-          state: disabled
-          name: Scheduled recurring start for my camera
-          transcoder_id: VGB21JFJ
-          transcoder_name: My Camera
-          recurrence_type: recur
-          recurrence_data: monday,tuesday,wednesday,thursday,friday
-          action_type: start_stop
-          start_transcoder: '2020-02-01T00:00:00.000Z'
-          stop_transcoder: '2020-02-29T23:59:59.999Z'
-          start_repeat: '2020-02-01T00:00:00.000Z'
-          end_repeat: '2020-02-29T00:00:00.000Z'
-          created_at: '2020-01-29T17:16:21.995Z'
-          updated_at: '2020-01-31T14:58:43.995Z'
-        - id: 4RCWgfS5
-          state: enabled
-          name: Scheduled stop for my live event
-          transcoder_id: Qjl5J38Z
-          transcoder_name: Awesome Live Event
-          recurrence_type: once
-          action_type: stop
-          start_transcoder: '2020-02-01T00:00:00.000Z'
-          stop_transcoder: '2020-02-29T23:59:59.999Z'
-          created_at: '2020-01-29T17:16:21.995Z'
-          updated_at: '2020-01-31T08:25:45.995Z'
     schedule:
       type: object
       description: ''
@@ -782,6 +653,135 @@ components:
         end_repeat: '2020-02-29T00:00:00.000Z'
         created_at: '2020-01-29T17:16:21.995Z'
         updated_at: '2020-01-31T07:00:48.995Z'
+    Error410:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 410
+            code: ERR-410-RecordDeleted
+            title: Record Deleted Error
+            message: The requested resource has been deleted.
+            description: ''
+            links: []
+    Error404:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 404
+            code: ERR-404-RecordNotFound
+            title: Record Not Found Error
+            message: The requested resource couldn't be found.
+            description: ''
+            links: []
+    schedules:
+      type: object
+      description: ''
+      required:
+      - schedules
+      properties:
+        schedules:
+          type: array
+          items:
+            $ref: '#/components/schemas/schedule'
+      example:
+        schedules:
+        - id: 28bwb5WT
+          state: disabled
+          name: Scheduled recurring start for my camera
+          transcoder_id: VGB21JFJ
+          transcoder_name: My Camera
+          recurrence_type: recur
+          recurrence_data: monday,tuesday,wednesday,thursday,friday
+          action_type: start_stop
+          start_transcoder: '2020-02-01T00:00:00.000Z'
+          stop_transcoder: '2020-02-29T23:59:59.999Z'
+          start_repeat: '2020-02-01T00:00:00.000Z'
+          end_repeat: '2020-02-29T00:00:00.000Z'
+          created_at: '2020-01-29T17:16:21.995Z'
+          updated_at: '2020-01-31T14:58:43.995Z'
+        - id: 4RCWgfS5
+          state: enabled
+          name: Scheduled stop for my live event
+          transcoder_id: Qjl5J38Z
+          transcoder_name: Awesome Live Event
+          recurrence_type: once
+          action_type: stop
+          start_transcoder: '2020-02-01T00:00:00.000Z'
+          stop_transcoder: '2020-02-29T23:59:59.999Z'
+          created_at: '2020-01-29T17:16:21.995Z'
+          updated_at: '2020-01-31T08:25:45.995Z'
     Error403:
       type: object
       description: ''
@@ -826,6 +826,116 @@ components:
             code: ERR-403-RecordUnaccessible
             title: Record Unaccessible Error
             message: The requested resource isn't accessible.
+            description: ''
+            links: []
+    Error401:
+      type: object
+      description: ''
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          title: meta
+          description: ''
+          properties:
+            status:
+              type: integer
+              description: ''
+              example: ''
+              format: int32
+            code:
+              type: string
+              description: ''
+              example: ''
+            title:
+              type: string
+              description: ''
+              example: ''
+            message:
+              type: string
+              description: ''
+              example: ''
+            description:
+              type: string
+              description: ''
+              example: ''
+            links:
+              type: array
+              description: ''
+              example: ''
+              items: {}
+      example:
+        Example Response 1:
+          meta:
+            status: 401
+            code: ERR-401-NoApiKey
+            title: No API Key Error
+            message: No API key sent in header.
+            description: ''
+            links: []
+        Example Response 2:
+          meta:
+            status: 401
+            code: ERR-401-NoAccessKey
+            title: No Access Key Error
+            message: No access key sent in header.
+            description: ''
+            links: []
+        Example Response 3:
+          meta:
+            status: 401
+            code: ERR-401-InvalidApiKey
+            title: Invalid Api Key Error
+            message: Invalid API key.
+            description: ''
+            links: []
+        Example Response 4:
+          meta:
+            status: 401
+            code: ERR-401-InvalidAccessKey
+            title: Invalid Access Key Error
+            message: Invalid access key.
+            description: ''
+            links: []
+        Example Response 5:
+          meta:
+            status: 401
+            code: ERR-401-BadAccountStatus
+            title: Bad Account Status Error
+            message: Your account's status doesn't allow this action.
+            description: ''
+            links: []
+        Example Response 6:
+          meta:
+            status: 401
+            code: ERR-401-FeatureNotEnabled
+            title: Feature Not Enabled Error
+            message: This feature isn't enabled.
+            description: ''
+            links: []
+        Example Response 7:
+          meta:
+            status: 401
+            code: ERR-401-TrialExceeded
+            title: Bad Billing Status Error
+            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
+            description: ''
+            links: []
+        Example Response 8:
+          meta:
+            status: 401
+            code: ERR-401-ExpiredToken
+            title: JWT is expired
+            message: Token has exired.
+            description: ''
+            links: []
+        Example Response 9:
+          meta:
+            status: 401
+            code: ERR-401-InvalidToken
+            title: JWT is invalid
+            message: Token is invalid.
             description: ''
             links: []
     Error422:
@@ -1002,123 +1112,7 @@ components:
                 **Example:** <code>"start_transcoder": "2020-02-29T23:59:59.999Z"</code>'
               example: '2020-02-29T23:59:59.999Z'
               format: date-time
-    Error401:
-      type: object
-      description: ''
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          title: meta
-          description: ''
-          properties:
-            status:
-              type: integer
-              description: ''
-              example: ''
-              format: int32
-            code:
-              type: string
-              description: ''
-              example: ''
-            title:
-              type: string
-              description: ''
-              example: ''
-            message:
-              type: string
-              description: ''
-              example: ''
-            description:
-              type: string
-              description: ''
-              example: ''
-            links:
-              type: array
-              description: ''
-              example: ''
-              items: {}
-      example:
-        Example Response 1:
-          meta:
-            status: 401
-            code: ERR-401-NoApiKey
-            title: No API Key Error
-            message: No API key sent in header.
-            description: ''
-            links: []
-        Example Response 2:
-          meta:
-            status: 401
-            code: ERR-401-NoAccessKey
-            title: No Access Key Error
-            message: No access key sent in header.
-            description: ''
-            links: []
-        Example Response 3:
-          meta:
-            status: 401
-            code: ERR-401-InvalidApiKey
-            title: Invalid Api Key Error
-            message: Invalid API key.
-            description: ''
-            links: []
-        Example Response 4:
-          meta:
-            status: 401
-            code: ERR-401-InvalidAccessKey
-            title: Invalid Access Key Error
-            message: Invalid access key.
-            description: ''
-            links: []
-        Example Response 5:
-          meta:
-            status: 401
-            code: ERR-401-BadAccountStatus
-            title: Bad Account Status Error
-            message: Your account's status doesn't allow this action.
-            description: ''
-            links: []
-        Example Response 6:
-          meta:
-            status: 401
-            code: ERR-401-FeatureNotEnabled
-            title: Feature Not Enabled Error
-            message: This feature isn't enabled.
-            description: ''
-            links: []
-        Example Response 7:
-          meta:
-            status: 401
-            code: ERR-401-TrialExceeded
-            title: Bad Billing Status Error
-            message: Your billing status needs attention. You can't start or add live streams until your billing status is updated.
-            description: ''
-            links: []
-        Example Response 8:
-          meta:
-            status: 401
-            code: ERR-401-ExpiredToken
-            title: JWT is expired
-            message: Token has exired.
-            description: ''
-            links: []
-        Example Response 9:
-          meta:
-            status: 401
-            code: ERR-401-InvalidToken
-            title: JWT is invalid
-            message: Token is invalid.
-            description: ''
-            links: []
   parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
-      schema:
-        type: integer
     page:
       name: page
       in: query
@@ -1139,6 +1133,12 @@ components:
         **filter[0][field]=state&filter[0][eq]=stopped**'
       schema:
         type: string
+    per_page:
+      name: per_page
+      in: query
+      description: For use with the *page* parameter. Indicates how many records should be included in a page of results. A valid value is any positive integer. The default and maximum value is **1000**.
+      schema:
+        type: integer
   securitySchemes:
     WV_JWT:
       type: http

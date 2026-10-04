@@ -218,6 +218,29 @@ paths:
           description: Internal server error
 components:
   schemas:
+    PublisherConfig3:
+      type: object
+      properties:
+        password:
+          type: string
+        serverName:
+          type: string
+        publisher:
+          type: string
+        description:
+          type: string
+        saveFieldList:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      - publisher
+      - description
+      - password
     PublishersConfig3:
       type: object
       properties:
@@ -258,29 +281,6 @@ components:
       - version
       - serverName
       - name
-      - description
-      - password
-    PublisherConfig3:
-      type: object
-      properties:
-        password:
-          type: string
-        serverName:
-          type: string
-        publisher:
-          type: string
-        description:
-          type: string
-        saveFieldList:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-      - version
-      - serverName
-      - publisher
       - description
       - password
   securitySchemes:
