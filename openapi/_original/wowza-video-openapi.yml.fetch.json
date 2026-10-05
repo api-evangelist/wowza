@@ -1,0 +1,12 @@
+{
+ "url": "https://developer.wowza.com/_bundle/docs/wowza-video/api/video/@current/openapi.yaml?download",
+ "requested_url": "https://developer.wowza.com/_bundle/docs/wowza-video/api/video/@current/openapi.yaml?download",
+ "status": 200,
+ "content_type": "application/yaml",
+ "bytes": 1912105,
+ "sha256": "2685870f143d0840ba202746594bd700e63c9504ad10aa7265f91b385557512c",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the archived file is byte-identical to what the provider serves."
+}
