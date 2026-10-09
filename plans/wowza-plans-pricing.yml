@@ -45,3 +45,35 @@ plans:
 rate_limit_statements:
 - Yes, you are limited to a maximum of 10 concurrent, transcoded channels per instance per month.
 - Wowza Streaming Engine does not have a limit on the number of source streams you can run.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - hybrid
+  - metered
+  units:
+  - compute
+  plans:
+  - name: One Month of Streaming
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - one-time
+  - name: Basic Monthly
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - month
+  - name: Enterprise
+    access: other
+    model: metered
+    model_how: derived
+    units: []
+    periods:
+    - none
