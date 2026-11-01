@@ -1,4 +1,4 @@
-# Wowza (wowza)
+# Wowza
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,254 +66,191 @@
 
 Wowza is a Denver, Colorado-based video streaming infrastructure provider that has been simplifying live and on-demand streaming since 2007. The platform spans three flagship products — Wowza Streaming Engine (a self-hosted, on-prem/cloud/edge media server supporting RTMP, RTSP, SRT, WebRTC, HLS, and MPEG-DASH), Wowza Video (a fully managed, cloud-based streaming platform with a v2.0 REST API for live streams, transcoders, stream sources, stream targets, schedules, real-time streams, videos, categories, viewer analytics, ingest data, engagement, popularity, and quality-of-experience monitoring), and Wowza Flowplayer (a commercial-grade HTML5 video player with iOS, tvOS, and Android SDKs, DRM, ad insertion, and 30+ modular plugins). Wowza powers over 200,000 streaming instances across 140 countries, serving security and surveillance, law enforcement, government and defense, sports and live events, smart cities, industrial monitoring, healthcare, and OTT customers. Developer surface includes a public OpenAPI 3.0 specification for Wowza Video, a Swagger-derived OpenAPI 3.0 specification for Wowza Streaming Engine's REST API (default base http://localhost:8087), a Java API for extending Streaming Engine via plugins, a Wowza IDE, Postman collections, and a large public WowzaMediaSystems GitHub organization of plugins, modules, sample apps, and language SDKs.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/wowza/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/wowza/refs/heads/main/apis.yml)
+**Areas:** Video · Streaming · Live Streaming · Video-on-Demand · Transcoding · Media Server · RTMP · RTSP · SRT · WebRTC · HLS · MPEG-DASH
 
-## Scope
+## Wowza on APIs.io
 
-- **Type:** Index
-- **Access:** 3rd-Party
+Everything profiled for Wowza is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/wowza/](https://apis.io/providers/wowza/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (48)
 
-- Video
-- Streaming
-- Live Streaming
-- Video On Demand
-- Transcoding
-- Media Server
-- RTMP
-- RTSP
-- SRT
-- WebRTC
-- HLS
-- MPEG-DASH
-- Real-Time Streaming
-- Low Latency
-- Video Player
-- HTML5 Player
-- DRM
-- CDN
-- Video Analytics
-- QoE
-- Webhooks
-- Edge
-- Surveillance
-- OTT
+- [Wowza Streaming Engine Java API](https://apis.io/apis/wowza/wowza-streaming-engine-java-api/) — Native Java API for extending and customizing the Wowza Streaming Engine media server via server listeners, application modules, HTTP providers, and Media…
+- [Wowza Flowplayer](https://apis.io/apis/wowza/wowza-flowplayer/) — Commercial-grade HTML5 video player with iOS, tvOS, and Android SDKs, DRM (Widevine, FairPlay, PlayReady), ad insertion, real-time streaming at scale plugin…
+- [Wowza GoCoder SDK](https://apis.io/apis/wowza/wowza-gocoder-sdk/) — Wowza GoCoder broadcasting SDK for iOS and Android — capture, encode, and stream live video and audio from mobile devices directly to Wowza Streaming Engine…
+- [Wowza Real-Time Streaming SDK](https://apis.io/apis/wowza/wowza-real-time-streaming-sdk/) — WebRTC-based SDK for delivering sub-second-latency live streams at scale through the Wowza Real-Time Streaming service. Public documentation repo and WebRTC…
+- [Wowza Advanced Token Authentication API](https://apis.io/apis/wowza/wowza-advanced-token-authentication-api/) — Operations related to using advanced token authentication, known in Wowza Video as a default playback token behavior option, with videos. Use token…
+- [Wowza Analytics Engagement API](https://apis.io/apis/wowza/wowza-analytics-engagement-api/) — Operations related to engagement analytics for a VOD stream.
+- [Wowza Analytics Ingest API](https://apis.io/apis/wowza/wowza-analytics-ingest-api/) — Operations related to ingest analytics for a live stream.
+- [Wowza Analytics Popularity API](https://apis.io/apis/wowza/wowza-analytics-popularity-api/) — Operations related to popularity analytics.
+- [Wowza Analytics Viewers API](https://apis.io/apis/wowza/wowza-analytics-viewers-api/) — Operations related to viewer analytics.
+- [Wowza Applications API](https://apis.io/apis/wowza/wowza-applications-api/) — The Applications API from Wowza — 69 operation(s) for applications.
+- [Wowza Assets API](https://apis.io/apis/wowza/wowza-assets-api/) — <blockquote>The <strong>assets</strong> operations are deprecated in 2.0. Use the <strong>/videos</strong> endpoints instead.</blockquote> Operations…
+- [Wowza Categories API](https://apis.io/apis/wowza/wowza-categories-api/) — Operations related to categorizing videos.
+- [Wowza Clipping API](https://apis.io/apis/wowza/wowza-clipping-api/) — Operations related to clipping and stitching videos and live streams.
+- [Wowza Live Streams API](https://apis.io/apis/wowza/wowza-live-streams-api/) — Operations related to live streams. A live stream is a single, linear video broadcast. You broadcast a live stream by receiving encoded source video into…
+- [Wowza Machine Stats API](https://apis.io/apis/wowza/wowza-machine-stats-api/) — The Machine Stats API from Wowza — 2 operation(s) for machine stats.
+- [Wowza Players API](https://apis.io/apis/wowza/wowza-players-api/) — <blockquote>The <strong>player</strong> operations are deprecated in 2.0. Create and update player configurations in the user interface. Any values you send…
+- [Wowza Quality Of Experience API](https://apis.io/apis/wowza/wowza-quality-of-experience-api/) — Operations related to quality of experience metrics.
+- [Wowza Recordings API](https://apis.io/apis/wowza/wowza-recordings-api/) — <blockquote>The <strong>recordings</strong> operations are deprecated in 2.0. Use the <strong>/videos</strong> endpoints instead.</blockquote> Operations…
+- [Wowza REST information API](https://apis.io/apis/wowza/wowza-rest-information-api/) — The REST information API from Wowza — 1 operation(s) for rest information.
+- [Wowza Schedules API](https://apis.io/apis/wowza/wowza-schedules-api/) — Operations related to schedules. Schedules allow you to automatically start or stop a live stream or transcoder at a predetermined date and time. You can…
+- [Wowza Server Licenses API](https://apis.io/apis/wowza/wowza-server-licenses-api/) — The Server Licenses API from Wowza — 1 operation(s) for server licenses.
+- [Wowza Server Listeners API](https://apis.io/apis/wowza/wowza-server-listeners-api/) — The Server Listeners API from Wowza — 1 operation(s) for server listeners.
+- [Wowza Server log4j system API](https://apis.io/apis/wowza/wowza-server-log4j-system-api/) — The Server log4j system API from Wowza — 3 operation(s) for server log4j system.
+- [Wowza Server MediaCache API](https://apis.io/apis/wowza/wowza-server-mediacache-api/) — The Server MediaCache API from Wowza — 8 operation(s) for server mediacache.
+- [Wowza Server MediaCache Version 3 API](https://apis.io/apis/wowza/wowza-server-mediacache-version-3-api/) — The Server MediaCache Version 3 API from Wowza — 6 operation(s) for server mediacache version 3.
+- [Wowza Server MediaCasters API](https://apis.io/apis/wowza/wowza-server-mediacasters-api/) — The Server MediaCasters API from Wowza — 2 operation(s) for server mediacasters.
+- [Wowza Server Monitoring API](https://apis.io/apis/wowza/wowza-server-monitoring-api/) — The Server Monitoring API from Wowza — 2 operation(s) for server monitoring.
+- [Wowza Server Publishers API](https://apis.io/apis/wowza/wowza-server-publishers-api/) — The Server Publishers API from Wowza — 2 operation(s) for server publishers.
+- [Wowza Server Publishers Version 3 API](https://apis.io/apis/wowza/wowza-server-publishers-version-3-api/) — The Server Publishers Version 3 API from Wowza — 2 operation(s) for server publishers version 3.
+- [Wowza Server Status API](https://apis.io/apis/wowza/wowza-server-status-api/) — The Server Status API from Wowza — 1 operation(s) for server status.
+- [Wowza Server Transcoder API](https://apis.io/apis/wowza/wowza-server-transcoder-api/) — The Server Transcoder API from Wowza — 1 operation(s) for server transcoder.
+- [Wowza Server Tuning API](https://apis.io/apis/wowza/wowza-server-tuning-api/) — The Server Tuning API from Wowza — 1 operation(s) for server tuning.
+- [Wowza Server Users API](https://apis.io/apis/wowza/wowza-server-users-api/) — The Server Users API from Wowza — 2 operation(s) for server users.
+- [Wowza Servers Configuration API](https://apis.io/apis/wowza/wowza-servers-configuration-api/) — The Servers Configuration API from Wowza — 12 operation(s) for servers configuration.
+- [Wowza Storage API](https://apis.io/apis/wowza/wowza-storage-api/) — <blockquote>The <strong>storage</strong> operations are deprecated in 2.0. Operations related to peak and current storage for an account.
+- [Wowza Stream Sources API](https://apis.io/apis/wowza/wowza-stream-sources-api/) — Operations related to stream sources. You can create a Wowza stream source and associate it to a live stream or transcoder. ### Wowza Stream Sources When…
+- [Wowza Stream Targets API](https://apis.io/apis/wowza/wowza-stream-targets-api/) — Operations related to stream targets. A stream target is a destination for a stream. Stream targets can be Wowza Video edge resources; custom, external…
+- [Wowza Transcoders API](https://apis.io/apis/wowza/wowza-transcoders-api/) — Operations related to transcoders, output renditions, and output stream targets. ### Transcoders Wowza Video transcoders allow you to customize transcoding…
+- [Wowza Usage Account API](https://apis.io/apis/wowza/wowza-usage-account-api/) — Operations related to stream analytics for an account.
+- [Wowza Usage API](https://apis.io/apis/wowza/wowza-usage-api/) — Operations related to stream target analytics, including CDN usage and viewer data.
+- [Wowza Usage Real Time Streams API](https://apis.io/apis/wowza/wowza-usage-real-time-streams-api/) — Operations related to real-time streams analytics.
+- [Wowza Usage Transcoders API](https://apis.io/apis/wowza/wowza-usage-transcoders-api/) — Operations related to transcoder analytics.
+- [Wowza Usage Vod Streams API](https://apis.io/apis/wowza/wowza-usage-vod-streams-api/) — <blockquote>The <strong>VOD stream</strong> operations are deprecated in 2.0. Operations related to video on demand (VOD) stream analytics.
+- [Wowza Videos API](https://apis.io/apis/wowza/wowza-videos-api/) — Operations related to uploading and categorizing videos.
+- [Wowza Virtual Hosts API](https://apis.io/apis/wowza/wowza-virtual-hosts-api/) — The Virtual Hosts API from Wowza — 42 operation(s) for virtual hosts.
+- [Wowza Vod Streams API](https://apis.io/apis/wowza/wowza-vod-streams-api/) — <blockquote>The <strong>VOD stream</strong> operations are deprecated in 2.0. Use the <strong>/videos</strong> endpoints instead.</blockquote> Operations…
+- [Wowza Webhooks API](https://apis.io/apis/wowza/wowza-webhooks-api/) — The Webhooks API from Wowza — 6 operation(s) for webhooks.
+- [Wowza Realtime API](https://apis.io/apis/wowza/wowza-realtime-api/) — Operations related to Real-Time Streaming at Scale. If your audience is fewer than 300 viewers or you want to deliver a stream in near real time alongside…
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-05-25
-- **Modified:** 2026-05-25
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Agentic access (1)
 
-### Wowza Video REST API
+Which operations an agent can call, which act, and which need a human in the loop.
 
-REST API v2.0 (~129 paths) for the Wowza Video cloud platform — manage live streams, transcoders, stream sources, stream targets, schedules, real-time streams, videos, and categories; retrieve viewer metrics, ingest data, engagement, popularity, and quality-of-experience analytics; and access account-level usage statistics. Served from https://api.video.wowza.com/api/v2.0.
+- [Wowza Agentic Access](https://apis.io/agentic-access/wowza/wowza-agentic-access/)
 
-- **Human URL:** [https://developer.wowza.com/docs/wowza-video/api/video/openapi](https://developer.wowza.com/docs/wowza-video/api/video/openapi)
-- **Base URL:** `https://api.video.wowza.com/api/v2.0`
+#### Collections (46)
 
-#### Tags
+Postman and Open Collection request collections.
 
-- Video
-- Streaming
-- Live Streaming
-- Video On Demand
-- Transcoders
-- Stream Targets
-- Real-Time Streaming
-- Analytics
-- QoE
+- [Wowza Streaming Engine REST advanced_token_authentication API](https://apis.io/collections/wowza/open-wowza-advanced-token-authentication-api/)
+- [Wowza Streaming Engine REST advanced_token_authentication analytics_engagement API](https://apis.io/collections/wowza/open-wowza-analytics-engagement-api/)
+- [Wowza Streaming Engine REST advanced_token_authentication analytics_ingest API](https://apis.io/collections/wowza/open-wowza-analytics-ingest-api/)
+- [Wowza Streaming Engine REST advanced_token_authentication analytics_popularity API](https://apis.io/collections/wowza/open-wowza-analytics-popularity-api/)
+- [Wowza Streaming Engine REST advanced_token_authentication analytics_viewers API](https://apis.io/collections/wowza/open-wowza-analytics-viewers-api/)
+- [Wowza Streaming Engine REST advanced_token_authentication Applications API](https://apis.io/collections/wowza/open-wowza-applications-api/)
+- [Wowza Streaming Engine REST advanced_token_authentication assets API](https://apis.io/collections/wowza/open-wowza-assets-api/)
+- [Wowza Streaming Engine REST advanced_token_authentication categories API](https://apis.io/collections/wowza/open-wowza-categories-api/)
+- [Wowza Streaming Engine REST advanced_token_authentication clipping API](https://apis.io/collections/wowza/open-wowza-clipping-api/)
+- [Wowza Streaming Engine REST advanced_token_authentication live_streams API](https://apis.io/collections/wowza/open-wowza-live-streams-api/)
+- [Wowza Streaming Engine REST advanced_token_authentication Machine Stats API](https://apis.io/collections/wowza/open-wowza-machine-stats-api/)
+- [Wowza Streaming Engine REST advanced_token_authentication players API](https://apis.io/collections/wowza/open-wowza-players-api/)
+- [Wowza Streaming Engine REST advanced_token_authentication quality_of_experience API](https://apis.io/collections/wowza/open-wowza-quality-of-experience-api/)
+- [Wowza Streaming Engine REST advanced_token_authentication real_time API](https://apis.io/collections/wowza/open-wowza-real-time-api/)
+- [Wowza Streaming Engine REST advanced_token_authentication recordings API](https://apis.io/collections/wowza/open-wowza-recordings-api/)
+- [Wowza Streaming Engine REST advanced_token_authentication REST information API](https://apis.io/collections/wowza/open-wowza-rest-information-api/)
+- [Wowza Streaming Engine REST advanced_token_authentication schedules API](https://apis.io/collections/wowza/open-wowza-schedules-api/)
+- [Wowza Streaming Engine REST advanced_token_authentication Server Licenses API](https://apis.io/collections/wowza/open-wowza-server-licenses-api/)
+- [Wowza Streaming Engine REST advanced_token_authentication Server Listeners API](https://apis.io/collections/wowza/open-wowza-server-listeners-api/)
+- [Wowza Streaming Engine REST advanced_token_authentication Server log4j system API](https://apis.io/collections/wowza/open-wowza-server-log4j-system-api/)
+- [Wowza Streaming Engine REST advanced_token_authentication Server MediaCache API](https://apis.io/collections/wowza/open-wowza-server-mediacache-api/)
+- [Wowza Streaming Engine REST advanced_token_authentication Server MediaCache Version 3 API](https://apis.io/collections/wowza/open-wowza-server-mediacache-version-3-api/)
+- [Wowza Streaming Engine REST advanced_token_authentication Server MediaCasters API](https://apis.io/collections/wowza/open-wowza-server-mediacasters-api/)
+- [Wowza Streaming Engine REST advanced_token_authentication Server Monitoring API](https://apis.io/collections/wowza/open-wowza-server-monitoring-api/)
+- [Wowza Streaming Engine REST advanced_token_authentication Server Publishers API](https://apis.io/collections/wowza/open-wowza-server-publishers-api/)
+- …and 21 more published on APIs.io
 
-#### Properties
+#### Security (2)
 
-- [API Reference](https://developer.wowza.com/docs/wowza-video/api/video/openapi)
-- [Documentation](https://developer.wowza.com/docs/wowza-video/about-wowza-video/)
-- [Documentation](https://developer.wowza.com/docs/wowza-video/api/video/current/overview/)
-- [OpenAPI](openapi/wowza-video-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/wowza-video.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/wowza-video.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [OpenAPI](https://developer.wowza.com/_bundle/docs/wowza-video/api/video/@current/openapi.yaml?download) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Quickstart](https://www.wowza.com/docs/quick-start-for-an-rtmp-live-stream-in-wowza-video)
-- [Documentation](https://www.wowza.com/docs/wowza-video-rest-api-lifecycle-management)
-- [Documentation](https://www.wowza.com/docs/wowza-video-rest-api)
-- [Changelog](https://www.wowza.com/docs/wowza-video-release-notes)
+Authentication, trust centre, and vulnerability disclosure.
 
-### Wowza Streaming Engine REST API
+- [Wowza Authentication](https://apis.io/security/wowza/wowza-authentication/)
+- [Wowza Domain Security](https://apis.io/security/wowza/wowza-domain-security/)
 
-REST API (~164 paths) for the self-hosted Wowza Streaming Engine media server — manage applications, virtual hosts, stream targets, push publishing, transcoder, server listeners, server users, media cache, server publishers, nDVR recording stores, monitoring, machine stats, licenses, configuration, and webhooks. Served from the local Engine instance (default http://localhost:8087); spec auto-converted from the Engine's native Swagger 1.2 endpoint.
+#### Plans and pricing (2)
 
-- **Human URL:** [https://www.wowza.com/docs/wowza-streaming-engine-rest-api](https://www.wowza.com/docs/wowza-streaming-engine-rest-api)
-- **Base URL:** `http://localhost:8087`
+Published plans, tiers and prices.
 
-#### Tags
+- [Wowza Plans Pricing](https://apis.io/plans/wowza/wowza-plans-pricing/)
+- [Wowza Price Estimates](https://apis.io/plans/wowza/wowza-price-estimates/)
 
-- Streaming
-- Media Server
-- Self-Hosted
-- Applications
-- Transcoder
-- Webhooks
-- Stream Targets
-- nDVR
-- Media Cache
+#### Rate limits (1)
 
-#### Properties
+Published request limits.
 
-- [Documentation](https://www.wowza.com/docs/wowza-streaming-engine-rest-api)
-- [API Reference](https://www.wowza.com/docs/how-to-access-documentation-for-wowza-streaming-engine-rest-api)
-- [Documentation](https://www.wowza.com/docs/how-to-access-wowza-streaming-engine-rest-api-reference-documentation-with-postman)
-- [Documentation](https://www.wowza.com/docs/how-to-access-wowza-streaming-engine-swagger-documentation-with-swagger-codegen)
-- [OpenAPI](openapi/wowza-streaming-engine-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/wowza-streaming-engine.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/wowza-streaming-engine.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [OpenAPI](https://developer.wowza.com/_bundle/docs/wowza-engine/rest-api/@current/openapi.yaml?download) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Quickstart](https://www.wowza.com/docs/how-to-install-and-configure-wowza-streaming-engine)
-- [SDK](https://github.com/WowzaMediaSystems/wse-rest-library-php)
+- [Wowza Rate Limits](https://apis.io/rate-limits/wowza/wowza-rate-limits/)
 
-### Wowza Streaming Engine Java API
+## Where to find this API
 
-Native Java API for extending and customizing the Wowza Streaming Engine media server via server listeners, application modules, HTTP providers, and Media Reader/Writer plugins. The Java API is the foundation for the dozens of open-source WSE plugins published in the WowzaMediaSystems GitHub organization.
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-- **Human URL:** [https://www.wowza.com/docs/wowza-streaming-engine-java-api-reference-documentation](https://www.wowza.com/docs/wowza-streaming-engine-java-api-reference-documentation)
-- **Base URL:** `https://www.wowza.com`
-
-#### Tags
-
-- Streaming
-- Media Server
-- Java
-- Plugins
-- SDK
-
-#### Properties
-
-- [API Reference](https://www.wowza.com/docs/wowza-streaming-engine-java-api-reference-documentation)
-- [Documentation](https://www.wowza.com/docs/about-the-wowza-streaming-engine-java-api)
-- [Documentation](https://www.wowza.com/docs/how-to-extend-wowza-streaming-engine-using-the-wowza-ide)
-- [Postman Collection](collections/wowza-streaming-engine.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/wowza-streaming-engine.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/wowza-video.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/wowza-video.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Wowza Flowplayer
-
-Commercial-grade HTML5 video player with iOS, tvOS, and Android SDKs, DRM (Widevine, FairPlay, PlayReady), ad insertion, real-time streaming at scale plugin support, and 30+ modular plugins. Ships standalone or bundled with Wowza Video subscriptions and integrates with Wowza Streaming Engine.
-
-- **Human URL:** [https://developer.wowza.com/docs/wowza-flowplayer/](https://developer.wowza.com/docs/wowza-flowplayer/)
-- **Base URL:** `https://www.wowza.com/video/player`
-
-#### Tags
-
-- Video Player
-- HTML5
-- HLS
-- MPEG-DASH
-- DRM
-- SDK
-- iOS
-- Android
-- tvOS
-
-#### Properties
-
-- [Documentation](https://developer.wowza.com/docs/wowza-flowplayer/)
-- [Portal](https://www.wowza.com/video/player)
-- [Documentation](https://flowplayer.com/developers)
-- [Postman Collection](collections/wowza-streaming-engine.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/wowza-streaming-engine.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/wowza-video.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/wowza-video.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Wowza GoCoder SDK
-
-Wowza GoCoder broadcasting SDK for iOS and Android — capture, encode, and stream live video and audio from mobile devices directly to Wowza Streaming Engine or Wowza Video. Official sample repositories on the WowzaMediaSystems GitHub organization demonstrate capture, real-time filters, and Camera2 shader integration.
-
-- **Human URL:** [https://github.com/WowzaMediaSystems/gocoder-sdk-samples-ios](https://github.com/WowzaMediaSystems/gocoder-sdk-samples-ios)
-- **Base URL:** `https://www.wowza.com`
-
-#### Tags
-
-- Mobile
-- SDK
-- iOS
-- Android
-- Live Streaming
-- Capture
-
-#### Properties
-
-- [SDK](https://github.com/WowzaMediaSystems/gocoder-sdk-samples-ios)
-- [SDK](https://github.com/WowzaMediaSystems/gocoder-sdk-samples-android)
-- [SDK](https://github.com/WowzaMediaSystems/gocoder-sdk-camera2-shaders)
-- [Postman Collection](collections/wowza-streaming-engine.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/wowza-streaming-engine.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/wowza-video.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/wowza-video.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Wowza Real-Time Streaming SDK
-
-WebRTC-based SDK for delivering sub-second-latency live streams at scale through the Wowza Real-Time Streaming service. Public documentation repo and WebRTC sample applications are hosted in the WowzaMediaSystems GitHub organization.
-
-- **Human URL:** [https://github.com/WowzaMediaSystems/wowza-rts-docs](https://github.com/WowzaMediaSystems/wowza-rts-docs)
-- **Base URL:** `https://www.wowza.com`
-
-#### Tags
-
-- WebRTC
-- Real-Time
-- Sub-Second
-- SDK
-- Live Streaming
-
-#### Properties
-
-- [Documentation](https://github.com/WowzaMediaSystems/wowza-rts-docs)
-- [SDK](https://github.com/WowzaMediaSystems/webrtc-examples)
-- [Postman Collection](collections/wowza-streaming-engine.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/wowza-streaming-engine.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/wowza-video.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/wowza-video.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [Portal](https://www.wowza.com)
+- [Website](https://www.wowza.com/)
 - [Documentation](https://developer.wowza.com/)
-- [Documentation](https://www.wowza.com/docs)
-- [Documentation](https://www.wowza.com/docs/wowza-developer-apis-and-sdks)
-- [API Reference](https://developer.wowza.com/docs/wowza-video/api/video/openapi)
-- [Sign Up](https://www.wowza.com/free-trial)
-- [Console](https://cloud.wowza.com/)
+- [API reference](https://developer.wowza.com/docs/wowza-video/api/video/openapi)
 - [Pricing](https://www.wowza.com/pricing)
-- [Pricing](https://www.wowza.com/pricing/video)
-- [Pricing](https://store.wowza.com/)
-- [Terms of Service](https://www.wowza.com/legal/terms-of-use)
-- [Privacy Policy](https://www.wowza.com/legal/privacy)
-- [Status Page](https://status.wowza.com)
 - [Support](https://support.wowza.com/hc)
-- [Forum](https://www.wowza.com/community/index.html)
-- [Blog](https://www.wowza.com/blog)
 - [Changelog](https://www.wowza.com/docs/wowza-video-release-notes)
-- [About](https://www.wowza.com/about)
-- [GitHub Organization](https://github.com/WowzaMediaSystems)
-- [SDK](https://github.com/WowzaMediaSystems/wowza-video-api-demos-postman)
-- [SDK](https://github.com/WowzaMediaSystems/wse-rest-library-php)
-- [SDK](https://github.com/WowzaMediaSystems/wsc-sdk-java)
-- [SDK](https://github.com/WowzaMediaSystems/wsc-sdk-ruby)
-- [SDK](https://github.com/WowzaMediaSystems/wsc-api-examples-ruby)
-- [SDK](https://github.com/WowzaMediaSystems/wowza-streaming-engine-mcp)
-- [SDK](https://github.com/WowzaMediaSystems/wowza-video-intelligence-framework)
-- [SDK](https://github.com/WowzaMediaSystems/dev-guides)
-- [LinkedIn](https://www.linkedin.com/company/wowza-media-systems)
-- [Twitter](https://twitter.com/wowzamedia)
-- [YouTube](https://www.youtube.com/user/WowzaMediaSystems)
-- [Features](undefined)
-- [Use Cases](undefined)
-- [Integrations](undefined)
-- [Solutions](undefined)
+- [Blog](https://www.wowza.com/blog)
+- [Terms of service](https://www.wowza.com/legal/terms-of-use)
+- [Privacy policy](https://www.wowza.com/legal/privacy)
+- [GitHub](https://github.com/WowzaMediaSystems)
+- [Status](https://status.wowza.com)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 55.0** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 57.1 |
+| Contract quality | 52.3 |
+| Contract governance | 0.0 |
+| Operational transparency | 36.8 |
+| Developer ergonomics | 81.0 |
+| Access clarity | 76.3 |
+
+**Agent readiness 28.6** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 19.6** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/wowza/](https://apis.io/providers/wowza/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Wowza: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/wowza/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
